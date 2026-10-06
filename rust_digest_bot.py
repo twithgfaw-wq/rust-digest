@@ -972,6 +972,225 @@ def post_new_accepts(tg, state, api_key):
     if res.get("ok"):
         state["accepted_seen"] = (seen + [s["id"] for s in fresh[::-1]])[-3000:]
 
+# ---------- онлайн Rust и магазин недели ----------
+
+def kyiv_time():
+    """Текущее время по Киеву (летнее/зимнее учитывается)."""
+    from datetime import datetime, timedelta, timezone
+    try:
+        from zoneinfo import ZoneInfo
+        return datetime.now(ZoneInfo("Europe/Kyiv"))
+    except Exception:
+        return datetime.now(timezone(timedelta(hours=3)))
+
+def fmt_num(n):
+    return f"{n:,}".replace(",", " ")
+
+def fetch_online():
+    """Сколько людей прямо сейчас играет в Rust (Steam, ключ не нужен)."""
+    url = ("https://api.steampowered.com/ISteamUserStats/"
+           f"GetNumberOfCurrentPlayers/v1/?appid={RUST_APPID}")
+    return int(http_get_json(url, timeout=15)["response"]["player_count"])
+
+def days_after_wipe(now):
+    """Сколько дней прошло после форс-вайпа (первый четверг месяца, UTC);
+    отрицательное число — если вайп в этом месяце ещё впереди."""
+    from datetime import datetime, timedelta, timezone
+    d = datetime.fromtimestamp(now, timezone.utc).date()
+    first = d.replace(day=1)
+    wipe = first + timedelta(days=(3 - first.weekday()) % 7)
+    return (d - wipe).days
+
+ONLINE_HOOKS = [
+    "📊 ОНЛАЙН RUST ПРЯМО СЕЙЧАС",
+    "👥 Сколько людей сейчас на островах Rust",
+    "📈 Сводка онлайна Rust за сегодня",
+    "🏝 Сколько выживших сейчас на серверах",
+    "🔢 Онлайн Rust: свежие цифры",
+    "⚡️ Rust сегодня: сколько игроков в сети",
+    "🛰 Мониторинг онлайна Rust",
+    "🌍 Rust не спит — онлайн на этот вечер",
+]
+RECORD_HOOKS = [
+    "🚀 РЕКОРД ОНЛАЙНА ЗА МЕСЯЦ!",
+    "🔥 Rust обновил максимум онлайна за месяц",
+    "📈 Новый пик онлайна в Rust",
+    "🤯 Столько игроков в Rust не было весь месяц",
+    "🏆 Онлайн Rust на месячном максимуме",
+]
+WIPE_RECORD_HOOKS = [
+    "🚀 ВАЙП СДЕЛАЛ СВОЁ: рекорд онлайна за месяц!",
+    "🪓 После вайпа сервера ломятся — новый рекорд онлайна",
+    "🔥 Вайп! Онлайн Rust на месячном максимуме",
+    "📈 Эффект вайпа: столько игроков не было весь месяц",
+]
+ONLINE_OUTROS = ["А ты сейчас в игре? 🎮", "Сервера не пустуют 💪",
+                 "Ставь 🔥, если тоже фармишь прямо сейчас",
+                 "Самое время зайти на сервер 😏", "Остров ждёт тебя 🏝", "", ""]
+ONLINE_POST_HOUR = 20   # ежедневная сводка онлайна — вечером по Киеву
+
+def online_tick(tg, state, now):
+    """Каждый запуск: замер онлайна. Раз в день вечером — сводка, а если
+    онлайн выше максимума за прошлые 30 дней — пост о рекорде."""
+    n = fetch_online()
+    log = [x for x in state.get("online_log", []) if now - x[0] < 8 * 86400]
+    log.append([int(now), n])
+    state["online_log"] = log
+    day = time.strftime("%Y-%m-%d", time.gmtime(now))
+    month_ago = time.strftime("%Y-%m-%d", time.gmtime(now - 30 * 86400))
+    peaks = state.setdefault("online_peaks", {})
+    prev = [p for d, p in peaks.items() if month_ago <= d < day]
+    peaks[day] = max(peaks.get(day, 0), n)
+    for d in sorted(peaks)[:-400]:
+        del peaks[d]
+
+    # рекорд месяца: истории хватает (2+ недели), пост не чаще раза в сутки
+    if (len(prev) >= 14 and n > max(prev)
+            and now - state.get("online_record_ts", 0) > 86400):
+        wipe = 0 <= days_after_wipe(now) <= 3
+        body = (f"👥 Сейчас в игре: <b>{fmt_num(n)}</b>\n"
+                f"📊 Прошлый максимум за месяц: {fmt_num(max(prev))}")
+        outro = pick(ONLINE_OUTROS)
+        if outro:
+            body += f"\n\n{outro}"
+        hook = pick(WIPE_RECORD_HOOKS if wipe else RECORD_HOOKS)
+        res = tg.send_message(frame(hook, "", body, "#rust #раст #онлайн"))
+        if res.get("ok"):
+            state["online_record_ts"] = int(now)
+        return
+
+    # ежедневная сводка — вечером, один раз за день
+    kt = kyiv_time()
+    today = kt.strftime("%Y-%m-%d")
+    if kt.hour < ONLINE_POST_HOUR or state.get("online_daily") == today:
+        return
+    lines = [f"👥 Сейчас в игре: <b>{fmt_num(n)}</b>"]
+    ago = min(log, key=lambda x: abs(x[0] - (now - 86400)))
+    if abs(ago[0] - (now - 86400)) <= 5400 and ago[1]:
+        diff = (n - ago[1]) * 100 / ago[1]
+        arrow = "📈" if diff >= 0 else "📉"
+        lines.append(f"{arrow} {diff:+.0f}% к этому времени вчера")
+    peak = max(c for t, c in log if now - t <= 86400)
+    lines.append(f"🏔 Пик за сутки: {fmt_num(peak)}")
+    outro = pick(ONLINE_OUTROS)
+    if outro:
+        lines += ["", outro]
+    res = tg.send_message(frame(pick(ONLINE_HOOKS), "", "\n".join(lines),
+                                "#rust #раст #онлайн"))
+    if res.get("ok"):
+        state["online_daily"] = today
+
+STORE_HOOKS = [
+    "🛒 МАГАЗИН НЕДЕЛИ: что завезли и почём",
+    "💸 Новинки магазина Rust — смотрим цены",
+    "🛍 Магазин Rust обновился",
+    "🆕 Свежий завоз в магазин Rust",
+    "💰 Что продают в Rust на этой неделе",
+    "🛒 Обновление магазина — цены внутри",
+    "🔥 Новые скины уже в продаже",
+    "🏷 Магазин Rust: новинки и ценники",
+]
+STORE_TITLES = ["{n} {new} в магазине Rust", "Свежий завоз: {n} {items}",
+                "В продаже {n} {new}", "На этой неделе — {n} {new}"]
+STORE_OUTROS = ["Что берёте? 🛒", "Есть что-то стоящее? 👀", "Кошелёк, держись 💸",
+                "Ставь 🔥 за лучший скин недели",
+                "Берём сразу или ждём маркет? 🤔", "Какой скин заберёте первым? 🔥"]
+
+def fetch_store(cc):
+    """Предметы магазина Rust с ценами в валюте страны cc (us/ru/ua):
+    {id: {name, price, image, url}}."""
+    import re
+    url = (f"https://store.steampowered.com/itemstore/{RUST_APPID}/"
+           f"ajaxgetitemdefs/?start=0&count=200&filter=New&l=english&cc={cc}")
+    page = http_get_json(url, timeout=20).get("results_html") or ""
+    out = {}
+    for block in page.split('class="item_def_grid_item')[1:]:
+        pid = re.search(r"/detail/(\d+)/", block)
+        name = re.search(r"item_def_name[^>]*>\s*<a[^>]*>(.*?)</a>", block, re.S)
+        price = re.search(r'item_def_price">(.*?)</div>', block, re.S)
+        img = re.search(r'class="item_def_icon" src="([^"]+)"', block)
+        if not (pid and name and price):
+            continue
+        cost = " ".join(html.unescape(re.sub(r"<[^>]+>", " ", price.group(1))).split())
+        out[pid.group(1)] = {
+            "name": html.unescape(name.group(1).strip()),
+            "price": cost.replace(" руб.", "₽"),
+            "image": img.group(1).replace("/200fx200f", "/512fx512f") if img else "",
+            "url": (f"https://store.steampowered.com/itemstore/{RUST_APPID}"
+                    f"/detail/{pid.group(1)}/"),
+        }
+    return out
+
+def price_value(p):
+    import re
+    s = re.sub(r"[^\d,.]", "", p).replace(",", ".").strip(".")
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+def post_store_news(tg, state):
+    """Пост о новинках магазина Rust с ценами ($, ₽, ₴). Первый запуск только
+    запоминает текущий ассортимент, дальше постим то, чего раньше не было."""
+    import re
+    usd = fetch_store("us")
+    if not usd:
+        return
+    seen = state.get("store_seen")
+    if seen is None:
+        state["store_seen"] = sorted(usd)
+        return
+    known = set(seen)
+    fresh = [i for i in usd if i not in known]
+    if not fresh:
+        return
+    if len(fresh) > 30:   # почти весь магазин «новый» — сбой выдачи, не спамим
+        print(f"Подозрительно много новинок магазина ({len(fresh)}) — пропускаю.")
+        state["store_seen"] = (seen + fresh)[-3000:]
+        return
+    cur = {"us": usd}
+    for cc in ("ru", "ua"):
+        try:
+            cur[cc] = fetch_store(cc)
+        except Exception as e:
+            print(f"Цены магазина ({cc}) не загрузились:", e)
+            cur[cc] = {}
+    lines = []
+    for k, i in enumerate(fresh):
+        tags = [cur[cc][i]["price"] for cc in ("us", "ru", "ua")
+                if cur[cc].get(i, {}).get("price")]
+        num = NUM_EMOJI[k] if k < len(NUM_EMOJI) else "▫️"
+        lines.append(f"{num} <a href=\"{usd[i]['url']}\">"
+                     f"{html.escape(usd[i]['name'])}</a> — {' · '.join(tags)}")
+
+    def total(cc, fmt):
+        vals = [price_value(cur[cc].get(i, {}).get("price", "")) for i in fresh]
+        return "" if None in vals else fmt(sum(vals))
+
+    sums = [s for s in (total("us", lambda t: f"${t:.2f}"),
+                        total("ru", lambda t: f"{fmt_num(round(t))}₽"),
+                        total("ua", lambda t: f"{fmt_num(round(t))}₴")) if s]
+    body = "\n".join(lines)
+    if sums and len(fresh) > 1:
+        body += "\n\n💰 Всё сразу: " + " · ".join(sums)
+    body += "\n\n" + pick(STORE_OUTROS)
+    n = len(fresh)
+    title = pick(STORE_TITLES).format(
+        n=n, new=plural(n, "новинка", "новинки", "новинок"),
+        items=plural(n, "предмет", "предмета", "предметов"))
+    text = frame(pick(STORE_HOOKS), title, body, "#rust #раст #магазин #скины")
+    visible = len(html.unescape(re.sub(r"<[^>]+>", "", text)))
+    images = [usd[i]["image"] for i in fresh if usd[i]["image"]][:10]
+    res = {}
+    if visible <= 1024 and len(images) >= 2:
+        res = tg.send_media_group(images, text)
+    elif visible <= 1024 and images:
+        res = tg.send_photo(images[0], text)
+    if not res.get("ok"):   # картинки не прошли или текст длинный — просто текстом
+        res = tg.send_message(text)
+    if res.get("ok"):
+        state["store_seen"] = (seen + fresh)[-3000:]
+
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
     его нет или картинки не скачались — возвращаем False (будет запасной
@@ -1438,6 +1657,20 @@ def main():
             post_new_accepts(tg, state, steam_key)
         except Exception as e:
             print("Пост о принятых скинах не удался:", e)
+
+    # 4d) магазин Rust: новинки недели с ценами
+    if not args.dry_run:
+        try:
+            post_store_news(tg, state)
+        except Exception as e:
+            print("Пост о магазине не удался:", e)
+
+    # 4e) онлайн: замер каждый запуск, вечером — сводка, при рекорде — пост
+    if not args.dry_run:
+        try:
+            online_tick(tg, state, time.time())
+        except Exception as e:
+            print("Онлайн не получен:", e)
 
     # 5) итоги конкурса — в воскресенье, один раз за неделю
     if steam_key and not args.dry_run:
