@@ -1339,14 +1339,14 @@ SERIES_STOP = {"the", "red", "blue", "black", "white", "green", "pink", "gold",
                "golden", "purple", "old", "big", "little", "dark", "light",
                "small", "large", "new", "mini", "super", "royal", "classic"}
 
-def fetch_market(pages=15):   # Steam отдаёт по 10 скинов за запрос
+def fetch_market(pages=20):   # Steam отдаёт по 10 скинов за запрос
     """Самые ходовые скины Rust на маркете Steam: {имя: цена в центах,
     число лотов, иконка, цвет фона}. Steam режет частые запросы — паузы."""
     items = {}
     for page in range(pages):
         url = ("https://steamcommunity.com/market/search/render/?appid="
                f"{RUST_APPID}&norender=1&count=10&start={page * 10}"
-               "&sort_column=popular&sort_dir=desc&currency=1")
+               "&sort_column=popular&sort_dir=desc&currency=1&l=english")
         data = None
         for attempt in range(3):
             try:
@@ -1362,6 +1362,8 @@ def fetch_market(pages=15):   # Steam отдаёт по 10 скинов за з�
             break
         for r in data["results"]:
             d = r.get("asset_description") or {}
+            if d.get("type") != "Workshop Item":   # без ресурсов и ящиков
+                continue
             items[r["hash_name"]] = {
                 "price": int(r.get("sell_price") or 0),
                 "listings": int(r.get("sell_listings") or 0),
@@ -1470,7 +1472,7 @@ def market_tick(tg, state, forced=False):
                        or state.get("market_day") == today):
         return
     items = fetch_market()
-    if len(items) < 60:
+    if len(items) < 40:
         print(f"Маркет ответил не полностью ({len(items)}) — попробую позже.")
         return
     snaps = state.setdefault("market_snaps", {})
