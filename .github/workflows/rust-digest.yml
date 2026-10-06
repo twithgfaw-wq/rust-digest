@@ -41,6 +41,7 @@ jobs:
           POST_OFFICIAL_NEWS: ${{ vars.POST_OFFICIAL_NEWS }}
           YT_MAX_PER_DAY: ${{ vars.YT_MAX_PER_DAY }}
           EXTRA_POST: ${{ inputs.extra }}
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
         run: |
           pip install --quiet pillow
           python rust_digest_bot.py
