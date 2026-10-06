@@ -33,8 +33,10 @@ jobs:
           MIN_SCORE: ${{ vars.MIN_SCORE }}
           REDDIT_PERIOD: ${{ vars.REDDIT_PERIOD }}
           POST_OFFICIAL_NEWS: ${{ vars.POST_OFFICIAL_NEWS }}
-          YT_COUNT: ${{ vars.YT_COUNT }}
-        run: python rust_digest_bot.py
+          YT_MAX_PER_DAY: ${{ vars.YT_MAX_PER_DAY }}
+        run: |
+          pip install --quiet pillow
+          python rust_digest_bot.py
 
       - name: Save posted history
         run: |
