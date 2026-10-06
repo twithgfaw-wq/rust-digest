@@ -7,7 +7,8 @@ Rust Digest Bot — автоматическая сводка новостей �
   1. Берёт свежие ОФИЦИАЛЬНЫЕ новости Rust из Steam News API.
   2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты).
   3. Берёт новые видео YouTube-блогеров по Rust (hedgesn и др.).
-  4. Публикует всё это в твой Telegram-канал с картинками и ссылками.
+  4. Берёт принятые в игру скины из мастерской Steam (альбом из 5).
+  5. Публикует всё это в твой Telegram-канал с картинками и ссылками.
 
 Английские заголовки автоматически переводятся на русский.
 
@@ -222,6 +223,59 @@ def fetch_youtube(channels, max_age_days=4):
     return out
 
 
+def resolve_steam_names(api_key, steamids):
+    """SteamID -> ник автора (одним запросом на всех)."""
+    ids = ",".join(sorted({str(s) for s in steamids if s}))
+    if not ids:
+        return {}
+    url = ("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/"
+           f"?key={api_key}&steamids={ids}")
+    try:
+        data = http_get_json(url, timeout=15)
+        players = data.get("response", {}).get("players", [])
+        return {p.get("steamid"): p.get("personaname", "") for p in players}
+    except Exception:
+        return {}
+
+
+def fetch_workshop(api_key, count=20):
+    """Принятые в игру скины Rust из мастерской (query_type=2 =
+    accepted-for-game, по дате принятия). Возвращает самые свежие."""
+    url = ("https://api.steampowered.com/IPublishedFileService/QueryFiles/v1/"
+           f"?key={api_key}&appid={RUST_APPID}&query_type=2"
+           f"&numperpage={count}&return_previews=true&return_metadata=true"
+           "&requiredtags%5B0%5D=Skin")
+    try:
+        data = http_get_json(url, timeout=20)
+        items = data.get("response", {}).get("publishedfiledetails", [])
+    except Exception as e:
+        print("Мастерская не загрузилась:", e)
+        return []
+    skins, steamids = [], []
+    for it in items:
+        pid = it.get("publishedfileid")
+        preview = it.get("preview_url")
+        title = it.get("title")
+        if not pid or not preview or not title:
+            continue
+        creator = it.get("creator")
+        skins.append({
+            "id": "ws_" + str(pid),
+            "title_raw": title,
+            "author_id": creator,
+            "author": "",
+            "image": preview,
+            "url": ("https://steamcommunity.com/sharedfiles/filedetails/?id="
+                    + str(pid)),
+        })
+        if creator:
+            steamids.append(creator)
+    names = resolve_steam_names(api_key, steamids)
+    for s in skins:
+        s["author"] = names.get(s["author_id"], "")
+    return skins
+
+
 def pick_image(d):
     """Достаём прямую ссылку на картинку из поста Reddit."""
     # 1) прямая ссылка на картинку
@@ -285,6 +339,23 @@ class Telegram:
             "caption": caption, "parse_mode": "HTML",
         })
 
+    def send_media_group(self, photo_urls, caption):
+        """Один пост-альбом из нескольких фото. Подпись — на первом фото."""
+        media = []
+        for i, u in enumerate(photo_urls[:10]):
+            item = {"type": "photo", "media": u}
+            if i == 0:
+                item["caption"] = caption
+                item["parse_mode"] = "HTML"
+            media.append(item)
+        if self.dry_run:
+            print(f"[dry-run] sendMediaGroup ({len(media)} фото): "
+                  f"{clean(caption, 160)}")
+            return {"ok": True}
+        return self._post("sendMediaGroup", {
+            "chat_id": self.chat, "media": json.dumps(media),
+        })
+
 
 # ---------- сборка постов ----------
 
@@ -321,6 +392,24 @@ def build_video_caption(v):
             f"{html.escape(v['title'])}\n\n"
             f"▶️ <a href=\"{v['url']}\">смотреть на YouTube</a>\n\n"
             f"#rust #раст #видео")
+
+
+NUM_EMOJI = ["1️⃣", "2️⃣", "3️⃣", "4️⃣",
+             "5️⃣", "6️⃣", "7️⃣", "8️⃣",
+             "9️⃣", "\U0001f51f"]
+
+
+def build_workshop_caption(skins):
+    lines = ["\U0001f3a8 <b>Мастерская Rust — принятые скины</b>",
+             "Свежие работы, которые приняли в игру:", ""]
+    for i, s in enumerate(skins):
+        title = translate_to_ru(clean(s["title_raw"], 90))
+        author = s["author"] or "автор неизвестен"
+        lines.append(f"{NUM_EMOJI[i]} <b>{html.escape(title)}</b> — "
+                     f"{html.escape(author)}")
+    lines.append("")
+    lines.append("#rust #раст #скины #мастерская")
+    return "\n".join(lines)
 
 
 # ---------- главный сценарий ----------
@@ -410,6 +499,32 @@ def main():
                 time.sleep(2)
         else:
             print("Новых видео блогеров нет.")
+
+    # 4) мастерская Steam — альбом из 5 принятых скинов, до 2 раз в день
+    steam_key = (os.environ.get("STEAM_API_KEY")
+                 or cfg.get("content", "steam_api_key", fallback="")).strip()
+    if steam_key:
+        ws_albums = state.get("ws_albums", [])
+        now = time.time()
+        today = time.strftime("%Y-%m-%d", time.gmtime(now))
+        today_count = sum(
+            1 for ts in ws_albums
+            if time.strftime("%Y-%m-%d", time.gmtime(ts)) == today)
+        hours_since = (now - max(ws_albums)) / 3600 if ws_albums else 999
+        if today_count < 2 and hours_since >= 5:
+            fresh = [s for s in fetch_workshop(steam_key, 25)
+                     if s["id"] not in posted][:5]
+            if len(fresh) >= 5:
+                res = tg.send_media_group([s["image"] for s in fresh],
+                                          build_workshop_caption(fresh))
+                if args.dry_run or res.get("ok"):
+                    for s in fresh:
+                        posted.add(s["id"])
+                    if not args.dry_run:
+                        state["ws_albums"] = (ws_albums + [int(now)])[-10:]
+                    sent_any = True
+            else:
+                print("Накопилось меньше 5 новых принятых скинов — ждём.")
 
     # В сухом прогоне историю НЕ трогаем — иначе потом боевой запуск
     # решит, что всё уже постил, и ничего не отправит.
