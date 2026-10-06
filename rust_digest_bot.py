@@ -8,7 +8,7 @@ Rust Digest Bot — автоматическая сводка новостей �
   2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты).
   3. Берёт ЛУЧШИЕ видео дня у YouTube-блогеров по Rust (по просмотрам).
   4. Берёт свежие работы из мастерской Steam от ПРОВЕРЕННЫХ авторов
-     (тех, чьи скины уже принимали в игру) — альбом из 5 штук.
+     (альбом из 5 штук) + конкурс "угадай принятый скин" на кнопках.
   5. Публикует всё это в твой Telegram-канал в едином стиле.
 
 Английские заголовки автоматически переводятся на русский.
@@ -303,6 +303,26 @@ def fetch_accepted_author_ids(api_key, pages=8, per=100):
     return ids
 
 
+def fetch_accepted_pids(api_key, pages=10, per=100):
+    """ID (ws_...) скинов, которые УЖЕ приняли в игру — для подсчёта,
+    кто из голосовавших угадал."""
+    pids, cursor = set(), "*"
+    for _ in range(pages):
+        try:
+            resp = _query_files(api_key, 2, per, cursor)
+        except Exception:
+            break
+        items = resp.get("publishedfiledetails", [])
+        for it in items:
+            p = it.get("publishedfileid")
+            if p:
+                pids.add("ws_" + str(p))
+        cursor = resp.get("next_cursor") or ""
+        if not cursor or not items:
+            break
+    return pids
+
+
 def fetch_new_from_verified(api_key, verified_ids, want=5, scan_pages=5,
                             per=50, max_age_days=14):
     """Свежие НОВЫЕ заявки (query_type=1, по дате публикации), но только
@@ -431,6 +451,31 @@ class Telegram:
             "chat_id": self.chat, "media": json.dumps(media),
         })
 
+    def send_vote_buttons(self, text, labels, rid):
+        """Сообщение с inline-кнопками для голосования. По нажатиям бот
+        видит, кто голосовал (в каналах опросы анонимны, а кнопки — нет)."""
+        kb = {"inline_keyboard": [
+            [{"text": lbl, "callback_data": f"v{rid}_{i}"}]
+            for i, lbl in enumerate(labels)]}
+        if self.dry_run:
+            print(f"[dry-run] голосование (кнопки): {clean(text, 120)}")
+            return {"ok": True}
+        return self._post("sendMessage", {
+            "chat_id": self.chat, "text": text, "parse_mode": "HTML",
+            "reply_markup": json.dumps(kb, ensure_ascii=False),
+        })
+
+    def get_updates(self, offset):
+        """Получаем обновления бота (нам нужны нажатия — callback_query)."""
+        if self.dry_run:
+            return []
+        params = {"timeout": "0",
+                  "allowed_updates": json.dumps(["callback_query"])}
+        if offset:
+            params["offset"] = str(offset)
+        res = self._post("getUpdates", params)
+        return res.get("result", []) if isinstance(res, dict) else []
+
 
 # ---------- сборка постов ----------
 
@@ -503,6 +548,108 @@ def build_workshop_caption(skins):
                  body, "#rust #раст #скины")
 
 
+# ---------- конкурс "угадай принятый скин" ----------
+
+def iso_week(ts):
+    return time.strftime("%G-%V", time.gmtime(ts))
+
+
+def collect_votes(tg, state):
+    """Забираем нажатия кнопок (callback_query) и копим: кто за какие
+    скины проголосовал в каждом раунде. Нажатие = добавить скин к ставке."""
+    offset = state.get("update_offset", 0)
+    updates = tg.get_updates(offset)
+    if not updates:
+        return
+    rounds = state.get("rounds", {})
+    votes = state.get("votes", {})
+    last = offset - 1
+    for u in updates:
+        last = max(last, u.get("update_id", 0))
+        cq = u.get("callback_query")
+        if not cq:
+            continue
+        data = cq.get("data", "")
+        if not data.startswith("v") or "_" not in data:
+            continue
+        try:
+            rid, idx = data[1:].split("_", 1)
+            idx = int(idx)
+        except ValueError:
+            continue
+        rnd = rounds.get(rid)
+        if not rnd:
+            continue
+        skins = rnd.get("pids", [])
+        if not (0 <= idx < len(skins)):
+            continue
+        user = cq.get("from") or {}
+        uid = str(user.get("id"))
+        if not uid or uid == "None":
+            continue
+        name = user.get("username") or user.get("first_name") or "Игрок"
+        votes.setdefault(rid, {})
+        rec = votes[rid].setdefault(uid, {"pids": [], "name": name})
+        rec["name"] = name
+        if skins[idx] not in rec["pids"]:
+            rec["pids"].append(skins[idx])
+    state["votes"] = votes
+    state["update_offset"] = last + 1
+
+
+def prune_rounds(state, keep_days=21):
+    """Чистим старые раунды и голоса, чтобы файл не рос бесконечно."""
+    cutoff = time.time() - keep_days * 86400
+    rounds = state.get("rounds", {})
+    votes = state.get("votes", {})
+    old = [pid for pid, r in rounds.items() if r.get("ts", 0) < cutoff]
+    for pid in old:
+        rounds.pop(pid, None)
+        votes.pop(pid, None)
+    state["rounds"] = rounds
+    state["votes"] = votes
+
+
+MEDAL = ["\U0001f947", "\U0001f948", "\U0001f949"]
+
+
+def build_leaderboard_caption(ranking, accepted_count):
+    top = [r for r in ranking if r["score"] > 0][:10]
+    if top:
+        lines = []
+        for i, r in enumerate(top):
+            mark = MEDAL[i] if i < 3 else f"{i + 1}."
+            lines.append(f"{mark} {html.escape(r['name'])} — "
+                         f"{r['score']} ✅")
+        body = "\n".join(lines)
+    else:
+        body = "На этой неделе никто пока не угадал принятых скинов \U0001f937"
+    sub = f"Приняли в игру скинов за неделю: {accepted_count}"
+    return frame("\U0001f3c6 ИТОГИ НЕДЕЛИ · КТО УГАДАЛ", sub, body,
+                 "#rust #раст #конкурс")
+
+
+def score_week(state, accepted_pids):
+    """Считаем очки за текущую неделю: +1 за каждый свой скин, который
+    реально приняли в игру."""
+    week = iso_week(time.time())
+    rounds = state.get("rounds", {})
+    votes = state.get("votes", {})
+    week_polls = [pid for pid, r in rounds.items()
+                  if r.get("week") == week]
+    scores, accepted_count = {}, 0
+    for pid in week_polls:
+        correct = set(rounds[pid].get("pids", [])) & accepted_pids
+        accepted_count += len(correct)
+        for uid, v in votes.get(pid, {}).items():
+            hit = len(set(v["pids"]) & correct)
+            rec = scores.setdefault(uid, {"name": v["name"], "score": 0})
+            rec["name"] = v["name"]
+            rec["score"] += hit
+    ranking = sorted(scores.values(), key=lambda x: x["score"], reverse=True)
+    return ranking, accepted_count, bool(week_polls)
+
+
 # ---------- главный сценарий ----------
 
 def main():
@@ -536,6 +683,8 @@ def main():
                             fallback="true")).strip().lower() in ("1", "true", "yes", "on")
     period = (os.environ.get("REDDIT_PERIOD")
               or cfg.get("content", "reddit_period", fallback="day")).strip()
+    steam_key = (os.environ.get("STEAM_API_KEY")
+                 or cfg.get("content", "steam_api_key", fallback="")).strip()
 
     if not args.dry_run and ("PASTE_BOT_TOKEN" in token or not token or not chat):
         print("Нет токена/канала. Локально — заполни config.ini; "
@@ -546,6 +695,13 @@ def main():
     state = load_state()
     posted = set(state.get("posted_ids", []))
     tg = Telegram(token, chat, dry_run=args.dry_run)
+
+    # сначала забираем новые голоса конкурса
+    if not args.dry_run:
+        try:
+            collect_votes(tg, state)
+        except Exception as e:
+            print("Сбор голосов не удался:", e)
 
     sent_any = False
 
@@ -605,9 +761,7 @@ def main():
         else:
             print("Лимит видео на сегодня исчерпан.")
 
-    # 4) мастерская Steam — альбом из 5 новинок проверенных авторов, до 2/день
-    steam_key = (os.environ.get("STEAM_API_KEY")
-                 or cfg.get("content", "steam_api_key", fallback="")).strip()
+    # 4) мастерская Steam — альбом из 5 новинок + конкурс, до 2/день
     if steam_key:
         ws_albums = state.get("ws_albums", [])
         now = time.time()
@@ -627,12 +781,40 @@ def main():
                 if args.dry_run or res.get("ok"):
                     for s in fresh:
                         posted.add(s["id"])
+                    # голосование-конкурс: кнопки под альбомом
+                    rid = str(state.get("round_seq", 0))
+                    state["round_seq"] = state.get("round_seq", 0) + 1
+                    labels = [f"{NUM_EMOJI[i]} "
+                              f"{clean(translate_to_ru(clean(s['title_raw'], 60)), 28)}"
+                              for i, s in enumerate(fresh)]
+                    vtext = ("\U0001f3af <b>Голосуй: какие из этих 5 примут "
+                             "в игру?</b>\nЖми номера (можно несколько). "
+                             "Итоги — в конце недели, с именами.")
+                    vres = tg.send_vote_buttons(vtext, labels, rid)
+                    if not args.dry_run and vres.get("ok"):
+                        rounds = state.setdefault("rounds", {})
+                        rounds[rid] = {
+                            "pids": [s["id"] for s in fresh],
+                            "week": iso_week(now),
+                            "ts": int(now),
+                        }
                     if not args.dry_run:
                         state["ws_albums"] = (ws_albums + [int(now)])[-10:]
                     sent_any = True
             else:
                 print(f"Новых работ от проверенных авторов пока "
                       f"{len(fresh)} (<5) — ждём накопления.")
+
+    # 5) итоги конкурса — в воскресенье, один раз за неделю
+    if steam_key and not args.dry_run:
+        wk = iso_week(time.time())
+        if time.gmtime().tm_wday == 6 and state.get("last_lb_week") != wk:
+            ranking, acc_count, had_polls = score_week(
+                state, fetch_accepted_pids(steam_key))
+            if had_polls:
+                tg.send_message(build_leaderboard_caption(ranking, acc_count))
+            state["last_lb_week"] = wk
+        prune_rounds(state)
 
     # В сухом прогоне историю НЕ трогаем — иначе потом боевой запуск
     # решит, что всё уже постил, и ничего не отправит.
