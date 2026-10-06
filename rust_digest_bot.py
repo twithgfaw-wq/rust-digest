@@ -1191,6 +1191,127 @@ def post_store_news(tg, state):
     if res.get("ok"):
         state["store_seen"] = (seen + fresh)[-3000:]
 
+# ---------- новости из X (официальный @playrust) ----------
+# Читаем через официальный X API: оплата за использование, ~$0.005 за твит,
+# для одного аккаунта — центы в месяц. Нужен секрет X_BEARER_TOKEN; без него
+# этот источник просто выключен.
+X_USER_ID = "1542707718"   # @playrust
+X_HOOKS = [
+    "🐦 Facepunch написали в X",
+    "📢 Свежее из официального X Rust",
+    "⚡️ Rust в X: новости от разработчиков",
+    "👀 Официальный аккаунт Rust поделился новостью",
+    "🗞 Новости из X от Facepunch",
+    "📡 Rust пишет в X — переводим",
+    "🔔 Свежий пост @playrust",
+    "🛠 Facepunch в X: что нового",
+]
+
+def fetch_x_posts(token, since_id=None):
+    """Собственные посты @playrust (без ответов и ретвитов) с вложениями,
+    новые — первыми. since_id — вернуть только то, что новее."""
+    params = {"max_results": "5", "exclude": "replies,retweets",
+              "tweet.fields": "created_at,entities,attachments",
+              "expansions": "attachments.media_keys",
+              "media.fields": "type,url,preview_image_url,variants"}
+    if since_id:
+        params["since_id"] = since_id
+    url = (f"https://api.x.com/2/users/{X_USER_ID}/tweets?"
+           + urllib.parse.urlencode(params))
+    req = urllib.request.Request(url, headers={
+        "Authorization": "Bearer " + token, "User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        data = json.loads(r.read().decode("utf-8", "replace"))
+    media = {m["media_key"]: m
+             for m in data.get("includes", {}).get("media", [])}
+    posts = []
+    for t in data.get("data", []):
+        keys = t.get("attachments", {}).get("media_keys", [])
+        posts.append({"id": t["id"], "text": t.get("text", ""),
+                      "created": t.get("created_at", ""),
+                      "urls": t.get("entities", {}).get("urls", []),
+                      "media": [media[k] for k in keys if k in media]})
+    return posts
+
+def x_media(p):
+    """Что приложить к посту: ("photo", url, url) или ("video", mp4, превью)."""
+    for m in p["media"]:
+        if m.get("type") == "photo" and m.get("url"):
+            return "photo", m["url"], m["url"]
+        if m.get("type") in ("video", "animated_gif"):
+            mp4 = sorted((v for v in m.get("variants", [])
+                          if v.get("content_type") == "video/mp4"),
+                         key=lambda v: v.get("bit_rate", 0))
+            # самое чёткое видео, что влезет в лимит Telegram (20 МБ по ссылке)
+            fit = [v for v in mp4 if v.get("bit_rate", 0) <= 2500000]
+            best = (fit or mp4[:1] or [{}])[-1].get("url", "")
+            return "video", best, m.get("preview_image_url", "")
+    return "", "", ""
+
+def build_x_caption(p):
+    """Новость из твита: перевод текста, ссылки из твита и оригинал."""
+    text, links = p["text"], []
+    for u in p["urls"]:
+        text = text.replace(u.get("url", ""), "")
+        exp = u.get("expanded_url") or ""
+        if exp and not u.get("media_key") and "/status/" not in exp:
+            links.append(exp)
+    text = "\n".join(line.rstrip() for line in text.strip().splitlines())
+    body = html.escape(translate_to_ru(text))
+    extra = []
+    for link in links[:2]:
+        href = html.escape(link, quote=True)
+        if "store.steampowered.com" in link:
+            extra.append(f"🛒 <a href=\"{href}\">Купить в Steam</a>")
+        else:
+            extra.append(f"🔗 <a href=\"{href}\">Подробнее</a>")
+    extra.append(f"🐦 <a href=\"https://x.com/playrust/status/{p['id']}\">"
+                 "Оригинал в X</a>")
+    body += "\n\n" + "\n".join(extra)
+    outro = pick(NEWS_OUTROS)
+    if outro:
+        body += f"\n\n{outro}"
+    return frame(pick(X_HOOKS), "", body, "#rust #раст #новости")
+
+def post_x_news(tg, state):
+    """Новые посты @playrust — новостями в канал, по порядку. Первый запуск
+    публикует только самый свежий (если ему меньше суток)."""
+    token = os.environ.get("X_BEARER_TOKEN", "").strip()
+    if not token:
+        return
+    last = state.get("x_last_id")
+    try:
+        posts = fetch_x_posts(token, last)
+    except urllib.error.HTTPError as e:
+        print("X API ошибка:", e.code, e.read().decode("utf-8", "replace")[:300])
+        return
+    if not posts:
+        return
+    if last is None:
+        from datetime import datetime, timezone
+        newest = posts[0]
+        state["x_last_id"] = newest["id"]
+        born = datetime.strptime(newest["created"][:19], "%Y-%m-%dT%H:%M:%S")
+        age = time.time() - born.replace(tzinfo=timezone.utc).timestamp()
+        posts = [newest] if age < 86400 else []
+    for p in sorted(posts, key=lambda p: int(p["id"])):   # от старых к новым
+        text = build_x_caption(p)
+        kind, url, preview = x_media(p)
+        res = {}
+        if kind == "video" and url:
+            res = tg._post("sendVideo", {
+                "chat_id": tg.chat, "video": url, "caption": text,
+                "parse_mode": "HTML", "supports_streaming": "true"})
+        image = url if kind == "photo" else preview
+        if not res.get("ok") and image:
+            res = tg.send_photo(image, text)
+        if not res.get("ok"):   # подпись длинная или медиа не прошло
+            res = tg.send_message(text)
+        if not res.get("ok"):
+            break   # повторим со следующего запуска
+        state["x_last_id"] = p["id"]
+        time.sleep(2)
+
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
     его нет или картинки не скачались — возвращаем False (будет запасной
@@ -1671,6 +1792,13 @@ def main():
             online_tick(tg, state, time.time())
         except Exception as e:
             print("Онлайн не получен:", e)
+
+    # 4f) новости из официального X (@playrust) — без тихих часов
+    if not args.dry_run:
+        try:
+            post_x_news(tg, state)
+        except Exception as e:
+            print("Новости из X не получены:", e)
 
     # 5) итоги конкурса — в воскресенье, один раз за неделю
     if steam_key and not args.dry_run:
