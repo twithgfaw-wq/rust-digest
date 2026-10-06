@@ -1454,7 +1454,7 @@ def build_market_card(title, subtitle, sections, out_path):
             y += 92
         y += 12
     small = font(26)
-    draw.text((60, H - 56), "по данным Steam Market", font=small,
+    draw.text((60, H - 56), "по данным rust.scmm.app", font=small,
               fill=(110, 116, 130))
     draw.text((W - 60 - draw.textlength(CHANNEL_TAG, font=small), H - 56),
               CHANNEL_TAG, font=small, fill=(110, 116, 130))
