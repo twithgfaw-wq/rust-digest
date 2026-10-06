@@ -1313,9 +1313,9 @@ def post_x_news(tg, state):
         time.sleep(2)
 
 # ---------- маркет Steam: что дорожает и что дешевеет ----------
-# Раз в день в обед (по Киеву) снимаем цены 300 самых ходовых скинов Rust
-# с маркета Steam, сравниваем с прошлым снимком (по понедельникам — с неделей
-# назад) и публикуем сводку с картинкой-отчётом.
+# Раз в день в обед (по Киеву): как скины из магазина последних 4 недель
+# ведут себя на маркете — дороже или дешевле цены магазина, коллекции, хиты
+# продаж, новинки недели (данные rust.scmm.app) — пост с картинкой-отчётом.
 MARKET_HOUR = 13
 MARKET_HOOKS = [
     "📈 РЫНОК СКИНОВ RUST: кто дорожает, кто дешевеет",
@@ -1339,38 +1339,36 @@ SERIES_STOP = {"the", "red", "blue", "black", "white", "green", "pink", "gold",
                "golden", "purple", "old", "big", "little", "dark", "light",
                "small", "large", "new", "mini", "super", "royal", "classic"}
 
-def fetch_market(pages=20):   # Steam отдаёт по 10 скинов за запрос
-    """Самые ходовые скины Rust на маркете Steam: {имя: цена в центах,
-    число лотов, иконка, цвет фона}. Steam режет частые запросы — паузы."""
-    items = {}
-    for page in range(pages):
-        url = ("https://steamcommunity.com/market/search/render/?appid="
-               f"{RUST_APPID}&norender=1&count=10&start={page * 10}"
-               "&sort_column=popular&sort_dir=desc&currency=1&l=english")
-        data = None
-        for attempt in range(3):
-            try:
-                data = http_get_json(url, timeout=25)
-            except urllib.error.HTTPError as e:
-                if e.code != 429:
-                    raise
-            if data and data.get("results"):
-                break
-            data = None
-            time.sleep(20)
-        if not data:
-            break
-        for r in data["results"]:
-            d = r.get("asset_description") or {}
-            if d.get("type") != "Workshop Item":   # без ресурсов и ящиков
+SCMM_API = "https://api.scmm.app/api"   # rust.scmm.app, открытое API
+
+def fetch_store_history(weeks=4):
+    """Скины текущей и прошлых ротаций магазина Rust (rust.scmm.app): цена
+    в магазине, текущая цена на маркете, коллекция, примерные продажи."""
+    stores = [s for s in http_get_json(SCMM_API + "/store", timeout=20)
+              if s.get("start")]
+    stores.sort(key=lambda s: s["start"], reverse=True)
+    out = []
+    for n, s in enumerate(stores[:weeks + 1]):
+        data = http_get_json(f"{SCMM_API}/store/{s['id']}?currency=USD",
+                             timeout=25)
+        for it in data.get("items") or []:
+            if not it.get("storePrice"):
                 continue
-            items[r["hash_name"]] = {
-                "price": int(r.get("sell_price") or 0),
-                "listings": int(r.get("sell_listings") or 0),
-                "icon": d.get("icon_url", ""),
-                "bg": d.get("background_color") or "2b2d33"}
-        time.sleep(4)
-    return items
+            mp = it.get("marketPrice")
+            out.append({
+                "id": it.get("guid") or it.get("name", ""),
+                "name": it.get("name", ""),
+                "store": int(it["storePrice"]),
+                "price": int(mp) if mp else 0,
+                "collection": (it.get("itemCollection") or "").strip(),
+                "sold": int(it.get("supplyTotalEstimated") or 0),
+                "week": s["start"][8:10] + "." + s["start"][5:7],
+                "start": s["start"],
+                "current": n == 0,   # текущая неделя — на маркете ещё нет
+                "icon": it.get("iconUrl") or "",
+                "bg": (it.get("backgroundColour") or "#2b2d33").lstrip("#")})
+        time.sleep(1)
+    return out, (stores[0]["start"] if stores else "")
 
 def market_url(name):
     return ("https://steamcommunity.com/market/listings/"
@@ -1435,8 +1433,9 @@ def build_market_card(title, subtitle, sections, out_path):
             draw.rounded_rectangle((50, y, W - 50, y + 82), radius=16,
                                    fill=(30, 33, 42))
             try:
-                url = ("https://community.cloudflare.steamstatic.com/economy/"
-                       "image/" + it["icon"] + "/96fx96f")
+                url = it["icon"] if it["icon"].startswith("http") else (
+                    "https://community.cloudflare.steamstatic.com/economy/"
+                    "image/" + it["icon"] + "/96fx96f")
                 req = urllib.request.Request(url, headers={"User-Agent": UA})
                 with urllib.request.urlopen(req, timeout=15) as r:
                     ic = Image.open(io.BytesIO(r.read())).convert("RGBA")
@@ -1463,7 +1462,8 @@ def build_market_card(title, subtitle, sections, out_path):
     return True
 
 def market_tick(tg, state, forced=False):
-    """Раз в день в обед: снимок цен маркета и пост-сводка с картинкой."""
+    """Раз в день в обед: как скины из магазина последних недель ведут себя
+    на маркете (данные rust.scmm.app) — пост с картинкой-отчётом."""
     import re
     from datetime import datetime, timedelta
     kt = kyiv_time()
@@ -1471,96 +1471,97 @@ def market_tick(tg, state, forced=False):
     if not forced and (kt.hour < MARKET_HOUR
                        or state.get("market_day") == today):
         return
-    items = fetch_market()
-    if len(items) < 40:
-        print(f"Маркет ответил не полностью ({len(items)}) — попробую позже.")
+    allitems, cur_start = fetch_store_history()
+    past = [s for s in allitems if not s["current"] and s["price"]]
+    cur = [s for s in allitems if s["current"]]
+    if len(past) < 10:
+        print(f"SCMM ответил не полностью ({len(past)}) — попробую позже.")
         return
     snaps = state.setdefault("market_snaps", {})
     prev = sorted(d for d in snaps if d < today)
-    snaps[today] = {n: it["price"] for n, it in items.items()}
+    snaps[today] = {s["id"]: s["price"] for s in past}
     for d in sorted(snaps)[:-9]:
         del snaps[d]
-    base = None
-    if kt.weekday() == 0:   # по понедельникам — итоги недели
-        week_ago = (kt - timedelta(days=7)).strftime("%Y-%m-%d")
-        older = [d for d in prev if d <= week_ago]
-        base = older[-1] if older else None
-    if base is None and prev:
-        base = prev[-1]
+    for s in past:
+        s["roi"] = (s["price"] - s["store"]) * 100 / s["store"]
+    ups = sorted((s for s in past if s["roi"] >= 1),
+                 key=lambda s: -s["roi"])[:5]
+    downs = sorted((s for s in past if s["roi"] <= -1),
+                   key=lambda s: s["roi"])[:5]
+    link = lambda s: (f"<a href=\"{market_url(s['name'])}\">"
+                      f"{html.escape(s['name'])}</a>")
+    line = lambda s: (f"▫️ {link(s)} — {money(s['store'])} → "
+                      f"{money(s['price'])} (<b>{pct_text(s['roi'])}</b>)")
+    row = lambda s: (s["name"], s, f"в магазине {money(s['store'])}  ·  "
+                     f"неделя {s['week']}", pct_text(s["roi"]))
+    sections = [x for x in (
+        ("▲ ДОРОЖЕ, ЧЕМ В МАГАЗИНЕ", (61, 220, 132), [row(s) for s in ups]),
+        ("▼ ДЕШЕВЛЕ, ЧЕМ В МАГАЗИНЕ", (255, 82, 82),
+         [row(s) for s in downs])) if x[2]]
+    lines = []
+    if ups:
+        lines += (["📈 <b>Подорожали после магазина</b>"]
+                  + [line(s) for s in ups[:3]] + [""])
+    if downs:
+        lines += (["📉 <b>Дешевле, чем в магазине</b>"]
+                  + [line(s) for s in downs[:3]] + [""])
+    # дополнительные строки — по важности; если подпись не влезет, лишние
+    # отрежем с конца
+    extras = []
+    if cur:
+        top = max(cur, key=lambda s: s["sold"])
+        opens = (datetime.fromisoformat(cur_start[:19])
+                 + timedelta(days=7)).strftime("%d.%m")
+        k = len(cur)
+        extras.append(f"🆕 Сейчас в магазине {k} "
+                      f"{plural(k, 'новый скин', 'новых скина', 'новых скинов')}"
+                      f", на маркете — с {opens}. Лидер продаж: "
+                      f"{html.escape(top['name'])} (~{fmt_num(top['sold'])} шт.)")
+    cols = {}
+    for s in past:
+        if s["collection"]:
+            cols.setdefault(s["collection"], []).append(s["roi"])
+    cols = {k: sum(v) / len(v) for k, v in cols.items() if len(v) >= 2}
+    best = max(cols.items(), key=lambda kv: kv[1]) if len(cols) >= 2 else None
+    worst = min(cols.items(), key=lambda kv: kv[1]) if len(cols) >= 2 else None
+    if best:
+        extras.append(f"🧩 Лучшая коллекция: «{html.escape(best[0].title())}»"
+                      f" — в среднем {pct_text(best[1])}")
+    last_week = max(past, key=lambda s: s["start"])["week"]
+    hit = max((s for s in past if s["week"] == last_week),
+              key=lambda s: s["sold"])
+    if hit["sold"]:
+        extras.append(f"🔥 Хит продаж недели {last_week}: {link(hit)} — "
+                      f"~{fmt_num(hit['sold'])} шт.")
+    if worst:
+        extras.append(f"🧊 Слабее всех: «{html.escape(worst[0].title())}» — "
+                      f"{pct_text(worst[1])}")
+    if prev:
+        old = snaps[prev[-1]]
+        moves = [(s, (s["price"] - old[s["id"]]) * 100 / old[s["id"]])
+                 for s in past if old.get(s["id"])]
+        moves = [m for m in moves if abs(m[1]) >= 3]
+        if moves:
+            s, p = max(moves, key=lambda m: abs(m[1]))
+            extras.append(f"⚡ За сутки сильнее всех: {link(s)} {pct_text(p)}")
     date = kt.strftime("%d.%m.%Y")
-    link = lambda n: f"<a href=\"{market_url(n)}\">{html.escape(n)}</a>"
-    lots = lambda k: f"{k} {plural(k, 'лот', 'лота', 'лотов')}"
-    if base is None:   # первый день: истории ещё нет — показываем топы
-        hook, period = pick(MARKET_START_HOOKS), "топ маркета"
-        rich = sorted(items.items(), key=lambda kv: -kv[1]["price"])[:5]
-        hot = sorted(items.items(), key=lambda kv: -kv[1]["listings"])[:5]
-        sections = [
-            ("САМЫЕ ДОРОГИЕ", (255, 196, 0),
-             [(n, it, lots(it["listings"]) + " на продаже", money(it["price"]))
-              for n, it in rich]),
-            ("БОЛЬШЕ ВСЕГО ЛОТОВ", (90, 170, 255),
-             [(n, it, money(it["price"]), lots(it["listings"]))
-              for n, it in hot])]
-        lines = (["💎 <b>Самые дорогие</b>"]
-                 + [f"▫️ {link(n)} — {money(it['price'])}" for n, it in rich]
-                 + ["", "🔥 <b>Больше всего лотов</b>"]
-                 + [f"▫️ {link(n)} — {lots(it['listings'])}" for n, it in hot]
-                 + ["", "Завтра покажем, какие скины подорожали, "
-                    "а какие подешевели 📊"])
-    else:
-        days = (datetime.strptime(today, "%Y-%m-%d")
-                - datetime.strptime(base, "%Y-%m-%d")).days
-        period = ("за сутки" if days == 1 else "за неделю" if days == 7
-                  else f"за {days} {plural(days, 'день', 'дня', 'дней')}")
-        old = snaps[base]
-        changes = {}
-        for n, it in items.items():
-            o = old.get(n)
-            if o and o >= 50 and it["price"] >= 50 and it["listings"] >= 5:
-                changes[n] = (it["price"] - o) * 100 / o
-        ups = sorted((kv for kv in changes.items() if kv[1] >= 1),
-                     key=lambda kv: -kv[1])[:5]
-        downs = sorted((kv for kv in changes.items() if kv[1] <= -1),
-                       key=lambda kv: kv[1])[:5]
-        if not ups and not downs:
-            print("Цены на маркете почти не изменились — сводку пропускаю.")
-            state["market_day"] = today
-            return
-        hook = pick(MARKET_HOOKS)
-        row = lambda n, p: (n, items[n], f"{money(items[n]['price'])}  ·  "
-                            f"было {money(old[n])}", pct_text(p))
-        sections = [s for s in (
-            ("▲ ДОРОЖАЮТ", (61, 220, 132), [row(n, p) for n, p in ups]),
-            ("▼ ДЕШЕВЕЮТ", (255, 82, 82), [row(n, p) for n, p in downs]))
-            if s[2]]
-        lines = []
-        if ups:
-            lines += ["📈 <b>Дорожают</b>"] + [
-                f"▫️ {link(n)} — {money(items[n]['price'])} "
-                f"(<b>{pct_text(p)}</b>)" for n, p in ups] + [""]
-        if downs:
-            lines += ["📉 <b>Дешевеют</b>"] + [
-                f"▫️ {link(n)} — {money(items[n]['price'])} "
-                f"(<b>{pct_text(p)}</b>)" for n, p in downs] + [""]
-        up, down = series_moves(changes)
-        for s, emoji in ((up, "🧩"), (down, "🧊")):
-            if s:
-                k = s[1][1]
-                lines.append(f"{emoji} Серия «{html.escape(s[0])}» в среднем "
-                             f"{pct_text(s[1][0])} ({k} "
-                             f"{plural(k, 'скин', 'скина', 'скинов')})")
-        top = max(items.items(), key=lambda kv: kv[1]["price"])
-        lines.append(f"💎 Самый дорогой из ходовых: {link(top[0])} — "
-                     f"{money(top[1]['price'])}")
-    lines += ["", pick(MARKET_OUTROS)]
-    text = frame(hook, f"🗓 {date} · {period}", "\n".join(lines),
-                 "#rust #раст #маркет #скины")
-    visible = len(html.unescape(re.sub(r"<[^>]+>", "", text)))
+    period = "магазин → маркет, 4 недели"
+    hook, outro = pick(MARKET_HOOKS), pick(MARKET_OUTROS)
+
+    def compose(ex):
+        return frame(hook, f"🗓 {date} · {period}",
+                     "\n".join(lines + ex + ["", outro]),
+                     "#rust #раст #маркет #скины")
+
+    text = compose(extras)
+    while extras and len(html.unescape(re.sub(r"<[^>]+>", "", text))) > 1024:
+        extras.pop()
+        text = compose(extras)
     card = os.path.join(tempfile.gettempdir(), "rust_market.jpg")
     res = {}
     try:
-        if visible <= 1024 and build_market_card(
-                "РЫНОК СКИНОВ RUST", f"{date} · {period}", sections, card):
+        if build_market_card("РЫНОК СКИНОВ RUST", f"{date} · {period}",
+                             sections, card):
             res = tg.send_photo_file(card, text)
     except Exception as e:
         print("Картинка маркета не собралась:", e)
