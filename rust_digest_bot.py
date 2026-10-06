@@ -1,0 +1,318 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Rust Digest Bot — автоматическая сводка новостей по игре Rust в Telegram.
+
+Что делает за один прогон:
+  1. Берёт свежие ОФИЦИАЛЬНЫЕ новости Rust из Steam News API.
+  2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты)
+     за день или неделю.
+  3. Публикует в твой Telegram-канал:
+       - текстовую сводку новостей,
+       - несколько постов-работ с картинкой, автором и ссылкой.
+
+Только стандартная библиотека Python 3 — ставить ничего не надо.
+
+Настройка:
+  1. Создай бота у @BotFather, получи токен.
+  2. Добавь бота в свой канал администратором с правом публикаций.
+  3. Скопируй config.example.ini -> config.ini и впиши токен и канал.
+
+Запуск вручную:
+    python rust_digest_bot.py
+
+Пробный прогон (ничего не постит, только печатает в консоль):
+    python rust_digest_bot.py --dry-run
+
+Автозапуск раз в день делается Планировщиком заданий Windows —
+как именно, написано в README.md.
+"""
+
+import argparse
+import configparser
+import html
+import json
+import os
+import sys
+import time
+import urllib.request
+import urllib.parse
+import urllib.error
+
+RUST_APPID = 252490
+UA = "RustDigestBot/1.0 (personal Telegram digest)"
+STATE_FILE = "posted_state.json"   # чтобы не постить одно и то же дважды
+
+
+# ---------- вспомогательное ----------
+
+def http_get_json(url, headers=None, timeout=20):
+    req = urllib.request.Request(url, headers=headers or {"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return json.loads(r.read().decode("utf-8", "replace"))
+
+
+def load_state():
+    try:
+        with open(STATE_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {"posted_ids": []}
+
+
+def save_state(state):
+    try:
+        state["posted_ids"] = state.get("posted_ids", [])[-500:]
+        with open(STATE_FILE, "w", encoding="utf-8") as f:
+            json.dump(state, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print("Не смог сохранить состояние:", e)
+
+
+def clean(text, limit=None):
+    t = html.unescape(text or "").strip()
+    if limit and len(t) > limit:
+        t = t[:limit - 1].rstrip() + "…"
+    return t
+
+
+# ---------- источники контента ----------
+
+def fetch_official_news(count=3):
+    """Официальные новости Rust из Steam News API."""
+    url = (f"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/"
+           f"?appid={RUST_APPID}&count={count}&maxlength=400&format=json")
+    try:
+        data = http_get_json(url)
+        items = data.get("appnews", {}).get("newsitems", [])
+    except Exception as e:
+        print("Новости Steam не загрузились:", e)
+        return []
+    out = []
+    for it in items:
+        out.append({
+            "id": "news_" + str(it.get("gid")),
+            "title": clean(it.get("title"), 120),
+            "url": it.get("url"),
+            "date": it.get("date", 0),
+        })
+    return out
+
+
+def fetch_top_works(period="day", limit=12, min_score=300):
+    """Топ постов r/playrust — базы, билды, арт, моменты."""
+    t = "day" if period not in ("day", "week") else period
+    url = (f"https://www.reddit.com/r/playrust/top.json"
+           f"?t={t}&limit={limit}")
+    try:
+        data = http_get_json(url, headers={"User-Agent": UA})
+        children = data.get("data", {}).get("children", [])
+    except urllib.error.HTTPError as e:
+        print(f"Reddit вернул {e.code}. Если это 429/403 — он режет "
+              f"запросы; попробуй позже или реже. Работы пропущены.")
+        return []
+    except Exception as e:
+        print("Reddit не загрузился:", e)
+        return []
+
+    works = []
+    for ch in children:
+        d = ch.get("data", {})
+        if d.get("stickied") or d.get("over_18"):
+            continue
+        if d.get("score", 0) < min_score:
+            continue
+        img = pick_image(d)
+        if not img:
+            continue  # нам нужны именно "работы" с картинкой
+        works.append({
+            "id": "work_" + str(d.get("id")),
+            "title": clean(d.get("title"), 200),
+            "author": clean(d.get("author"), 40),
+            "score": d.get("score", 0),
+            "flair": clean(d.get("link_flair_text"), 30),
+            "image": img,
+            "url": "https://reddit.com" + d.get("permalink", ""),
+        })
+    return works
+
+
+def pick_image(d):
+    """Достаём прямую ссылку на картинку из поста Reddit."""
+    # 1) прямая ссылка на картинку
+    u = d.get("url_overridden_by_dest") or d.get("url") or ""
+    if u.lower().split("?")[0].endswith((".jpg", ".jpeg", ".png")):
+        return u
+    # 2) превью из preview
+    try:
+        src = d["preview"]["images"][0]["source"]["url"]
+        return html.unescape(src)
+    except Exception:
+        pass
+    # 3) галерея / медиа-метаданные
+    try:
+        for m in d.get("media_metadata", {}).values():
+            if m.get("e") == "Image":
+                return html.unescape(m["s"]["u"])
+    except Exception:
+        pass
+    return None
+
+
+# ---------- отправка в Telegram ----------
+
+class Telegram:
+    def __init__(self, token, chat, dry_run=False):
+        self.base = f"https://api.telegram.org/bot{token}"
+        self.chat = chat
+        self.dry_run = dry_run
+
+    def _post(self, method, params):
+        if self.dry_run:
+            print(f"[dry-run] {method}: "
+                  f"{clean(params.get('text') or params.get('caption'), 160)}")
+            return {"ok": True}
+        data = urllib.parse.urlencode(params).encode("utf-8")
+        req = urllib.request.Request(f"{self.base}/{method}", data=data,
+                                     headers={"User-Agent": UA})
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                res = json.loads(r.read().decode("utf-8", "replace"))
+            if not res.get("ok"):
+                print("Telegram ошибка:", res)
+            return res
+        except urllib.error.HTTPError as e:
+            print("Telegram HTTP ошибка:", e.code, e.read().decode("utf-8", "replace"))
+            return {"ok": False}
+        except Exception as e:
+            print("Telegram не ответил:", e)
+            return {"ok": False}
+
+    def send_message(self, text):
+        return self._post("sendMessage", {
+            "chat_id": self.chat, "text": text,
+            "parse_mode": "HTML", "disable_web_page_preview": "false",
+        })
+
+    def send_photo(self, photo_url, caption):
+        return self._post("sendPhoto", {
+            "chat_id": self.chat, "photo": photo_url,
+            "caption": caption, "parse_mode": "HTML",
+        })
+
+
+# ---------- сборка постов ----------
+
+def today_str():
+    return time.strftime("%d.%m.%Y")
+
+
+def build_news_text(news):
+    lines = [f"📰 <b>RUST — сводка новостей</b> · {today_str()}", ""]
+    for n in news:
+        lines.append(f"🔹 <a href=\"{n['url']}\">{html.escape(n['title'])}</a>")
+    lines.append("")
+    lines.append("#rust #раст #новости")
+    return "\n".join(lines)
+
+
+FLAIR_EMOJI = {
+    "Base Design": "🏰", "Image": "🖼", "Video": "🎬",
+    "Work in Progress": "🔨", "Art": "🎨", "Discussion": "💬",
+}
+
+def build_work_caption(w, index):
+    emoji = FLAIR_EMOJI.get(w["flair"], "🔥")
+    tag = f" · {html.escape(w['flair'])}" if w["flair"] else ""
+    return (f"{emoji} <b>Работа дня #{index}</b>{tag}\n"
+            f"{html.escape(w['title'])}\n\n"
+            f"👤 u/{html.escape(w['author'])} · ⬆️ {w['score']}\n"
+            f"🔗 <a href=\"{w['url']}\">обсуждение на r/playrust</a>\n\n"
+            f"#rust #раст #работы")
+
+
+# ---------- главный сценарий ----------
+
+def main():
+    ap = argparse.ArgumentParser(description="Rust Digest Bot для Telegram")
+    ap.add_argument("--config", default="config.ini")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="ничего не постить, только показать в консоли")
+    args = ap.parse_args()
+
+    # Конфиг читаем из файла, если он есть (локальный запуск на ПК).
+    # В облаке (GitHub Actions) файла нет — тогда берём значения из
+    # переменных окружения / секретов. Env имеет приоритет над файлом.
+    cfg = configparser.ConfigParser()
+    if os.path.exists(args.config):
+        cfg.read(args.config, encoding="utf-8")
+
+    token = (os.environ.get("BOT_TOKEN")
+             or cfg.get("telegram", "bot_token", fallback="")).strip()
+    chat = (os.environ.get("CHANNEL")
+            or cfg.get("telegram", "channel", fallback="")).strip()
+    works_count = int(os.environ.get("WORKS_COUNT")
+                      or cfg.get("content", "works_count", fallback="3"))
+    min_score = int(os.environ.get("MIN_SCORE")
+                    or cfg.get("content", "min_score", fallback="300"))
+    post_news = (os.environ.get("POST_OFFICIAL_NEWS")
+                 or cfg.get("content", "post_official_news",
+                            fallback="true")).strip().lower() in ("1", "true", "yes", "on")
+    period = (os.environ.get("REDDIT_PERIOD")
+              or cfg.get("content", "reddit_period", fallback="day")).strip()
+
+    if not args.dry_run and ("PASTE_BOT_TOKEN" in token or not token or not chat):
+        print("Нет токена/канала. Локально — заполни config.ini; "
+              "в GitHub Actions — задай секреты BOT_TOKEN и CHANNEL. "
+              "(Или запусти с --dry-run для проверки.)")
+        sys.exit(1)
+
+    state = load_state()
+    posted = set(state.get("posted_ids", []))
+    tg = Telegram(token, chat, dry_run=args.dry_run)
+
+    sent_any = False
+
+    # 1) официальные новости
+    if post_news:
+        news = [n for n in fetch_official_news(5) if n["id"] not in posted][:3]
+        if news:
+            res = tg.send_message(build_news_text(news))
+            # В историю пишем ТОЛЬКО если Telegram принял отправку —
+            # иначе при ошибке (бот не админ и т.п.) попробуем снова.
+            if args.dry_run or res.get("ok"):
+                for n in news:
+                    posted.add(n["id"])
+                sent_any = sent_any or not args.dry_run
+            else:
+                print("⚠ Новости НЕ отправлены (см. ошибку выше). "
+                      "В историю не записал — повторю при следующем запуске.")
+            time.sleep(2)
+        else:
+            print("Новых официальных новостей нет.")
+
+    # 2) крутые работы
+    works = [w for w in fetch_top_works(period, 15, min_score)
+             if w["id"] not in posted][:works_count]
+    if works:
+        for i, w in enumerate(works, 1):
+            res = tg.send_photo(w["image"], build_work_caption(w, i))
+            if args.dry_run or res.get("ok"):
+                posted.add(w["id"])
+                sent_any = sent_any or not args.dry_run
+            time.sleep(2)
+    else:
+        print("Новых работ по заданным порогам нет.")
+
+    # В сухом прогоне историю НЕ трогаем — иначе потом боевой запуск
+    # решит, что всё уже постил, и ничего не отправит.
+    if args.dry_run:
+        print("Готово (dry-run: ничего не отправлено, история не изменена).")
+    else:
+        state["posted_ids"] = list(posted)
+        save_state(state)
+        print("Готово.")
+
+
+if __name__ == "__main__":
+    main()
