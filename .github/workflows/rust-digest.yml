@@ -28,10 +28,12 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHANNEL: ${{ secrets.CHANNEL }}
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
           WORKS_COUNT: ${{ vars.WORKS_COUNT }}
           MIN_SCORE: ${{ vars.MIN_SCORE }}
           REDDIT_PERIOD: ${{ vars.REDDIT_PERIOD }}
           POST_OFFICIAL_NEWS: ${{ vars.POST_OFFICIAL_NEWS }}
+          YT_COUNT: ${{ vars.YT_COUNT }}
         run: python rust_digest_bot.py
 
       - name: Save posted history
