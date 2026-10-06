@@ -588,11 +588,34 @@ class Telegram:
 def today_str():
     return time.strftime("%d.%m.%Y")
 
-def pick(options):
-    return random.choice(options)
+# Чтобы посты не были одинаковыми, текст собирается из частей (заход,
+# заголовок, концовка, подпись) — получаются тысячи сочетаний. А ещё бот
+# помнит недавно выпавшие фразы (state["recent_phrases"]) и не берёт их снова,
+# пока не выйдет хотя бы половина остальных вариантов из того же списка.
+_RECENT = []
 
-FOOTERS = ["👉 Подписывайся на {tag}", "🔔 Больше Rust — в {tag}",
-           BRAND + " {tag} — всё о Rust", "📢 Подписывайся: {tag}"]
+def pick(options):
+    used = [r for r in _RECENT if r in options]
+    ban = set(used[-(len(options) // 2):]) if len(options) > 1 else set()
+    choice = random.choice([o for o in options if o not in ban] or list(options))
+    _RECENT.append(choice)
+    del _RECENT[:-500]
+    return choice
+
+FOOTERS = [
+    "👉 Подписывайся на {tag}",
+    "🔔 Больше Rust — в {tag}",
+    BRAND + " {tag} — всё о Rust",
+    "📢 Подписывайся: {tag}",
+    "🪓 Свежий Rust каждый день — {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔥 {tag} — Rust без воды",
+    "👀 Следи за Rust вместе с {tag}",
+    "⚡️ Всё самое свежее по Rust — {tag}",
+    "🛡 Твой канал про Rust — {tag}",
+    "🎮 Новости, скины и видео по Rust — {tag}",
+    "📌 Сохрани себе {tag}",
+]
 
 def frame(kicker, title, body, hashtags):
     """Каркас поста: цепляющий заход жирным, заголовок, тело, подпись
@@ -609,10 +632,28 @@ NEWS_HOOKS = [
     "👀 Разработчики подкинули новостей, разбираем",
     "⚡️ Пока вы фармили серу, Facepunch выкатили новости",
     "🗞 СВЕЖАК ОТ РАЗРАБОТЧИКОВ RUST",
+    "📰 Новости Rust подъехали — делимся",
+    "🔔 Facepunch опубликовали новое — смотрим",
+    "🧐 Что там у Facepunch? Свежие новости",
+    "🚨 НОВОСТИ RUST: есть что обсудить",
+    "📣 Разработчики Rust вышли на связь",
+    "🛎 Свежие вести с острова от Facepunch",
+    "🗒 Facepunch поделились новостями — коротко о главном",
+    "☕️ Новости Rust к вашему кофе",
+    "🔧 Facepunch не дремлют — новости по Rust",
+    "🏝 С острова пришли новости — читаем",
+    "💬 Facepunch снова на связи: что нового в Rust",
+    "📦 Свежая порция новостей от разработчиков Rust",
+    "🧭 Главное из Rust прямо сейчас",
 ]
-NEWS_OUTROS = ["Что думаете — к лучшему? 🤔", "Ставь 🔥, если ждал",
-               "Готовимся к вайпу 🪓", ""]
-NEWS_BULLETS = ["🔹", "📌", "▪️", "➤"]
+NEWS_OUTROS = [
+    "Что думаете — к лучшему? 🤔", "Ставь 🔥, если ждал",
+    "Готовимся к вайпу 🪓", "Ждём подробностей 👀",
+    "Ставь 👍, если полезно", "Интересно, как это скажется на вайпе 🤔",
+    "Берём на заметку 📌", "Посмотрим, что из этого выйдет 😏",
+    "Facepunch, мы следим 👀", "Неплохо, неплохо 😎", "", "",
+]
+NEWS_BULLETS = ["🔹", "📌", "▪️", "➤", "🔸", "▫️"]
 
 def build_news_caption(news):
     bullet = pick(NEWS_BULLETS)
@@ -629,8 +670,15 @@ FLAIR_EMOJI = {
     "Base Design": "🏰", "Image": "🖼", "Video": "🎬",
     "Work in Progress": "🔨", "Art": "🎨", "Discussion": "💬",
 }
-WORK_HOOKS = ["😳 Игроки опять строят невозможное", "🔥 РАБОТА ДНЯ С R/PLAYRUST",
-              "👏 Сообщество снова удивляет", "🏆 Такое не каждый день увидишь"]
+WORK_HOOKS = [
+    "😳 Игроки опять строят невозможное", "🔥 РАБОТА ДНЯ С R/PLAYRUST",
+    "👏 Сообщество снова удивляет", "🏆 Такое не каждый день увидишь",
+    "🤯 Reddit снова выдал шедевр", "👀 Нашли на r/playrust — зацените",
+    "🎨 Творчество игроков Rust, которое стоит увидеть",
+    "💪 Вот это уровень, сообщество", "📸 Кадр дня от игроков Rust",
+    "🧱 Когда в Rust есть фантазия и время", "🌟 Лучшее от сообщества за сегодня",
+    "😮 Игроки Rust не перестают удивлять",
+]
 
 def build_work_caption(w, index):
     hook = pick(WORK_HOOKS)
@@ -649,16 +697,34 @@ def fmt_views(n):
     return str(n)
 
 VIDEO_HOOKS = [
-    "🎬 {author} выпустил новый ролик — и он того стоит",
+    "🎬 У {author} новый ролик — и он того стоит",
     "🍿 Есть что посмотреть вечером: новое видео от {author}",
     "📺 {author} снова в деле",
     "🔥 ЛУЧШЕЕ ВИДЕО ДНЯ — ОТ {author}",
+    "▶️ Новое видео от {author} — включаем",
+    "🍿 Запасайтесь попкорном: свежий ролик от {author}",
+    "📺 Свежее видео от {author} уже на YouTube",
+    "🎥 {author} снова радует новым роликом",
+    "🎬 Время для просмотра: новинка от {author}",
+    "👀 У {author} вышло новое видео — смотрим",
+    "⚡️ Только вышло: свежее видео от {author}",
+    "🏆 Видео дня по Rust — {author}",
+    "🎞 Новый ролик на канале {author}",
+    "📡 {author} снова на связи — новое видео",
+    "😎 Свежий контент по Rust от {author}",
+    "🔥 Не пропустите: новое видео {author}",
 ]
+VIDEO_OUTROS = ["Приятного просмотра 🍿", "Ставь 🔥, если зашло",
+                "Отличный повод отвлечься от фарма 😄", "Кто уже посмотрел? 👀",
+                "Годнота, рекомендуем 👍", "", ""]
 
 def build_video_caption(v):
     hook = pick(VIDEO_HOOKS).format(author=html.escape(v["author"]))
     views = f"   👁 {fmt_views(v['views'])}" if v.get("views") else ""
     body = f"📹 <a href=\"{v['url']}\">YouTube</a>{views}"
+    outro = pick(VIDEO_OUTROS)
+    if outro:
+        body += f"\n\n{outro}"
     return frame(hook, v["title"], body, "#rust #раст #видео")
 
 NUM_EMOJI = ["1️⃣", "2️⃣", "3️⃣", "4️⃣",
@@ -669,11 +735,33 @@ CONTEST_HOOKS = [
     "🎯 КОНКУРС: УГАДАЕТЕ, КАКОЙ СКИН ПРИМУТ В ИГРУ?",
     "🎲 КОНКУРС — пять новых скинов, а в игру попадёт не каждый",
     "🤔 КОНКУРС: Facepunch отберут не всех. Ваш прогноз?",
+    "🏆 КОНКУРС: какой из этих скинов окажется в игре?",
+    "🔮 КОНКУРС — включаем интуицию: что примут Facepunch?",
+    "🎯 КОНКУРС НЕДЕЛИ: угадай будущий скин Rust",
+    "🧠 КОНКУРС: проверим, кто лучше чувствует вкус Facepunch",
+    "🎰 КОНКУРС — пять скинов, одна ставка. Твой выбор?",
+    "👀 КОНКУРС: какой скин, по-твоему, попадёт в магазин?",
+    "🥇 КОНКУРС: угадай скин, который примут в игру",
+    "🎲 КОНКУРС — делай прогноз, итоги в воскресенье",
+    "🤝 КОНКУРС: выбираем фаворита среди новинок воркшопа",
+]
+CONTEST_TITLES = [
+    "5 новых работ — у каждого свой автор",
+    "Пять свежих скинов от пяти разных авторов",
+    "5 новинок воркшопа — 5 разных авторов",
+    "Пять работ, пять авторов, один фаворит",
+    "Свежие работы из мастерской — выбирай фаворита",
 ]
 CONTEST_CTAS = [
     "Жми номер, затем «Подтвердить» 👇 Итоги — в воскресенье 🏆",
     "Выбирай номер и подтверждай 👇 Угадавших покажем в конце недели 🥇",
     "Ставь на фаворита: номер → «Подтвердить» 👇 Рейтинг — в воскресенье 📊",
+    "Номер → «Подтвердить» 👇 Кто угадает — попадёт в рейтинг недели 🏆",
+    "Голосуй кнопками ниже 👇 Результаты — в воскресенье 📊",
+    "Выбери номер и не забудь подтвердить 👇 Итоги подведём в воскресенье 🥇",
+    "Твой прогноз — кнопкой ниже 👇 В воскресенье узнаем, кто был прав 🔮",
+    "Жми на номер фаворита и подтверждай 👇 Лучших отметим в итогах 🏆",
+    "Один голос — один номер 👇 Не забудь «Подтвердить» ✅",
 ]
 
 def build_workshop_caption(skins):
@@ -684,25 +772,108 @@ def build_workshop_caption(skins):
         lines.append(f"{NUM_EMOJI[i]} <b>{title}</b> — {author}")
     lines.append("")
     lines.append(pick(CONTEST_CTAS))
-    return frame(pick(CONTEST_HOOKS), "5 новых работ — у каждого свой автор",
+    return frame(pick(CONTEST_HOOKS), pick(CONTEST_TITLES),
                  "\n".join(lines), "#rust #раст #скины #конкурс")
 
-ELITE_HOOKS = [
-    "🔥 ЛУЧШЕЕ ИЗ ВОРКШОПА — свежая работа",
-    "💎 ЛУЧШЕЕ ИЗ ВОРКШОПА: выглядит дорого",
-    "😮 ЛУЧШЕЕ ИЗ ВОРКШОПА: вот это детализация",
-    "👀 ЛУЧШЕЕ ИЗ ВОРКШОПА — зацените",
+ELITE_EMOJI = ["🔥", "💎", "😮", "👀", "🎨", "⚡️", "✨", "🤩", "💥", "🖌", "🏆", "😍"]
+SEPS = [": ", " — "]
+ELITE_PHRASES = [
+    "свежая работа", "выглядит дорого", "вот это детализация", "зацените",
+    "новинка, которая цепляет", "такое хочется в игру", "автор знает толк",
+    "качество на уровне", "глаз не оторвать", "чистая эстетика",
+    "сильная работа", "просто посмотрите на это", "стильно и со вкусом",
+    "всё продумано до мелочей", "годнота подъехала", "красиво сделано",
+    "смотрится как официальный скин", "детали решают", "вот это уровень",
+    "очень достойно", "эффектно, ничего не скажешь", "мимо такого не пройти",
+    "свежий взгляд на привычную вещь", "аккуратно и со вкусом",
+    "красота в деталях", "мощно сделано", "вот это я понимаю скин",
+    "свежак из мастерской", "такое мы любим", "сделано с душой",
+    "достойно магазина", "топовая работа", "хочется в инвентарь",
+    "выглядит свежо", "атмосферно вышло", "новый фаворит",
 ]
-ELITE_OUTROS = ["Как думаете, добавят в игру? 🤔",
-                "Ставь 🔥, если хочешь такой в игре",
-                "Берём или пропускаем? 👀"]
+SET_PHRASES = [
+    "сразу комплект", "целый сет от автора", "выглядят дорого",
+    "комплект, который хочется целиком", "набор в одном стиле",
+    "автор выкатил сет", "сразу несколько новинок",
+    "сет, который смотрится вместе", "зацените весь набор",
+    "всё в одном стиле", "обновка комплектом", "вот это сет",
+    "полный комплект от одного автора", "стильный набор",
+    "детализация во всём сете", "несколько работ, одна идея",
+    "сет, мимо которого не пройти",
+]
+ELITE_OUTROS = [
+    "Как думаете, добавят в игру? 🤔", "Ставь 🔥, если хочешь такой в игре",
+    "Берём или пропускаем? 👀", "Купили бы такой? 💸", "Ставь 👍, если зашло",
+    "Достоин магазина? Ставь 🔥", "Ждём в игре? 👀",
+    "Facepunch, обратите внимание 😏", "Такой бы в инвентарь 😎",
+    "Оценим реакциями: 🔥 или 👎?", "Красиво же? 😍", "В магазин его! 🛒",
+    "Как вам такой скин? 🤔", "Примут или нет — ваш прогноз? 🔮",
+]
+SET_OUTROS = [
+    "Какой из них забрали бы себе? 🤔", "Ставь 🔥, если хочешь этот сет в игре",
+    "Как думаете, примут весь набор? 🤔", "Целиком или по частям? 🛒",
+    "Ставь 👍, если сет зашёл", "Достоин магазина? Ставь 🔥",
+    "Facepunch, берите весь комплект 😏", "Какой вариант нравится больше? 🔥",
+    "Красиво же вместе смотрится? 😍",
+]
+SET_TITLES = [
+    "Сразу {n} {works} от одного автора", "{n} {works} в одном посте",
+    "Комплект из {n} работ", "Подборка за неделю: {n} {works}",
+    "Целый сет — {n} {works}",
+]
+
+def elite_hook(phrases):
+    return f"{pick(ELITE_EMOJI)} ЛУЧШЕЕ ИЗ ВОРКШОПА{pick(SEPS)}{pick(phrases)}"
 
 def build_elite_caption(s):
     title = translate_to_ru(clean(s["title_raw"], 90))
     body = (f"🎨 <b>{html.escape(s['author'] or 'автор')}</b>\n"
             f"🔗 <a href=\"{s['url']}\">Мастерская Steam</a>\n\n"
             f"{pick(ELITE_OUTROS)}")
-    return frame(pick(ELITE_HOOKS), title, body, "#rust #раст #воркшоп #скин")
+    return frame(elite_hook(ELITE_PHRASES), title, body,
+                 "#rust #раст #воркшоп #скин")
+
+# Несколько работ одного автора за неделю (комплект: худи + штаны, или
+# v1 и v2) — одним постом-альбомом. Автора берём, когда он SET_WAIT_H часов
+# ничего не заливал: так сет успевает загрузиться целиком.
+SET_WAIT_H = 2
+SET_WINDOW_D = 7
+
+def group_by_author(items, now):
+    by = {}
+    for s in items:
+        if now - (s.get("created") or now) <= SET_WINDOW_D * 86400:
+            by.setdefault(s["author_id"], []).append(s)
+    ready = []
+    for works in by.values():
+        if now - max(w.get("created") or 0 for w in works) >= SET_WAIT_H * 3600:
+            ready.append(sorted(works, key=lambda w: w.get("created") or 0)[:10])
+    return ready
+
+def build_elite_set_caption(works):
+    n = len(works)
+    lines = [f"🎨 <b>{html.escape(works[0]['author'] or 'автор')}</b>", ""]
+    for i, s in enumerate(works):
+        name = html.escape(translate_to_ru(clean(s["title_raw"], 60)))
+        lines.append(f"{NUM_EMOJI[i]} <a href=\"{s['url']}\">{name}</a>")
+    lines += ["", pick(SET_OUTROS)]
+    title = pick(SET_TITLES).format(
+        n=n, works=plural(n, "работа", "работы", "работ"))
+    return frame(elite_hook(SET_PHRASES), title, "\n".join(lines),
+                 "#rust #раст #воркшоп #скин")
+
+# Тихие часы по Киеву: конкурс и «Лучшее из воркшопа» ночью не постим —
+# они копятся и выходят утром. Новости и принятые скины — без ограничений.
+QUIET_FROM, QUIET_TO = 0, 9
+
+def quiet_now():
+    try:
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        hour = datetime.now(ZoneInfo("Europe/Kyiv")).hour
+    except Exception:
+        hour = (time.gmtime().tm_hour + 3) % 24
+    return QUIET_FROM <= hour < QUIET_TO
 
 def plural(n, one, few, many):
     """Русское окончание по числу: 1 работа, 2 работы, 5 работ."""
@@ -717,9 +888,23 @@ ACCEPT_HOOKS = [
     "🎉 Свежая партия скинов уже в игре",
     "🔥 ПРИНЯТО! Новые скины заехали в Rust",
     "🛒 Магазин Rust пополнился — вот кого приняли",
+    "🎊 Facepunch добавили новые скины — кого приняли",
+    "🏆 Новые скины в магазине Rust — поздравляем авторов",
+    "🛍 Обновление магазина: эти работы теперь в игре",
+    "✅ ПРИНЯТО В ИГРУ: свежий список",
+    "🥳 Эти авторы попали в магазин Rust",
+    "📦 Новая партия скинов уже в магазине",
+    "🔥 Свежие скины заехали в магазин Rust",
+    "🎉 Из мастерской — в магазин: новые принятые работы",
+    "👏 Эти скины теперь официально в игре",
+    "💰 Магазин обновился — вот что приняли",
 ]
-ACCEPT_OUTROS = ["Поздравляем авторов 👏", "Кто уже присмотрел себе обновку? 👀",
-                 "Ставь 🔥 за любимый скин"]
+ACCEPT_OUTROS = [
+    "Поздравляем авторов 👏", "Кто уже присмотрел себе обновку? 👀",
+    "Ставь 🔥 за любимый скин", "Что возьмёте первым? 🛒", "Заслуженно 👏",
+    "Отличная партия, как вам? 🔥", "Поздравляем всех с принятием 🥳",
+    "Есть фаворит в этой партии? 👀", "Магазин стал богаче 💰",
+]
 
 def build_accepted_caption(skins, contest_pids=(), limit=None):
     """Пост «кого приняли в игру»: авторы и все их принятые работы. Если
@@ -1057,6 +1242,7 @@ def main():
         sys.exit(1)
 
     state = load_state()
+    _RECENT[:] = state.get("recent_phrases", [])   # чтобы фразы не повторялись
     posted = set(state.get("posted_ids", []))
     tg = Telegram(token, chat, dry_run=args.dry_run)
 
@@ -1134,14 +1320,20 @@ def main():
         elite = {a for a, c in counts.items() if c >= ELITE_MIN}
         newest = fetch_new_submissions(steam_key)
 
-        # мастера: их новые работы постим СРАЗУ, отдельными постами
-        elite_new = [s for s in newest
-                     if s["author_id"] in elite and s["id"] not in posted
-                     ][:ELITE_MAX_PER_RUN]
+        # мастера: одна публикация на автора — все его новые работы за неделю
+        # (комплект, v1 и v2) идут вместе; в тихие часы (ночь) не постим
+        elite_sets = group_by_author(
+            [s for s in newest
+             if s["author_id"] in elite and s["id"] not in posted],
+            now)[:ELITE_MAX_PER_RUN]
+        forced = os.environ.get("EXTRA_POST") == "лучшее из воркшопа"
+        quiet = quiet_now() and not forced
+        if quiet:
+            elite_sets = []
 
-        # ручной запуск «лучшее из воркшопа»: если свежих работ мастеров нет,
-        # берём новую работу автора с наибольшим числом принятых скинов
-        if os.environ.get("EXTRA_POST") == "лучшее из воркшопа" and not elite_new:
+        # ручной запуск «лучшее из воркшопа»: если готовых работ мастеров нет,
+        # берём работы автора с наибольшим числом принятых скинов
+        if forced and not elite_sets:
             pool = [s for s in newest
                     if s["author_id"] in verified and s["id"] not in posted]
             pool.sort(key=lambda s: counts.get(s["author_id"], 0), reverse=True)
@@ -1150,10 +1342,13 @@ def main():
                 accepted = set(state.get("accepted_seen", []))
                 pool = [s for s in fetch_top_week(steam_key)
                         if s["id"] not in posted and s["id"] not in accepted]
-            if not pool:
+            if pool:
+                top = pool[0]["author_id"]
+                elite_sets = [[s for s in pool if s["author_id"] == top][:10]]
+                elite.add(top)   # не дублируем в конкурсе
+            else:
                 print("Для «лучшего из воркшопа» сейчас нечего постить.")
-            elite_new = pool[:1]
-            elite |= {s["author_id"] for s in elite_new}   # не дублируем в конкурсе
+        elite_new = [s for st in elite_sets for s in st]
 
         # пул авторов альбома сбрасывается раз в неделю
         wk = iso_week(now)
@@ -1170,7 +1365,7 @@ def main():
             if time.strftime("%Y-%m-%d", time.gmtime(ts)) == today)
         hours_since = (now - max(ws_albums)) / 3600 if ws_albums else 999
         album = []
-        if today_count < 2 and hours_since >= 5:
+        if today_count < 2 and hours_since >= 5 and not quiet:
             used = set()
             for s in newest:
                 a = s["author_id"]
@@ -1191,11 +1386,15 @@ def main():
         for s in elite_new + album:
             s["author"] = names.get(s["author_id"], "")
 
-        # 4a) посты мастеров — сразу, отдельно
-        for s in elite_new:
-            res = tg.send_photo(s["image"], build_elite_caption(s))
+        # 4a) посты мастеров: одна работа — фото, несколько — одним альбомом
+        for st in elite_sets:
+            if len(st) == 1:
+                res = tg.send_photo(st[0]["image"], build_elite_caption(st[0]))
+            else:
+                res = tg.send_media_group([s["image"] for s in st],
+                                          build_elite_set_caption(st))
             if args.dry_run or res.get("ok"):
-                posted.add(s["id"])
+                posted.update(s["id"] for s in st)
                 sent_any = sent_any or not args.dry_run
             time.sleep(2)
 
@@ -1243,7 +1442,7 @@ def main():
     # 5) итоги конкурса — в воскресенье, один раз за неделю
     if steam_key and not args.dry_run:
         wk = iso_week(time.time())
-        if time.gmtime().tm_wday == 6 and state.get("last_lb_week") != wk:
+        if time.gmtime().tm_wday == 6 and state.get("last_lb_week") != wk and not quiet_now():
             ranking, acc_count, had_polls = score_week(
                 state, fetch_accepted_pids(steam_key))
             if had_polls:
@@ -1256,6 +1455,7 @@ def main():
     if args.dry_run:
         print("Готово (dry-run: ничего не отправлено, история не изменена).")
     else:
+        state["recent_phrases"] = _RECENT[-500:]
         state["posted_ids"] = list(posted)
         save_state(state)
         print("Готово.")
