@@ -3,7 +3,13 @@ name: Rust Digest Bot
 on:
   schedule:
     - cron: "*/30 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      extra:
+        description: "Доп. пост прямо сейчас"
+        type: choice
+        options: ["нет", "лучшее из воркшопа"]
+        default: "нет"
 
 permissions:
   contents: write
@@ -34,6 +40,7 @@ jobs:
           REDDIT_PERIOD: ${{ vars.REDDIT_PERIOD }}
           POST_OFFICIAL_NEWS: ${{ vars.POST_OFFICIAL_NEWS }}
           YT_MAX_PER_DAY: ${{ vars.YT_MAX_PER_DAY }}
+          EXTRA_POST: ${{ inputs.extra }}
         run: |
           pip install --quiet pillow
           python rust_digest_bot.py
