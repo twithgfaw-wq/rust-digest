@@ -1,37 +1,40 @@
 {
   "posted_ids": [
-    "ws_3814549572",
-    "yt_8sNkle5VE8c",
-    "ws_3814489938",
     "ws_3806031863",
-    "yt_tsSNjTe3FBU",
-    "news_1845383656387132",
-    "yt_pOUNNmuy1Wk",
-    "ws_3809657891",
     "news_1845383656383226",
-    "ws_3814509679",
-    "ws_3814496227",
-    "yt_f9ZAOOd4TWk",
-    "ws_3805955430",
-    "yt_er0ZrRPGbM0",
-    "ws_3810070546",
-    "yt_fL3v0nRMhOU",
-    "ws_3814483935",
-    "ws_3806025414",
-    "yt_yMsw0084k3w",
-    "news_1842846814444168",
-    "yt_0UmhHMJkcMM",
-    "yt_3z8-FCwLMJU",
-    "yt_uAOi1X2QAfo",
-    "yt_P4ByeS4wcwU",
     "ws_3814513027",
+    "yt_8sNkle5VE8c",
+    "yt_yMsw0084k3w",
+    "news_1845383656387132",
+    "ws_3814483935",
+    "yt_f9ZAOOd4TWk",
     "ws_3814503801",
-    "ws_3814488972",
-    "ws_3814503590",
+    "ws_3814457335",
+    "ws_3814456695",
+    "yt_0UmhHMJkcMM",
+    "yt_pOUNNmuy1Wk",
+    "ws_3814457071",
+    "ws_3805955430",
+    "yt_uAOi1X2QAfo",
+    "yt_tsSNjTe3FBU",
+    "ws_3809657891",
+    "yt_fL3v0nRMhOU",
+    "ws_3806025414",
     "news_1845383656383732",
+    "news_1840310314354123",
+    "news_1842846814444168",
     "ws_3814483234",
+    "yt_P4ByeS4wcwU",
+    "ws_3810070546",
+    "yt_er0ZrRPGbM0",
+    "ws_3814488972",
     "yt_S8rri5BqFE8",
-    "news_1840310314354123"
+    "ws_3814549572",
+    "ws_3814489938",
+    "yt_3z8-FCwLMJU",
+    "ws_3814503590",
+    "ws_3814509679",
+    "ws_3814496227"
   ],
   "ws_albums": [
     1791306682
@@ -40,8 +43,17 @@
     1791305437,
     1791305441
   ],
-  "votes": {},
-  "update_offset": 429339881,
+  "votes": {
+    "0": {
+      "1970599599": {
+        "pids": [
+          "ws_3814483935"
+        ],
+        "name": "tree_f"
+      }
+    }
+  },
+  "update_offset": 429339888,
   "rounds": {
     "0": {
       "pids": [
@@ -55,5 +67,7 @@
       "ts": 1791306682
     }
   },
-  "round_seq": 1
+  "round_seq": 1,
+  "week_authors": [],
+  "week_authors_wk": "2026-41"
 }
