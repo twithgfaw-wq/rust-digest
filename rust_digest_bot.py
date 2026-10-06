@@ -11,21 +11,9 @@ Rust Digest Bot — автоматическая сводка новостей �
        - текстовую сводку новостей,
        - несколько постов-работ с картинкой, автором и ссылкой.
 
+Английские заголовки автоматически переводятся на русский.
+
 Только стандартная библиотека Python 3 — ставить ничего не надо.
-
-Настройка:
-  1. Создай бота у @BotFather, получи токен.
-  2. Добавь бота в свой канал администратором с правом публикаций.
-  3. Скопируй config.example.ini -> config.ini и впиши токен и канал.
-
-Запуск вручную:
-    python rust_digest_bot.py
-
-Пробный прогон (ничего не постит, только печатает в консоль):
-    python rust_digest_bot.py --dry-run
-
-Автозапуск раз в день делается Планировщиком заданий Windows —
-как именно, написано в README.md.
 """
 
 import argparse
@@ -76,6 +64,50 @@ def clean(text, limit=None):
     return t
 
 
+# ---------- перевод на русский ----------
+
+def is_mostly_cyrillic(text):
+    letters = [c for c in text if c.isalpha()]
+    if not letters:
+        return False
+    cyr = sum(1 for c in letters if "Ѐ" <= c <= "ӿ")
+    return cyr / len(letters) > 0.3
+
+
+def translate_to_ru(text):
+    """Переводит английский текст на русский. Если текст уже русский
+    или перевод не удался — возвращает исходный."""
+    text = (text or "").strip()
+    if not text or is_mostly_cyrillic(text):
+        return text
+    q = urllib.parse.quote(text)
+
+    # 1) основной: бесплатный endpoint Google Translate
+    try:
+        url = ("https://translate.googleapis.com/translate_a/single"
+               f"?client=gtx&sl=auto&tl=ru&dt=t&q={q}")
+        data = http_get_json(url, timeout=15)
+        segs = data[0] or []
+        out = "".join(s[0] for s in segs if s and s[0]).strip()
+        if out:
+            return out
+    except Exception:
+        pass
+
+    # 2) запасной: MyMemory
+    try:
+        url = (f"https://api.mymemory.translated.net/get?q={q}"
+               f"&langpair=en|ru")
+        data = http_get_json(url, timeout=15)
+        out = data.get("responseData", {}).get("translatedText", "")
+        if out and "MYMEMORY WARNING" not in out.upper():
+            return html.unescape(out).strip()
+    except Exception:
+        pass
+
+    return text  # не смогли перевести — оставляем как есть
+
+
 # ---------- источники контента ----------
 
 def fetch_official_news(count=3):
@@ -90,9 +122,10 @@ def fetch_official_news(count=3):
         return []
     out = []
     for it in items:
+        title_ru = translate_to_ru(clean(it.get("title"), 200))
         out.append({
             "id": "news_" + str(it.get("gid")),
-            "title": clean(it.get("title"), 120),
+            "title": clean(title_ru, 120),
             "url": it.get("url"),
             "date": it.get("date", 0),
         })
@@ -127,7 +160,7 @@ def fetch_top_works(period="day", limit=12, min_score=300):
             continue  # нам нужны именно "работы" с картинкой
         works.append({
             "id": "work_" + str(d.get("id")),
-            "title": clean(d.get("title"), 200),
+            "title": translate_to_ru(clean(d.get("title"), 200)),
             "author": clean(d.get("author"), 40),
             "score": d.get("score", 0),
             "flair": clean(d.get("link_flair_text"), 30),
@@ -285,7 +318,7 @@ def main():
                     posted.add(n["id"])
                 sent_any = sent_any or not args.dry_run
             else:
-                print("⚠ Новости НЕ отправлены (см. ошибку выше). "
+                print("Новости НЕ отправлены (см. ошибку выше). "
                       "В историю не записал — повторю при следующем запуске.")
             time.sleep(2)
         else:
