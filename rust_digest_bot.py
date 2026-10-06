@@ -594,8 +594,8 @@ def build_workshop_caption(skins):
 
 def build_elite_caption(s):
     title = translate_to_ru(clean(s["title_raw"], 90))
-    body = (f"Работа автора, у которого уже много работ приняли в игру — "
-            f"есть на что посмотреть.\n"
+    body = (f""
+            f""
             f"\U0001f464 <b>{html.escape(s['author'] or 'автор')}</b>\n"
             f"\U0001f517 <a href=\"{s['url']}\">Открыть в мастерской</a>")
     return frame("\U0001f525 ЛУЧШЕЕ ИЗ ВОРКШОПА", title, body,
