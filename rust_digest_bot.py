@@ -528,8 +528,9 @@ class Telegram:
         })
 
 # ---------- сборка постов ----------
-# Чтобы лента не выглядела под копирку, у каждого типа поста есть несколько
-# вариантов значков, заголовков и призывов — каждый раз берём случайный.
+# Пишем живо, как в больших фан-каналах: цепляющий заход с эмоцией, пара
+# слов от себя, ссылки и подпись. У каждого типа поста несколько вариантов
+# фраз — каждый раз берём случайный, чтобы лента не выглядела под копирку.
 # Смысл и хэштеги при этом не меняются.
 
 def today_str():
@@ -538,54 +539,55 @@ def today_str():
 def pick(options):
     return random.choice(options)
 
-BRANDS = [BRAND, "🔴", "🔺", "♦️"]
-DIVIDERS = [DIVIDER, "▬" * 12, "═" * 13, "┄" * 15, "▰▱" * 6]
-FOOTERS = ["📢 {tag}", "📡 {tag}", "🔔 Подпишись: {tag}", "👉 {tag}", "🛰 {tag}"]
+FOOTERS = ["👉 Подписывайся на {tag}", "🔔 Больше Rust — в {tag}",
+           BRAND + " {tag} — всё о Rust", "📢 Подписывайся: {tag}"]
 
 def frame(kicker, title, body, hashtags):
-    """Единый каркас поста: метка-бейдж, жирный заголовок, тело,
-    разделитель и подпись канала. Метка, разделитель и подпись каждый раз
-    немного разные. body — уже готовый HTML (не экранируем)."""
-    parts = [f"{pick(BRANDS)} <b>{kicker}</b>"]
+    """Каркас поста: цепляющий заход жирным, заголовок, тело, подпись
+    канала и хэштеги. body — уже готовый HTML (не экранируем)."""
+    parts = [f"<b>{kicker}</b>"]
     if title:
         parts.append(html.escape(title))
-    parts += ["", body, "", pick(DIVIDERS),
-              pick(FOOTERS).format(tag=CHANNEL_TAG) + f"   {hashtags}"]
+    parts += ["", body, "", pick(FOOTERS).format(tag=CHANNEL_TAG), hashtags]
     return "\n".join(parts)
 
-NEWS_KICKERS = ["📰 НОВОСТИ RUST", "🗞 СВОДКА RUST", "⚡️ ЧТО НОВОГО В RUST",
-                "📣 RUST: ГЛАВНОЕ"]
-NEWS_TITLES = ["Свежие обновления", "Что изменилось в игре",
-               "Главное от Facepunch", "Читай, пока не вайпнуло"]
-NEWS_BULLETS = ["🔹", "🔸", "📌", "▪️", "➤"]
+NEWS_HOOKS = [
+    "🛠 Facepunch снова что-то накрутили — свежие новости Rust",
+    "📢 ВАЖНОЕ ИЗ RUST — читаем, пока не вайпнуло",
+    "👀 Разработчики подкинули новостей, разбираем",
+    "⚡️ Пока вы фармили серу, Facepunch выкатили новости",
+    "🗞 СВЕЖАК ОТ РАЗРАБОТЧИКОВ RUST",
+]
+NEWS_OUTROS = ["Что думаете — к лучшему? 🤔", "Ставь 🔥, если ждал",
+               "Готовимся к вайпу 🪓", ""]
+NEWS_BULLETS = ["🔹", "📌", "▪️", "➤"]
 
 def build_news_caption(news):
     bullet = pick(NEWS_BULLETS)
     body = "\n".join(
         f"{bullet} <a href=\"{n['url']}\">{html.escape(n['title'])}</a>"
         for n in news)
-    if random.random() < 0.5:
-        body = f"<blockquote>{body}</blockquote>"   # иногда — цитатным блоком
-    return frame(f"{pick(NEWS_KICKERS)} · {today_str()}", pick(NEWS_TITLES),
-                 body, "#rust #раст #новости")
+    outro = pick(NEWS_OUTROS)
+    if outro:
+        body += f"\n\n{outro}"
+    return frame(pick(NEWS_HOOKS), f"🗓 {today_str()}", body,
+                 "#rust #раст #новости")
 
 FLAIR_EMOJI = {
     "Base Design": "🏰", "Image": "🖼", "Video": "🎬",
     "Work in Progress": "🔨", "Art": "🎨", "Discussion": "💬",
 }
-WORK_KICKERS = ["РАБОТА ДНЯ", "ЗАЦЕНИ", "ШЕДЕВР СООБЩЕСТВА", "ИЗ R/PLAYRUST"]
-WORK_LINKS = ["Обсуждение на r/playrust", "Комментарии игроков",
-              "Открыть на Reddit"]
+WORK_HOOKS = ["😳 Игроки опять строят невозможное", "🔥 РАБОТА ДНЯ С R/PLAYRUST",
+              "👏 Сообщество снова удивляет", "🏆 Такое не каждый день увидишь"]
 
 def build_work_caption(w, index):
-    emoji = FLAIR_EMOJI.get(w["flair"], pick(["🔥", "💥", "✨"]))
-    kicker = f"{emoji} {pick(WORK_KICKERS)}"
+    hook = pick(WORK_HOOKS)
     if w["flair"]:
-        kicker += f" · {html.escape(w['flair'])}"
-    body = (f"{pick(['👤', '🎨', '✍️'])} u/{html.escape(w['author'])}   "
-            f"{pick(['⬆️', '👍', '🔺'])} {w['score']}\n"
-            f"🔗 <a href=\"{w['url']}\">{pick(WORK_LINKS)}</a>")
-    return frame(kicker, w["title"], body, "#rust #раст #работы")
+        emoji = FLAIR_EMOJI.get(w["flair"], "🔥")
+        hook += f" · {emoji} {html.escape(w['flair'])}"
+    body = (f"👤 u/{html.escape(w['author'])}   ⬆️ {w['score']}\n"
+            f"💬 <a href=\"{w['url']}\">Обсуждение на Reddit</a>")
+    return frame(hook, w["title"], body, "#rust #раст #работы")
 
 def fmt_views(n):
     if n >= 1_000_000:
@@ -594,64 +596,61 @@ def fmt_views(n):
         return f"{n // 1000}K"
     return str(n)
 
-VIDEO_KICKERS = ["ВИДЕО ДНЯ", "СТОИТ ПОСМОТРЕТЬ", "НОВЫЙ РОЛИК",
-                 "ЛУЧШЕЕ ЗА ДЕНЬ"]
-VIDEO_LINKS = ["Смотреть на YouTube", "Открыть видео", "Включить ролик"]
+VIDEO_HOOKS = [
+    "🎬 {author} выпустил новый ролик — и он того стоит",
+    "🍿 Есть что посмотреть вечером: новое видео от {author}",
+    "📺 {author} снова в деле",
+    "🔥 ЛУЧШЕЕ ВИДЕО ДНЯ — ОТ {author}",
+]
 
 def build_video_caption(v):
-    kicker = (f"{pick(['🎬', '📺', '🍿', '🎥'])} {html.escape(v['author'])}"
-              f" · {pick(VIDEO_KICKERS)}")
-    views = (f"   {pick(['👁', '👀'])} {fmt_views(v['views'])}"
-             if v.get("views") else "")
-    body = (f"{pick(['▶️', '📽', '⏯'])} <a href=\"{v['url']}\">"
-            f"{pick(VIDEO_LINKS)}</a>{views}")
-    return frame(kicker, v["title"], body, "#rust #раст #видео")
+    hook = pick(VIDEO_HOOKS).format(author=html.escape(v["author"]))
+    views = f"   👁 {fmt_views(v['views'])}" if v.get("views") else ""
+    body = f"📹 <a href=\"{v['url']}\">YouTube</a>{views}"
+    return frame(hook, v["title"], body, "#rust #раст #видео")
 
 NUM_EMOJI = ["1️⃣", "2️⃣", "3️⃣", "4️⃣",
              "5️⃣", "6️⃣", "7️⃣", "8️⃣",
              "9️⃣", "\U0001f51f"]
 
-CONTEST_KICKERS = ["КОНКУРС · УГАДАЙ ПРИНЯТЫЙ СКИН",
-                   "КОНКУРС · КАКОЙ СКИН ПРИМУТ?",
-                   "КОНКУРС · ПРОГНОЗ НА СКИНЫ"]
-CONTEST_TITLES = ["5 новых работ — у каждого свой автор",
-                  "Пять свежих скинов от пяти авторов",
-                  "Новинки мастерской — выбирай фаворита"]
+CONTEST_HOOKS = [
+    "🎯 КОНКУРС: УГАДАЕТЕ, КАКОЙ СКИН ПРИМУТ В ИГРУ?",
+    "🎲 КОНКУРС — пять новых скинов, а в игру попадёт не каждый",
+    "🤔 КОНКУРС: Facepunch отберут не всех. Ваш прогноз?",
+]
 CONTEST_CTAS = [
-    "🎯 Какой из них примут в игру? Жми номер, затем «Подтвердить». "
-    "Итоги — в конце недели 🏆",
-    "🤔 Кто пройдёт в игру? Выбери номер и нажми «Подтвердить» — "
-    "итоги в воскресенье 🏆",
-    "🎲 Делай прогноз: номер → «Подтвердить». Угадавших покажем "
-    "в конце недели 🥇",
-    "🧠 Проверь чутьё: выбери скин, который примут, и подтверди выбор. "
-    "Рейтинг — в воскресенье 📊",
+    "Жми номер, затем «Подтвердить» 👇 Итоги — в воскресенье 🏆",
+    "Выбирай номер и подтверждай 👇 Угадавших покажем в конце недели 🥇",
+    "Ставь на фаворита: номер → «Подтвердить» 👇 Рейтинг — в воскресенье 📊",
 ]
 
 def build_workshop_caption(skins):
-    sep = pick([" — ", " · ", " | "])
-    who = pick(["", "👤 ", "🎨 "])
     lines = []
     for i, s in enumerate(skins):
         title = html.escape(translate_to_ru(clean(s["title_raw"], 80)))
         author = html.escape(s["author"] or "автор неизвестен")
-        lines.append(f"{NUM_EMOJI[i]} <b>{title}</b>{sep}{who}{author}")
+        lines.append(f"{NUM_EMOJI[i]} <b>{title}</b> — {author}")
     lines.append("")
     lines.append(pick(CONTEST_CTAS))
-    return frame(f"{pick(['🎨', '🖌', '🧩', '🎯'])} {pick(CONTEST_KICKERS)}",
-                 pick(CONTEST_TITLES), "\n".join(lines),
-                 "#rust #раст #скины #конкурс")
+    return frame(pick(CONTEST_HOOKS), "5 новых работ — у каждого свой автор",
+                 "\n".join(lines), "#rust #раст #скины #конкурс")
 
-ELITE_LINKS = ["Открыть в мастерской", "Смотреть в Steam Workshop",
-               "Подробнее в мастерской"]
+ELITE_HOOKS = [
+    "🔥 ЛУЧШЕЕ ИЗ ВОРКШОПА — свежая работа",
+    "💎 ЛУЧШЕЕ ИЗ ВОРКШОПА: выглядит дорого",
+    "😮 ЛУЧШЕЕ ИЗ ВОРКШОПА: вот это детализация",
+    "👀 ЛУЧШЕЕ ИЗ ВОРКШОПА — зацените",
+]
+ELITE_OUTROS = ["Как думаете, добавят в игру? 🤔",
+                "Ставь 🔥, если хочешь такой в игре",
+                "Берём или пропускаем? 👀"]
 
 def build_elite_caption(s):
     title = translate_to_ru(clean(s["title_raw"], 90))
-    body = (f"{pick(['👤', '🎨', '✍️'])} "
-            f"<b>{html.escape(s['author'] or 'автор')}</b>\n"
-            f"🔗 <a href=\"{s['url']}\">{pick(ELITE_LINKS)}</a>")
-    return frame(f"{pick(['🔥', '💎', '⭐️', '👑', '🏆'])} ЛУЧШЕЕ ИЗ ВОРКШОПА",
-                 title, body, "#rust #раст #воркшоп #скин")
+    body = (f"🎨 <b>{html.escape(s['author'] or 'автор')}</b>\n"
+            f"🔗 <a href=\"{s['url']}\">Мастерская Steam</a>\n\n"
+            f"{pick(ELITE_OUTROS)}")
+    return frame(pick(ELITE_HOOKS), title, body, "#rust #раст #воркшоп #скин")
 
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
