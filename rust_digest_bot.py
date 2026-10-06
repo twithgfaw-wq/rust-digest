@@ -7,8 +7,9 @@ Rust Digest Bot — автоматическая сводка новостей �
   1. Берёт свежие ОФИЦИАЛЬНЫЕ новости Rust из Steam News API.
   2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты).
   3. Берёт ЛУЧШИЕ видео дня у YouTube-блогеров по Rust (по просмотрам).
-  4. Берёт свежие работы из мастерской Steam от ПРОВЕРЕННЫХ авторов
-     (альбом из 5 штук) + конкурс "угадай принятый скин" на кнопках.
+  4. Мастерская Steam: работы "мастеров" (у кого много принятых скинов)
+     постит сразу отдельно; плюс альбом из 5 скинов РАЗНЫХ авторов с
+     конкурсом "угадай, какой примут".
   5. Публикует всё это в твой Telegram-канал в едином стиле.
 
 Английские заголовки автоматически переводятся на русский.
@@ -52,6 +53,11 @@ YT_CHANNELS = [
 # в заголовке (чтобы не постить их ролики про другие игры).
 RUST_KEYWORDS = ("rust", "раст", "facepunch", "фейспанч", "wipe", "вайп",
                  "devblog", "девблог", "roam", "zerg")
+
+# «Мастер» — автор, у которого в свежем списке принятых не меньше
+# ELITE_MIN скинов. Его новые работы постим сразу, отдельными постами.
+ELITE_MIN = 6
+ELITE_MAX_PER_RUN = 3    # сколько работ мастеров постить за один прогон
 
 
 # ---------- вспомогательное ----------
@@ -260,18 +266,21 @@ def fetch_youtube(channels, max_age_days=4):
 
 
 def resolve_steam_names(api_key, steamids):
-    """SteamID -> ник автора (одним запросом на всех)."""
-    ids = ",".join(sorted({str(s) for s in steamids if s}))
-    if not ids:
-        return {}
-    url = ("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/"
-           f"?key={api_key}&steamids={ids}")
-    try:
-        data = http_get_json(url, timeout=15)
-        players = data.get("response", {}).get("players", [])
-        return {p.get("steamid"): p.get("personaname", "") for p in players}
-    except Exception:
-        return {}
+    """SteamID -> ник автора. GetPlayerSummaries берёт до 100 за раз,
+    поэтому режем на пачки."""
+    uniq = sorted({str(s) for s in steamids if s})
+    out = {}
+    for i in range(0, len(uniq), 100):
+        batch = ",".join(uniq[i:i + 100])
+        url = ("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/"
+               f"v2/?key={api_key}&steamids={batch}")
+        try:
+            data = http_get_json(url, timeout=15)
+            for p in data.get("response", {}).get("players", []):
+                out[p.get("steamid")] = p.get("personaname", "")
+        except Exception:
+            pass
+    return out
 
 
 def _query_files(api_key, query_type, per, cursor):
@@ -282,25 +291,64 @@ def _query_files(api_key, query_type, per, cursor):
     return http_get_json(url, timeout=20).get("response", {})
 
 
-def fetch_accepted_author_ids(api_key, pages=8, per=100):
-    """SteamID проверенных авторов — тех, чьи скины УЖЕ приняли в игру
-    (query_type=2 = accepted-for-game). Листаем несколько страниц."""
-    ids, cursor = set(), "*"
+def fetch_accepted_authors(api_key, pages=10, per=100):
+    """Сколько принятых в игру скинов у каждого автора (по свежему
+    списку принятых). dict author_id -> count. Ключи = проверенные
+    авторы; большой count = «мастер»."""
+    counts, cursor = {}, "*"
     for _ in range(pages):
         try:
             resp = _query_files(api_key, 2, per, cursor)
         except Exception as e:
-            print("Список проверенных авторов не загрузился:", e)
+            print("Список принятых не загрузился:", e)
             break
         items = resp.get("publishedfiledetails", [])
         for it in items:
             c = it.get("creator")
             if c:
-                ids.add(str(c))
+                counts[str(c)] = counts.get(str(c), 0) + 1
         cursor = resp.get("next_cursor") or ""
         if not cursor or not items:
             break
-    return ids
+    return counts
+
+
+def fetch_new_submissions(api_key, pages=6, per=50, max_age_days=14):
+    """Все свежие НОВЫЕ заявки скинов (query_type=1), новейшие первыми."""
+    out, cursor, seen = [], "*", set()
+    now = time.time()
+    for _ in range(pages):
+        try:
+            resp = _query_files(api_key, 1, per, cursor)
+        except Exception as e:
+            print("Новые заявки не загрузились:", e)
+            break
+        items = resp.get("publishedfiledetails", [])
+        for it in items:
+            pid = it.get("publishedfileid")
+            preview = it.get("preview_url")
+            title = it.get("title")
+            if not pid or not preview or not title or pid in seen:
+                continue
+            tc = it.get("time_created", 0) or 0
+            if tc and (now - tc) / 86400 > max_age_days:
+                continue
+            seen.add(pid)
+            out.append({
+                "id": "ws_" + str(pid),
+                "title_raw": title,
+                "author_id": str(it.get("creator") or ""),
+                "author": "",
+                "image": preview,
+                "created": tc,
+                "url": ("https://steamcommunity.com/sharedfiles/filedetails/"
+                        "?id=" + str(pid)),
+            })
+        cursor = resp.get("next_cursor") or ""
+        if not cursor or not items:
+            break
+    out.sort(key=lambda x: x["created"], reverse=True)
+    return out
 
 
 def fetch_accepted_pids(api_key, pages=10, per=100):
@@ -321,54 +369,6 @@ def fetch_accepted_pids(api_key, pages=10, per=100):
         if not cursor or not items:
             break
     return pids
-
-
-def fetch_new_from_verified(api_key, verified_ids, want=5, scan_pages=5,
-                            per=50, max_age_days=14):
-    """Свежие НОВЫЕ заявки (query_type=1, по дате публикации), но только
-    от проверенных авторов из verified_ids."""
-    picked, steamids, cursor = [], [], "*"
-    now = time.time()
-    seen = set()
-    for _ in range(scan_pages):
-        try:
-            resp = _query_files(api_key, 1, per, cursor)
-        except Exception as e:
-            print("Новые работы не загрузились:", e)
-            break
-        items = resp.get("publishedfiledetails", [])
-        for it in items:
-            creator = str(it.get("creator") or "")
-            if creator not in verified_ids:
-                continue
-            pid = it.get("publishedfileid")
-            preview = it.get("preview_url")
-            title = it.get("title")
-            if not pid or not preview or not title or pid in seen:
-                continue
-            tc = it.get("time_created", 0) or 0
-            if tc and (now - tc) / 86400 > max_age_days:
-                continue
-            seen.add(pid)
-            picked.append({
-                "id": "ws_" + str(pid),
-                "title_raw": title,
-                "author_id": creator,
-                "author": "",
-                "image": preview,
-                "created": tc,
-                "url": ("https://steamcommunity.com/sharedfiles/filedetails/"
-                        "?id=" + str(pid)),
-            })
-            steamids.append(creator)
-        cursor = resp.get("next_cursor") or ""
-        if not cursor or not items or len(picked) >= want * 3:
-            break
-    picked.sort(key=lambda x: x["created"], reverse=True)
-    names = resolve_steam_names(api_key, steamids)
-    for s in picked:
-        s["author"] = names.get(s["author_id"], "")
-    return picked
 
 
 def pick_image(d):
@@ -544,8 +544,17 @@ def build_workshop_caption(skins):
         f" — {html.escape(s['author'] or 'автор неизвестен')}"
         for i, s in enumerate(skins))
     return frame("\U0001f3a8 МАСТЕРСКАЯ RUST · НОВИНКИ",
-                 "Свежие скины от проверенных авторов",
+                 "Свежие скины — у каждого свой автор",
                  body, "#rust #раст #скины")
+
+
+def build_elite_caption(s):
+    title = translate_to_ru(clean(s["title_raw"], 90))
+    body = (f"Новая работа мастера, у которого уже много принятых скинов.\n"
+            f"\U0001f464 {html.escape(s['author'] or 'автор')}\n"
+            f"\U0001f517 <a href=\"{s['url']}\">Открыть в мастерской</a>")
+    return frame("⭐ МАСТЕР RUST · НОВАЯ РАБОТА", title, body,
+                 "#rust #раст #скин")
 
 
 # ---------- конкурс "угадай принятый скин" ----------
@@ -761,49 +770,89 @@ def main():
         else:
             print("Лимит видео на сегодня исчерпан.")
 
-    # 4) мастерская Steam — альбом из 5 новинок + конкурс, до 2/день
+    # 4) мастерская Steam: мастера (сразу) + альбом-конкурс из РАЗНЫХ авторов
     if steam_key:
-        ws_albums = state.get("ws_albums", [])
         now = time.time()
+        counts = fetch_accepted_authors(steam_key)   # author_id -> принято
+        verified = set(counts)
+        elite = {a for a, c in counts.items() if c >= ELITE_MIN}
+        newest = fetch_new_submissions(steam_key)
+
+        # мастера: их новые работы постим СРАЗУ, отдельными постами
+        elite_new = [s for s in newest
+                     if s["author_id"] in elite and s["id"] not in posted
+                     ][:ELITE_MAX_PER_RUN]
+
+        # пул авторов альбома сбрасывается раз в неделю
+        wk = iso_week(now)
+        if state.get("week_authors_wk") != wk:
+            state["week_authors"] = []
+            state["week_authors_wk"] = wk
+        week_authors = set(state.get("week_authors", []))
+
+        # альбом из 5 скинов РАЗНЫХ авторов (не мастера, не повтор за неделю)
+        ws_albums = state.get("ws_albums", [])
         today = time.strftime("%Y-%m-%d", time.gmtime(now))
         today_count = sum(
             1 for ts in ws_albums
             if time.strftime("%Y-%m-%d", time.gmtime(ts)) == today)
         hours_since = (now - max(ws_albums)) / 3600 if ws_albums else 999
+        album = []
         if today_count < 2 and hours_since >= 5:
-            verified = fetch_accepted_author_ids(steam_key)
-            cand = [s for s in fetch_new_from_verified(steam_key, verified)
-                    if s["id"] not in posted]
-            fresh = cand[:5]
-            if len(fresh) >= 5:
-                res = tg.send_media_group([s["image"] for s in fresh],
-                                          build_workshop_caption(fresh))
-                if args.dry_run or res.get("ok"):
-                    for s in fresh:
-                        posted.add(s["id"])
-                    # голосование-конкурс: кнопки под альбомом
-                    rid = str(state.get("round_seq", 0))
-                    state["round_seq"] = state.get("round_seq", 0) + 1
-                    labels = [f"{NUM_EMOJI[i]} "
-                              f"{clean(translate_to_ru(clean(s['title_raw'], 60)), 28)}"
-                              for i, s in enumerate(fresh)]
-                    vtext = ("\U0001f3af <b>Голосуй: какие из этих 5 примут "
-                             "в игру?</b>\nЖми номера (можно несколько). "
-                             "Итоги — в конце недели, с именами.")
-                    vres = tg.send_vote_buttons(vtext, labels, rid)
-                    if not args.dry_run and vres.get("ok"):
-                        rounds = state.setdefault("rounds", {})
-                        rounds[rid] = {
-                            "pids": [s["id"] for s in fresh],
-                            "week": iso_week(now),
-                            "ts": int(now),
-                        }
-                    if not args.dry_run:
-                        state["ws_albums"] = (ws_albums + [int(now)])[-10:]
-                    sent_any = True
-            else:
-                print(f"Новых работ от проверенных авторов пока "
-                      f"{len(fresh)} (<5) — ждём накопления.")
+            used = set()
+            for s in newest:
+                a = s["author_id"]
+                if (a not in verified or a in elite or a in used
+                        or a in week_authors or s["id"] in posted):
+                    continue
+                used.add(a)
+                album.append(s)
+                if len(album) == 5:
+                    break
+            if len(album) < 5:
+                print(f"Разных новых авторов пока {len(album)} (<5) — ждём.")
+                album = []
+
+        # имена авторов — только для тех, кого реально постим
+        names = resolve_steam_names(
+            steam_key, [s["author_id"] for s in elite_new + album])
+        for s in elite_new + album:
+            s["author"] = names.get(s["author_id"], "")
+
+        # 4a) посты мастеров — сразу, отдельно
+        for s in elite_new:
+            res = tg.send_photo(s["image"], build_elite_caption(s))
+            if args.dry_run or res.get("ok"):
+                posted.add(s["id"])
+                sent_any = sent_any or not args.dry_run
+            time.sleep(2)
+
+        # 4b) альбом + конкурс (голосование на кнопках)
+        if len(album) == 5:
+            res = tg.send_media_group([s["image"] for s in album],
+                                      build_workshop_caption(album))
+            if args.dry_run or res.get("ok"):
+                for s in album:
+                    posted.add(s["id"])
+                rid = str(state.get("round_seq", 0))
+                state["round_seq"] = state.get("round_seq", 0) + 1
+                labels = [f"{NUM_EMOJI[i]} "
+                          f"{clean(translate_to_ru(clean(s['title_raw'], 60)), 28)}"
+                          for i, s in enumerate(album)]
+                vtext = ("\U0001f3af <b>Голосуй: какие из этих 5 примут в "
+                         "игру?</b>\nУ каждого скина свой автор — обычно "
+                         "принимают по одному. Жми номера (можно несколько). "
+                         "Итоги — в конце недели.")
+                vres = tg.send_vote_buttons(vtext, labels, rid)
+                if not args.dry_run and vres.get("ok"):
+                    rounds = state.setdefault("rounds", {})
+                    rounds[rid] = {"pids": [s["id"] for s in album],
+                                   "week": wk, "ts": int(now)}
+                if not args.dry_run:
+                    state["ws_albums"] = (ws_albums + [int(now)])[-10:]
+                    state["week_authors"] = list(
+                        week_authors | {s["author_id"] for s in album})
+                sent_any = True
 
     # 5) итоги конкурса — в воскресенье, один раз за неделю
     if steam_key and not args.dry_run:
