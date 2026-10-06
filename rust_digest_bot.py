@@ -1339,13 +1339,13 @@ SERIES_STOP = {"the", "red", "blue", "black", "white", "green", "pink", "gold",
                "golden", "purple", "old", "big", "little", "dark", "light",
                "small", "large", "new", "mini", "super", "royal", "classic"}
 
-def fetch_market(pages=3):
+def fetch_market(pages=15):   # Steam отдаёт по 10 скинов за запрос
     """Самые ходовые скины Rust на маркете Steam: {имя: цена в центах,
     число лотов, иконка, цвет фона}. Steam режет частые запросы — паузы."""
     items = {}
     for page in range(pages):
         url = ("https://steamcommunity.com/market/search/render/?appid="
-               f"{RUST_APPID}&norender=1&count=100&start={page * 100}"
+               f"{RUST_APPID}&norender=1&count=10&start={page * 10}"
                "&sort_column=popular&sort_dir=desc&currency=1")
         data = None
         for attempt in range(3):
@@ -1470,7 +1470,7 @@ def market_tick(tg, state, forced=False):
                        or state.get("market_day") == today):
         return
     items = fetch_market()
-    if len(items) < 100:
+    if len(items) < 60:
         print(f"Маркет ответил не полностью ({len(items)}) — попробую позже.")
         return
     snaps = state.setdefault("market_snaps", {})
