@@ -1460,13 +1460,14 @@ def build_market_card(title, subtitle, sections, out_path):
     img.save(out_path, "JPEG", quality=90)
     return True
 
-def market_tick(tg, state):
+def market_tick(tg, state, forced=False):
     """Раз в день в обед: снимок цен маркета и пост-сводка с картинкой."""
     import re
     from datetime import datetime, timedelta
     kt = kyiv_time()
     today = kt.strftime("%Y-%m-%d")
-    if kt.hour < MARKET_HOUR or state.get("market_day") == today:
+    if not forced and (kt.hour < MARKET_HOUR
+                       or state.get("market_day") == today):
         return
     items = fetch_market()
     if len(items) < 100:
@@ -1564,7 +1565,8 @@ def market_tick(tg, state):
     if not res.get("ok"):
         res = tg.send_message(text)
     if res.get("ok"):
-        state["market_day"] = today
+        if not forced:   # ручной показ не отменяет обеденную сводку
+            state["market_day"] = today
 
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
@@ -2057,7 +2059,8 @@ def main():
     # 4g) маркет Steam: сводка цен раз в день в обед
     if not args.dry_run:
         try:
-            market_tick(tg, state)
+            market_tick(tg, state,
+                        os.environ.get("EXTRA_POST") == "сводка маркета")
         except Exception as e:
             print("Сводка маркета не удалась:", e)
 
