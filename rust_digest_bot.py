@@ -57,7 +57,7 @@ RUST_KEYWORDS = ("rust", "раст", "facepunch", "фейспанч", "wipe", "�
 
 # «Мастер» — автор, у которого в свежем списке принятых не меньше
 # ELITE_MIN скинов. Его новые работы постим сразу, отдельными постами.
-ELITE_MIN = 6
+ELITE_MIN = 25
 ELITE_MAX_PER_RUN = 3    # сколько работ мастеров постить за один прогон
 
 # ---------- вспомогательное ----------
@@ -665,6 +665,30 @@ def build_collage(image_urls, out_path):
 def iso_week(ts):
     return time.strftime("%G-%V", time.gmtime(ts))
 
+def fetch_worker_votes(state):
+    """Голоса берём у Cloudflare-воркера (публичный /export). Индекс
+    кнопки переводим в id скина по нашим раундам и кладём в votes."""
+    url = (os.environ.get("WORKER_URL")
+           or "https://rust-votes.twithgfaw.workers.dev").rstrip("/")
+    try:
+        data = http_get_json(url + "/export", timeout=15)
+    except Exception as e:
+        print("Голоса воркера не загрузились:", e)
+        return
+    rounds = state.get("rounds", {})
+    votes = state.get("votes", {})
+    for rid, usersd in (data or {}).items():
+        pids = (rounds.get(rid, {}) or {}).get("pids", [])
+        if not pids:
+            continue
+        vr = votes.setdefault(rid, {})
+        for uid, v in (usersd or {}).items():
+            idx = v.get("idx")
+            if isinstance(idx, int) and 0 <= idx < len(pids):
+                vr[uid] = {"pid": pids[idx], "name": v.get("name") or "Игрок"}
+    state["votes"] = votes
+
+
 def collect_votes(tg, state):
     """Забираем нажатия кнопок (callback_query). Один голос на игрока:
     новое нажатие заменяет прежний прогноз. Кнопка «Подтвердить» просто
@@ -851,7 +875,7 @@ def main():
     # сначала забираем новые голоса конкурса и обновляем живой счётчик
     if not args.dry_run:
         try:
-            collect_votes(tg, state)
+            fetch_worker_votes(state)
             update_live_counts(tg, state)
         except Exception as e:
             print("Сбор голосов не удался:", e)
