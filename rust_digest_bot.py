@@ -357,6 +357,35 @@ def fetch_accepted_pids(api_key, pages=10, per=100):
             break
     return pids
 
+def fetch_recent_accepted(api_key, pages=2, per=100):
+    """Принятые в игру скины (query_type=2), последние принятые первыми —
+    с названием, автором и картинкой, для поста «кого приняли»."""
+    out, cursor = [], "*"
+    for _ in range(pages):
+        try:
+            resp = _query_files(api_key, 2, per, cursor)
+        except Exception as e:
+            print("Принятые скины не загрузились:", e)
+            break
+        items = resp.get("publishedfiledetails", [])
+        for it in items:
+            pid = it.get("publishedfileid")
+            if not pid:
+                continue
+            out.append({
+                "id": "ws_" + str(pid),
+                "title_raw": it.get("title") or "",
+                "author_id": str(it.get("creator") or ""),
+                "author": "",
+                "image": it.get("preview_url") or "",
+                "url": ("https://steamcommunity.com/sharedfiles/filedetails/"
+                        "?id=" + str(pid)),
+            })
+        cursor = resp.get("next_cursor") or ""
+        if not cursor or not items:
+            break
+    return out
+
 def pick_image(d):
     """Достаём прямую ссылку на картинку из поста Reddit."""
     # 1) прямая ссылка на картинку
@@ -651,6 +680,89 @@ def build_elite_caption(s):
             f"🔗 <a href=\"{s['url']}\">Мастерская Steam</a>\n\n"
             f"{pick(ELITE_OUTROS)}")
     return frame(pick(ELITE_HOOKS), title, body, "#rust #раст #воркшоп #скин")
+
+def plural(n, one, few, many):
+    """Русское окончание по числу: 1 работа, 2 работы, 5 работ."""
+    if n % 10 == 1 and n % 100 != 11:
+        return one
+    if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+        return few
+    return many
+
+ACCEPT_HOOKS = [
+    "✅ FACEPUNCH ПРИНЯЛИ НОВЫЕ СКИНЫ В ИГРУ!",
+    "🎉 Свежая партия скинов уже в игре",
+    "🔥 ПРИНЯТО! Новые скины заехали в Rust",
+    "🛒 Магазин Rust пополнился — вот кого приняли",
+]
+ACCEPT_OUTROS = ["Поздравляем авторов 👏", "Кто уже присмотрел себе обновку? 👀",
+                 "Ставь 🔥 за любимый скин"]
+
+def build_accepted_caption(skins, contest_pids=(), limit=None):
+    """Пост «кого приняли в игру»: авторы и все их принятые работы. Если
+    текст не влезает в limit символов, хвост списка сворачиваем в
+    «…и ещё N работ»."""
+    by_author = {}
+    for s in skins:
+        by_author.setdefault(s["author"] or "автор неизвестен", []).append(s)
+    blocks = []
+    for author, items in by_author.items():
+        lines = [f"👤 <b>{html.escape(author)}</b>"]
+        lines += [f"   ▫️ <a href=\"{s['url']}\">{html.escape(s['title_ru'])}</a>"
+                  for s in items]
+        blocks.append("\n".join(lines))
+    n, a = len(skins), len(by_author)
+    title = (f"{n} {plural(n, 'работа', 'работы', 'работ')} от {a} "
+             f"{plural(a, 'автора', 'авторов', 'авторов')}")
+    tail = ""
+    if any(s["id"] in contest_pids for s in skins):
+        tail += ("\n\n🎯 Среди них есть скины из нашего конкурса — "
+                 "итоги в воскресенье 🏆")
+    tail += "\n\n" + pick(ACCEPT_OUTROS)
+    hook = pick(ACCEPT_HOOKS)
+    shown = len(blocks)
+    while True:
+        body = "\n\n".join(blocks[:shown])
+        rest = sum(len(v) for v in list(by_author.values())[shown:])
+        if rest:
+            body += f"\n\n…и ещё {rest} {plural(rest, 'работа', 'работы', 'работ')}"
+        text = frame(hook, title, body + tail, "#rust #раст #скины #принято")
+        if limit is None or len(text) <= limit or shown == 1:
+            return text
+        shown -= 1
+
+def post_new_accepts(tg, state, api_key):
+    """Пост о свежепринятых в игру скинах. Первый запуск только запоминает
+    уже принятые (иначе вывалили бы сотни старых), дальше постим новинки."""
+    seen = state.get("accepted_seen")
+    if seen is None:
+        ids = [s["id"] for s in fetch_recent_accepted(api_key, pages=10)]
+        if len(ids) >= 200:
+            state["accepted_seen"] = ids[::-1]   # от старых к новым
+        return
+    known = set(seen)
+    fresh = [s for s in fetch_recent_accepted(api_key)
+             if s["id"] not in known]
+    if not fresh:
+        return
+    if len(fresh) > 150:   # почти всё окно «новое» — сбой выдачи, не спамим
+        print(f"Подозрительно много новых принятых ({len(fresh)}) — пропускаю.")
+        state["accepted_seen"] = (seen + [s["id"] for s in fresh[::-1]])[-3000:]
+        return
+    names = resolve_steam_names(api_key, [s["author_id"] for s in fresh])
+    for s in fresh:
+        s["author"] = names.get(s["author_id"], "")
+        s["title_ru"] = translate_to_ru(clean(s["title_raw"], 70))
+    contest = {p for r in state.get("rounds", {}).values()
+               for p in r.get("pids", [])}
+    text = build_accepted_caption(fresh, contest)
+    image = next((s["image"] for s in fresh if s["image"]), "")
+    if image and len(text) <= 1024:
+        res = tg.send_photo(image, text)
+    else:
+        res = tg.send_message(build_accepted_caption(fresh, contest, 4000))
+    if res.get("ok"):
+        state["accepted_seen"] = (seen + [s["id"] for s in fresh[::-1]])[-3000:]
 
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
@@ -1081,6 +1193,13 @@ def main():
                     state["week_authors"] = list(
                         week_authors | {s["author_id"] for s in album})
                 sent_any = True
+
+    # 4c) новые принятые в игру скины — пост «кого и что приняли»
+    if steam_key and not args.dry_run:
+        try:
+            post_new_accepts(tg, state, steam_key)
+        except Exception as e:
+            print("Пост о принятых скинах не удался:", e)
 
     # 5) итоги конкурса — в воскресенье, один раз за неделю
     if steam_key and not args.dry_run:
