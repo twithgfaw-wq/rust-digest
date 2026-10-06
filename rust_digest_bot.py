@@ -1397,21 +1397,36 @@ def series_moves(changes):
     return (up if up[1][0] >= 1 else None), (down if down[1][0] <= -1 else None)
 
 def build_market_card(title, subtitle, sections, out_path):
-    """Картинка-отчёт 1080×1350: заголовок и блоки строк с иконкой скина,
-    названием, ценой и изменением. Шрифт DejaVu — с кириллицей."""
+    """Картинка-отчёт 1440×1800. Рисуем в 2× и уменьшаем (LANCZOS) — гладкие
+    края и чёткий текст; иконки скинов берём в 512px (_large) от Facepunch.
+    Шрифт DejaVu — с кириллицей."""
     try:
-        from PIL import Image, ImageDraw, ImageFont
+        from PIL import Image, ImageDraw, ImageFilter, ImageFont
     except Exception:
         return False
-    W, H = 1080, 1350
-    img = Image.new("RGB", (W, H), (19, 21, 27))
+    S, W, H = 2, 1440, 1800
+    p = lambda v: int(v * S)              # базовые координаты → холст 2×
+    card_bg, line_c = (31, 34, 43), (48, 52, 64)
+    muted, red = (150, 156, 172), (205, 65, 43)
+
+    # фон: тёмный вертикальный градиент + мягкое красное свечение в углу
+    grad = Image.linear_gradient("L").resize((p(W), p(H)))
+    img = Image.composite(Image.new("RGB", (p(W), p(H)), (11, 12, 16)),
+                          Image.new("RGB", (p(W), p(H)), (27, 29, 37)),
+                          grad).convert("RGBA")
+    glow = Image.new("RGBA", (W // 8, H // 8), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).ellipse((W // 8 - 75, -55, W // 8 + 45, 45),
+                                 fill=red + (120,))
+    glow = glow.filter(ImageFilter.GaussianBlur(14)).resize(
+        (p(W), p(H)), Image.BICUBIC)
+    img.alpha_composite(glow)
     draw = ImageDraw.Draw(img)
 
     def font(size, bold=False):
         name = "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf"
         try:
             return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/" + name,
-                                      size)
+                                      p(size))
         except Exception:
             return ImageFont.load_default()
 
@@ -1422,43 +1437,80 @@ def build_market_card(title, subtitle, sections, out_path):
             text = text[:-1]
         return text.rstrip() + "…"
 
-    draw.rectangle((0, 0, W, 10), fill=(205, 65, 43))
-    draw.text((60, 46), title, font=font(58, True), fill=(255, 255, 255))
-    draw.text((60, 122), subtitle, font=font(30), fill=(150, 156, 170))
-    y = 190
-    for head, color, rows in sections:
-        draw.text((60, y), head, font=font(36, True), fill=color)
-        y += 56
-        for name, it, sub, right in rows:
-            draw.rounded_rectangle((50, y, W - 50, y + 82), radius=16,
-                                   fill=(30, 33, 42))
+    def icon(url, size):
+        for u in dict.fromkeys((url.replace("_small.png", "_large.png"), url)):
             try:
-                url = it["icon"] if it["icon"].startswith("http") else (
-                    "https://community.cloudflare.steamstatic.com/economy/"
-                    "image/" + it["icon"] + "/96fx96f")
-                req = urllib.request.Request(url, headers={"User-Agent": UA})
+                req = urllib.request.Request(u, headers={"User-Agent": UA})
                 with urllib.request.urlopen(req, timeout=15) as r:
-                    ic = Image.open(io.BytesIO(r.read())).convert("RGBA")
-                tile = Image.new("RGBA", (66, 66), "#" + it["bg"])
-                tile.alpha_composite(ic.resize((66, 66)))
-                img.paste(tile.convert("RGB"), (62, y + 8))
+                    im = Image.open(io.BytesIO(r.read())).convert("RGBA")
+                return im.resize((p(size), p(size)), Image.LANCZOS)
             except Exception:
-                pass
-            big = font(40, True)
-            rw = draw.textlength(right, font=big)
-            draw.text((W - 76 - rw, y + 18), right, font=big, fill=color)
-            bold = font(32, True)
-            draw.text((146, y + 8), fit(name, bold, W - 250 - rw), font=bold,
-                      fill=(236, 238, 242))
-            draw.text((146, y + 48), sub, font=font(24), fill=(150, 156, 170))
-            y += 92
-        y += 12
-    small = font(26)
-    draw.text((60, H - 56), "по данным rust.scmm.app", font=small,
-              fill=(110, 116, 130))
-    draw.text((W - 60 - draw.textlength(CHANNEL_TAG, font=small), H - 56),
-              CHANNEL_TAG, font=small, fill=(110, 116, 130))
-    img.save(out_path, "JPEG", quality=90)
+                continue
+        return None
+
+    # шапка: красная полоса, метка, заголовок, дата
+    draw.rectangle((0, 0, p(W), p(12)), fill=red)
+    tag, tf = "ЕЖЕДНЕВНАЯ СВОДКА", font(22, True)
+    tw = draw.textlength(tag, font=tf)
+    draw.rounded_rectangle((p(64), p(52), p(64) + tw + p(40), p(94)),
+                           radius=p(21), fill=red)
+    draw.text((p(64) + (tw + p(40)) / 2, p(73)), tag, font=tf,
+              fill=(255, 255, 255), anchor="mm")
+    draw.text((p(62), p(150)), title, font=font(70, True),
+              fill=(255, 255, 255), anchor="lm")
+    draw.text((p(64), p(214)), subtitle, font=font(30), fill=muted,
+              anchor="lm")
+
+    y = 262
+    for head, color, rows in sections:
+        hf = font(34, True)
+        draw.text((p(64), p(y + 22)), head, font=hf, fill=color, anchor="lm")
+        hw = draw.textlength(head, font=hf)
+        draw.line((p(64) + hw + p(24), p(y + 22), p(W - 64), p(y + 22)),
+                  fill=line_c, width=p(2))
+        y += 58
+        tint = tuple(int(c * 0.3 + b * 0.7) for c, b in zip(color, card_bg))
+        for name, it, sub, right in rows:
+            draw.rounded_rectangle((p(56), p(y), p(W - 56), p(y + 118)),
+                                   radius=p(26), fill=card_bg, outline=line_c,
+                                   width=p(2))
+            # плитка цвета скина с большой чёткой иконкой
+            draw.rounded_rectangle((p(76), p(y + 11), p(172), p(y + 107)),
+                                   radius=p(20), fill="#" + (it.get("bg") or "2b2d33"))
+            src = it.get("icon") or ""
+            if src and not src.startswith("http"):
+                src = ("https://community.cloudflare.steamstatic.com/economy/"
+                       "image/" + src + "/256fx256f")
+            ic = icon(src, 88) if src else None
+            if ic:
+                img.alpha_composite(ic, (p(80), p(y + 15)))
+            # процент — цветная «таблетка» справа
+            pf = font(38, True)
+            px1 = p(W - 80)
+            px0 = px1 - draw.textlength(right, font=pf) - p(44)
+            draw.rounded_rectangle((px0, p(y + 30), px1, p(y + 88)),
+                                   radius=p(29), fill=tint)
+            draw.text(((px0 + px1) / 2, p(y + 59)), right, font=pf, fill=color,
+                      anchor="mm")
+            # название и цены
+            nf = font(36, True)
+            draw.text((p(198), p(y + 40)), fit(name, nf, px0 - p(218)),
+                      font=nf, fill=(240, 242, 246), anchor="lm")
+            sf = font(26)
+            draw.text((p(198), p(y + 82)), fit(sub, sf, px0 - p(218)),
+                      font=sf, fill=muted, anchor="lm")
+            y += 130
+        y += 10
+
+    # подвал
+    draw.line((p(64), p(H - 80), p(W - 64), p(H - 80)), fill=line_c,
+              width=p(2))
+    draw.text((p(64), p(H - 44)), "по данным rust.scmm.app", font=font(26),
+              fill=(120, 126, 142), anchor="lm")
+    draw.text((p(W - 64), p(H - 44)), CHANNEL_TAG, font=font(28, True),
+              fill=red, anchor="rm")
+    img = img.convert("RGB").resize((W, H), Image.LANCZOS)
+    img.save(out_path, "JPEG", quality=95, subsampling=0)
     return True
 
 def market_tick(tg, state, forced=False):
@@ -1492,8 +1544,8 @@ def market_tick(tg, state, forced=False):
                       f"{html.escape(s['name'])}</a>")
     line = lambda s: (f"▫️ {link(s)} — {money(s['store'])} → "
                       f"{money(s['price'])} (<b>{pct_text(s['roi'])}</b>)")
-    row = lambda s: (s["name"], s, f"в магазине {money(s['store'])}  ·  "
-                     f"неделя {s['week']}", pct_text(s["roi"]))
+    row = lambda s: (s["name"], s, f"магазин {money(s['store'])} → маркет {money(s['price'])}"
+                     f"  ·  неделя {s['week']}", pct_text(s["roi"]))
     sections = [x for x in (
         ("▲ ДОРОЖЕ, ЧЕМ В МАГАЗИНЕ", (61, 220, 132), [row(s) for s in ups]),
         ("▼ ДЕШЕВЛЕ, ЧЕМ В МАГАЗИНЕ", (255, 82, 82),
