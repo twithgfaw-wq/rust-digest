@@ -60,7 +60,6 @@ RUST_KEYWORDS = ("rust", "раст", "facepunch", "фейспанч", "wipe", "�
 ELITE_MIN = 6
 ELITE_MAX_PER_RUN = 3    # сколько работ мастеров постить за один прогон
 
-
 # ---------- вспомогательное ----------
 
 def http_get_json(url, headers=None, timeout=20):
@@ -68,14 +67,12 @@ def http_get_json(url, headers=None, timeout=20):
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read().decode("utf-8", "replace"))
 
-
 def load_state():
     try:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
         return {"posted_ids": []}
-
 
 def save_state(state):
     try:
@@ -85,13 +82,11 @@ def save_state(state):
     except Exception as e:
         print("Не смог сохранить состояние:", e)
 
-
 def clean(text, limit=None):
     t = html.unescape(text or "").strip()
     if limit and len(t) > limit:
         t = t[:limit - 1].rstrip() + "…"
     return t
-
 
 # ---------- перевод на русский ----------
 
@@ -101,7 +96,6 @@ def is_mostly_cyrillic(text):
         return False
     cyr = sum(1 for c in letters if "Ѐ" <= c <= "ӿ")
     return cyr / len(letters) > 0.3
-
 
 def translate_to_ru(text):
     """Переводит английский текст на русский. Если текст уже русский
@@ -136,7 +130,6 @@ def translate_to_ru(text):
 
     return text  # не смогли перевести — оставляем как есть
 
-
 # ---------- источники контента ----------
 
 def fetch_official_news(count=3):
@@ -159,7 +152,6 @@ def fetch_official_news(count=3):
             "date": it.get("date", 0),
         })
     return out
-
 
 def fetch_top_works(period="day", limit=12, min_score=300):
     """Топ постов r/playrust — базы, билды, арт, моменты."""
@@ -198,11 +190,9 @@ def fetch_top_works(period="day", limit=12, min_score=300):
         })
     return works
 
-
 def is_rust_video(title):
     t = (title or "").lower()
     return any(k in t for k in RUST_KEYWORDS)
-
 
 def fetch_youtube(channels, max_age_days=4):
     """Видео блогеров за последние max_age_days дней — ТОЛЬКО про Rust,
@@ -265,7 +255,6 @@ def fetch_youtube(channels, max_age_days=4):
     out.sort(key=lambda x: x["views"], reverse=True)
     return out
 
-
 def resolve_steam_names(api_key, steamids):
     """SteamID -> ник автора. GetPlayerSummaries берёт до 100 за раз,
     поэтому режем на пачки."""
@@ -283,14 +272,12 @@ def resolve_steam_names(api_key, steamids):
             pass
     return out
 
-
 def _query_files(api_key, query_type, per, cursor):
     url = ("https://api.steampowered.com/IPublishedFileService/QueryFiles/v1/"
            f"?key={api_key}&appid={RUST_APPID}&query_type={query_type}"
            f"&numperpage={per}&cursor={urllib.parse.quote(cursor)}"
            "&return_previews=true&return_metadata=true&requiredtags%5B0%5D=Skin")
     return http_get_json(url, timeout=20).get("response", {})
-
 
 def fetch_accepted_authors(api_key, pages=10, per=100):
     """Сколько принятых в игру скинов у каждого автора (по свежему
@@ -312,7 +299,6 @@ def fetch_accepted_authors(api_key, pages=10, per=100):
         if not cursor or not items:
             break
     return counts
-
 
 def fetch_new_submissions(api_key, pages=6, per=50, max_age_days=14):
     """Все свежие НОВЫЕ заявки скинов (query_type=1), новейшие первыми."""
@@ -351,7 +337,6 @@ def fetch_new_submissions(api_key, pages=6, per=50, max_age_days=14):
     out.sort(key=lambda x: x["created"], reverse=True)
     return out
 
-
 def fetch_accepted_pids(api_key, pages=10, per=100):
     """ID (ws_...) скинов, которые УЖЕ приняли в игру — для подсчёта,
     кто из голосовавших угадал."""
@@ -370,7 +355,6 @@ def fetch_accepted_pids(api_key, pages=10, per=100):
         if not cursor or not items:
             break
     return pids
-
 
 def pick_image(d):
     """Достаём прямую ссылку на картинку из поста Reddit."""
@@ -392,7 +376,6 @@ def pick_image(d):
     except Exception:
         pass
     return None
-
 
 # ---------- отправка в Telegram ----------
 
@@ -493,10 +476,11 @@ class Telegram:
 
     def send_vote_buttons(self, text, labels, rid):
         """Запасной путь: отдельное сообщение с кнопками (если коллаж не
-        собрался). Кнопки в один ряд."""
+        собрался). Номера + кнопка подтверждения."""
         kb = {"inline_keyboard": [
             [{"text": lbl, "callback_data": f"v{rid}_{i}"}
-             for i, lbl in enumerate(labels)]]}
+             for i, lbl in enumerate(labels)],
+            [{"text": "✅ Подтвердить голос", "callback_data": f"c{rid}"}]]}
         if self.dry_run:
             print(f"[dry-run] голосование (кнопки): {clean(text, 120)}")
             return {"ok": True}
@@ -516,12 +500,36 @@ class Telegram:
         res = self._post("getUpdates", params)
         return res.get("result", []) if isinstance(res, dict) else []
 
+    def answer_callback(self, cq_id, text):
+        """Всплывашка-подтверждение в ответ на нажатие. Сработает только
+        если бот успел ответить за пару секунд после нажатия (при запуске
+        раз в 30 мин обычно не успевает) — поэтому ошибки глотаем тихо."""
+        if self.dry_run or not cq_id:
+            return
+        try:
+            data = urllib.parse.urlencode(
+                {"callback_query_id": cq_id, "text": text}).encode("utf-8")
+            req = urllib.request.Request(
+                f"{self.base}/answerCallbackQuery", data=data,
+                headers={"User-Agent": UA})
+            urllib.request.urlopen(req, timeout=15).read()
+        except Exception:
+            pass
+
+    def edit_caption(self, message_id, caption):
+        """Меняем подпись уже отправленного поста — для живого счётчика
+        голосов под конкурсом."""
+        if self.dry_run or not message_id:
+            return {"ok": True}
+        return self._post("editMessageCaption", {
+            "chat_id": self.chat, "message_id": str(message_id),
+            "caption": caption, "parse_mode": "HTML",
+        })
 
 # ---------- сборка постов ----------
 
 def today_str():
     return time.strftime("%d.%m.%Y")
-
 
 def frame(kicker, title, body, hashtags):
     """Единый каркас поста: метка-бейдж, жирный заголовок, тело,
@@ -533,7 +541,6 @@ def frame(kicker, title, body, hashtags):
               f"\U0001f4e2 {CHANNEL_TAG}   {hashtags}"]
     return "\n".join(parts)
 
-
 def build_news_caption(news):
     body = "\n".join(
         f"🔹 <a href=\"{n['url']}\">{html.escape(n['title'])}</a>"
@@ -541,12 +548,10 @@ def build_news_caption(news):
     return frame(f"НОВОСТИ RUST · {today_str()}", "Свежие обновления",
                  body, "#rust #раст #новости")
 
-
 FLAIR_EMOJI = {
     "Base Design": "🏰", "Image": "🖼", "Video": "🎬",
     "Work in Progress": "🔨", "Art": "🎨", "Discussion": "💬",
 }
-
 
 def build_work_caption(w, index):
     emoji = FLAIR_EMOJI.get(w["flair"], "🔥")
@@ -557,7 +562,6 @@ def build_work_caption(w, index):
             f"🔗 <a href=\"{w['url']}\">Обсуждение на r/playrust</a>")
     return frame(kicker, w["title"], body, "#rust #раст #работы")
 
-
 def fmt_views(n):
     if n >= 1_000_000:
         return f"{n / 1_000_000:.1f}M".replace(".0M", "M")
@@ -565,18 +569,15 @@ def fmt_views(n):
         return f"{n // 1000}K"
     return str(n)
 
-
 def build_video_caption(v):
     kicker = f"🎬 {html.escape(v['author'])} · ВИДЕО ДНЯ"
     views = f"   👁 {fmt_views(v['views'])}" if v.get("views") else ""
     body = f"▶️ <a href=\"{v['url']}\">Смотреть на YouTube</a>{views}"
     return frame(kicker, v["title"], body, "#rust #раст #видео")
 
-
 NUM_EMOJI = ["1️⃣", "2️⃣", "3️⃣", "4️⃣",
              "5️⃣", "6️⃣", "7️⃣", "8️⃣",
              "9️⃣", "\U0001f51f"]
-
 
 def build_workshop_caption(skins):
     lines = []
@@ -585,22 +586,18 @@ def build_workshop_caption(skins):
         author = html.escape(s["author"] or "автор неизвестен")
         lines.append(f"{NUM_EMOJI[i]} <b>{title}</b> — {author}")
     lines.append("")
-    lines.append("\U0001f3af Какой из них примут в игру? Жми ОДИН номер "
-                 "под постом. Итоги — в конце недели \U0001f3c6")
+    lines.append("\U0001f3af Какой из них примут в игру? Жми номер, затем "
+                 "«Подтвердить». Итоги — в конце недели \U0001f3c6")
     return frame("\U0001f3a8 КОНКУРС · УГАДАЙ ПРИНЯТЫЙ СКИН",
                  "5 новых работ — у каждого свой автор",
                  "\n".join(lines), "#rust #раст #скины #конкурс")
 
-
 def build_elite_caption(s):
     title = translate_to_ru(clean(s["title_raw"], 90))
-    body = (f""
-            f""
-            f"\U0001f464 <b>{html.escape(s['author'] or 'автор')}</b>\n"
+    body = (f"\U0001f464 <b>{html.escape(s['author'] or 'автор')}</b>\n"
             f"\U0001f517 <a href=\"{s['url']}\">Открыть в мастерской</a>")
     return frame("\U0001f525 ЛУЧШЕЕ ИЗ ВОРКШОПА", title, body,
                  "#rust #раст #воркшоп #скин")
-
 
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
@@ -663,16 +660,15 @@ def build_collage(image_urls, out_path):
     except Exception:
         return False
 
-
 # ---------- конкурс "угадай принятый скин" ----------
 
 def iso_week(ts):
     return time.strftime("%G-%V", time.gmtime(ts))
 
-
 def collect_votes(tg, state):
     """Забираем нажатия кнопок (callback_query). Один голос на игрока:
-    новое нажатие заменяет прежний прогноз."""
+    новое нажатие заменяет прежний прогноз. Кнопка «Подтвердить» просто
+    показывает игроку, что его выбор засчитан."""
     offset = state.get("update_offset", 0)
     updates = tg.get_updates(offset)
     if not updates:
@@ -686,6 +682,24 @@ def collect_votes(tg, state):
         if not cq:
             continue
         data = cq.get("data", "")
+        user = cq.get("from") or {}
+        uid = str(user.get("id"))
+        # кнопка «Подтвердить»: показываем игроку его текущий выбор
+        if data.startswith("c"):
+            crid = data[1:]
+            mine = (votes.get(crid, {}) or {}).get(uid)
+            if mine:
+                pids = (rounds.get(crid, {}) or {}).get("pids", [])
+                num = pids.index(mine["pid"]) + 1 if mine["pid"] in pids else 0
+                tg.answer_callback(
+                    cq.get("id"),
+                    f"Готово! Твой голос засчитан: вариант №{num} ✅" if num
+                    else "Готово! Твой голос засчитан ✅")
+            else:
+                tg.answer_callback(cq.get("id"),
+                                   "Сначала выбери номер 1–5 👆, потом подтверди")
+            continue
+        # выбор варианта: формат vРАУНД_ИНДЕКС
         if not data.startswith("v") or "_" not in data:
             continue
         try:
@@ -699,16 +713,44 @@ def collect_votes(tg, state):
         skins = rnd.get("pids", [])
         if not (0 <= idx < len(skins)):
             continue
-        user = cq.get("from") or {}
-        uid = str(user.get("id"))
         if not uid or uid == "None":
             continue
         name = user.get("username") or user.get("first_name") or "Игрок"
         votes.setdefault(rid, {})
         votes[rid][uid] = {"pid": skins[idx], "name": name}
+        tg.answer_callback(cq.get("id"),
+                           f"Выбран вариант №{idx + 1}. Нажми «Подтвердить» ✅")
     state["votes"] = votes
     state["update_offset"] = last + 1
 
+def live_counts_line(state, rid):
+    """Строка-счётчик голосов по вариантам для раунда rid."""
+    rnd = state.get("rounds", {}).get(rid, {})
+    pids = rnd.get("pids", [])
+    tally = [0] * len(pids)
+    for v in state.get("votes", {}).get(rid, {}).values():
+        if v.get("pid") in pids:
+            tally[pids.index(v["pid"])] += 1
+    parts = [f"{NUM_EMOJI[i]} {tally[i]}" for i in range(len(pids))]
+    total = sum(tally)
+    return f"\U0001f4ca Голоса ({total}): " + "   ".join(parts)
+
+def update_live_counts(tg, state):
+    """Обновляем подписи постов-конкурсов этой недели: дописываем счётчик
+    голосов. Так всем видно, что голоса реально считаются."""
+    wk = iso_week(time.time())
+    for rid, rnd in state.get("rounds", {}).items():
+        if rnd.get("week") != wk or not rnd.get("msg_id"):
+            continue
+        base = rnd.get("caption")
+        if not base:
+            continue
+        new_cap = base + "\n\n" + live_counts_line(state, rid)
+        if new_cap == rnd.get("last_caption"):
+            continue  # ничего не изменилось — не трогаем пост
+        res = tg.edit_caption(rnd["msg_id"], new_cap)
+        if res.get("ok"):
+            rnd["last_caption"] = new_cap
 
 def prune_rounds(state, keep_days=21):
     """Чистим старые раунды и голоса, чтобы файл не рос бесконечно."""
@@ -722,9 +764,7 @@ def prune_rounds(state, keep_days=21):
     state["rounds"] = rounds
     state["votes"] = votes
 
-
 MEDAL = ["\U0001f947", "\U0001f948", "\U0001f949"]
-
 
 def build_leaderboard_caption(ranking, accepted_count):
     top = [r for r in ranking if r["score"] > 0][:10]
@@ -740,7 +780,6 @@ def build_leaderboard_caption(ranking, accepted_count):
     sub = f"Приняли в игру скинов за неделю: {accepted_count}"
     return frame("\U0001f3c6 ИТОГИ НЕДЕЛИ · КТО УГАДАЛ", sub, body,
                  "#rust #раст #конкурс")
-
 
 def score_week(state, accepted_pids):
     """Считаем очки за текущую неделю: +1 за каждый свой скин, который
@@ -762,7 +801,6 @@ def score_week(state, accepted_pids):
                 rec["score"] += 1
     ranking = sorted(scores.values(), key=lambda x: x["score"], reverse=True)
     return ranking, accepted_count, bool(week_polls)
-
 
 # ---------- главный сценарий ----------
 
@@ -810,10 +848,11 @@ def main():
     posted = set(state.get("posted_ids", []))
     tg = Telegram(token, chat, dry_run=args.dry_run)
 
-    # сначала забираем новые голоса конкурса
+    # сначала забираем новые голоса конкурса и обновляем живой счётчик
     if not args.dry_run:
         try:
             collect_votes(tg, state)
+            update_live_counts(tg, state)
         except Exception as e:
             print("Сбор голосов не удался:", e)
 
@@ -936,9 +975,11 @@ def main():
         if len(album) == 5:
             rid = str(state.get("round_seq", 0))
             caption = build_workshop_caption(album)
-            markup = json.dumps({"inline_keyboard": [[
-                {"text": NUM_EMOJI[i], "callback_data": f"v{rid}_{i}"}
-                for i in range(5)]]}, ensure_ascii=False)
+            markup = json.dumps({"inline_keyboard": [
+                [{"text": NUM_EMOJI[i], "callback_data": f"v{rid}_{i}"}
+                 for i in range(5)],
+                [{"text": "✅ Подтвердить голос",
+                  "callback_data": f"c{rid}"}]]}, ensure_ascii=False)
             collage = os.path.join(tempfile.gettempdir(), "rust_collage.jpg")
             if build_collage([s["image"] for s in album], collage):
                 res = tg.send_photo_file(collage, caption, markup)
@@ -947,16 +988,18 @@ def main():
                 res = tg.send_media_group([s["image"] for s in album], caption)
                 if not args.dry_run and res.get("ok"):
                     tg.send_vote_buttons(
-                        "\U0001f3af Жми ОДИН номер — свой прогноз:",
+                        "\U0001f3af Жми номер — свой прогноз, потом «Подтвердить»:",
                         [NUM_EMOJI[i] for i in range(5)], rid)
             if args.dry_run or res.get("ok"):
                 for s in album:
                     posted.add(s["id"])
                 state["round_seq"] = state.get("round_seq", 0) + 1
                 if not args.dry_run:
+                    mid = (res.get("result") or {}).get("message_id")
                     rounds = state.setdefault("rounds", {})
                     rounds[rid] = {"pids": [s["id"] for s in album],
-                                   "week": wk, "ts": int(now)}
+                                   "week": wk, "ts": int(now),
+                                   "msg_id": mid, "caption": caption}
                     state["ws_albums"] = (ws_albums + [int(now)])[-10:]
                     state["week_authors"] = list(
                         week_authors | {s["author_id"] for s in album})
@@ -981,7 +1024,6 @@ def main():
         state["posted_ids"] = list(posted)
         save_state(state)
         print("Готово.")
-
 
 if __name__ == "__main__":
     main()
