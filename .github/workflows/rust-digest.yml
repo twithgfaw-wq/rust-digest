@@ -8,7 +8,7 @@ on:
       extra:
         description: "Доп. пост прямо сейчас"
         type: choice
-        options: ["нет", "лучшее из воркшопа"]
+        options: ["нет", "лучшее из воркшопа", "сводка маркета"]
         default: "нет"
 
 permissions:
