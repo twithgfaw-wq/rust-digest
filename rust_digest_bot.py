@@ -5,11 +5,9 @@ Rust Digest Bot — автоматическая сводка новостей �
 
 Что делает за один прогон:
   1. Берёт свежие ОФИЦИАЛЬНЫЕ новости Rust из Steam News API.
-  2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты)
-     за день или неделю.
-  3. Публикует в твой Telegram-канал:
-       - текстовую сводку новостей,
-       - несколько постов-работ с картинкой, автором и ссылкой.
+  2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты).
+  3. Берёт новые видео YouTube-блогеров по Rust (hedgesn и др.).
+  4. Публикует всё это в твой Telegram-канал с картинками и ссылками.
 
 Английские заголовки автоматически переводятся на русский.
 
@@ -18,6 +16,7 @@ Rust Digest Bot — автоматическая сводка новостей �
 
 import argparse
 import configparser
+import datetime
 import html
 import json
 import os
@@ -26,10 +25,18 @@ import time
 import urllib.request
 import urllib.parse
 import urllib.error
+import xml.etree.ElementTree as ET
 
 RUST_APPID = 252490
 UA = "RustDigestBot/1.0 (personal Telegram digest)"
 STATE_FILE = "posted_state.json"   # чтобы не постить одно и то же дважды
+
+# YouTube-блогеры по Rust: (отображаемое имя, channel_id).
+# Новые видео этих каналов автоматически улетают в канал.
+# Чтобы добавить блогера — пришли ссылку на его канал, впишу сюда ID.
+YT_CHANNELS = [
+    ("Hedge", "UCftwbY3DWqa5QWxZtA_BuvQ"),
+]
 
 
 # ---------- вспомогательное ----------
@@ -170,6 +177,51 @@ def fetch_top_works(period="day", limit=12, min_score=300):
     return works
 
 
+def fetch_youtube(channels, max_age_days=4):
+    """Новые видео YouTube-блогеров через их RSS-ленты (без ключей).
+    Берём только свежие (за последние max_age_days дней), чтобы при
+    первом включении не вывалить весь архив."""
+    atom = "{http://www.w3.org/2005/Atom}"
+    ytns = "{http://www.youtube.com/xml/schemas/2015}"
+    now = time.time()
+    out = []
+    for name, cid in channels:
+        try:
+            url = ("https://www.youtube.com/feeds/videos.xml?channel_id="
+                   + cid)
+            req = urllib.request.Request(url, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                root = ET.fromstring(r.read())
+        except Exception as e:
+            print(f"YouTube не загрузился ({name}):", e)
+            continue
+        for entry in root.findall(atom + "entry"):
+            vid_el = entry.find(ytns + "videoId")
+            title_el = entry.find(atom + "title")
+            pub_el = entry.find(atom + "published")
+            if vid_el is None or title_el is None:
+                continue
+            vid = vid_el.text
+            pub = pub_el.text if pub_el is not None else ""
+            try:
+                dt = datetime.datetime.fromisoformat(
+                    pub.replace("Z", "+00:00"))
+                if (now - dt.timestamp()) / 86400 > max_age_days:
+                    continue
+            except Exception:
+                pass
+            out.append({
+                "id": "yt_" + vid,
+                "title": translate_to_ru(clean(title_el.text, 200)),
+                "author": name,
+                "url": "https://www.youtube.com/watch?v=" + vid,
+                "image": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
+                "published": pub,
+            })
+    out.sort(key=lambda x: x["published"], reverse=True)
+    return out
+
+
 def pick_image(d):
     """Достаём прямую ссылку на картинку из поста Reddit."""
     # 1) прямая ссылка на картинку
@@ -264,6 +316,13 @@ def build_work_caption(w, index):
             f"#rust #раст #работы")
 
 
+def build_video_caption(v):
+    return (f"🎬 <b>{html.escape(v['author'])}</b> — новое видео\n"
+            f"{html.escape(v['title'])}\n\n"
+            f"▶️ <a href=\"{v['url']}\">смотреть на YouTube</a>\n\n"
+            f"#rust #раст #видео")
+
+
 # ---------- главный сценарий ----------
 
 def main():
@@ -336,6 +395,21 @@ def main():
             time.sleep(2)
     else:
         print("Новых работ по заданным порогам нет.")
+
+    # 3) новые видео блогеров (YouTube)
+    yt_count = int(os.environ.get("YT_COUNT") or "2")
+    if YT_CHANNELS and yt_count > 0:
+        videos = [v for v in fetch_youtube(YT_CHANNELS)
+                  if v["id"] not in posted][:yt_count]
+        if videos:
+            for v in videos:
+                res = tg.send_photo(v["image"], build_video_caption(v))
+                if args.dry_run or res.get("ok"):
+                    posted.add(v["id"])
+                    sent_any = sent_any or not args.dry_run
+                time.sleep(2)
+        else:
+            print("Новых видео блогеров нет.")
 
     # В сухом прогоне историю НЕ трогаем — иначе потом боевой запуск
     # решит, что всё уже постил, и ничего не отправит.
