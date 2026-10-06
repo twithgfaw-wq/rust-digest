@@ -1312,6 +1312,260 @@ def post_x_news(tg, state):
         state["x_last_id"] = p["id"]
         time.sleep(2)
 
+# ---------- маркет Steam: что дорожает и что дешевеет ----------
+# Раз в день в обед (по Киеву) снимаем цены 300 самых ходовых скинов Rust
+# с маркета Steam, сравниваем с прошлым снимком (по понедельникам — с неделей
+# назад) и публикуем сводку с картинкой-отчётом.
+MARKET_HOUR = 13
+MARKET_HOOKS = [
+    "📈 РЫНОК СКИНОВ RUST: кто дорожает, кто дешевеет",
+    "💹 Маркет Rust — главные движения цен",
+    "💰 Что творится с ценами на скины Rust",
+    "📊 Биржевая сводка Rust: скины на взлёте и в падении",
+    "🔥 Скины, которые взлетели в цене",
+    "🧾 Обеденная сводка по маркету Rust",
+    "🎢 Качели маркета Rust: итоги",
+    "💸 Для инвесторов в скины: сводка цен",
+]
+MARKET_START_HOOKS = [
+    "💎 МАРКЕТ RUST: самые дорогие и самые ходовые скины",
+    "🛒 Что сейчас в топе маркета Rust",
+]
+MARKET_OUTROS = ["Кто успел закупиться? 😏", "Держим или продаём? 🤔",
+                 "Ставь 🔥, если следишь за маркетом",
+                 "Инвестиции в скины — дело тонкое 💼",
+                 "Не финансовый совет 😄", "А у тебя что в инвентаре? 👀"]
+SERIES_STOP = {"the", "red", "blue", "black", "white", "green", "pink", "gold",
+               "golden", "purple", "old", "big", "little", "dark", "light",
+               "small", "large", "new", "mini", "super", "royal", "classic"}
+
+def fetch_market(pages=3):
+    """Самые ходовые скины Rust на маркете Steam: {имя: цена в центах,
+    число лотов, иконка, цвет фона}. Steam режет частые запросы — паузы."""
+    items = {}
+    for page in range(pages):
+        url = ("https://steamcommunity.com/market/search/render/?appid="
+               f"{RUST_APPID}&norender=1&count=100&start={page * 100}"
+               "&sort_column=popular&sort_dir=desc&currency=1")
+        data = None
+        for attempt in range(3):
+            try:
+                data = http_get_json(url, timeout=25)
+            except urllib.error.HTTPError as e:
+                if e.code != 429:
+                    raise
+            if data and data.get("results"):
+                break
+            data = None
+            time.sleep(20)
+        if not data:
+            break
+        for r in data["results"]:
+            d = r.get("asset_description") or {}
+            items[r["hash_name"]] = {
+                "price": int(r.get("sell_price") or 0),
+                "listings": int(r.get("sell_listings") or 0),
+                "icon": d.get("icon_url", ""),
+                "bg": d.get("background_color") or "2b2d33"}
+        time.sleep(4)
+    return items
+
+def market_url(name):
+    return ("https://steamcommunity.com/market/listings/"
+            f"{RUST_APPID}/{urllib.parse.quote(name)}")
+
+def money(cents):
+    return f"${cents / 100:,.2f}".replace(",", " ")
+
+def pct_text(p):
+    return f"{p:+.0f}%".replace("-", "−")
+
+def series_moves(changes):
+    """Серии скинов (общее первое слово названия, от 3 предметов) со средним
+    изменением цены: самая растущая и самая падающая."""
+    groups = {}
+    for name, pct in changes.items():
+        words = name.split()
+        if (len(words) >= 2 and len(words[0]) > 2
+                and words[0].lower() not in SERIES_STOP):
+            groups.setdefault(words[0], []).append(pct)
+    avg = {k: (sum(v) / len(v), len(v)) for k, v in groups.items() if len(v) >= 3}
+    if not avg:
+        return None, None
+    up = max(avg.items(), key=lambda kv: kv[1][0])
+    down = min(avg.items(), key=lambda kv: kv[1][0])
+    return (up if up[1][0] >= 1 else None), (down if down[1][0] <= -1 else None)
+
+def build_market_card(title, subtitle, sections, out_path):
+    """Картинка-отчёт 1080×1350: заголовок и блоки строк с иконкой скина,
+    названием, ценой и изменением. Шрифт DejaVu — с кириллицей."""
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except Exception:
+        return False
+    W, H = 1080, 1350
+    img = Image.new("RGB", (W, H), (19, 21, 27))
+    draw = ImageDraw.Draw(img)
+
+    def font(size, bold=False):
+        name = "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf"
+        try:
+            return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/" + name,
+                                      size)
+        except Exception:
+            return ImageFont.load_default()
+
+    def fit(text, fnt, width):
+        if draw.textlength(text, font=fnt) <= width:
+            return text
+        while text and draw.textlength(text + "…", font=fnt) > width:
+            text = text[:-1]
+        return text.rstrip() + "…"
+
+    draw.rectangle((0, 0, W, 10), fill=(205, 65, 43))
+    draw.text((60, 46), title, font=font(58, True), fill=(255, 255, 255))
+    draw.text((60, 122), subtitle, font=font(30), fill=(150, 156, 170))
+    y = 190
+    for head, color, rows in sections:
+        draw.text((60, y), head, font=font(36, True), fill=color)
+        y += 56
+        for name, it, sub, right in rows:
+            draw.rounded_rectangle((50, y, W - 50, y + 82), radius=16,
+                                   fill=(30, 33, 42))
+            try:
+                url = ("https://community.cloudflare.steamstatic.com/economy/"
+                       "image/" + it["icon"] + "/96fx96f")
+                req = urllib.request.Request(url, headers={"User-Agent": UA})
+                with urllib.request.urlopen(req, timeout=15) as r:
+                    ic = Image.open(io.BytesIO(r.read())).convert("RGBA")
+                tile = Image.new("RGBA", (66, 66), "#" + it["bg"])
+                tile.alpha_composite(ic.resize((66, 66)))
+                img.paste(tile.convert("RGB"), (62, y + 8))
+            except Exception:
+                pass
+            big = font(40, True)
+            rw = draw.textlength(right, font=big)
+            draw.text((W - 76 - rw, y + 18), right, font=big, fill=color)
+            bold = font(32, True)
+            draw.text((146, y + 8), fit(name, bold, W - 250 - rw), font=bold,
+                      fill=(236, 238, 242))
+            draw.text((146, y + 48), sub, font=font(24), fill=(150, 156, 170))
+            y += 92
+        y += 12
+    small = font(26)
+    draw.text((60, H - 56), "по данным Steam Market", font=small,
+              fill=(110, 116, 130))
+    draw.text((W - 60 - draw.textlength(CHANNEL_TAG, font=small), H - 56),
+              CHANNEL_TAG, font=small, fill=(110, 116, 130))
+    img.save(out_path, "JPEG", quality=90)
+    return True
+
+def market_tick(tg, state):
+    """Раз в день в обед: снимок цен маркета и пост-сводка с картинкой."""
+    import re
+    from datetime import datetime, timedelta
+    kt = kyiv_time()
+    today = kt.strftime("%Y-%m-%d")
+    if kt.hour < MARKET_HOUR or state.get("market_day") == today:
+        return
+    items = fetch_market()
+    if len(items) < 100:
+        print(f"Маркет ответил не полностью ({len(items)}) — попробую позже.")
+        return
+    snaps = state.setdefault("market_snaps", {})
+    prev = sorted(d for d in snaps if d < today)
+    snaps[today] = {n: it["price"] for n, it in items.items()}
+    for d in sorted(snaps)[:-9]:
+        del snaps[d]
+    base = None
+    if kt.weekday() == 0:   # по понедельникам — итоги недели
+        week_ago = (kt - timedelta(days=7)).strftime("%Y-%m-%d")
+        older = [d for d in prev if d <= week_ago]
+        base = older[-1] if older else None
+    if base is None and prev:
+        base = prev[-1]
+    date = kt.strftime("%d.%m.%Y")
+    link = lambda n: f"<a href=\"{market_url(n)}\">{html.escape(n)}</a>"
+    lots = lambda k: f"{k} {plural(k, 'лот', 'лота', 'лотов')}"
+    if base is None:   # первый день: истории ещё нет — показываем топы
+        hook, period = pick(MARKET_START_HOOKS), "топ маркета"
+        rich = sorted(items.items(), key=lambda kv: -kv[1]["price"])[:5]
+        hot = sorted(items.items(), key=lambda kv: -kv[1]["listings"])[:5]
+        sections = [
+            ("САМЫЕ ДОРОГИЕ", (255, 196, 0),
+             [(n, it, lots(it["listings"]) + " на продаже", money(it["price"]))
+              for n, it in rich]),
+            ("БОЛЬШЕ ВСЕГО ЛОТОВ", (90, 170, 255),
+             [(n, it, money(it["price"]), lots(it["listings"]))
+              for n, it in hot])]
+        lines = (["💎 <b>Самые дорогие</b>"]
+                 + [f"▫️ {link(n)} — {money(it['price'])}" for n, it in rich]
+                 + ["", "🔥 <b>Больше всего лотов</b>"]
+                 + [f"▫️ {link(n)} — {lots(it['listings'])}" for n, it in hot]
+                 + ["", "Завтра покажем, какие скины подорожали, "
+                    "а какие подешевели 📊"])
+    else:
+        days = (datetime.strptime(today, "%Y-%m-%d")
+                - datetime.strptime(base, "%Y-%m-%d")).days
+        period = ("за сутки" if days == 1 else "за неделю" if days == 7
+                  else f"за {days} {plural(days, 'день', 'дня', 'дней')}")
+        old = snaps[base]
+        changes = {}
+        for n, it in items.items():
+            o = old.get(n)
+            if o and o >= 50 and it["price"] >= 50 and it["listings"] >= 5:
+                changes[n] = (it["price"] - o) * 100 / o
+        ups = sorted((kv for kv in changes.items() if kv[1] >= 1),
+                     key=lambda kv: -kv[1])[:5]
+        downs = sorted((kv for kv in changes.items() if kv[1] <= -1),
+                       key=lambda kv: kv[1])[:5]
+        if not ups and not downs:
+            print("Цены на маркете почти не изменились — сводку пропускаю.")
+            state["market_day"] = today
+            return
+        hook = pick(MARKET_HOOKS)
+        row = lambda n, p: (n, items[n], f"{money(items[n]['price'])}  ·  "
+                            f"было {money(old[n])}", pct_text(p))
+        sections = [s for s in (
+            ("▲ ДОРОЖАЮТ", (61, 220, 132), [row(n, p) for n, p in ups]),
+            ("▼ ДЕШЕВЕЮТ", (255, 82, 82), [row(n, p) for n, p in downs]))
+            if s[2]]
+        lines = []
+        if ups:
+            lines += ["📈 <b>Дорожают</b>"] + [
+                f"▫️ {link(n)} — {money(items[n]['price'])} "
+                f"(<b>{pct_text(p)}</b>)" for n, p in ups] + [""]
+        if downs:
+            lines += ["📉 <b>Дешевеют</b>"] + [
+                f"▫️ {link(n)} — {money(items[n]['price'])} "
+                f"(<b>{pct_text(p)}</b>)" for n, p in downs] + [""]
+        up, down = series_moves(changes)
+        for s, emoji in ((up, "🧩"), (down, "🧊")):
+            if s:
+                k = s[1][1]
+                lines.append(f"{emoji} Серия «{html.escape(s[0])}» в среднем "
+                             f"{pct_text(s[1][0])} ({k} "
+                             f"{plural(k, 'скин', 'скина', 'скинов')})")
+        top = max(items.items(), key=lambda kv: kv[1]["price"])
+        lines.append(f"💎 Самый дорогой из ходовых: {link(top[0])} — "
+                     f"{money(top[1]['price'])}")
+    lines += ["", pick(MARKET_OUTROS)]
+    text = frame(hook, f"🗓 {date} · {period}", "\n".join(lines),
+                 "#rust #раст #маркет #скины")
+    visible = len(html.unescape(re.sub(r"<[^>]+>", "", text)))
+    card = os.path.join(tempfile.gettempdir(), "rust_market.jpg")
+    res = {}
+    try:
+        if visible <= 1024 and build_market_card(
+                "РЫНОК СКИНОВ RUST", f"{date} · {period}", sections, card):
+            res = tg.send_photo_file(card, text)
+    except Exception as e:
+        print("Картинка маркета не собралась:", e)
+    if not res.get("ok"):
+        res = tg.send_message(text)
+    if res.get("ok"):
+        state["market_day"] = today
+
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
     его нет или картинки не скачались — возвращаем False (будет запасной
@@ -1799,6 +2053,13 @@ def main():
             post_x_news(tg, state)
         except Exception as e:
             print("Новости из X не получены:", e)
+
+    # 4g) маркет Steam: сводка цен раз в день в обед
+    if not args.dry_run:
+        try:
+            market_tick(tg, state)
+        except Exception as e:
+            print("Сводка маркета не удалась:", e)
 
     # 5) итоги конкурса — в воскресенье, один раз за неделю
     if steam_key and not args.dry_run:
