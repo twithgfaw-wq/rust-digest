@@ -9,7 +9,7 @@ Rust Digest Bot — автоматическая сводка новостей �
   3. Берёт новые видео YouTube-блогеров по Rust (hedgesn и др.).
   4. Берёт свежие работы из мастерской Steam от ПРОВЕРЕННЫХ авторов
      (тех, чьи скины уже принимали в игру) — альбом из 5 штук.
-  5. Публикует всё это в твой Telegram-канал с картинками и ссылками.
+  5. Публикует всё это в твой Telegram-канал в едином стиле.
 
 Английские заголовки автоматически переводятся на русский.
 
@@ -32,6 +32,13 @@ import xml.etree.ElementTree as ET
 RUST_APPID = 252490
 UA = "RustDigestBot/1.0 (personal Telegram digest)"
 STATE_FILE = "posted_state.json"   # чтобы не постить одно и то же дважды
+
+# --- единый фирменный стиль постов (в духе офиц. страницы Rust) ---
+BRAND = "\U0001f7e5"                 # 🟥 — красная метка, акцент Rust
+DIVIDER = "━" * 13              # ━━━━━━━━━━━━━ разделитель
+CHANNEL_TAG = "@rust_news_Pro"       # подпись в футере (обновляется в main)
+NEWS_BANNER = ("https://cdn.cloudflare.steamstatic.com/steam/apps/"
+               "252490/header.jpg")  # фирменная шапка Rust для новостей
 
 # YouTube-блогеры по Rust: (отображаемое имя, channel_id).
 # Новые видео этих каналов автоматически улетают в канал.
@@ -403,13 +410,23 @@ def today_str():
     return time.strftime("%d.%m.%Y")
 
 
-def build_news_text(news):
-    lines = [f"📰 <b>RUST — сводка новостей</b> · {today_str()}", ""]
-    for n in news:
-        lines.append(f"🔹 <a href=\"{n['url']}\">{html.escape(n['title'])}</a>")
-    lines.append("")
-    lines.append("#rust #раст #новости")
-    return "\n".join(lines)
+def frame(kicker, title, body, hashtags):
+    """Единый каркас поста: метка-бейдж, жирный заголовок, тело,
+    разделитель и подпись канала. body — уже готовый HTML (не экранируем)."""
+    parts = [f"{BRAND} <b>{kicker}</b>"]
+    if title:
+        parts.append(html.escape(title))
+    parts += ["", body, "", DIVIDER,
+              f"\U0001f4e2 {CHANNEL_TAG}   {hashtags}"]
+    return "\n".join(parts)
+
+
+def build_news_caption(news):
+    body = "\n".join(
+        f"🔹 <a href=\"{n['url']}\">{html.escape(n['title'])}</a>"
+        for n in news)
+    return frame(f"НОВОСТИ RUST · {today_str()}", "Свежие обновления",
+                 body, "#rust #раст #новости")
 
 
 FLAIR_EMOJI = {
@@ -417,21 +434,21 @@ FLAIR_EMOJI = {
     "Work in Progress": "🔨", "Art": "🎨", "Discussion": "💬",
 }
 
+
 def build_work_caption(w, index):
     emoji = FLAIR_EMOJI.get(w["flair"], "🔥")
-    tag = f" · {html.escape(w['flair'])}" if w["flair"] else ""
-    return (f"{emoji} <b>Работа дня #{index}</b>{tag}\n"
-            f"{html.escape(w['title'])}\n\n"
-            f"👤 u/{html.escape(w['author'])} · ⬆️ {w['score']}\n"
-            f"🔗 <a href=\"{w['url']}\">обсуждение на r/playrust</a>\n\n"
-            f"#rust #раст #работы")
+    kicker = f"{emoji} РАБОТА ДНЯ"
+    if w["flair"]:
+        kicker += f" · {html.escape(w['flair'])}"
+    body = (f"👤 u/{html.escape(w['author'])}   ⬆️ {w['score']}\n"
+            f"🔗 <a href=\"{w['url']}\">Обсуждение на r/playrust</a>")
+    return frame(kicker, w["title"], body, "#rust #раст #работы")
 
 
 def build_video_caption(v):
-    return (f"🎬 <b>{html.escape(v['author'])}</b> — новое видео\n"
-            f"{html.escape(v['title'])}\n\n"
-            f"▶️ <a href=\"{v['url']}\">смотреть на YouTube</a>\n\n"
-            f"#rust #раст #видео")
+    kicker = f"🎬 {html.escape(v['author'])} · НОВОЕ ВИДЕО"
+    body = f"▶️ <a href=\"{v['url']}\">Смотреть на YouTube</a>"
+    return frame(kicker, v["title"], body, "#rust #раст #видео")
 
 
 NUM_EMOJI = ["1️⃣", "2️⃣", "3️⃣", "4️⃣",
@@ -440,16 +457,13 @@ NUM_EMOJI = ["1️⃣", "2️⃣", "3️⃣", "4️⃣",
 
 
 def build_workshop_caption(skins):
-    lines = ["\U0001f3a8 <b>Мастерская Rust — новинки</b>",
-             "Свежие работы авторов, чьи скины уже в игре:", ""]
-    for i, s in enumerate(skins):
-        title = translate_to_ru(clean(s["title_raw"], 90))
-        author = s["author"] or "автор неизвестен"
-        lines.append(f"{NUM_EMOJI[i]} <b>{html.escape(title)}</b> — "
-                     f"{html.escape(author)}")
-    lines.append("")
-    lines.append("#rust #раст #скины #мастерская")
-    return "\n".join(lines)
+    body = "\n".join(
+        f"{NUM_EMOJI[i]} <b>{html.escape(translate_to_ru(clean(s['title_raw'], 90)))}</b>"
+        f" — {html.escape(s['author'] or 'автор неизвестен')}"
+        for i, s in enumerate(skins))
+    return frame("\U0001f3a8 МАСТЕРСКАЯ RUST · НОВИНКИ",
+                 "Свежие скины от проверенных авторов",
+                 body, "#rust #раст #скины")
 
 
 # ---------- главный сценарий ----------
@@ -472,6 +486,10 @@ def main():
              or cfg.get("telegram", "bot_token", fallback="")).strip()
     chat = (os.environ.get("CHANNEL")
             or cfg.get("telegram", "channel", fallback="")).strip()
+    # подпись канала в футере: если канал публичный (@username) — ставим его
+    global CHANNEL_TAG
+    if chat.startswith("@"):
+        CHANNEL_TAG = chat
     works_count = int(os.environ.get("WORKS_COUNT")
                       or cfg.get("content", "works_count", fallback="3"))
     min_score = int(os.environ.get("MIN_SCORE")
@@ -494,11 +512,11 @@ def main():
 
     sent_any = False
 
-    # 1) официальные новости
+    # 1) официальные новости (с фирменной шапкой Rust)
     if post_news:
         news = [n for n in fetch_official_news(5) if n["id"] not in posted][:3]
         if news:
-            res = tg.send_message(build_news_text(news))
+            res = tg.send_photo(NEWS_BANNER, build_news_caption(news))
             # В историю пишем ТОЛЬКО если Telegram принял отправку —
             # иначе при ошибке (бот не админ и т.п.) попробуем снова.
             if args.dry_run or res.get("ok"):
