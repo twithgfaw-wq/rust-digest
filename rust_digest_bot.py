@@ -1116,6 +1116,15 @@ def main():
                      if s["author_id"] in elite and s["id"] not in posted
                      ][:ELITE_MAX_PER_RUN]
 
+        # ручной запуск «лучшее из воркшопа»: если свежих работ мастеров нет,
+        # берём новую работу автора с наибольшим числом принятых скинов
+        if os.environ.get("EXTRA_POST") == "лучшее из воркшопа" and not elite_new:
+            pool = [s for s in newest
+                    if s["author_id"] in verified and s["id"] not in posted]
+            pool.sort(key=lambda s: counts.get(s["author_id"], 0), reverse=True)
+            elite_new = pool[:1]
+            elite |= {s["author_id"] for s in elite_new}   # не дублируем в конкурсе
+
         # пул авторов альбома сбрасывается раз в неделю
         wk = iso_week(now)
         if state.get("week_authors_wk") != wk:
