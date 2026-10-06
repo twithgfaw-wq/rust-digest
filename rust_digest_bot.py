@@ -7,7 +7,8 @@ Rust Digest Bot — автоматическая сводка новостей �
   1. Берёт свежие ОФИЦИАЛЬНЫЕ новости Rust из Steam News API.
   2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты).
   3. Берёт новые видео YouTube-блогеров по Rust (hedgesn и др.).
-  4. Берёт принятые в игру скины из мастерской Steam (альбом из 5).
+  4. Берёт свежие работы из мастерской Steam от ПРОВЕРЕННЫХ авторов
+     (тех, чьи скины уже принимали в игру) — альбом из 5 штук.
   5. Публикует всё это в твой Telegram-канал с картинками и ссылками.
 
 Английские заголовки автоматически переводятся на русский.
@@ -238,42 +239,81 @@ def resolve_steam_names(api_key, steamids):
         return {}
 
 
-def fetch_workshop(api_key, count=20):
-    """Принятые в игру скины Rust из мастерской (query_type=2 =
-    accepted-for-game, по дате принятия). Возвращает самые свежие."""
+def _query_files(api_key, query_type, per, cursor):
     url = ("https://api.steampowered.com/IPublishedFileService/QueryFiles/v1/"
-           f"?key={api_key}&appid={RUST_APPID}&query_type=2"
-           f"&numperpage={count}&return_previews=true&return_metadata=true"
-           "&requiredtags%5B0%5D=Skin")
-    try:
-        data = http_get_json(url, timeout=20)
-        items = data.get("response", {}).get("publishedfiledetails", [])
-    except Exception as e:
-        print("Мастерская не загрузилась:", e)
-        return []
-    skins, steamids = [], []
-    for it in items:
-        pid = it.get("publishedfileid")
-        preview = it.get("preview_url")
-        title = it.get("title")
-        if not pid or not preview or not title:
-            continue
-        creator = it.get("creator")
-        skins.append({
-            "id": "ws_" + str(pid),
-            "title_raw": title,
-            "author_id": creator,
-            "author": "",
-            "image": preview,
-            "url": ("https://steamcommunity.com/sharedfiles/filedetails/?id="
-                    + str(pid)),
-        })
-        if creator:
+           f"?key={api_key}&appid={RUST_APPID}&query_type={query_type}"
+           f"&numperpage={per}&cursor={urllib.parse.quote(cursor)}"
+           "&return_previews=true&return_metadata=true&requiredtags%5B0%5D=Skin")
+    return http_get_json(url, timeout=20).get("response", {})
+
+
+def fetch_accepted_author_ids(api_key, pages=8, per=100):
+    """SteamID проверенных авторов — тех, чьи скины УЖЕ приняли в игру
+    (query_type=2 = accepted-for-game). Листаем несколько страниц."""
+    ids, cursor = set(), "*"
+    for _ in range(pages):
+        try:
+            resp = _query_files(api_key, 2, per, cursor)
+        except Exception as e:
+            print("Список проверенных авторов не загрузился:", e)
+            break
+        items = resp.get("publishedfiledetails", [])
+        for it in items:
+            c = it.get("creator")
+            if c:
+                ids.add(str(c))
+        cursor = resp.get("next_cursor") or ""
+        if not cursor or not items:
+            break
+    return ids
+
+
+def fetch_new_from_verified(api_key, verified_ids, want=5, scan_pages=5,
+                            per=50, max_age_days=14):
+    """Свежие НОВЫЕ заявки (query_type=1, по дате публикации), но только
+    от проверенных авторов из verified_ids."""
+    picked, steamids, cursor = [], [], "*"
+    now = time.time()
+    seen = set()
+    for _ in range(scan_pages):
+        try:
+            resp = _query_files(api_key, 1, per, cursor)
+        except Exception as e:
+            print("Новые работы не загрузились:", e)
+            break
+        items = resp.get("publishedfiledetails", [])
+        for it in items:
+            creator = str(it.get("creator") or "")
+            if creator not in verified_ids:
+                continue
+            pid = it.get("publishedfileid")
+            preview = it.get("preview_url")
+            title = it.get("title")
+            if not pid or not preview or not title or pid in seen:
+                continue
+            tc = it.get("time_created", 0) or 0
+            if tc and (now - tc) / 86400 > max_age_days:
+                continue
+            seen.add(pid)
+            picked.append({
+                "id": "ws_" + str(pid),
+                "title_raw": title,
+                "author_id": creator,
+                "author": "",
+                "image": preview,
+                "created": tc,
+                "url": ("https://steamcommunity.com/sharedfiles/filedetails/"
+                        "?id=" + str(pid)),
+            })
             steamids.append(creator)
+        cursor = resp.get("next_cursor") or ""
+        if not cursor or not items or len(picked) >= want * 3:
+            break
+    picked.sort(key=lambda x: x["created"], reverse=True)
     names = resolve_steam_names(api_key, steamids)
-    for s in skins:
+    for s in picked:
         s["author"] = names.get(s["author_id"], "")
-    return skins
+    return picked
 
 
 def pick_image(d):
@@ -400,8 +440,8 @@ NUM_EMOJI = ["1️⃣", "2️⃣", "3️⃣", "4️⃣",
 
 
 def build_workshop_caption(skins):
-    lines = ["\U0001f3a8 <b>Мастерская Rust — принятые скины</b>",
-             "Свежие работы, которые приняли в игру:", ""]
+    lines = ["\U0001f3a8 <b>Мастерская Rust — новинки</b>",
+             "Свежие работы авторов, чьи скины уже в игре:", ""]
     for i, s in enumerate(skins):
         title = translate_to_ru(clean(s["title_raw"], 90))
         author = s["author"] or "автор неизвестен"
@@ -500,7 +540,7 @@ def main():
         else:
             print("Новых видео блогеров нет.")
 
-    # 4) мастерская Steam — альбом из 5 принятых скинов, до 2 раз в день
+    # 4) мастерская Steam — альбом из 5 новинок проверенных авторов, до 2/день
     steam_key = (os.environ.get("STEAM_API_KEY")
                  or cfg.get("content", "steam_api_key", fallback="")).strip()
     if steam_key:
@@ -512,8 +552,10 @@ def main():
             if time.strftime("%Y-%m-%d", time.gmtime(ts)) == today)
         hours_since = (now - max(ws_albums)) / 3600 if ws_albums else 999
         if today_count < 2 and hours_since >= 5:
-            fresh = [s for s in fetch_workshop(steam_key, 25)
-                     if s["id"] not in posted][:5]
+            verified = fetch_accepted_author_ids(steam_key)
+            cand = [s for s in fetch_new_from_verified(steam_key, verified)
+                    if s["id"] not in posted]
+            fresh = cand[:5]
             if len(fresh) >= 5:
                 res = tg.send_media_group([s["image"] for s in fresh],
                                           build_workshop_caption(fresh))
@@ -524,7 +566,8 @@ def main():
                         state["ws_albums"] = (ws_albums + [int(now)])[-10:]
                     sent_any = True
             else:
-                print("Накопилось меньше 5 новых принятых скинов — ждём.")
+                print(f"Новых работ от проверенных авторов пока "
+                      f"{len(fresh)} (<5) — ждём накопления.")
 
     # В сухом прогоне историю НЕ трогаем — иначе потом боевой запуск
     # решит, что всё уже постил, и ничего не отправит.
