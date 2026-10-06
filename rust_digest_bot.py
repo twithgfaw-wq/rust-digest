@@ -6,7 +6,7 @@ Rust Digest Bot — автоматическая сводка новостей �
 Что делает за один прогон:
   1. Берёт свежие ОФИЦИАЛЬНЫЕ новости Rust из Steam News API.
   2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты).
-  3. Берёт новые видео YouTube-блогеров по Rust (hedgesn и др.).
+  3. Берёт ЛУЧШИЕ видео дня у YouTube-блогеров по Rust (по просмотрам).
   4. Берёт свежие работы из мастерской Steam от ПРОВЕРЕННЫХ авторов
      (тех, чьи скины уже принимали в игру) — альбом из 5 штук.
   5. Публикует всё это в твой Telegram-канал в едином стиле.
@@ -41,11 +41,17 @@ NEWS_BANNER = ("https://cdn.cloudflare.steamstatic.com/steam/apps/"
                "252490/header.jpg")  # фирменная шапка Rust для новостей
 
 # YouTube-блогеры по Rust: (отображаемое имя, channel_id).
-# Новые видео этих каналов автоматически улетают в канал.
 # Чтобы добавить блогера — пришли ссылку на его канал, впишу сюда ID.
 YT_CHANNELS = [
     ("Hedge", "UCftwbY3DWqa5QWxZtA_BuvQ"),
+    ("Shadowfrax", "UCRsrOaKEdy0ymNqR7Urqa2Q"),
+    ("Jfarr", "UCKfZk_0k5C7WajsNeHXtASw"),
 ]
+
+# Видео блогеров берём только про Rust — проверяем по ключевым словам
+# в заголовке (чтобы не постить их ролики про другие игры).
+RUST_KEYWORDS = ("rust", "раст", "facepunch", "фейспанч", "wipe", "вайп",
+                 "devblog", "девблог", "roam", "zerg")
 
 
 # ---------- вспомогательное ----------
@@ -186,12 +192,18 @@ def fetch_top_works(period="day", limit=12, min_score=300):
     return works
 
 
+def is_rust_video(title):
+    t = (title or "").lower()
+    return any(k in t for k in RUST_KEYWORDS)
+
+
 def fetch_youtube(channels, max_age_days=4):
-    """Новые видео YouTube-блогеров через их RSS-ленты (без ключей).
-    Берём только свежие (за последние max_age_days дней), чтобы при
-    первом включении не вывалить весь архив."""
+    """Видео блогеров за последние max_age_days дней — ТОЛЬКО про Rust,
+    с числом просмотров из RSS. Возвращает отсортированными по просмотрам
+    (лучшие первыми), чтобы постить только топовые, а не всё подряд."""
     atom = "{http://www.w3.org/2005/Atom}"
     ytns = "{http://www.youtube.com/xml/schemas/2015}"
+    media = "{http://search.yahoo.com/mrss/}"
     now = time.time()
     out = []
     for name, cid in channels:
@@ -210,8 +222,9 @@ def fetch_youtube(channels, max_age_days=4):
             pub_el = entry.find(atom + "published")
             if vid_el is None or title_el is None:
                 continue
-            vid = vid_el.text
+            title = title_el.text or ""
             pub = pub_el.text if pub_el is not None else ""
+            # 1) только свежие
             try:
                 dt = datetime.datetime.fromisoformat(
                     pub.replace("Z", "+00:00"))
@@ -219,15 +232,30 @@ def fetch_youtube(channels, max_age_days=4):
                     continue
             except Exception:
                 pass
+            # 2) только про Rust
+            if not is_rust_video(title):
+                continue
+            # 3) число просмотров (для выбора лучших)
+            views = 0
+            grp = entry.find(media + "group")
+            comm = grp.find(media + "community") if grp is not None else None
+            stat = comm.find(media + "statistics") if comm is not None else None
+            if stat is not None:
+                try:
+                    views = int(stat.get("views") or 0)
+                except ValueError:
+                    views = 0
+            vid = vid_el.text
             out.append({
                 "id": "yt_" + vid,
-                "title": translate_to_ru(clean(title_el.text, 200)),
+                "title": translate_to_ru(clean(title, 200)),
                 "author": name,
+                "views": views,
                 "url": "https://www.youtube.com/watch?v=" + vid,
                 "image": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
                 "published": pub,
             })
-    out.sort(key=lambda x: x["published"], reverse=True)
+    out.sort(key=lambda x: x["views"], reverse=True)
     return out
 
 
@@ -445,9 +473,18 @@ def build_work_caption(w, index):
     return frame(kicker, w["title"], body, "#rust #раст #работы")
 
 
+def fmt_views(n):
+    if n >= 1_000_000:
+        return f"{n / 1_000_000:.1f}M".replace(".0M", "M")
+    if n >= 1_000:
+        return f"{n // 1000}K"
+    return str(n)
+
+
 def build_video_caption(v):
-    kicker = f"🎬 {html.escape(v['author'])} · НОВОЕ ВИДЕО"
-    body = f"▶️ <a href=\"{v['url']}\">Смотреть на YouTube</a>"
+    kicker = f"🎬 {html.escape(v['author'])} · ВИДЕО ДНЯ"
+    views = f"   👁 {fmt_views(v['views'])}" if v.get("views") else ""
+    body = f"▶️ <a href=\"{v['url']}\">Смотреть на YouTube</a>{views}"
     return frame(kicker, v["title"], body, "#rust #раст #видео")
 
 
@@ -517,8 +554,6 @@ def main():
         news = [n for n in fetch_official_news(5) if n["id"] not in posted][:3]
         if news:
             res = tg.send_photo(NEWS_BANNER, build_news_caption(news))
-            # В историю пишем ТОЛЬКО если Telegram принял отправку —
-            # иначе при ошибке (бот не админ и т.п.) попробуем снова.
             if args.dry_run or res.get("ok"):
                 for n in news:
                     posted.add(n["id"])
@@ -543,20 +578,32 @@ def main():
     else:
         print("Новых работ по заданным порогам нет.")
 
-    # 3) новые видео блогеров (YouTube)
-    yt_count = int(os.environ.get("YT_COUNT") or "2")
-    if YT_CHANNELS and yt_count > 0:
-        videos = [v for v in fetch_youtube(YT_CHANNELS)
-                  if v["id"] not in posted][:yt_count]
-        if videos:
-            for v in videos:
-                res = tg.send_photo(v["image"], build_video_caption(v))
-                if args.dry_run or res.get("ok"):
-                    posted.add(v["id"])
-                    sent_any = sent_any or not args.dry_run
-                time.sleep(2)
+    # 3) лучшие видео дня у блогеров (только про Rust, не больше 2/день)
+    yt_max = int(os.environ.get("YT_MAX_PER_DAY") or "2")
+    if YT_CHANNELS and yt_max > 0:
+        yt_log = state.get("yt_log", [])
+        today = time.strftime("%Y-%m-%d", time.gmtime(time.time()))
+        yt_today = sum(
+            1 for ts in yt_log
+            if time.strftime("%Y-%m-%d", time.gmtime(ts)) == today)
+        slots = yt_max - yt_today
+        if slots > 0:
+            best = [v for v in fetch_youtube(YT_CHANNELS)
+                    if v["id"] not in posted][:slots]
+            if best:
+                for v in best:
+                    res = tg.send_photo(v["image"], build_video_caption(v))
+                    if args.dry_run or res.get("ok"):
+                        posted.add(v["id"])
+                        if not args.dry_run:
+                            yt_log = (yt_log + [int(time.time())])[-30:]
+                            state["yt_log"] = yt_log
+                        sent_any = True
+                    time.sleep(2)
+            else:
+                print("Новых лучших видео про Rust нет.")
         else:
-            print("Новых видео блогеров нет.")
+            print("Лимит видео на сегодня исчерпан.")
 
     # 4) мастерская Steam — альбом из 5 новинок проверенных авторов, до 2/день
     steam_key = (os.environ.get("STEAM_API_KEY")
