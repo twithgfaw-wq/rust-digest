@@ -338,6 +338,29 @@ def fetch_new_submissions(api_key, pages=6, per=50, max_age_days=14):
     out.sort(key=lambda x: x["created"], reverse=True)
     return out
 
+def fetch_top_week(api_key, per=30):
+    """Самые популярные скины недели (по голосам, RankedByTrend за 7 дней)."""
+    url = ("https://api.steampowered.com/IPublishedFileService/QueryFiles/v1/"
+           f"?key={api_key}&appid={RUST_APPID}&query_type=3&days=7"
+           f"&numperpage={per}&cursor=*"
+           "&return_previews=true&return_metadata=true&requiredtags%5B0%5D=Skin")
+    try:
+        items = http_get_json(url, timeout=20).get("response", {}).get(
+            "publishedfiledetails", [])
+    except Exception as e:
+        print("Топ недели не загрузился:", e)
+        return []
+    return [{"id": "ws_" + str(it["publishedfileid"]),
+             "title_raw": it.get("title") or "",
+             "author_id": str(it.get("creator") or ""),
+             "author": "",
+             "image": it.get("preview_url") or "",
+             "url": ("https://steamcommunity.com/sharedfiles/filedetails/"
+                     "?id=" + str(it["publishedfileid"]))}
+            for it in items
+            if it.get("publishedfileid") and it.get("title")
+            and it.get("preview_url")]
+
 def fetch_accepted_pids(api_key, pages=10, per=100):
     """ID (ws_...) скинов, которые УЖЕ приняли в игру — для подсчёта,
     кто из голосовавших угадал."""
@@ -1122,6 +1145,13 @@ def main():
             pool = [s for s in newest
                     if s["author_id"] in verified and s["id"] not in posted]
             pool.sort(key=lambda s: counts.get(s["author_id"], 0), reverse=True)
+            if not pool:   # свежие работы проверенных авторов уже все были —
+                # берём самый популярный (по голосам) скин недели, ещё не принятый
+                accepted = set(state.get("accepted_seen", []))
+                pool = [s for s in fetch_top_week(steam_key)
+                        if s["id"] not in posted and s["id"] not in accepted]
+            if not pool:
+                print("Для «лучшего из воркшопа» сейчас нечего постить.")
             elite_new = pool[:1]
             elite |= {s["author_id"] for s in elite_new}   # не дублируем в конкурсе
 
