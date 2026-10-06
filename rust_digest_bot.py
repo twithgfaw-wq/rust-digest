@@ -7,23 +7,24 @@ Rust Digest Bot — автоматическая сводка новостей �
   1. Берёт свежие ОФИЦИАЛЬНЫЕ новости Rust из Steam News API.
   2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты).
   3. Берёт ЛУЧШИЕ видео дня у YouTube-блогеров по Rust (по просмотрам).
-  4. Мастерская Steam: работы "мастеров" (у кого много принятых скинов)
-     постит сразу отдельно; плюс альбом из 5 скинов РАЗНЫХ авторов с
-     конкурсом "угадай, какой примут".
+  4. Мастерская Steam: работы "мастеров" постит сразу отдельно; плюс
+     конкурс — коллаж из 5 скинов РАЗНЫХ авторов с голосованием.
   5. Публикует всё это в твой Telegram-канал в едином стиле.
 
 Английские заголовки автоматически переводятся на русский.
 
-Только стандартная библиотека Python 3 — ставить ничего не надо.
+Только стандартная библиотека Python 3; для коллажа нужен Pillow.
 """
 
 import argparse
 import configparser
 import datetime
 import html
+import io
 import json
 import os
 import sys
+import tempfile
 import time
 import urllib.request
 import urllib.parse
@@ -434,6 +435,45 @@ class Telegram:
             "caption": caption, "parse_mode": "HTML",
         })
 
+    def send_photo_file(self, file_path, caption, reply_markup=None):
+        """Отправка локальной картинки (коллажа) + подпись + кнопки —
+        всё одним постом. Нужен multipart/form-data."""
+        if self.dry_run:
+            print(f"[dry-run] sendPhoto(file): {clean(caption, 120)}")
+            return {"ok": True}
+        try:
+            with open(file_path, "rb") as f:
+                img = f.read()
+        except Exception:
+            return {"ok": False}
+        boundary = "----RustBot" + str(int(time.time() * 1000))
+        fields = {"chat_id": str(self.chat), "caption": caption,
+                  "parse_mode": "HTML"}
+        if reply_markup:
+            fields["reply_markup"] = reply_markup
+        head = "".join(
+            f"--{boundary}\r\nContent-Disposition: form-data; "
+            f"name=\"{k}\"\r\n\r\n{v}\r\n" for k, v in fields.items()
+        ).encode("utf-8")
+        filehead = (f"--{boundary}\r\nContent-Disposition: form-data; "
+                    f"name=\"photo\"; filename=\"c.jpg\"\r\n"
+                    f"Content-Type: image/jpeg\r\n\r\n").encode("utf-8")
+        body = head + filehead + img + f"\r\n--{boundary}--\r\n".encode("utf-8")
+        req = urllib.request.Request(
+            f"{self.base}/sendPhoto", data=body,
+            headers={"User-Agent": UA,
+                     "Content-Type":
+                         f"multipart/form-data; boundary={boundary}"})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                res = json.loads(r.read().decode("utf-8", "replace"))
+            if not res.get("ok"):
+                print("Telegram ошибка (коллаж):", res)
+            return res
+        except Exception as e:
+            print("Telegram не принял коллаж:", e)
+            return {"ok": False}
+
     def send_media_group(self, photo_urls, caption):
         """Один пост-альбом из нескольких фото. Подпись — на первом фото."""
         media = []
@@ -452,11 +492,11 @@ class Telegram:
         })
 
     def send_vote_buttons(self, text, labels, rid):
-        """Сообщение с inline-кнопками для голосования. По нажатиям бот
-        видит, кто голосовал (в каналах опросы анонимны, а кнопки — нет)."""
+        """Запасной путь: отдельное сообщение с кнопками (если коллаж не
+        собрался). Кнопки в один ряд."""
         kb = {"inline_keyboard": [
-            [{"text": lbl, "callback_data": f"v{rid}_{i}"}]
-            for i, lbl in enumerate(labels)]}
+            [{"text": lbl, "callback_data": f"v{rid}_{i}"}
+             for i, lbl in enumerate(labels)]]}
         if self.dry_run:
             print(f"[dry-run] голосование (кнопки): {clean(text, 120)}")
             return {"ok": True}
@@ -539,22 +579,89 @@ NUM_EMOJI = ["1️⃣", "2️⃣", "3️⃣", "4️⃣",
 
 
 def build_workshop_caption(skins):
-    body = "\n".join(
-        f"{NUM_EMOJI[i]} <b>{html.escape(translate_to_ru(clean(s['title_raw'], 90)))}</b>"
-        f" — {html.escape(s['author'] or 'автор неизвестен')}"
-        for i, s in enumerate(skins))
-    return frame("\U0001f3a8 МАСТЕРСКАЯ RUST · НОВИНКИ",
-                 "Свежие скины — у каждого свой автор",
-                 body, "#rust #раст #скины")
+    lines = []
+    for i, s in enumerate(skins):
+        title = html.escape(translate_to_ru(clean(s["title_raw"], 80)))
+        author = html.escape(s["author"] or "автор неизвестен")
+        lines.append(f"{NUM_EMOJI[i]} <b>{title}</b> — {author}")
+    lines.append("")
+    lines.append("\U0001f3af Какой из них примут в игру? Жми ОДИН номер "
+                 "под постом. Итоги — в конце недели \U0001f3c6")
+    return frame("\U0001f3a8 КОНКУРС · УГАДАЙ ПРИНЯТЫЙ СКИН",
+                 "5 новых работ — у каждого свой автор",
+                 "\n".join(lines), "#rust #раст #скины #конкурс")
 
 
 def build_elite_caption(s):
     title = translate_to_ru(clean(s["title_raw"], 90))
-    body = (f"Новая работа мастера, у которого уже много принятых скинов.\n"
-            f"\U0001f464 {html.escape(s['author'] or 'автор')}\n"
+    body = (f"Работа автора, у которого уже много работ приняли в игру — "
+            f"есть на что посмотреть.\n"
+            f"\U0001f464 <b>{html.escape(s['author'] or 'автор')}</b>\n"
             f"\U0001f517 <a href=\"{s['url']}\">Открыть в мастерской</a>")
-    return frame("⭐ МАСТЕР RUST · НОВАЯ РАБОТА", title, body,
-                 "#rust #раст #скин")
+    return frame("\U0001f525 ЛУЧШЕЕ ИЗ ВОРКШОПА", title, body,
+                 "#rust #раст #воркшоп #скин")
+
+
+def build_collage(image_urls, out_path):
+    """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
+    его нет или картинки не скачались — возвращаем False (будет запасной
+    путь: обычный альбом + отдельные кнопки)."""
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except Exception:
+        return False
+    imgs = []
+    for u in image_urls[:5]:
+        try:
+            req = urllib.request.Request(u, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                imgs.append(Image.open(io.BytesIO(r.read())).convert("RGB"))
+        except Exception:
+            return False
+    if len(imgs) < 5:
+        return False
+    tile, gap, bg = 360, 8, (17, 18, 24)
+
+    def square(im):
+        w, h = im.size
+        s = min(w, h)
+        im = im.crop(((w - s) // 2, (h - s) // 2,
+                      (w - s) // 2 + s, (h - s) // 2 + s))
+        return im.resize((tile, tile))
+
+    imgs = [square(im) for im in imgs]
+    cols = 3
+    width = cols * tile + (cols + 1) * gap
+    height = 2 * tile + 3 * gap
+    canvas = Image.new("RGB", (width, height), bg)
+    pos = [(gap + i * (tile + gap), gap) for i in range(3)]
+    bottom_w = 2 * tile + gap
+    bx = (width - bottom_w) // 2
+    pos += [(bx + i * (tile + gap), 2 * gap + tile) for i in range(2)]
+    try:
+        font = ImageFont.truetype(
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 96)
+    except Exception:
+        font = ImageFont.load_default()
+    draw = ImageDraw.Draw(canvas)
+    rad = 48
+    for i, (im, (x, y)) in enumerate(zip(imgs, pos)):
+        canvas.paste(im, (x, y))
+        draw.ellipse((x + 12, y + 12, x + 12 + 2 * rad, y + 12 + 2 * rad),
+                     fill=(206, 66, 43))
+        n = str(i + 1)
+        try:
+            bb = draw.textbbox((0, 0), n, font=font)
+            tx = x + 12 + rad - (bb[2] - bb[0]) / 2 - bb[0]
+            ty = y + 12 + rad - (bb[3] - bb[1]) / 2 - bb[1]
+        except Exception:
+            tx, ty = x + 12 + rad - 24, y + 12 + rad - 40
+        draw.text((tx, ty), n, fill=(255, 255, 255), font=font)
+    try:
+        canvas.save(out_path, "JPEG", quality=85)
+        return True
+    except Exception:
+        return False
 
 
 # ---------- конкурс "угадай принятый скин" ----------
@@ -564,8 +671,8 @@ def iso_week(ts):
 
 
 def collect_votes(tg, state):
-    """Забираем нажатия кнопок (callback_query) и копим: кто за какие
-    скины проголосовал в каждом раунде. Нажатие = добавить скин к ставке."""
+    """Забираем нажатия кнопок (callback_query). Один голос на игрока:
+    новое нажатие заменяет прежний прогноз."""
     offset = state.get("update_offset", 0)
     updates = tg.get_updates(offset)
     if not updates:
@@ -598,10 +705,7 @@ def collect_votes(tg, state):
             continue
         name = user.get("username") or user.get("first_name") or "Игрок"
         votes.setdefault(rid, {})
-        rec = votes[rid].setdefault(uid, {"pids": [], "name": name})
-        rec["name"] = name
-        if skins[idx] not in rec["pids"]:
-            rec["pids"].append(skins[idx])
+        votes[rid][uid] = {"pid": skins[idx], "name": name}
     state["votes"] = votes
     state["update_offset"] = last + 1
 
@@ -651,10 +755,11 @@ def score_week(state, accepted_pids):
         correct = set(rounds[pid].get("pids", [])) & accepted_pids
         accepted_count += len(correct)
         for uid, v in votes.get(pid, {}).items():
-            hit = len(set(v["pids"]) & correct)
+            guess = v.get("pid") or (v.get("pids") or [None])[0]
             rec = scores.setdefault(uid, {"name": v["name"], "score": 0})
             rec["name"] = v["name"]
-            rec["score"] += hit
+            if guess in correct:
+                rec["score"] += 1
     ranking = sorted(scores.values(), key=lambda x: x["score"], reverse=True)
     return ranking, accepted_count, bool(week_polls)
 
@@ -770,7 +875,7 @@ def main():
         else:
             print("Лимит видео на сегодня исчерпан.")
 
-    # 4) мастерская Steam: мастера (сразу) + альбом-конкурс из РАЗНЫХ авторов
+    # 4) мастерская Steam: мастера (сразу) + конкурс-коллаж из РАЗНЫХ авторов
     if steam_key:
         now = time.time()
         counts = fetch_accepted_authors(steam_key)   # author_id -> принято
@@ -790,7 +895,7 @@ def main():
             state["week_authors_wk"] = wk
         week_authors = set(state.get("week_authors", []))
 
-        # альбом из 5 скинов РАЗНЫХ авторов (не мастера, не повтор за неделю)
+        # 5 скинов РАЗНЫХ авторов (не мастера, не повтор за неделю)
         ws_albums = state.get("ws_albums", [])
         today = time.strftime("%Y-%m-%d", time.gmtime(now))
         today_count = sum(
@@ -827,28 +932,31 @@ def main():
                 sent_any = sent_any or not args.dry_run
             time.sleep(2)
 
-        # 4b) альбом + конкурс (голосование на кнопках)
+        # 4b) конкурс: коллаж из 5 скинов + кнопки голосования — ОДИН пост
         if len(album) == 5:
-            res = tg.send_media_group([s["image"] for s in album],
-                                      build_workshop_caption(album))
+            rid = str(state.get("round_seq", 0))
+            caption = build_workshop_caption(album)
+            markup = json.dumps({"inline_keyboard": [[
+                {"text": NUM_EMOJI[i], "callback_data": f"v{rid}_{i}"}
+                for i in range(5)]]}, ensure_ascii=False)
+            collage = os.path.join(tempfile.gettempdir(), "rust_collage.jpg")
+            if build_collage([s["image"] for s in album], collage):
+                res = tg.send_photo_file(collage, caption, markup)
+            else:
+                # запасной путь: альбом + отдельное сообщение с кнопками
+                res = tg.send_media_group([s["image"] for s in album], caption)
+                if not args.dry_run and res.get("ok"):
+                    tg.send_vote_buttons(
+                        "\U0001f3af Жми ОДИН номер — свой прогноз:",
+                        [NUM_EMOJI[i] for i in range(5)], rid)
             if args.dry_run or res.get("ok"):
                 for s in album:
                     posted.add(s["id"])
-                rid = str(state.get("round_seq", 0))
                 state["round_seq"] = state.get("round_seq", 0) + 1
-                labels = [f"{NUM_EMOJI[i]} "
-                          f"{clean(translate_to_ru(clean(s['title_raw'], 60)), 28)}"
-                          for i, s in enumerate(album)]
-                vtext = ("\U0001f3af <b>Голосуй: какие из этих 5 примут в "
-                         "игру?</b>\nУ каждого скина свой автор — обычно "
-                         "принимают по одному. Жми номера (можно несколько). "
-                         "Итоги — в конце недели.")
-                vres = tg.send_vote_buttons(vtext, labels, rid)
-                if not args.dry_run and vres.get("ok"):
+                if not args.dry_run:
                     rounds = state.setdefault("rounds", {})
                     rounds[rid] = {"pids": [s["id"] for s in album],
                                    "week": wk, "ts": int(now)}
-                if not args.dry_run:
                     state["ws_albums"] = (ws_albums + [int(now)])[-10:]
                     state["week_authors"] = list(
                         week_authors | {s["author_id"] for s in album})
