@@ -14,8 +14,10 @@
      • шанс — продастся ли скин в плюс в первую неделю после бана;
      • прибыль — какую цену он, скорее всего, наберёт (→ % после комиссии).
      Плюс модель «через год» — чтобы сказать, стоит ли держать дольше.
-  4. Учитывает коллекцию: если скин её продолжает — как стартовали прошлые
-     части.
+  4. Учитывает коллекцию: какая это часть, давно ли вышла прошлая и как
+     стартовали прошлые части; для новой коллекции — как часто у таких
+     потом выходит продолжение (если первым приняли один скин или сразу
+     несколько).
   5. Пост: картинка-плитка и подпись — у каждого скина прибыль в % после
      комиссии и шанс «N из 10»; цвет: можно брать / подумать / не стоит.
 
@@ -52,6 +54,10 @@ VERDICTS = {  # код: (эмодзи, раздел в посте, плашка 
     "buy": ("\U0001f7e2", "МОЖНО БРАТЬ", "МОЖНО БРАТЬ", (61, 220, 132)),
     "think": ("\U0001f7e1", "ПОДУМАТЬ", "ПОДУМАТЬ", (255, 200, 61)),
     "no": ("\U0001f534", "БРАТЬ НЕ СТОИТ", "БРАТЬ НЕ СТОИТ", (255, 82, 82)),
+}
+COLL_COLORS = {  # цвет строки о коллекции на плитке
+    "strong": (61, 220, 132), "weak": (255, 120, 120), "rare": (255, 120, 120),
+    "new": (110, 175, 255), "whole": (255, 200, 61),
 }
 
 
@@ -244,17 +250,79 @@ def collections(items):
     return idx
 
 
-def mark_collection(it, idx):
-    """Продолжает ли скин коллекцию и как стартовали её прошлые части."""
+def coll_dates(items):
+    """Коллекция → даты выхода всех её скинов (по возрастанию)."""
+    idx = {}
+    for h in items:
+        if h["coll"]:
+            idx.setdefault(h["coll"], []).append(h["rel"])
+    for v in idx.values():
+        v.sort()
+    return idx
+
+
+def waves(times):
+    """Даты выхода частей коллекции: скины в пределах двух дней — одна часть."""
+    out = []
+    for t in times:
+        if not out or t - out[-1] > 2 * DAY:
+            out.append(t)
+    return out
+
+
+def mark_collection(it, idx, dates):
+    """Продолжает ли скин коллекцию, какая это часть, давно ли вышла прошлая
+    и как стартовали прошлые части."""
     prev = [h for h in idx.get(it["coll"], [])
             if h["rel"] < it["rel"] - 5 * DAY]
     it["prev_n"] = len(prev)
     it["prev_l"] = med(ratio(h, "launch") for h in prev)
+    w = waves([t for t in dates.get(it["coll"], []) if t < it["rel"] - 2 * DAY])
+    it["parts"] = len(w)
+    it["gap"] = (it["rel"] - w[-1]) / DAY if w else None
+
+
+def continuation(dates, now):
+    """Как часто у новой коллекции за полгода выходит следующая часть:
+    (первым приняли один скин, приняли сразу несколько) — «N из 10»."""
+    one, many = [], []
+    for times in dates.values():
+        w = waves(times)
+        if w[0] < MODERN or w[0] > now - 180 * DAY:
+            continue
+        first = sum(1 for t in times if t - w[0] <= 2 * DAY)
+        y = 1 if len(w) > 1 and w[1] - w[0] <= 180 * DAY else 0
+        (one if first == 1 else many).append(y)
+    return tuple(round(10 * sum(v) / len(v)) if v else None
+                 for v in (one, many))
+
+
+def coll_status(it, same):
+    """Что сказать о коллекции скина: код значка и строка для плитки.
+    same — сколько скинов этой коллекции в нынешнем выпуске."""
+    if not it["coll"]:
+        return "none", "Без коллекции"
+    if not it["parts"]:
+        if same > 1:
+            return "whole", "Новая коллекция, принята целиком"
+        return "new", "Новая коллекция"
+    pl = it.get("prev_l")
+    if pl and pl >= FEE:
+        return "strong", "Прошлые части дороже магазина"
+    if (it["gap"] or 0) > 180:
+        return "rare", f"Прошлая часть — {round(it['gap'] / 30.4)} мес назад"
+    if pl and pl < 0.85:
+        return "weak", "Прошлые части дешевле магазина"
+    if pl:
+        return "even", "Прошлые части — около магазина"
+    return "even", f"{it['parts'] + 1}-я часть коллекции"
 
 
 def coll_feats(it):
     return [1.0 if it.get("prev_n") else 0.0,
-            math.log(it["prev_l"]) if it.get("prev_l") else 0.0]
+            math.log(it["prev_l"]) if it.get("prev_l") else 0.0,
+            math.log(1 + it.get("parts", 0)),
+            1.0 if (it.get("gap") or 0) > 180 else 0.0]
 
 
 def lagged(it, pool):
@@ -543,8 +611,9 @@ def build_card(title, subtitle, tiles, example, footer, out_path):
                   font=font(21), fill=muted, anchor="lm")
         draw.text((p(x + 20), p(y + 398)), t["net"], font=font(48, True),
                   fill=color, anchor="lm")
-        draw.text((p(x + 20), p(y + 436)), t["note"], font=font(19),
-                  fill=muted, anchor="lm")
+        draw.text((p(x + 20), p(y + 436)),
+                  fit_text(t["note"], font(19), p(TW - 40)), font=font(19),
+                  fill=t.get("ncolor") or muted, anchor="lm")
         dots(x + 20, y + 472, t["n10"], color)
         draw.text((p(x + 274), p(y + 472)), f"шанс {t['n10']} из 10",
                   font=font(20, True), fill=color, anchor="lm")
@@ -602,6 +671,20 @@ def build_card(title, subtitle, tiles, example, footer, out_path):
     img = img.convert("RGB").resize((W, H), Image.LANCZOS)
     img.save(out_path, "JPEG", quality=95, subsampling=0)
     return True
+
+
+def dump_card(path):
+    """Для теста: уменьшенная картинка в лог (base64), чтобы её посмотреть."""
+    import base64
+    try:
+        from PIL import Image
+        im = Image.open(path)
+        im = im.resize((720, im.height * 720 // im.width), Image.LANCZOS)
+        buf = io.BytesIO()
+        im.save(buf, "JPEG", quality=80)
+        print("CARD_B64:" + base64.b64encode(buf.getvalue()).decode())
+    except Exception as e:
+        print("Не удалось вывести картинку:", e)
 
 
 def plain_len(text):
@@ -674,8 +757,9 @@ def run():
     load_history(hist, now)
     mark_popularity(hist)
     colls = collections([h for h in hist if not h["skip"]])
+    dates = coll_dates(hist)
     for h in hist:
-        mark_collection(h, colls)
+        mark_collection(h, colls, dates)
     pool, flips = [], []
     for h in hist:
         if h["skip"]:
@@ -723,7 +807,7 @@ def run():
               "coll": i.get("itemCollection") or "",
               "icon": i.get("iconUrl") or "",
               "bg": i.get("backgroundColour") or ""}
-        mark_collection(it, colls)
+        mark_collection(it, colls, dates)
         it["pf"] = predict(wf, ff(it))
         it["n10"] = max(0, min(10, int(it["pf"] * 10 + 0.5)))
         it["net"] = math.exp(linear(wl, ff(it))) / FEE - 1
@@ -731,9 +815,15 @@ def run():
         it["comp"] = comparables(it, pool)
         it["v"] = verdict(it["n10"], it["net"])
         new.append(it)
+    for it in new:
+        same = sum(1 for o in new if it["coll"] and o["coll"] == it["coll"])
+        it["cs"], it["ctext"] = coll_status(it, same)
         print(f"{it['name']}: шанс {it['n10']}/10 ({it['pf']:.3f}), прибыль"
               f" {signed(it['net'])}, за год {it['ph']:.3f}, {it['v']},"
-              f" коллекция {it['coll']!r} ({it['prev_n']}, {it['prev_l']})")
+              f" коллекция {it['coll']!r} ({it['prev_n']}, {it['prev_l']},"
+              f" часть {it['parts'] + 1}, пауза {it['gap']}) → {it['cs']}")
+    cont = continuation(dates, now)
+    print("Продолжение новых коллекций за полгода (из 10):", cont)
     order = list(VERDICTS)
     new.sort(key=lambda it: (order.index(it["v"]), -it["net"]))
 
@@ -742,7 +832,28 @@ def run():
     first_year = kyiv(min(h["rel"] for h in hist)).year
     end_k = kyiv(nxt)
     groups = {k: [it for it in new if it["v"] == k] for k in VERDICTS}
-    star = lambda it: (it["prev_l"] or 0) >= FEE
+    marks = {"strong": " \U0001f9e9", "weak": " ⚠️",
+             "rare": " ⚠️", "new": " \U0001f195", "whole": " \U0001f51a"}
+    seen = {it["cs"] for it in new}
+    legend = []
+    if "strong" in seen:
+        legend.append("\U0001f9e9 — прошлые части коллекции продавались дороже"
+                      " магазина")
+    if {"weak", "rare"} <= seen:
+        legend.append("⚠️ — прошлые части дешевле магазина или новые"
+                      " части выходят редко")
+    elif "weak" in seen:
+        legend.append("⚠️ — прошлые части коллекции продавались"
+                      " дешевле магазина")
+    elif "rare" in seen:
+        legend.append("⚠️ — части коллекции выходят редко: прошлая"
+                      " — больше полугода назад")
+    if "new" in seen and cont[0] is not None:
+        legend.append(f"\U0001f195 — новая коллекция: у {cont[0]} из 10 таких"
+                      f" потом выходят новые части")
+    if "whole" in seen and cont[1] is not None:
+        legend.append(f"\U0001f51a — новую коллекцию приняли сразу целиком:"
+                      f" продолжение бывает у {cont[1]} из 10")
     best = max(groups["buy"] or new, key=lambda it: it["net"])
     ex = {"net": signed(best["net"]), "n10": best["n10"],
           "back": round(100 * (1 + best["net"]))}
@@ -770,7 +881,7 @@ def run():
                 continue
             lines += ["", f"{VERDICTS[code][0]} <b>{VERDICTS[code][1]}</b>"]
             for it in group[:limit]:
-                mark = " \U0001f9e9" if star(it) else ""
+                mark = marks.get(it["cs"], "")
                 lines.append(f"{dot} {html.escape(it['name'])} —"
                              f" {trend(it['net'])[0]} {signed(it['net'])}"
                              f" · {word}{it['n10']} из 10{mark}")
@@ -784,9 +895,7 @@ def run():
                       f"\U0001f3af {ex['n10']} из 10 — столько похожих скинов"
                       f" прошлых недель продались в плюс"]
         lines.append(hold)
-        if any(star(it) for it in new):
-            lines.append("\U0001f9e9 — прошлые части этой коллекции продавались"
-                         " дороже магазина")
+        lines += legend
         lines.append("#rust #раст #инвест #скины")
         return "\n".join(lines)
 
@@ -801,7 +910,8 @@ def run():
         "name": it["name"], "icon": it["icon"], "bg": it["bg"],
         "price": bot.money(it["store"]),
         "net": f"{trend(it['net'])[1]} {signed(it['net'])}",
-        "note": trend(it["net"])[2], "n10": it["n10"],
+        "note": it["ctext"], "ncolor": COLL_COLORS.get(it["cs"]),
+        "n10": it["n10"],
         "label": VERDICTS[it["v"]][2], "color": VERDICTS[it["v"]][3],
     } for it in new]
     n = len(new)
@@ -813,11 +923,14 @@ def run():
 
     if dry:
         print("\n===== ПОДПИСЬ =====\n" + caption)
+        print("Длина подписи:", plain_len(caption))
     tg = bot.Telegram(os.environ.get("BOT_TOKEN", ""), channel, dry_run=dry)
     card = os.path.join(tempfile.gettempdir(), "rust_invest.jpg")
     res = {}
     try:
         if build_card(title, subtitle, tiles, ex, footer, card):
+            if dry:
+                dump_card(card)
             res = tg.send_photo_file(card, caption)
     except Exception as e:
         print("Картинка не собралась:", e)
