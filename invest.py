@@ -357,7 +357,9 @@ def pct(v):
 
 
 def roi(v):
-    return "—" if v is None else bot.pct_text(v * 100)
+    if v is None:
+        return "—"
+    return "0%" if abs(v) < 0.005 else bot.pct_text(v * 100)
 
 
 def num(v):
@@ -384,14 +386,16 @@ def item_block(it, base, years):
         pop = "купили примерно как средний скин недели"
     lines.append(f"• {pop} (≈{num(it['supply'])} копий к концу продажи)")
     if lag["n_type"] >= 5:
+        n_t = lag["n_type"]
         lines.append(f"• тип «{html.escape(it['type'])}» за 3 года: через год"
                      f" в среднем ~{pct(math.exp(lag['typ']))} цены магазина"
-                     f" ({lag['n_type']} скинов)")
+                     f" ({n_t} {bot.plural(n_t, 'скин', 'скина', 'скинов')})")
     else:
         cat = CAT_RU.get(it["cat"], it["cat"])
-        lines.append(f"• тип новый — по категории «{cat}» за 3 года: через год"
-                     f" в среднем ~{pct(math.exp(lag['cat']))} цены"
-                     f" ({lag['n_cat']} скинов)")
+        n_c = lag["n_cat"]
+        lines.append(f"• по этому типу мало данных за 3 года — смотрим категорию"
+                     f" «{cat}»: через год в среднем ~{pct(math.exp(lag['cat']))}"
+                     f" цены ({n_c} {bot.plural(n_c, 'скин', 'скина', 'скинов')})")
     where = {"type": " того же типа", "cat": " той же категории"}.get(
         c["scope"], "")
     path = ", ".join(x for x in (
