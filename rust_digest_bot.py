@@ -862,6 +862,34 @@ def build_elite_set_caption(works):
     return frame(elite_hook(SET_PHRASES), title, "\n".join(lines),
                  "#rust #раст #воркшоп #скин")
 
+# «Лучшее из воркшопа» пачкой: один пост сразу на несколько авторов.
+ELITE_BATCH = 3           # авторов в одном посте
+ELITE_MAX_WAIT_H = 24     # не набралось трёх — через сутки публикуем, что есть
+ELITE_GAP_H = 4           # не чаще одного такого поста за 4 часа
+TRIO_PHRASES = [
+    "подборка свежих работ", "свежий улов из мастерской", "что выкатили авторы",
+    "горячая подборка", "новинки, которые цепляют", "новые работы недели",
+]
+TRIO_ONLY = ["сразу три автора", "тройка новинок", "три автора — три стиля"]
+TRIO_TITLES = ["Свежие работы от {n} {a_gen}", "Подборка мастерской: {k} {works}",
+               "Новинки от {n} {a_gen} — {k} {works}"]
+
+def build_elite_digest_caption(sets):
+    """Один пост на несколько авторов: у каждого — его новые работы."""
+    lines = []
+    for i, works in enumerate(sets):
+        lines.append(f"{NUM_EMOJI[i]} <b>{html.escape(works[0]['author'] or 'автор')}</b>")
+        for s in works:
+            name = html.escape(translate_to_ru(clean(s["title_raw"], 45)))
+            lines.append(f"   ▫️ <a href=\"{s['url']}\">{name}</a>")
+    lines += ["", pick(SET_OUTROS)]
+    n, k = len(sets), sum(len(w) for w in sets)
+    title = pick(TRIO_TITLES).format(
+        n=n, a_gen=plural(n, "автора", "авторов", "авторов"),
+        k=k, works=plural(k, "работа", "работы", "работ"))
+    return frame(elite_hook(TRIO_PHRASES + (TRIO_ONLY if n == 3 else [])), title, "\n".join(lines),
+                 "#rust #раст #воркшоп #скин")
+
 # Тихие часы по Киеву: конкурс и «Лучшее из воркшопа» ночью не постим —
 # они копятся и выходят утром. Новости и принятые скины — без ограничений.
 QUIET_FROM, QUIET_TO = 0, 9
@@ -2231,13 +2259,22 @@ def main():
         elite = {a for a, c in counts.items() if c >= ELITE_MIN}
         newest = fetch_new_submissions(steam_key)
 
-        # мастера: одна публикация на автора — все его новые работы за неделю
-        # (комплект, v1 и v2) идут вместе; в тихие часы (ночь) не постим
-        elite_sets = group_by_author(
+        # мастера: копим готовых авторов (работы одного автора за неделю — вместе)
+        # и публикуем ОДНИМ постом сразу по ELITE_BATCH (3) автора — меньше
+        # постов, без спама. Если готовых меньше, но работа ждёт дольше
+        # ELITE_MAX_WAIT_H — публикуем то, что есть. Между такими постами —
+        # не меньше ELITE_GAP_H часов; в тихие часы (ночь) не постим.
+        ready = group_by_author(
             [s for s in newest
-             if s["author_id"] in elite and s["id"] not in posted],
-            now)[:ELITE_MAX_PER_RUN]
+             if s["author_id"] in elite and s["id"] not in posted], now)
+        oldest = min((w.get("created") or now for st in ready for w in st),
+                     default=now)
+        due = ((len(ready) >= ELITE_BATCH
+                or now - oldest >= ELITE_MAX_WAIT_H * 3600)
+               and now - state.get("elite_last_ts", 0) >= ELITE_GAP_H * 3600)
         forced = os.environ.get("EXTRA_POST") == "лучшее из воркшопа"
+        elite_sets = ([st[:3] for st in ready[:ELITE_BATCH]]
+                      if due or forced else [])
         quiet = quiet_now() and not forced
         if quiet:
             elite_sets = []
@@ -2297,17 +2334,23 @@ def main():
         for s in elite_new + album:
             s["author"] = names.get(s["author_id"], "")
 
-        # 4a) посты мастеров: одна работа — фото, несколько — одним альбомом
-        for st in elite_sets:
-            if len(st) == 1:
-                res = tg.send_photo(st[0]["image"], build_elite_caption(st[0]))
+        # 4a) «Лучшее из воркшопа» — ОДИН пост на пачку авторов (альбомом)
+        if elite_sets:
+            works = [s for st in elite_sets for s in st]
+            if len(works) == 1:
+                res = tg.send_photo(works[0]["image"],
+                                    build_elite_caption(works[0]))
+            elif len(elite_sets) == 1:
+                res = tg.send_media_group([s["image"] for s in works],
+                                          build_elite_set_caption(works))
             else:
-                res = tg.send_media_group([s["image"] for s in st],
-                                          build_elite_set_caption(st))
+                res = tg.send_media_group([s["image"] for s in works][:10],
+                                          build_elite_digest_caption(elite_sets))
             if args.dry_run or res.get("ok"):
-                posted.update(s["id"] for s in st)
+                posted.update(s["id"] for s in works)
+                if not args.dry_run:
+                    state["elite_last_ts"] = int(now)
                 sent_any = sent_any or not args.dry_run
-            time.sleep(2)
 
         # 4b) конкурс: коллаж из 5 скинов + кнопки голосования — ОДИН пост
         if len(album) == 5:
