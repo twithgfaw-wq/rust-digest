@@ -687,11 +687,14 @@ def run():
 
     def why(code, group):
         lau = med(i["fc"]["launch"] for i in group)
+        nv = round((lau / FEE - 1) * 100) if lau else None
+        net = ("" if nv is None else
+               f" ({'≈0%' if nv == 0 else bot.pct_text(nv)} после комиссии)")
         if code == "buy":
-            return f"После бана похожие стоили {vs_store(lau)}."
+            return f"После бана похожие стоили {vs_store(lau)}{net}."
         if code == "think":
-            return (f"После бана похожие стоили {vs_store(lau)} —"
-                    f" с комиссией впритык.")
+            return (f"После бана похожие стоили {vs_store(lau)}{net} —"
+                    f" прибыль не гарантирована.")
         y1 = med(i["comp"]["y1"] for i in group)
         return f"Похожие через год стоили {vs_store(y1)} — скорее убыток."
 
