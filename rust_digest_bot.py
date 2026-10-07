@@ -1623,6 +1623,264 @@ def market_tick(tg, state, forced=False):
         if not forced:   # ручной показ не отменяет обеденную сводку
             state["market_day"] = today
 
+# ---------- топ скинов недели из мастерской (micro522.com) ----------
+# Раз в ~3 дня вечером (по Киеву) — топ-3 работ недели по оценке Steam с
+# micro522.com/WorkshopVotes (страница обновляется ежечасно) + картинка-подиум.
+TOP_URL = "https://micro522.com/WorkshopVotes/votePageSubmitted.html"
+TOP_EVERY_H = 70          # примерно раз в 3 дня
+TOP_HOUR = 17             # вечером по Киеву
+TOP_MIN_WORKS = 25        # неделя должна набрать столько работ
+TOP_HOOKS = [
+    "🏆 ТОП-3 СКИНОВ НЕДЕЛИ В МАСТЕРСКОЙ",
+    "🥇 Лучшие работы недели в воркшопе Rust",
+    "🔥 Мастерская Rust: тройка лидеров недели",
+    "👑 Кто правит воркшопом на этой неделе",
+    "📊 Рейтинг мастерской: топ-3 недели",
+    "🎨 Самые сильные скины недели по оценке Steam",
+]
+TOP_OUTROS = ["Кто, по-вашему, попадёт в игру? 🤔", "За кого болеете? Ставь 🔥",
+              "Достойный подиум? 👀", "Какой из трёх взяли бы себе? 🛒",
+              "Ждём их в магазине? 🤞"]
+
+def fetch_workshop_top():
+    """Работы с micro522.com: {(год, неделя): [скины по убыванию оценки]}."""
+    import re
+    req = urllib.request.Request(TOP_URL, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=40) as r:
+        page = r.read().decode("utf-8", "replace")
+
+    def text(cell):
+        return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", cell)).split())
+
+    weeks = {}
+    for row in page.split("<tr")[1:]:
+        cells = re.findall(r"<td[^>]*>(.*?)</td>", row, re.S)
+        if len(cells) < 13:
+            continue
+        wk = re.match(r"(\d+) Week(\d+)", text(cells[1]))
+        link = re.search(r"""href=['"](https://steamcommunity\.com/[^'"]+)['"][^>]*>([^<]*)""",
+                         cells[4])
+        img = re.search(r"""<img[^>]+src=['"]([^'"]+)['"]""", cells[4])
+        if not (wk and link):
+            continue
+        try:
+            score = float(text(cells[3]))
+            up, down = int(text(cells[8])), int(text(cells[9]))
+        except ValueError:
+            continue
+        pic = html.unescape(img.group(1)) if img else ""
+        pic = re.sub(r"imh=\d+", "imh=512", re.sub(r"imw=\d+", "imw=512", pic))
+        weeks.setdefault((int(wk.group(1)), int(wk.group(2))), []).append({
+            "title": html.unescape(link.group(2)).strip(),
+            "url": html.unescape(link.group(1)),
+            "author": text(cells[2]), "score": score, "up": up, "down": down,
+            "category": text(cells[12]), "image": pic})
+    for works in weeks.values():
+        works.sort(key=lambda s: -s["score"])
+    return weeks
+
+def build_top_card(subtitle, top, out_path):
+    """Картинка-подиум 1440×1800: №1 крупно сверху, №2 и №3 рядом снизу.
+    Рисуем в 2× и уменьшаем — гладкие края и чёткий текст."""
+    try:
+        from PIL import Image, ImageDraw, ImageFilter, ImageFont
+    except Exception:
+        return False
+    S, W, H = 2, 1440, 1800
+    p = lambda v: int(v * S)
+    card_bg, line_c = (31, 34, 43), (48, 52, 64)
+    muted, red = (150, 156, 172), (205, 65, 43)
+    medals = [(255, 196, 46), (205, 212, 224), (214, 134, 62)]
+
+    grad = Image.linear_gradient("L").resize((p(W), p(H)))
+    img = Image.composite(Image.new("RGB", (p(W), p(H)), (11, 12, 16)),
+                          Image.new("RGB", (p(W), p(H)), (27, 29, 37)),
+                          grad).convert("RGBA")
+    glow = Image.new("RGBA", (W // 8, H // 8), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).ellipse((W // 8 - 75, -55, W // 8 + 45, 45),
+                                 fill=medals[0] + (90,))
+    glow = glow.filter(ImageFilter.GaussianBlur(14)).resize(
+        (p(W), p(H)), Image.BICUBIC)
+    img.alpha_composite(glow)
+    draw = ImageDraw.Draw(img)
+
+    def font(size, bold=False):
+        name = "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf"
+        try:
+            return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/" + name,
+                                      p(size))
+        except Exception:
+            return ImageFont.load_default()
+
+    def fit(text, fnt, width):
+        if draw.textlength(text, font=fnt) <= width:
+            return text
+        while text and draw.textlength(text + "…", font=fnt) > width:
+            text = text[:-1]
+        return text.rstrip() + "…"
+
+    def wrap(text, fnt, width, lines=2):
+        out, cur = [], ""
+        for w in text.split():
+            t = (cur + " " + w).strip()
+            if cur and draw.textlength(t, font=fnt) > width:
+                out.append(cur)
+                cur = w
+            else:
+                cur = t
+        out.append(cur)
+        if len(out) > lines:
+            out = out[:lines - 1] + [" ".join(out[lines - 1:])]
+        out[-1] = fit(out[-1], fnt, width)
+        return out
+
+    def picture(url, size):
+        tile = Image.new("RGBA", (p(size), p(size)), (20, 22, 28, 255))
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                im = Image.open(io.BytesIO(r.read())).convert("RGBA")
+            im.thumbnail((p(size), p(size)), Image.LANCZOS)
+            tile.alpha_composite(im, ((tile.width - im.width) // 2,
+                                      (tile.height - im.height) // 2))
+        except Exception:
+            pass
+        mask = Image.new("L", tile.size, 0)
+        ImageDraw.Draw(mask).rounded_rectangle(
+            (0, 0, tile.width - 1, tile.height - 1), radius=p(24), fill=255)
+        tile.putalpha(mask)
+        return tile
+
+    def badge(cx, cy, n, r):
+        draw.ellipse((cx - p(r), cy - p(r), cx + p(r), cy + p(r)),
+                     fill=medals[n], outline=(20, 22, 28), width=p(4))
+        draw.text((cx, cy), str(n + 1), font=font(int(r * 1.15), True),
+                  fill=(20, 22, 28), anchor="mm")
+
+    def stats(x, y, it, size):
+        f = font(size, True)
+        for txt, col in ((f"▲ {it['up']}", (61, 220, 132)),
+                         (f"▼ {it['down']}", (255, 82, 82)),
+                         (f"★ {it['score']:.1f}", (255, 255, 255))):
+            draw.text((x, y), txt, font=f, fill=col, anchor="lm")
+            x += draw.textlength(txt, font=f) + p(30)
+
+    def pill(x, y, text, size=22):
+        f = font(size, True)
+        w = draw.textlength(text, font=f) + p(36)
+        draw.rounded_rectangle((x, y - p(size), x + w, y + p(size)),
+                               radius=p(size), fill=(44, 48, 60))
+        draw.text((x + w / 2, y), text, font=f, fill=muted, anchor="mm")
+
+    # шапка
+    draw.rectangle((0, 0, p(W), p(12)), fill=red)
+    tag, tf = "МАСТЕРСКАЯ STEAM", font(22, True)
+    tw = draw.textlength(tag, font=tf)
+    draw.rounded_rectangle((p(64), p(52), p(64) + tw + p(40), p(94)),
+                           radius=p(21), fill=red)
+    draw.text((p(64) + (tw + p(40)) / 2, p(73)), tag, font=tf,
+              fill=(255, 255, 255), anchor="mm")
+    draw.text((p(62), p(150)), "ТОП-3 СКИНОВ НЕДЕЛИ", font=font(70, True),
+              fill=(255, 255, 255), anchor="lm")
+    draw.text((p(64), p(214)), subtitle, font=font(30), fill=muted, anchor="lm")
+
+    # №1 — крупно, во всю ширину
+    if top:
+        it = top[0]
+        draw.rounded_rectangle((p(56), p(262), p(W - 56), p(862)), radius=p(32),
+                               fill=card_bg, outline=medals[0], width=p(3))
+        img.alpha_composite(picture(it["image"], 540), (p(86), p(292)))
+        badge(p(110), p(316), 0, 44)
+        x, tw1, tf1 = p(668), p(W - 56 - 668 - 36), font(46, True)
+        yy = 360
+        for ln in wrap(it["title"], tf1, tw1):
+            draw.text((x, p(yy)), ln, font=tf1, fill=(255, 255, 255),
+                      anchor="lm")
+            yy += 58
+        draw.text((x, p(yy + 22)), fit("автор: " + it["author"], font(30), tw1),
+                  font=font(30), fill=muted, anchor="lm")
+        stats(x, p(yy + 92), it, 34)
+        if it["category"]:
+            pill(x, p(yy + 162), it["category"])
+        draw.text((x, p(812)), "1 МЕСТО НЕДЕЛИ", font=font(28, True),
+                  fill=medals[0], anchor="lm")
+
+    # №2 и №3 — рядом
+    for k, it in enumerate(top[1:3], start=1):
+        x0 = 56 if k == 1 else 728
+        draw.rounded_rectangle((p(x0), p(892), p(x0 + 656), p(1700)),
+                               radius=p(32), fill=card_bg, outline=medals[k],
+                               width=p(3))
+        img.alpha_composite(picture(it["image"], 420), (p(x0 + 118), p(922)))
+        badge(p(x0 + 140), p(944), k, 38)
+        tf2 = font(36, True)
+        yy = 1384
+        for ln in wrap(it["title"], tf2, p(596)):
+            draw.text((p(x0 + 30), p(yy)), ln, font=tf2, fill=(255, 255, 255),
+                      anchor="lm")
+            yy += 46
+        draw.text((p(x0 + 30), p(yy + 16)),
+                  fit("автор: " + it["author"], font(26), p(596)),
+                  font=font(26), fill=muted, anchor="lm")
+        stats(p(x0 + 30), p(yy + 70), it, 30)
+        if it["category"]:
+            pill(p(x0 + 30), p(1660), it["category"], 20)
+
+    # подвал
+    draw.line((p(64), p(H - 80), p(W - 64), p(H - 80)), fill=line_c,
+              width=p(2))
+    draw.text((p(64), p(H - 44)), "по данным micro522.com · Steam Workshop",
+              font=font(26), fill=(120, 126, 142), anchor="lm")
+    draw.text((p(W - 64), p(H - 44)), CHANNEL_TAG, font=font(28, True),
+              fill=red, anchor="rm")
+    img = img.convert("RGB").resize((W, H), Image.LANCZOS)
+    img.save(out_path, "JPEG", quality=95, subsampling=0)
+    return True
+
+def top_tick(tg, state, forced=False):
+    """Раз в ~3 дня вечером: топ-3 скинов недели (micro522.com) с картинкой.
+    Если подиум тот же, что в прошлый раз, — переносим на завтра."""
+    kt = kyiv_time()
+    if not forced and (kt.hour < TOP_HOUR or time.time()
+                       - state.get("top_ts", 0) < TOP_EVERY_H * 3600):
+        return
+    weeks = fetch_workshop_top()
+    full = [k for k, v in weeks.items() if len(v) >= TOP_MIN_WORKS]
+    if not full:
+        print("micro522: нет недели с достаточным числом работ.")
+        return
+    key = max(full)
+    works = weeks[key]
+    top = works[:3]
+    ids = [s["url"] for s in top]
+    if not forced and ids == state.get("top_last"):
+        state["top_ts"] = int(time.time()) - (TOP_EVERY_H - 24) * 3600
+        return
+    n = len(works)
+    sub = (f"Неделя {key[1]} · {n} {plural(n, 'работа', 'работы', 'работ')}"
+           " · оценка Steam")
+    lines = []
+    for medal, s in zip(("🥇", "🥈", "🥉"), top):
+        lines.append(f"{medal} <a href=\"{s['url']}\">"
+                     f"{html.escape(s['title'])}</a>")
+        lines.append(f"└ 🎨 {html.escape(s['author'])} · 👍 {s['up']} · "
+                     f"👎 {s['down']} · ★ {s['score']:.1f}")
+    lines += ["", pick(TOP_OUTROS)]
+    text = frame(pick(TOP_HOOKS), sub, "\n".join(lines),
+                 "#rust #раст #воркшоп #топ")
+    card = os.path.join(tempfile.gettempdir(), "rust_top.jpg")
+    res = {}
+    try:
+        if build_top_card(sub, top, card):
+            res = tg.send_photo_file(card, text)
+    except Exception as e:
+        print("Картинка топа не собралась:", e)
+    if not res.get("ok"):
+        res = tg.send_message(text)
+    if res.get("ok"):
+        state["top_ts"] = int(time.time())
+        state["top_last"] = ids
+
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
     его нет или картинки не скачались — возвращаем False (будет запасной
@@ -2118,6 +2376,14 @@ def main():
                         os.environ.get("EXTRA_POST") == "сводка маркета")
         except Exception as e:
             print("Сводка маркета не удалась:", e)
+
+    # 4h) топ-3 скинов недели (micro522.com) — раз в ~3 дня вечером
+    if not args.dry_run:
+        try:
+            top_tick(tg, state,
+                     os.environ.get("EXTRA_POST") == "топ мастерской")
+        except Exception as e:
+            print("Топ мастерской не удался:", e)
 
     # 5) итоги конкурса — в воскресенье, один раз за неделю
     if steam_key and not args.dry_run:
