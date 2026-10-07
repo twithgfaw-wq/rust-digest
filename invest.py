@@ -952,7 +952,7 @@ def run():
         hold = ("\U0001f4a1 Через год такие обычно стоят около цены магазина"
                 " — выгоднее продать сразу")
 
-    def compose(explain, word, limit, wipe):
+    def compose(explain, word, limit, wipe, keep_hold=True):
         dot = "\U000025AB\U0000FE0F"
         lines = [f"\U0001f4bc <b>ИНВЕСТ-РАЗБОР НЕДЕЛИ</b> · выпуск"
                  f" {kyiv(start):%d.%m}",
@@ -979,19 +979,22 @@ def run():
                       f" вернулось {ex['back']})",
                       f"\U0001f3af {ex['n10']} из 10 — столько похожих скинов"
                       f" прошлых недель продались в плюс"]
-        lines.append(hold)
+        if keep_hold:
+            lines.append(hold)
         lines += legend
         lines.append("#rust #раст #инвест #скины")
         return "\n".join(lines)
 
     wipe = wipe_week(start)
-    for explain, word, limit, wp in ((True, "шанс ", 99, wipe),
-                                     (False, "шанс ", 99, wipe),
-                                     (False, "шанс ", 99, False),
-                                     (False, "", 99, False),
-                                     (False, "", 6, False),
-                                     (False, "", 3, False)):
-        caption = compose(explain, word, limit, wp)
+    # в неделю вайпа строка про вайп важнее обычной строки «держать»
+    for explain, word, limit, wp, kh in ((True, "шанс ", 99, wipe, True),
+                                         (False, "шанс ", 99, wipe, True),
+                                         (False, "шанс ", 99, wipe, False),
+                                         (False, "шанс ", 99, False, True),
+                                         (False, "", 99, False, True),
+                                         (False, "", 6, False, True),
+                                         (False, "", 3, False, True)):
+        caption = compose(explain, word, limit, wp, kh)
         if plain_len(caption) <= 1024:
             break
 
