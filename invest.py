@@ -410,6 +410,13 @@ def flip_rate(it, flips, k=8):
     return (sum(h["yf"] for h in g) + base * k) / (len(g) + k)
 
 
+def wipe_week(t):
+    """Выпуск в неделю форс-вайпа (первый четверг месяца): игроков больше,
+    скинов покупают больше — после бана они чаще дешевле."""
+    d = datetime.fromtimestamp(t - 6 * 3600, timezone.utc)
+    return d.weekday() == 3 and d.day <= 7
+
+
 def flip_features(it, flips):
     """Признаки моделей «после бана» (шанс и цена)."""
     if "xf" not in it:
@@ -417,7 +424,8 @@ def flip_features(it, flips):
         it["xf"] = [1.0, math.log(it["rs"]),
                     math.log(max(it["supply"], 500) / 12000),
                     math.log(it["store"] / 199), 1.0 if it["glow"] else 0.0,
-                    math.log(f / (1 - f))] + coll_feats(it)
+                    math.log(f / (1 - f))] + coll_feats(it) + [
+                    1.0 if it.get("wipe") else 0.0]
     return it["xf"]
 
 
@@ -810,6 +818,7 @@ def run():
     dates = coll_dates(hist)
     for h in hist:
         mark_collection(h, colls, dates)
+        h["wipe"] = wipe_week(h["rel"])
     pool, flips = [], []
     for h in hist:
         if h["skip"]:
@@ -858,7 +867,8 @@ def run():
               "creator": i.get("creatorId") or "",
               "file": str(i.get("workshopFileId") or ""),
               "icon": i.get("iconUrl") or "",
-              "bg": i.get("backgroundColour") or ""}
+              "bg": i.get("backgroundColour") or "",
+              "wipe": wipe_week(start)}
         mark_collection(it, colls, dates)
         it["pf"] = predict(wf, ff(it))
         it["n10"] = max(0, min(10, int(it["pf"] * 10 + 0.5)))
@@ -942,12 +952,15 @@ def run():
         hold = ("\U0001f4a1 Через год такие обычно стоят около цены магазина"
                 " — выгоднее продать сразу")
 
-    def compose(explain, word, limit):
+    def compose(explain, word, limit, wipe):
         dot = "\U000025AB\U0000FE0F"
         lines = [f"\U0001f4bc <b>ИНВЕСТ-РАЗБОР НЕДЕЛИ</b> · выпуск"
                  f" {kyiv(start):%d.%m}",
                  f"Купить можно до {end_k:%d.%m} · продать — через 7 дней"
                  f" после покупки"]
+        if wipe:
+            lines.append("\U0001f504 Неделя вайпа: скинов покупают больше"
+                         " обычного — после бана они чаще дешевле")
         for code, group in groups.items():
             if not group:
                 continue
@@ -971,10 +984,14 @@ def run():
         lines.append("#rust #раст #инвест #скины")
         return "\n".join(lines)
 
-    for explain, word, limit in ((True, "шанс ", 99), (False, "шанс ", 99),
-                                 (False, "", 99), (False, "", 6),
-                                 (False, "", 3)):
-        caption = compose(explain, word, limit)
+    wipe = wipe_week(start)
+    for explain, word, limit, wp in ((True, "шанс ", 99, wipe),
+                                     (False, "шанс ", 99, wipe),
+                                     (False, "шанс ", 99, False),
+                                     (False, "", 99, False),
+                                     (False, "", 6, False),
+                                     (False, "", 3, False)):
+        caption = compose(explain, word, limit, wp)
         if plain_len(caption) <= 1024:
             break
 
@@ -993,7 +1010,8 @@ def run():
     n = len(new)
     title = f"Недельный выпуск {kyiv(start):%d.%m.%Y}"
     subtitle = (f"{n} {bot.plural(n, 'скин', 'скина', 'скинов')} · купить до"
-                f" {end_k:%d.%m} · продать через 7 дней после покупки")
+                f" {end_k:%d.%m} · продать через 7 дней после покупки"
+                + (" · неделя вайпа" if wipe else ""))
     footer = (f"по истории {bot.fmt_num(n_data)} недельных скинов"
               f" {first_year}–{kyiv(now).year} · rust.scmm.app")
 
