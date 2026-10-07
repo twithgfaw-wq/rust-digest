@@ -845,30 +845,28 @@ def elite_slot():
     hours = [h for h in ELITE_SLOTS if h <= kt.hour]
     return f"{kt:%Y-%m-%d}-{hours[-1]}" if hours else ""
 
-def pick_elite_sets(newest, elite, posted, accepted, top_week):
-    """До ELITE_BATCH разных авторов, у каждого до 3 работ: сначала свежие
-    работы мастеров, затем самые залайканные скины недели (top_week()
-    зовём, только если мастеров не хватило)."""
-    sets, used = [], set()
+ELITE_FRESH_D = (3, 7)   # свежесть работ: сначала за 3 дня, не хватает — за 7
 
-    def add(pool):
-        by, seen = {}, set()
-        for s in pool:
+def pick_elite_sets(newest, counts, posted, skip, now):
+    """До ELITE_BATCH разных авторов, у которых уже есть принятые в игру
+    скины (у кого больше — те первые), у каждого до 3 его свежих работ:
+    сначала за 3 дня, если авторов не хватает — за неделю. skip — то, что
+    уже было в канале иначе (принятые скины, топ-3 недели)."""
+    sets, used = [], set()
+    for days in ELITE_FRESH_D:
+        by = {}
+        for s in newest:
             a = s["author_id"]
-            if (not a or a in used or s["id"] in seen or s["id"] in posted
-                    or s["id"] in accepted):
+            if (not counts.get(a) or a in used or s["id"] in posted
+                    or s["id"] in skip or s["url"] in skip
+                    or now - (s.get("created") or 0) > days * 86400):
                 continue
-            seen.add(s["id"])
             by.setdefault(a, []).append(s)
-        for a, works in by.items():
+        for a in sorted(by, key=lambda a: -counts[a]):
             if len(sets) >= ELITE_BATCH:
                 break
             used.add(a)
-            sets.append(works[:3])
-
-    add([s for s in newest if s["author_id"] in elite])
-    if len(sets) < ELITE_BATCH:
-        add(top_week())
+            sets.append(by[a][:3])
     return sets
 
 def build_elite_set_caption(works):
@@ -1929,6 +1927,8 @@ def top_tick(tg, state, forced=False):
     if res.get("ok"):
         state["top_ts"] = int(time.time())
         state["top_last"] = ids
+        # эти скины уже были в канале — «Лучшее из воркшопа» их не повторяет
+        state["top_shown"] = (state.get("top_shown", []) + ids)[-30:]
 
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
@@ -2279,16 +2279,17 @@ def main():
         newest = fetch_new_submissions(steam_key)
 
         # «Лучшее из воркшопа» — 3 раза в день по графику ELITE_SLOTS, в посте
-        # до ELITE_BATCH авторов: свежие работы мастеров, а если их не хватает —
-        # самые залайканные скины недели. Ручной запуск — сразу.
+        # до ELITE_BATCH авторов, у которых уже есть принятые скины, с их
+        # свежими работами. Ручной запуск — сразу.
         slot = elite_slot()
         forced = os.environ.get("EXTRA_POST") == "лучшее из воркшопа"
         quiet = quiet_now() and not forced
         elite_sets = []
         if forced or (slot and state.get("elite_slot") != slot):
-            elite_sets = pick_elite_sets(
-                newest, elite, posted, set(state.get("accepted_seen", [])),
-                lambda: fetch_top_week(steam_key, 100))
+            skip = (set(state.get("accepted_seen", []))
+                    | set(state.get("top_last", []))
+                    | set(state.get("top_shown", [])))
+            elite_sets = pick_elite_sets(newest, counts, posted, skip, now)
             if not elite_sets:
                 print("Для «лучшего из воркшопа» сейчас нечего постить.")
         for st in elite_sets:
