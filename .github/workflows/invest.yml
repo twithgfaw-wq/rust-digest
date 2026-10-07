@@ -1,0 +1,58 @@
+name: Invest Analysis
+
+# Инвест-разбор недельного выпуска. Каждый час скрипт проверяет, пора ли
+# (через 3 дня после старта выпуска, днём по Киеву), и публикует один раз.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Разобрать текущий выпуск прямо сейчас"
+        type: boolean
+        default: false
+      dry:
+        description: "Тест: ничего не отправлять, только лог"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: invest
+  cancel-in-progress: false
+
+jobs:
+  invest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Забрать репозиторий
+        uses: actions/checkout@v4
+
+      - name: Поставить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Инвест-разбор
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHANNEL: ${{ secrets.CHANNEL }}
+          INVEST_FORCE: ${{ inputs.force && '1' || '' }}
+          INVEST_DRY: ${{ inputs.dry && '1' || '' }}
+        run: |
+          pip install --quiet pillow
+          python invest.py
+
+      - name: Сохранить состояние
+        run: |
+          if [ -n "$(git status --porcelain invest_state.json)" ]; then
+            git config user.name "rust-digest-bot"
+            git config user.email "bot@users.noreply.github.com"
+            git add invest_state.json
+            git commit -m "chore: update invest_state [skip ci]"
+            git pull --rebase
+            git push
+          fi
