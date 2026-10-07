@@ -6,16 +6,18 @@
 Раз в неделю, когда в магазине Rust новый недельный выпуск, бот:
   1. Берёт ВСЕ недельные скины за всю историю (rust.scmm.app): тип, цену
      в магазине, тираж, коллекцию и историю продаж Steam Market по дням.
-  2. Считает, как вели себя прошлые выпуски: первые дни после трейд-бана
-     (неделя после покупки), 3 месяца, год — с учётом комиссии Steam
-     (продавец получает ≈ цена / 1.15).
-  3. Обучает две модели (логистическая регрессия) и проверяет их на прошлом:
-     • «после бана» — продастся ли с прибылью в первую неделю на маркете
-       (учим на выпусках последнего года: этот рынок быстро меняется);
-     • «за год» — будет ли прибыль через год (учим на трёх годах).
+  2. Считает, как вели себя прошлые выпуски в первую неделю после
+     трейд-бана (продать можно через 7 дней после покупки) и через год —
+     с учётом комиссии Steam (продавец получает ≈ цена / 1.15).
+  3. Обучает модели на выпусках последнего года (рынок быстро меняется)
+     и проверяет их на прошлом:
+     • шанс — продастся ли скин в плюс в первую неделю после бана;
+     • прибыль — какую цену он, скорее всего, наберёт (→ % после комиссии).
+     Плюс модель «через год» — чтобы сказать, стоит ли держать дольше.
   4. Учитывает коллекцию: если скин её продолжает — как стартовали прошлые
-     части; и ликвидность — сколько похожих продавалось в день.
-  5. По каждому скину — вывод цветом и оба шанса.
+     части.
+  5. Пост: картинка-плитка и подпись — у каждого скина прибыль в % после
+     комиссии и шанс «N из 10»; цвет: можно брать / подумать / не стоит.
 
 Запуск: python invest.py
   INVEST_FORCE=1 — разобрать текущий выпуск сразу, не дожидаясь графика;
@@ -44,13 +46,12 @@ HZ = (30, 90, 180, 365, 730)
 MODERN = datetime(2022, 1, 1, tzinfo=timezone.utc).timestamp()  # нынешний рынок
 POST_AFTER_H = 72     # разбор через 3 дня после старта (продано ~70% тиража)
 KNN = 25              # сколько похожих прошлых скинов берём для сравнения
-BUY_P, RISK_P = 0.40, 0.25      # пороги шанса прибыли через год
-FLIP_GO, FLIP_THINK = 0.55, 0.40  # пороги шанса прибыли сразу после бана
+BUY_P = 0.40          # шанс прибыли через год, с которого «держать» имеет смысл
 
 VERDICTS = {  # код: (эмодзи, раздел в посте, плашка на картинке, цвет)
     "buy": ("\U0001f7e2", "МОЖНО БРАТЬ", "МОЖНО БРАТЬ", (61, 220, 132)),
     "think": ("\U0001f7e1", "ПОДУМАТЬ", "ПОДУМАТЬ", (255, 200, 61)),
-    "no": ("\U0001f534", "БРАТЬ НЕ СТОИТ", "НЕ СТОИТ", (255, 82, 82)),
+    "no": ("\U0001f534", "БРАТЬ НЕ СТОИТ", "БРАТЬ НЕ СТОИТ", (255, 82, 82)),
 }
 
 
@@ -275,7 +276,7 @@ def lagged(it, pool):
 
 
 def features(it, pool):
-    """Признаки модели «за год»."""
+    """Признаки модели «через год»."""
     if "x" not in it:
         it["lag"] = lagged(it, pool)
         it["x"] = [1.0, math.log(it["rs"]),
@@ -296,7 +297,7 @@ def flip_rate(it, flips, k=8):
 
 
 def flip_features(it, flips):
-    """Признаки модели «после бана»."""
+    """Признаки моделей «после бана» (шанс и цена)."""
     if "xf" not in it:
         f = min(0.95, max(0.05, flip_rate(it, flips)))
         it["xf"] = [1.0, math.log(it["rs"]),
@@ -326,6 +327,34 @@ def predict(w, x):
     return 1 / (1 + math.exp(-z))
 
 
+def ridge(X, y, lam=1.0):
+    """Линейная регрессия с L2 (решение нормальных уравнений Гауссом)."""
+    k = len(X[0])
+    a = [[0.0] * k for _ in range(k)]
+    b = [0.0] * k
+    for x, t in zip(X, y):
+        for i in range(k):
+            b[i] += x[i] * t
+            for j in range(k):
+                a[i][j] += x[i] * x[j]
+    for i in range(1, k):
+        a[i][i] += lam
+    m = [row + [bi] for row, bi in zip(a, b)]
+    for i in range(k):
+        piv = max(range(i, k), key=lambda r: abs(m[r][i]))
+        m[i], m[piv] = m[piv], m[i]
+        for r in range(k):
+            if r != i:
+                f = m[r][i] / m[i][i]
+                for c in range(i, k + 1):
+                    m[r][c] -= f * m[i][c]
+    return [m[i][k] / m[i][i] for i in range(k)]
+
+
+def linear(w, x):
+    return sum(a * b for a, b in zip(x, w))
+
+
 def evaluate(train, test, feat, key):
     """Честная проверка: учим на том, что было известно раньше, и
     сравниваем прогноз с тем, что случилось на самом деле."""
@@ -352,74 +381,53 @@ def comparables(it, pool):
     if len(g) < 12:
         g = base
     g = sorted(g, key=lambda r: abs(math.log(r["rs"] / it["rs"])))[:KNN]
-    later = [r["hz"][365] / FEE / r["hz"][90] - 1
-             for r in g if r["hz"].get(90) and r["hz"].get(365)]
-    return {
-        "m3": med(ratio(r, 90) for r in g),
-        "y1": med(ratio(r, 365) for r in g),
-        "y1_share": share(ratio(r, 365) / FEE - 1 for r in g),
-        "later_share": share(later),
-    }
+    return {"y1": med(ratio(r, 365) for r in g),
+            "y1_share": share(ratio(r, 365) / FEE - 1 for r in g)}
 
 
-def flip_comparables(it, flips, now):
-    """Похожие скины последнего года: цена и продажи в первую неделю после
-    бана (тот же тип → категория → все; ближайшие по популярности)."""
-    base = [h for h in flips if now - 386 * DAY <= h["rel"] < now - 21 * DAY]
-    g = [h for h in base if h["type"] == it["type"]]
-    if len(g) < 12:
-        g = [h for h in base if h["cat"] == it["cat"]]
-    if len(g) < 12:
-        g = base
-    g = sorted(g, key=lambda h: abs(math.log(h["rs"] / it["rs"])))[:KNN]
-    return {"launch": med(ratio(h, "launch") for h in g),
-            "lvol": med(h.get("lvol") for h in g)}
-
-
-def verdict(pf, ph, c):
-    """Зелёный — можно брать (выгодно продать сразу после бана или держать
-    год), жёлтый — подумать, красный — брать не стоит."""
-    if pf >= FLIP_GO or (ph >= BUY_P and (c["y1_share"] or 0) >= 0.4):
+def verdict(n10, net):
+    """Зелёный — 6+ из 10 похожих продались в плюс и в среднем есть прибыль;
+    красный — 4 и меньше из 10 или в среднем убыток больше 5%;
+    жёлтый — всё между («около нуля» или «50 на 50»)."""
+    if n10 >= 6 and net > 0:
         return "buy"
-    if pf >= FLIP_THINK or ph >= RISK_P or (c["later_share"] or 0) >= 0.5:
-        return "think"
-    return "no"
+    if n10 <= 4 or net <= -0.05:
+        return "no"
+    return "think"
 
 
 # ---------- текст и картинка ----------
 
-def pct(v):
-    return "—" if v is None else f"{v * 100:.0f}%"
+def signed(v):
+    """0.09 → «+9%», −0.08 → «−8%», около нуля → «0%»."""
+    n = round(v * 100)
+    return "0%" if n == 0 else f"{n:+d}%".replace("-", "−")
 
 
-def vs_store(r):
-    """0.72 → «на 28% дешевле магазина», 1.3 → «на 30% дороже магазина»."""
-    if r is None:
-        return "примерно по цене магазина"
-    d = round((r - 1) * 100)
-    if d == 0:
-        return "по цене магазина"
-    return f"на {abs(d)}% {'дороже' if d > 0 else 'дешевле'} магазина"
+def trend(net):
+    """(эмодзи для подписи, стрелка для картинки, пояснение)."""
+    if net > 0:
+        return "\U0001f4c8", "▲", "прибыль после комиссии"
+    if net > -0.05:
+        return "\U00002796", "►", "почти в ноль"
+    return "\U0001f4c9", "▼", "скорее убыток"
 
 
-def chance_color(p, good, ok):
-    return (VERDICTS["buy"][3] if p >= good else
-            VERDICTS["think"][3] if p >= ok else VERDICTS["no"][3])
-
-
-def build_card(title, subtitle, tiles, footer, out_path):
-    """Картинка-разбор плиткой по 3 в ряд: большая картинка скина, название,
-    цена, продажи в день и два шанса прибыли (после бана / за год); рамка и
-    плашка — цвет вывода (зелёный / жёлтый / красный). Рисуем в 2×."""
+def build_card(title, subtitle, tiles, example, footer, out_path):
+    """Картинка-разбор: плитки по 3 в ряд (картинка скина, цена в магазине,
+    крупно — прибыль после комиссии, 10 кружков шанса), внизу «как читать».
+    Рамка и плашка — цвет вывода. Рисуем в 2×."""
     try:
         from PIL import Image, ImageDraw, ImageFilter, ImageFont
     except Exception:
         return False
-    S, W, COLS, TW, TH, GAP, TOP = 2, 1440, 3, 432, 500, 24, 300
-    H = TOP + (len(tiles) + COLS - 1) // COLS * (TH + GAP) + 96
+    S, W, COLS, TW, TH, GAP, TOP, HOW = 2, 1440, 3, 432, 500, 24, 300, 230
+    rows = (len(tiles) + COLS - 1) // COLS
+    H = TOP + rows * (TH + GAP) + HOW + 96
     p = lambda v: int(v * S)
     card_bg, line_c = (31, 34, 43), (48, 52, 64)
     muted, gold = (150, 156, 172), (240, 190, 70)
+    light, dark = (240, 242, 246), (20, 20, 24)
     grad = Image.linear_gradient("L").resize((p(W), p(H)))
     img = Image.composite(Image.new("RGB", (p(W), p(H)), (11, 12, 16)),
                           Image.new("RGB", (p(W), p(H)), (27, 29, 37)),
@@ -470,7 +478,21 @@ def build_card(title, subtitle, tiles, footer, out_path):
             lines = [lines[0], fit_text(" ".join(lines[1:]), fnt, width)]
         return [fit_text(t, fnt, width) for t in lines]
 
-    dark = (20, 20, 24)
+    def dots(x, y, n, color, rest=None):
+        """10 кружков: n закрашено цветом, остальные — пустые или rest."""
+        for i in range(10):
+            cx = x + 9 + i * 24
+            box = (p(cx - 9), p(y - 9), p(cx + 9), p(y + 9))
+            if i < n:
+                draw.ellipse(box, fill=color)
+            elif rest:
+                draw.ellipse(box, fill=rest)
+            else:
+                draw.ellipse(box, outline=(110, 116, 132), width=p(2))
+
+    def tint(color):
+        return tuple(int(c * 0.28 + b * 0.72) for c, b in zip(color, card_bg))
+
     # шапка: золотая полоса, метка, заголовок, подзаголовок, легенда цветов
     draw.rectangle((0, 0, p(W), p(12)), fill=gold)
     tag, tf = "ИНВЕСТ-РАЗБОР", font(22, True)
@@ -491,7 +513,7 @@ def build_card(title, subtitle, tiles, footer, out_path):
                   anchor="lm")
         lx += p(36) + draw.textlength(text, font=lf) + p(44)
 
-    # плитки: рамка цвета вывода, картинка скина, название, цена и шансы
+    # плитки: рамка цвета вывода, картинка, цена, прибыль %, шанс из 10
     for k, t in enumerate(tiles):
         x = 48 + k % COLS * (TW + GAP)
         y = TOP + k // COLS * (TH + GAP)
@@ -502,35 +524,74 @@ def build_card(title, subtitle, tiles, footer, out_path):
                                width=p(3))
         bg = t["bg"] or "#2b2d33"
         draw.rounded_rectangle((p(x + 16), p(y + 16), p(x + TW - 16),
-                                p(y + 276)), radius=p(20),
+                                p(y + 256)), radius=p(20),
                                fill=bg if bg.startswith("#") else "#" + bg)
-        ic = icon(t["icon"], 240) if t["icon"] else None
+        ic = icon(t["icon"], 220) if t["icon"] else None
         if ic:
-            img.alpha_composite(ic, (p(x + (TW - 240) / 2), p(y + 26)))
+            img.alpha_composite(ic, (p(x + (TW - 220) / 2), p(y + 26)))
         bf = font(20, True)
         bw = draw.textlength(t["label"], font=bf)
         draw.rounded_rectangle((p(x + 28), p(y + 28), p(x + 28) + bw + p(28),
                                 p(y + 62)), radius=p(17), fill=color)
         draw.text((p(x + 42) + bw / 2, p(y + 45)), t["label"], font=bf,
                   fill=dark, anchor="mm")
-        nf = font(26, True)
+        nf = font(25, True)
         for j, line in enumerate(wrap(t["name"], nf, p(TW - 40))):
-            draw.text((p(x + 20), p(y + 306 + j * 32)), line, font=nf,
-                      fill=(240, 242, 246), anchor="lm")
-        draw.line((p(x + 20), p(y + 374), p(x + TW - 20), p(y + 374)),
-                  fill=line_c, width=p(2))
-        draw.text((p(x + 20), p(y + 412)), t["price"], font=font(32, True),
-                  fill=(255, 255, 255), anchor="lm")
-        draw.text((p(x + 20), p(y + 454)), t["sales"], font=font(19),
+            draw.text((p(x + 20), p(y + 284 + j * 31)), line, font=nf,
+                      fill=light, anchor="lm")
+        draw.text((p(x + 20), p(y + 350)), f"В магазине {t['price']}",
+                  font=font(21), fill=muted, anchor="lm")
+        draw.text((p(x + 20), p(y + 398)), t["net"], font=font(48, True),
+                  fill=color, anchor="lm")
+        draw.text((p(x + 20), p(y + 436)), t["note"], font=font(19),
                   fill=muted, anchor="lm")
-        for cx, cap, val, col in ((x + TW - 168, "после бана", t["pf"],
-                                   t["pf_color"]),
-                                  (x + TW - 58, "за год", t["ph"],
-                                   t["ph_color"])):
-            draw.text((p(cx), p(y + 398)), cap, font=font(18), fill=muted,
-                      anchor="mm")
-            draw.text((p(cx), p(y + 440)), val, font=font(38, True), fill=col,
-                      anchor="mm")
+        dots(x + 20, y + 472, t["n10"], color)
+        draw.text((p(x + 274), p(y + 472)), f"шанс {t['n10']} из 10",
+                  font=font(20, True), fill=color, anchor="lm")
+
+    # «как читать»: что значит прибыль % и что значит «N из 10»
+    y0 = TOP + rows * (TH + GAP)
+    half = (W - 96 - GAP) / 2
+    for i in range(2):
+        bx = 48 + i * (half + GAP)
+        draw.rounded_rectangle((p(bx), p(y0), p(bx + half), p(y0 + HOW - 24)),
+                               radius=p(22), fill=card_bg, outline=line_c,
+                               width=p(2))
+    good, bad = VERDICTS["buy"][3], VERDICTS["no"][3]
+    ok = example["back"] >= 100
+    tx = 48 + 24
+    draw.text((p(tx), p(y0 + 40)), f"{example['net']} — что это",
+              font=font(28, True), fill=light, anchor="lm")
+    draw.text((p(tx), p(y0 + 82)), "купил сейчас, продал через неделю,",
+              font=font(21), fill=muted, anchor="lm")
+    draw.text((p(tx), p(y0 + 110)), "комиссия Steam уже вычтена",
+              font=font(21), fill=muted, anchor="lm")
+    cf = font(22, True)
+    chips = [("вложил 100", (45, 49, 60), (225, 228, 235)),
+             (f"вернулось {example['back']}", tint(good if ok else bad),
+              good if ok else bad)]
+    cx = p(tx)
+    for n, (text, fill, fg) in enumerate(chips):
+        cw = draw.textlength(text, font=cf)
+        draw.rounded_rectangle((cx, p(y0 + 140), cx + cw + p(28), p(y0 + 184)),
+                               radius=p(12), fill=fill)
+        draw.text((cx + p(14), p(y0 + 162)), text, font=cf, fill=fg,
+                  anchor="lm")
+        cx += cw + p(28)
+        if n == 0:
+            draw.text((cx + p(14), p(y0 + 162)), "→", font=cf, fill=muted,
+                      anchor="lm")
+            cx += draw.textlength("→", font=cf) + p(28)
+    rx = 48 + half + GAP + 24
+    n10 = example["n10"]
+    draw.text((p(rx), p(y0 + 40)), f"{n10} из 10 — что это",
+              font=font(28, True), fill=light, anchor="lm")
+    draw.text((p(rx), p(y0 + 82)), "из 10 похожих скинов прошлых недель",
+              font=font(21), fill=muted, anchor="lm")
+    draw.text((p(rx), p(y0 + 110)),
+              f"{n10} продались в плюс, {10 - n10} — в минус",
+              font=font(21), fill=muted, anchor="lm")
+    dots(rx, y0 + 162, n10, good, rest=bad)
 
     draw.line((p(48), p(H - 80), p(W - 48), p(H - 80)), fill=line_c,
               width=p(2))
@@ -622,35 +683,29 @@ def run():
             pool.append(h)
         rl = ratio(h, "launch")
         if rl:
-            h["yf"] = 1 if rl > FEE else 0
+            h["ll"], h["yf"] = math.log(rl), 1 if rl > FEE else 0
             flips.append(h)
     print("С результатом через год:", len(pool), "· после бана:", len(flips))
 
     # 2) модели: проверка на прошлом + обучение на свежих данных
-    end = now - 372 * DAY
-    st = end - 640 * DAY
-    print("Проверка «за год»:", evaluate(
-        [r for r in pool if st - 372 * DAY - 3 * 365 * DAY
-         <= r["rel"] < st - 372 * DAY],
-        [r for r in pool if st <= r["rel"] < end],
-        lambda r: features(r, pool), "y"))
     fend = now - 21 * DAY
-    print("Проверка «после бана»:", evaluate(
-        [h for h in flips if fend - 730 * DAY <= h["rel"] < fend - 365 * DAY],
-        [h for h in flips if fend - 365 * DAY <= h["rel"] < fend],
-        lambda h: flip_features(h, flips), "yf"))
+    old = [h for h in flips if fend - 730 * DAY <= h["rel"] < fend - 365 * DAY]
+    ftrain = [h for h in flips if fend - 365 * DAY <= h["rel"] < fend]
+    ff = lambda h: flip_features(h, flips)
+    print("Проверка шанса «после бана»:", evaluate(old, ftrain, ff, "yf"))
+    wl = ridge([ff(h) for h in old], [h["ll"] for h in old])
+    err = med(abs(math.exp(linear(wl, ff(h)) - h["ll"]) - 1) for h in ftrain)
+    print("Проверка цены «после бана»: медианная ошибка", round(err, 3))
+    wf = fit([ff(h) for h in ftrain], [h["yf"] for h in ftrain])
+    wl = ridge([ff(h) for h in ftrain], [h["ll"] for h in ftrain])
     train = [r for r in pool if now - 372 * DAY - 3 * 365 * DAY
              <= r["rel"] < now - 372 * DAY]
     w = fit([features(r, pool) for r in train], [r["y"] for r in train])
-    ftrain = [h for h in flips if fend - 365 * DAY <= h["rel"] < fend]
-    wf = fit([flip_features(h, flips) for h in ftrain],
-             [h["yf"] for h in ftrain])
-    print("Модель «за год»:", [round(v, 3) for v in w], "база:",
-          round(sum(r["y"] for r in train) / len(train), 3))
-    print("Модель «после бана»:", [round(v, 3) for v in wf], "база:",
+    print("Модели:", [round(v, 3) for v in wf], [round(v, 3) for v in wl],
+          "база после бана:",
           round(sum(h["yf"] for h in ftrain) / len(ftrain), 3))
 
-    # 3) новый выпуск: прогноз тиража, популярность, коллекция, шансы
+    # 3) новый выпуск: прогноз тиража, популярность, коллекция, шанс, прибыль
     done = [s for s in stores if s.get("end") and s.get("start")]
     frac = sales_fraction(done, (now - start) / 3600)
     sup_now = [i.get("supplyTotalEstimated") or 0 for i in items]
@@ -666,86 +721,90 @@ def run():
               "icon": i.get("iconUrl") or "",
               "bg": i.get("backgroundColour") or ""}
         mark_collection(it, colls)
+        it["pf"] = predict(wf, ff(it))
+        it["n10"] = max(0, min(10, int(it["pf"] * 10 + 0.5)))
+        it["net"] = math.exp(linear(wl, ff(it))) / FEE - 1
         it["ph"] = predict(w, features(it, pool))
-        it["pf"] = predict(wf, flip_features(it, flips))
         it["comp"] = comparables(it, pool)
-        it["fc"] = flip_comparables(it, flips, now)
-        it["v"] = verdict(it["pf"], it["ph"], it["comp"])
+        it["v"] = verdict(it["n10"], it["net"])
         new.append(it)
-        print(f"{it['name']}: после бана {it['pf']:.3f}, за год"
-              f" {it['ph']:.3f}, {it['v']}, коллекция {it['coll']!r}"
-              f" ({it['prev_n']}, {it['prev_l']}), {it['fc']}, {it['comp']}")
+        print(f"{it['name']}: шанс {it['n10']}/10 ({it['pf']:.3f}), прибыль"
+              f" {signed(it['net'])}, за год {it['ph']:.3f}, {it['v']},"
+              f" коллекция {it['coll']!r} ({it['prev_n']}, {it['prev_l']})")
     order = list(VERDICTS)
-    new.sort(key=lambda it: (order.index(it["v"]), -it["pf"]))
+    new.sort(key=lambda it: (order.index(it["v"]), -it["net"]))
 
-    # 4) пост: картинка-плитка + подпись по цветам — у каждого скина шансы
+    # 4) пост: картинка-плитка + подпись по цветам
     n_data = sum(1 for h in hist if "launch" in h)
     first_year = kyiv(min(h["rel"] for h in hist)).year
     end_k = kyiv(nxt)
     groups = {k: [it for it in new if it["v"] == k] for k in VERDICTS}
     star = lambda it: (it["prev_l"] or 0) >= FEE
+    best = max(groups["buy"] or new, key=lambda it: it["net"])
+    ex = {"net": signed(best["net"]), "n10": best["n10"],
+          "back": round(100 * (1 + best["net"]))}
+    holds = [it for it in new
+             if it["ph"] >= BUY_P and (it["comp"]["y1_share"] or 0) >= 0.4]
+    y1 = med(it["comp"]["y1"] for it in new) or 1
+    if holds:
+        hold = ("\U0001f4a1 Держать год имеет смысл только: "
+                + ", ".join(html.escape(it["name"]) for it in holds))
+    elif y1 < 1:
+        hold = ("\U0001f4a1 Держать дольше не стоит — через год такие обычно"
+                " дешевле магазина")
+    else:
+        hold = ("\U0001f4a1 Через год такие обычно стоят около цены магазина"
+                " — выгоднее продать сразу")
 
-    def why(code, group):
-        lau = med(i["fc"]["launch"] for i in group)
-        nv = round((lau / FEE - 1) * 100) if lau else None
-        net = ("" if nv is None else
-               f" ({'≈0%' if nv == 0 else bot.pct_text(nv)} после комиссии)")
-        if code == "buy":
-            return f"После бана похожие стоили {vs_store(lau)}{net}."
-        if code == "think":
-            return (f"После бана похожие стоили {vs_store(lau)}{net} —"
-                    f" прибыль не гарантирована.")
-        y1 = med(i["comp"]["y1"] for i in group)
-        return f"Похожие через год стоили {vs_store(y1)} — скорее убыток."
-
-    def compose(reasons, price, limit):
+    def compose(explain, word, limit):
         dot = "\U000025AB\U0000FE0F"
-        lines = ["\U0001f4bc <b>ИНВЕСТ-РАЗБОР НЕДЕЛИ</b>",
-                 f"\U0001f5d3 Выпуск {kyiv(start):%d.%m} · в магазине до"
-                 f" {end_k:%d.%m}",
-                 "<i>Шанс прибыли: после бана / за год</i>"]
+        lines = [f"\U0001f4bc <b>ИНВЕСТ-РАЗБОР НЕДЕЛИ</b> · выпуск"
+                 f" {kyiv(start):%d.%m}",
+                 f"Купить можно до {end_k:%d.%m} · продать — через 7 дней"
+                 f" после покупки"]
         for code, group in groups.items():
             if not group:
                 continue
             lines += ["", f"{VERDICTS[code][0]} <b>{VERDICTS[code][1]}</b>"]
-            if reasons:
-                lines.append(f"<i>{why(code, group)}</i>")
             for it in group[:limit]:
-                cost = f" · {bot.money(it['store'])}" if price else ""
                 mark = " \U0001f9e9" if star(it) else ""
-                lines.append(f"{dot} {html.escape(it['name'])}{cost} —"
-                             f" <b>{pct(it['pf'])}</b> / {pct(it['ph'])}{mark}")
+                lines.append(f"{dot} {html.escape(it['name'])} —"
+                             f" {trend(it['net'])[0]} {signed(it['net'])}"
+                             f" · {word}{it['n10']} из 10{mark}")
             if len(group) > limit:
                 lines.append(f"{dot} и ещё {len(group) - limit} — на картинке")
-        lines += ["", "\U0001f4c8 <i>Учтена комиссия Steam. Продать можно через"
-                      " 7 дней после покупки.</i>"]
+        lines.append("")
+        if explain:
+            lines += [f"\U0001f4cc {ex['net']} — купил сейчас, продал через"
+                      f" неделю, комиссия Steam уже вычтена (вложил 100 →"
+                      f" вернулось {ex['back']})",
+                      f"\U0001f3af {ex['n10']} из 10 — столько похожих скинов"
+                      f" прошлых недель продались в плюс"]
+        lines.append(hold)
         if any(star(it) for it in new):
-            lines.append("\U0001f9e9 <i>— коллекция, прошлые части которой"
-                         " стартовали дороже магазина</i>")
+            lines.append("\U0001f9e9 — прошлые части этой коллекции продавались"
+                         " дороже магазина")
         lines.append("#rust #раст #инвест #скины")
         return "\n".join(lines)
 
-    for reasons, price, limit in ((True, True, 99), (True, False, 99),
-                                  (False, False, 99), (False, False, 6),
-                                  (False, False, 3)):
-        caption = compose(reasons, price, limit)
+    for explain, word, limit in ((True, "шанс ", 99), (False, "шанс ", 99),
+                                 (False, "", 99), (False, "", 6),
+                                 (False, "", 3)):
+        caption = compose(explain, word, limit)
         if plain_len(caption) <= 1024:
             break
 
     tiles = [{
         "name": it["name"], "icon": it["icon"], "bg": it["bg"],
         "price": bot.money(it["store"]),
-        "sales": (f"~{it['fc']['lvol']:.0f} продаж/день"
-                  if it["fc"]["lvol"] else ""),
-        "pf": pct(it["pf"]), "ph": pct(it["ph"]),
-        "pf_color": chance_color(it["pf"], FLIP_GO, FLIP_THINK),
-        "ph_color": chance_color(it["ph"], BUY_P, RISK_P),
+        "net": f"{trend(it['net'])[1]} {signed(it['net'])}",
+        "note": trend(it["net"])[2], "n10": it["n10"],
         "label": VERDICTS[it["v"]][2], "color": VERDICTS[it["v"]][3],
     } for it in new]
     n = len(new)
     title = f"Недельный выпуск {kyiv(start):%d.%m.%Y}"
-    subtitle = (f"{n} {bot.plural(n, 'скин', 'скина', 'скинов')} · в магазине"
-                f" до {end_k:%d.%m} · шанс прибыли: после бана / за год")
+    subtitle = (f"{n} {bot.plural(n, 'скин', 'скина', 'скинов')} · купить до"
+                f" {end_k:%d.%m} · продать через 7 дней после покупки")
     footer = (f"по истории {bot.fmt_num(n_data)} недельных скинов"
               f" {first_year}–{kyiv(now).year} · rust.scmm.app")
 
@@ -755,7 +814,7 @@ def run():
     card = os.path.join(tempfile.gettempdir(), "rust_invest.jpg")
     res = {}
     try:
-        if build_card(title, subtitle, tiles, footer, card):
+        if build_card(title, subtitle, tiles, ex, footer, card):
             res = tg.send_photo_file(card, caption)
     except Exception as e:
         print("Картинка не собралась:", e)
