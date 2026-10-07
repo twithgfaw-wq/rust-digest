@@ -15,9 +15,9 @@
      • прибыль — какую цену он, скорее всего, наберёт (→ % после комиссии).
      Плюс модель «через год» — чтобы сказать, стоит ли держать дольше.
   4. Учитывает коллекцию: какая это часть, давно ли вышла прошлая и как
-     стартовали прошлые части; для новой коллекции — как часто у таких
-     потом выходит продолжение (если первым приняли один скин или сразу
-     несколько).
+     стартовали прошлые части, ждут ли в мастерской автора ещё её части;
+     для новой коллекции — как часто у таких потом выходит продолжение
+     (если первым приняли один скин или сразу несколько).
   5. Пост: картинка-плитка и подпись — у каждого скина прибыль в % после
      комиссии и шанс «N из 10»; цвет: можно брать / подумать / не стоит.
 
@@ -139,6 +139,7 @@ def fetch_weekly(cats):
                     "supply": it.get("supplyTotalEstimated") or 0,
                     "glow": bool(it.get("hasGlow")),
                     "coll": it.get("itemCollection") or "",
+                    "creator": it.get("creatorId") or "",
                     "skip": bool(it.get("hasReturnedToStoreBefore")
                                  or it.get("isBeingManipulated")),
                 })
@@ -318,11 +319,56 @@ def coll_status(it, same):
     return "even", f"{it['parts'] + 1}-я часть коллекции"
 
 
+def submissions(creator):
+    """Все работы автора в мастерской, принятые и нет: коллекция, тип,
+    файл, когда загружена и когда принята."""
+    try:
+        rows = get(f"/workshop/creator/{creator}")
+    except Exception:
+        return []
+    return [{"coll": (s.get("itemCollection") or "").strip().lower(),
+             "type": s.get("itemType") or "",
+             "file": str(s.get("workshopFileId") or ""),
+             "made": ts(s["createdOn"]),
+             "acc": ts(s["acceptedOn"]) if s.get("acceptedOn") else None}
+            for s in rows or [] if s.get("createdOn")]
+
+
+def pending(subs, coll, t, done=(), skip=()):
+    """Сколько новых частей коллекции ждали в мастерской на момент t:
+    загружены за год до t, ещё не приняты, и такого типа в коллекции
+    ещё нет (done — типы, принятые прямо сейчас; skip — их файлы)."""
+    coll = coll.strip().lower()
+    mine = [s for s in subs if s["coll"] == coll]
+    have = set(done) | {s["type"] for s in mine
+                        if s["acc"] and s["acc"] <= t + 2 * DAY}
+    return len({s["type"] for s in mine
+                if t - 365 * DAY <= s["made"] < t and s["type"] not in have
+                and not (s["acc"] and s["acc"] <= t + 2 * DAY)
+                and s["file"] not in skip})
+
+
+def pending_rates(dates, owners, subs, now):
+    """Как часто за полгода выходила следующая часть, когда в мастерской
+    ждали ещё работы коллекции и когда нет — «N из 10» (с 2022 г.)."""
+    out = {True: [], False: []}
+    for coll, times in dates.items():
+        mine = [s for c in owners.get(coll, ()) for s in subs.get(c, [])]
+        if not mine:
+            continue
+        w = waves(times)
+        for k, t in enumerate(w):
+            if t < MODERN or t > now - 180 * DAY:
+                continue
+            y = 1 if k + 1 < len(w) and w[k + 1] - t <= 180 * DAY else 0
+            out[pending(mine, coll, t) > 0].append(y)
+    return {k: round(10 * sum(v) / len(v)) if v else None
+            for k, v in out.items()}
+
+
 def coll_feats(it):
     return [1.0 if it.get("prev_n") else 0.0,
-            math.log(it["prev_l"]) if it.get("prev_l") else 0.0,
-            math.log(1 + it.get("parts", 0)),
-            1.0 if (it.get("gap") or 0) > 180 else 0.0]
+            math.log(it["prev_l"]) if it.get("prev_l") else 0.0]
 
 
 def lagged(it, pool):
@@ -489,7 +535,7 @@ def build_card(title, subtitle, tiles, example, footer, out_path):
         from PIL import Image, ImageDraw, ImageFilter, ImageFont
     except Exception:
         return False
-    S, W, COLS, TW, TH, GAP, TOP, HOW = 2, 1440, 3, 432, 500, 24, 300, 230
+    S, W, COLS, TW, TH, GAP, TOP, HOW = 2, 1440, 3, 432, 528, 24, 300, 230
     rows = (len(tiles) + COLS - 1) // COLS
     H = TOP + rows * (TH + GAP) + HOW + 96
     p = lambda v: int(v * S)
@@ -614,8 +660,12 @@ def build_card(title, subtitle, tiles, example, footer, out_path):
         draw.text((p(x + 20), p(y + 436)),
                   fit_text(t["note"], font(19), p(TW - 40)), font=font(19),
                   fill=t.get("ncolor") or muted, anchor="lm")
-        dots(x + 20, y + 472, t["n10"], color)
-        draw.text((p(x + 274), p(y + 472)), f"шанс {t['n10']} из 10",
+        if t.get("wait"):
+            draw.text((p(x + 20), p(y + 462)),
+                      fit_text(t["wait"], font(19), p(TW - 40)), font=font(19),
+                      fill=muted, anchor="lm")
+        dots(x + 20, y + 500, t["n10"], color)
+        draw.text((p(x + 274), p(y + 500)), f"шанс {t['n10']} из 10",
                   font=font(20, True), fill=color, anchor="lm")
 
     # «как читать»: что значит прибыль % и что значит «N из 10»
@@ -805,6 +855,8 @@ def run():
               "supply": sup / frac, "rs": max(0.05, sup / m),
               "glow": bool(i.get("hasGlow")),
               "coll": i.get("itemCollection") or "",
+              "creator": i.get("creatorId") or "",
+              "file": str(i.get("workshopFileId") or ""),
               "icon": i.get("iconUrl") or "",
               "bg": i.get("backgroundColour") or ""}
         mark_collection(it, colls, dates)
@@ -815,13 +867,33 @@ def run():
         it["comp"] = comparables(it, pool)
         it["v"] = verdict(it["n10"], it["net"])
         new.append(it)
+    # мастерская: ждут ли ещё части коллекции (и как часто тогда выходит
+    # продолжение — по истории с 2022 г.)
+    owners = {}
+    for h in hist:
+        if h["coll"] and h["creator"] and h["rel"] >= MODERN:
+            owners.setdefault(h["coll"], set()).add(h["creator"])
     for it in new:
-        same = sum(1 for o in new if it["coll"] and o["coll"] == it["coll"])
-        it["cs"], it["ctext"] = coll_status(it, same)
+        if it["coll"] and it["creator"]:
+            owners.setdefault(it["coll"], set()).add(it["creator"])
+    with ThreadPoolExecutor(8) as ex:
+        people = sorted({c for v in owners.values() for c in v})
+        subs = dict(zip(people, ex.map(submissions, people)))
+    rates = pending_rates(dates, owners, subs, now)
+    print("Продолжение за полгода, если в мастерской ждут части / нет:", rates)
+    for it in new:
+        same = [o for o in new if it["coll"] and o["coll"] == it["coll"]]
+        it["cs"], it["ctext"] = coll_status(it, len(same))
+        mine = [s for c in owners.get(it["coll"], ()) for s in subs.get(c, [])]
+        it["wait"] = (pending(mine, it["coll"], now,
+                              done={o["type"] for o in same},
+                              skip={o["file"] for o in same})
+                      if it["coll"] else None)
         print(f"{it['name']}: шанс {it['n10']}/10 ({it['pf']:.3f}), прибыль"
               f" {signed(it['net'])}, за год {it['ph']:.3f}, {it['v']},"
               f" коллекция {it['coll']!r} ({it['prev_n']}, {it['prev_l']},"
-              f" часть {it['parts'] + 1}, пауза {it['gap']}) → {it['cs']}")
+              f" часть {it['parts'] + 1}, пауза {it['gap']}, ждут {it['wait']})"
+              f" → {it['cs']}")
     cont = continuation(dates, now)
     print("Продолжение новых коллекций за полгода (из 10):", cont)
     order = list(VERDICTS)
@@ -911,6 +983,10 @@ def run():
         "price": bot.money(it["store"]),
         "net": f"{trend(it['net'])[1]} {signed(it['net'])}",
         "note": it["ctext"], "ncolor": COLL_COLORS.get(it["cs"]),
+        "wait": ("" if it["wait"] is None else
+                 f"В мастерской ждут ещё {it['wait']} "
+                 f"{bot.plural(it['wait'], 'часть', 'части', 'частей')}"
+                 if it["wait"] else "В мастерской новых частей нет"),
         "n10": it["n10"],
         "label": VERDICTS[it["v"]][2], "color": VERDICTS[it["v"]][3],
     } for it in new]
