@@ -44,7 +44,7 @@ DAY = 86400
 FEE = 1.15            # комиссия Steam + Rust: продавец получает цену / 1.15
 HZ = (30, 90, 180, 365, 730)
 MODERN = datetime(2022, 1, 1, tzinfo=timezone.utc).timestamp()  # нынешний рынок
-POST_AFTER_H = 72     # разбор через 3 дня после старта (продано ~70% тиража)
+POST_AFTER_H = 1      # разбор через час после старта выпуска
 KNN = 25              # сколько похожих прошлых скинов берём для сравнения
 BUY_P = 0.40          # шанс прибыли через год, с которого «держать» имеет смысл
 
@@ -225,7 +225,7 @@ def sales_fraction(done, hours):
             pt = [p for p in tl if ts(p["timestamp"]) <= cut]
             if pt:
                 fr.append(pt[-1]["subscribers"] / tl[-1]["subscribers"])
-    return min(1.0, max(0.2, med(fr) or 1.0))
+    return min(1.0, max(0.01, med(fr) or 1.0))
 
 
 # ---------- модель ----------
@@ -649,8 +649,7 @@ def run():
         nxt = ts(get("/store/rotation")["nextUpdateTime"])
     except Exception:
         nxt = start + 7 * DAY
-    due = ((now - start >= POST_AFTER_H * 3600 or nxt - now <= 30 * 3600)
-           and 10 <= kyiv(now).hour < 22)
+    due = now - start >= POST_AFTER_H * 3600 or nxt - now <= 30 * 3600
     if not (due or forced):
         print(f"Рано: выпуск {cur['id']}, прошло"
               f" {(now - start) / 3600:.0f} ч из {POST_AFTER_H}.")
@@ -663,6 +662,10 @@ def run():
              and not i.get("isPermanent")]
     if not items:
         print("В выпуске нет недельных скинов.")
+        return
+    if (sum(1 for i in items if i.get("supplyTotalEstimated")) < len(items) / 2
+            and not forced):
+        print("SCMM ещё не посчитал продажи — подождём.")
         return
 
     # 1) вся история недельных скинов: продажи, популярность, коллекции
