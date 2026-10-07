@@ -341,6 +341,16 @@ def num(v):
     return bot.fmt_num(int(round(v, -2))) if v >= 1000 else str(int(v))
 
 
+def vs_store(r):
+    """0.72 → «на 28% дешевле, чем в магазине», 1.3 → «на 30% дороже…»."""
+    if r is None:
+        return "примерно по цене магазина"
+    d = round((r - 1) * 100)
+    if d == 0:
+        return "примерно столько же, сколько в магазине"
+    return f"на {abs(d)}% {'дороже' if d > 0 else 'дешевле'}, чем в магазине"
+
+
 def build_card(title, subtitle, tiles, footer, out_path):
     """Картинка-разбор плиткой по 3 в ряд: большая картинка скина, название,
     цена и крупный шанс прибыли; рамка и плашка — цвет вывода (зелёный —
@@ -582,14 +592,15 @@ def run():
     groups = {k: [it for it in new if it["v"] == k] for k in VERDICTS}
 
     def why(code, group):
+        y1 = med(i["comp"]["y1"] for i in group)
         if code == "buy":
-            return (f"похожие скины через год ~{pct(med(i['comp']['y1'] for i in group))}"
-                    f" цены магазина")
+            return f"Похожие скины через год стоили {vs_store(y1)}."
         if code == "think":
-            return (f"шанс есть, но на маркете через 2–3 мес такие обычно"
-                    f" ~{pct(med(i['comp']['m3'] for i in group))} цены")
-        return (f"похожие через год ~{pct(med(i['comp']['y1'] for i in group))}"
-                f" цены — скорее убыток")
+            m3 = med(i["comp"]["m3"] for i in group)
+            return (f"Сейчас переплата: через 2–3 мес на маркете такие обычно"
+                    f" {vs_store(m3)}.")
+        return (f"Похожие скины через год стоили {vs_store(y1)} —"
+                f" скорее убыток.")
 
     def compose(reasons, limit):
         dot = "\U000025AB\U0000FE0F"
