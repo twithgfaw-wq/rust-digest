@@ -833,22 +833,43 @@ def build_elite_caption(s):
     return frame(elite_hook(ELITE_PHRASES), title, body,
                  "#rust #раст #воркшоп #скин")
 
-# Несколько работ одного автора за неделю (комплект: худи + штаны, или
-# v1 и v2) — одним постом-альбомом. Автора берём, когда он SET_WAIT_H часов
-# ничего не заливал: так сет успевает загрузиться целиком.
-SET_WAIT_H = 2
-SET_WINDOW_D = 7
+# «Лучшее из воркшопа» — по графику: ELITE_SLOTS раз в день (часы по Киеву).
+# Пропущенный слот не догоняем: если GitHub запустил бота поздно, выйдет
+# один пост, а не пачка.
+ELITE_SLOTS = (11, 16, 21)
 
-def group_by_author(items, now):
-    by = {}
-    for s in items:
-        if now - (s.get("created") or now) <= SET_WINDOW_D * 86400:
-            by.setdefault(s["author_id"], []).append(s)
-    ready = []
-    for works in by.values():
-        if now - max(w.get("created") or 0 for w in works) >= SET_WAIT_H * 3600:
-            ready.append(sorted(works, key=lambda w: w.get("created") or 0)[:10])
-    return ready
+def elite_slot():
+    """Последний наступивший сегодня слот ('ГГГГ-ММ-ДД-час' по Киеву)
+    или '' — если первый слот дня ещё не наступил."""
+    kt = kyiv_time()
+    hours = [h for h in ELITE_SLOTS if h <= kt.hour]
+    return f"{kt:%Y-%m-%d}-{hours[-1]}" if hours else ""
+
+def pick_elite_sets(newest, elite, posted, accepted, top_week):
+    """До ELITE_BATCH разных авторов, у каждого до 3 работ: сначала свежие
+    работы мастеров, затем самые залайканные скины недели (top_week()
+    зовём, только если мастеров не хватило)."""
+    sets, used = [], set()
+
+    def add(pool):
+        by, seen = {}, set()
+        for s in pool:
+            a = s["author_id"]
+            if (not a or a in used or s["id"] in seen or s["id"] in posted
+                    or s["id"] in accepted):
+                continue
+            seen.add(s["id"])
+            by.setdefault(a, []).append(s)
+        for a, works in by.items():
+            if len(sets) >= ELITE_BATCH:
+                break
+            used.add(a)
+            sets.append(works[:3])
+
+    add([s for s in newest if s["author_id"] in elite])
+    if len(sets) < ELITE_BATCH:
+        add(top_week())
+    return sets
 
 def build_elite_set_caption(works):
     n = len(works)
@@ -864,8 +885,6 @@ def build_elite_set_caption(works):
 
 # «Лучшее из воркшопа» пачкой: один пост сразу на несколько авторов.
 ELITE_BATCH = 3           # авторов в одном посте
-ELITE_MAX_WAIT_H = 24     # не набралось трёх — через сутки публикуем, что есть
-ELITE_GAP_H = 4           # не чаще одного такого поста за 4 часа
 TRIO_PHRASES = [
     "подборка свежих работ", "свежий улов из мастерской", "что выкатили авторы",
     "горячая подборка", "новинки, которые цепляют", "новые работы недели",
@@ -2259,43 +2278,21 @@ def main():
         elite = {a for a, c in counts.items() if c >= ELITE_MIN}
         newest = fetch_new_submissions(steam_key)
 
-        # мастера: копим готовых авторов (работы одного автора за неделю — вместе)
-        # и публикуем ОДНИМ постом сразу по ELITE_BATCH (3) автора — меньше
-        # постов, без спама. Если готовых меньше, но работа ждёт дольше
-        # ELITE_MAX_WAIT_H — публикуем то, что есть. Между такими постами —
-        # не меньше ELITE_GAP_H часов; в тихие часы (ночь) не постим.
-        ready = group_by_author(
-            [s for s in newest
-             if s["author_id"] in elite and s["id"] not in posted], now)
-        oldest = min((w.get("created") or now for st in ready for w in st),
-                     default=now)
-        due = ((len(ready) >= ELITE_BATCH
-                or now - oldest >= ELITE_MAX_WAIT_H * 3600)
-               and now - state.get("elite_last_ts", 0) >= ELITE_GAP_H * 3600)
+        # «Лучшее из воркшопа» — 3 раза в день по графику ELITE_SLOTS, в посте
+        # до ELITE_BATCH авторов: свежие работы мастеров, а если их не хватает —
+        # самые залайканные скины недели. Ручной запуск — сразу.
+        slot = elite_slot()
         forced = os.environ.get("EXTRA_POST") == "лучшее из воркшопа"
-        elite_sets = ([st[:3] for st in ready[:ELITE_BATCH]]
-                      if due or forced else [])
         quiet = quiet_now() and not forced
-        if quiet:
-            elite_sets = []
-
-        # ручной запуск «лучшее из воркшопа»: если готовых работ мастеров нет,
-        # берём работы автора с наибольшим числом принятых скинов
-        if forced and not elite_sets:
-            pool = [s for s in newest
-                    if s["author_id"] in verified and s["id"] not in posted]
-            pool.sort(key=lambda s: counts.get(s["author_id"], 0), reverse=True)
-            if not pool:   # свежие работы проверенных авторов уже все были —
-                # берём самый популярный (по голосам) скин недели, ещё не принятый
-                accepted = set(state.get("accepted_seen", []))
-                pool = [s for s in fetch_top_week(steam_key)
-                        if s["id"] not in posted and s["id"] not in accepted]
-            if pool:
-                top = pool[0]["author_id"]
-                elite_sets = [[s for s in pool if s["author_id"] == top][:10]]
-                elite.add(top)   # не дублируем в конкурсе
-            else:
+        elite_sets = []
+        if forced or (slot and state.get("elite_slot") != slot):
+            elite_sets = pick_elite_sets(
+                newest, elite, posted, set(state.get("accepted_seen", [])),
+                lambda: fetch_top_week(steam_key, 100))
+            if not elite_sets:
                 print("Для «лучшего из воркшопа» сейчас нечего постить.")
+        for st in elite_sets:
+            elite.add(st[0]["author_id"])   # не дублируем в конкурсе
         elite_new = [s for st in elite_sets for s in st]
 
         # пул авторов альбома сбрасывается раз в неделю
@@ -2350,6 +2347,8 @@ def main():
                 posted.update(s["id"] for s in works)
                 if not args.dry_run:
                     state["elite_last_ts"] = int(now)
+                    if slot:
+                        state["elite_slot"] = slot
                 sent_any = sent_any or not args.dry_run
 
         # 4b) конкурс: коллаж из 5 скинов + кнопки голосования — ОДИН пост
@@ -2447,7 +2446,10 @@ def main():
         print("Готово (dry-run: ничего не отправлено, история не изменена).")
     else:
         state["recent_phrases"] = _RECENT[-500:]
-        state["posted_ids"] = list(posted)
+        # по порядку: старые id + новые, чтобы обрезка [-500:] убирала старейшие
+        old = state.get("posted_ids", [])
+        seen_old = set(old)
+        state["posted_ids"] = old + [x for x in posted if x not in seen_old]
         save_state(state)
         print("Готово.")
 
