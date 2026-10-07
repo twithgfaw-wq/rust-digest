@@ -322,25 +322,13 @@ def comparables(it, pool):
 
 
 def verdict(p, c):
+    """Зелёный — можно брать, жёлтый — подумать (шанс есть или выгоднее
+    взять позже на маркете), красный — брать не стоит."""
     if p >= BUY_P and (c["y1_share"] or 0) >= 0.4:
         return "buy"
-    if p >= RISK_P:
-        return "risk"
-    if (c["later_share"] or 0) >= 0.5:
-        return "wait"
+    if p >= RISK_P or (c["later_share"] or 0) >= 0.5:
+        return "think"
     return "no"
-
-
-def strategy(items, buy, sell):
-    """Чистый результат стратегии «купить в buy → продать в sell»."""
-    out = []
-    for r in items:
-        b = r["store"] if buy == "store" else (
-            r.get("launch") if buy == "launch" else r.get("hz", {}).get(buy))
-        s = r.get("launch") if sell == "launch" else r.get("hz", {}).get(sell)
-        if b and s:
-            out.append(s / FEE / b - 1)
-    return {"n": len(out), "share": share(out), "med": med(out)}
 
 
 # ---------- текст и картинка ----------
@@ -353,27 +341,16 @@ def num(v):
     return bot.fmt_num(int(round(v, -2))) if v >= 1000 else str(int(v))
 
 
-def times(v):
-    return f"{v:.1f}".replace(".", ",")
-
-
-def popularity(rs):
-    if rs >= 1.1:
-        return f"купили в {times(rs)}× больше среднего"
-    if rs <= 0.9:
-        return f"купили в {times(1 / rs)}× меньше среднего"
-    return "продаётся как средний скин"
-
-
 def build_card(title, subtitle, tiles, footer, out_path):
     """Картинка-разбор плиткой по 3 в ряд: большая картинка скина, название,
-    цена и цветная плашка с выводом. Рисуем в 2×, как сводку маркета."""
+    цена и крупный шанс прибыли; рамка и плашка — цвет вывода (зелёный —
+    можно брать, жёлтый — подумать, красный — не стоит). Рисуем в 2×."""
     try:
         from PIL import Image, ImageDraw, ImageFilter, ImageFont
     except Exception:
         return False
-    S, W, COLS, TW, TH, GAP = 2, 1440, 3, 432, 476, 24
-    H = 250 + (len(tiles) + COLS - 1) // COLS * (TH + GAP) + 90
+    S, W, COLS, TW, TH, GAP, TOP = 2, 1440, 3, 432, 500, 24, 300
+    H = TOP + (len(tiles) + COLS - 1) // COLS * (TH + GAP) + 96
     p = lambda v: int(v * S)
     card_bg, line_c = (31, 34, 43), (48, 52, 64)
     muted, gold = (150, 156, 172), (240, 190, 70)
@@ -427,50 +404,68 @@ def build_card(title, subtitle, tiles, footer, out_path):
             lines = [lines[0], fit_text(" ".join(lines[1:]), fnt, width)]
         return [fit_text(t, fnt, width) for t in lines]
 
-    # шапка: золотая полоса, метка, заголовок, подзаголовок
+    dark = (20, 20, 24)
+    # шапка: золотая полоса, метка, заголовок, подзаголовок, легенда цветов
     draw.rectangle((0, 0, p(W), p(12)), fill=gold)
     tag, tf = "ИНВЕСТ-РАЗБОР", font(22, True)
     tw = draw.textlength(tag, font=tf)
     draw.rounded_rectangle((p(48), p(48), p(48) + tw + p(40), p(90)),
                            radius=p(21), fill=gold)
-    draw.text((p(48) + (tw + p(40)) / 2, p(69)), tag, font=tf,
-              fill=(20, 20, 24), anchor="mm")
-    draw.text((p(46), p(140)), fit_text(title, font(60, True), p(W - 96)),
-              font=font(60, True), fill=(255, 255, 255), anchor="lm")
+    draw.text((p(48) + (tw + p(40)) / 2, p(69)), tag, font=tf, fill=dark,
+              anchor="mm")
+    draw.text((p(46), p(142)), fit_text(title, font(58, True), p(W - 96)),
+              font=font(58, True), fill=(255, 255, 255), anchor="lm")
     draw.text((p(48), p(198)), fit_text(subtitle, font(26), p(W - 96)),
               font=font(26), fill=muted, anchor="lm")
+    lx, lf = p(48), font(24, True)
+    for code in VERDICTS:
+        color, text = VERDICTS[code][3], VERDICTS[code][1].capitalize()
+        draw.ellipse((lx, p(240), lx + p(24), p(264)), fill=color)
+        draw.text((lx + p(36), p(252)), text, font=lf, fill=(225, 228, 235),
+                  anchor="lm")
+        lx += p(36) + draw.textlength(text, font=lf) + p(44)
 
-    # плитки: картинка скина на его фоне, название, цена, вывод
-    for k, (name, it, sub, label, color) in enumerate(tiles):
+    # плитки: рамка цвета вывода, картинка скина, название, цена и шанс
+    for k, (name, it, price, sold, chance, label, color) in enumerate(tiles):
         x = 48 + k % COLS * (TW + GAP)
-        y = 250 + k // COLS * (TH + GAP)
+        y = TOP + k // COLS * (TH + GAP)
+        edge = tuple(int(c * 0.65 + b * 0.35) for c, b in zip(color, card_bg))
         draw.rounded_rectangle((p(x), p(y), p(x + TW), p(y + TH)),
-                               radius=p(26), fill=card_bg, outline=line_c,
-                               width=p(2))
+                               radius=p(26), fill=card_bg, outline=edge,
+                               width=p(3))
         bg = it.get("bg") or "#2b2d33"
         draw.rounded_rectangle((p(x + 16), p(y + 16), p(x + TW - 16),
-                                p(y + 286)), radius=p(20),
+                                p(y + 276)), radius=p(20),
                                fill=bg if bg.startswith("#") else "#" + bg)
-        ic = icon(it["icon"], 250) if it.get("icon") else None
+        ic = icon(it["icon"], 240) if it.get("icon") else None
         if ic:
-            img.alpha_composite(ic, (p(x + (TW - 250) / 2), p(y + 26)))
+            img.alpha_composite(ic, (p(x + (TW - 240) / 2), p(y + 26)))
+        bf = font(20, True)
+        bw = draw.textlength(label, font=bf)
+        draw.rounded_rectangle((p(x + 28), p(y + 28), p(x + 28) + bw + p(28),
+                                p(y + 62)), radius=p(17), fill=color)
+        draw.text((p(x + 42) + bw / 2, p(y + 45)), label, font=bf, fill=dark,
+                  anchor="mm")
         nf = font(26, True)
         for j, line in enumerate(wrap(name, nf, p(TW - 40))):
-            draw.text((p(x + 20), p(y + 314 + j * 32)), line, font=nf,
+            draw.text((p(x + 20), p(y + 306 + j * 32)), line, font=nf,
                       fill=(240, 242, 246), anchor="lm")
-        draw.text((p(x + 20), p(y + 382)), fit_text(sub, font(22), p(TW - 40)),
-                  font=font(22), fill=muted, anchor="lm")
-        tint = tuple(int(c * 0.28 + b * 0.72) for c, b in zip(color, card_bg))
-        draw.rounded_rectangle((p(x + 16), p(y + 408), p(x + TW - 16),
-                                p(y + 460)), radius=p(26), fill=tint)
-        draw.text((p(x + TW / 2), p(y + 434)), label, font=font(25, True),
-                  fill=color, anchor="mm")
+        draw.line((p(x + 20), p(y + 374), p(x + TW - 20), p(y + 374)),
+                  fill=line_c, width=p(2))
+        draw.text((p(x + 20), p(y + 414)), price, font=font(34, True),
+                  fill=(255, 255, 255), anchor="lm")
+        draw.text((p(x + 20), p(y + 458)), sold, font=font(21), fill=muted,
+                  anchor="lm")
+        draw.text((p(x + TW - 20), p(y + 416)), chance, font=font(50, True),
+                  fill=color, anchor="rm")
+        draw.text((p(x + TW - 20), p(y + 460)), "шанс прибыли", font=font(21),
+                  fill=muted, anchor="rm")
 
-    draw.line((p(64), p(H - 80), p(W - 64), p(H - 80)), fill=line_c,
+    draw.line((p(48), p(H - 80), p(W - 48), p(H - 80)), fill=line_c,
               width=p(2))
-    draw.text((p(64), p(H - 44)), footer, font=font(23),
-              fill=(120, 126, 142), anchor="lm")
-    draw.text((p(W - 64), p(H - 44)), bot.CHANNEL_TAG, font=font(28, True),
+    draw.text((p(48), p(H - 44)), fit_text(footer, font(22), p(W - 400)),
+              font=font(22), fill=(120, 126, 142), anchor="lm")
+    draw.text((p(W - 48), p(H - 44)), bot.CHANNEL_TAG, font=font(28, True),
               fill=gold, anchor="rm")
     img = img.convert("RGB").resize((W, H), Image.LANCZOS)
     img.save(out_path, "JPEG", quality=95, subsampling=0)
@@ -580,63 +575,57 @@ def run():
     order = list(VERDICTS)
     new.sort(key=lambda it: (order.index(it["v"]), -it["p"]))
 
-    # 4) короткий пост: картинка-плитка + несколько строк — что брать,
-    #    что лучше взять позже на маркете, что не брать, и почему
-    st_mod = strategy([r for r in pool if r["rel"] >= MODERN], "store", 365)
+    # 4) пост: картинка-плитка + подпись по цветам — у каждого скина шанс
     n_data = sum(1 for h in hist if "launch" in h)
     first_year = kyiv(min(h["rel"] for h in hist)).year
     end_k = kyiv(nxt)
-    wait = [it for it in new if it["v"] == "wait"]
-    bad = [it for it in new if it["v"] == "no"]
+    groups = {k: [it for it in new if it["v"] == k] for k in VERDICTS}
 
-    def compose(limit):
-        def names(group):
-            shown = [html.escape(it["name"]) for it in group[:limit]]
+    def why(code, group):
+        if code == "buy":
+            return (f"похожие скины через год ~{pct(med(i['comp']['y1'] for i in group))}"
+                    f" цены магазина")
+        if code == "think":
+            return (f"шанс есть, но на маркете через 2–3 мес такие обычно"
+                    f" ~{pct(med(i['comp']['m3'] for i in group))} цены")
+        return (f"похожие через год ~{pct(med(i['comp']['y1'] for i in group))}"
+                f" цены — скорее убыток")
+
+    def compose(reasons, limit):
+        dot = "\U000025AB\U0000FE0F"
+        lines = ["\U0001f4bc <b>ИНВЕСТ-РАЗБОР НЕДЕЛИ</b>",
+                 f"\U0001f5d3 Выпуск {kyiv(start):%d.%m} · в магазине до"
+                 f" {end_k:%d.%m}"]
+        for code, group in groups.items():
+            if not group:
+                continue
+            lines += ["", f"{VERDICTS[code][0]} <b>{VERDICTS[code][1]}</b>"]
+            if reasons:
+                lines.append(f"<i>{why(code, group)}</i>")
+            for it in group[:limit]:
+                lines.append(f"{dot} {html.escape(it['name'])} —"
+                             f" {bot.money(it['store'])} · шанс <b>{pct(it['p'])}</b>")
             if len(group) > limit:
-                shown.append(f"ещё {len(group) - limit}")
-            return ", ".join(shown)
-
-        lines = [f"\U0001f4bc <b>ИНВЕСТ-РАЗБОР</b> · выпуск {kyiv(start):%d.%m}",
-                 f"\U000023F3 В магазине до {end_k:%d.%m %H:%M} (Киев)", ""]
-        for it in new:
-            if it["v"] in ("buy", "risk"):
-                emoji, label = VERDICTS[it["v"]][:2]
-                lines.append(f"{emoji} <b>{html.escape(it['name'])}</b>"
-                             f" ({bot.money(it['store'])}) — {label}:"
-                             f" {popularity(it['rs'])}, похожие через год"
-                             f" ~{pct(it['comp']['y1'])} цены, шанс прибыли"
-                             f" {pct(it['p'])}")
-        if wait:
-            m3 = med(it["comp"]["m3"] for it in wait)
-            lines.append(f"{VERDICTS['wait'][0]} <b>Лучше подождать и взять на"
-                         f" маркете:</b> {names(wait)} — через 3 мес такие"
-                         f" обычно ~{pct(m3)} цены")
-        if bad:
-            y1 = med(it["comp"]["y1"] for it in bad)
-            lines.append(f"{VERDICTS['no'][0]} <b>Не брать:</b> {names(bad)}"
-                         f" — похожие через год ~{pct(y1)} цены")
-        lines += ["", f"\U0001f4ca С 2022 г. покупка в магазине окупается"
-                      f" через год лишь у {pct(st_mod['share'])} скинов.",
-                  "\U000026A0\U0000FE0F Не финансовый совет · комиссия Steam"
-                  " учтена",
+                lines.append(f"{dot} и ещё {len(group) - limit}")
+        lines += ["", "\U0001f4c8 <i>Шанс — вероятность заработать через год"
+                      " с учётом комиссии Steam</i>",
                   "#rust #раст #инвест #скины"]
         return "\n".join(lines)
 
-    for limit in (99, 4, 2):
-        caption = compose(limit)
+    for reasons, limit in ((True, 99), (False, 99), (False, 6), (False, 3)):
+        caption = compose(reasons, limit)
         if plain_len(caption) <= 1024:
             break
 
-    tiles = [(it["name"], it,
-              f"{bot.money(it['store'])} · продано ≈{num(it['supply'])}",
-              f"{VERDICTS[it['v']][2]} · шанс {pct(it['p'])}",
-              VERDICTS[it["v"]][3]) for it in new]
+    tiles = [(it["name"], it, bot.money(it["store"]),
+              f"продано ≈{num(it['supply'])}", pct(it["p"]),
+              VERDICTS[it["v"]][2], VERDICTS[it["v"]][3]) for it in new]
     n = len(new)
     title = f"Недельный выпуск {kyiv(start):%d.%m.%Y}"
     subtitle = (f"{n} {bot.plural(n, 'скин', 'скина', 'скинов')} · в магазине"
-                f" до {end_k:%d.%m} · шанс = прибыль через год после комиссии")
-    footer = (f"оценка по {bot.fmt_num(n_data)} недельным скинам"
-              f" {first_year}–{kyiv(now).year} · rust.scmm.app / Steam Market")
+                f" до {end_k:%d.%m} · шанс — прибыль через год после комиссии")
+    footer = (f"по истории {bot.fmt_num(n_data)} недельных скинов"
+              f" {first_year}–{kyiv(now).year} · rust.scmm.app")
 
     if dry:
         print("\n===== ПОДПИСЬ =====\n" + caption)
