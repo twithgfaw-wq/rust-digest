@@ -1669,7 +1669,7 @@ def fetch_workshop_top():
         except ValueError:
             continue
         pic = html.unescape(img.group(1)) if img else ""
-        pic = re.sub(r"imh=\d+", "imh=512", re.sub(r"imw=\d+", "imw=512", pic))
+        pic = re.sub(r"imh=\d+", "imh=1024", re.sub(r"imw=\d+", "imw=1024", pic))
         weeks.setdefault((int(wk.group(1)), int(wk.group(2))), []).append({
             "title": html.unescape(link.group(2)).strip(),
             "url": html.unescape(link.group(1)),
@@ -1740,7 +1740,9 @@ def build_top_card(subtitle, top, out_path):
             req = urllib.request.Request(url, headers={"User-Agent": UA})
             with urllib.request.urlopen(req, timeout=20) as r:
                 im = Image.open(io.BytesIO(r.read())).convert("RGBA")
-            im.thumbnail((p(size), p(size)), Image.LANCZOS)
+            k = min(p(size) / im.width, p(size) / im.height)   # и увеличиваем тоже
+            im = im.resize((max(1, int(im.width * k)), max(1, int(im.height * k))),
+                           Image.LANCZOS)
             tile.alpha_composite(im, ((tile.width - im.width) // 2,
                                       (tile.height - im.height) // 2))
         except Exception:
