@@ -2305,6 +2305,14 @@ def main():
         except Exception as e:
             print("Пост о магазине не удался:", e)
 
+    # 1c) новые принятые в игру скины — пост «кого и что приняли». Тоже в
+    #     начале: сторож видит новые принятые работы и запускает бота сразу
+    if steam_key and not args.dry_run:
+        try:
+            post_new_accepts(tg, state, steam_key)
+        except Exception as e:
+            print("Пост о принятых скинах не удался:", e)
+
     # 2) крутые работы
     works = [w for w in fetch_top_works(period, 15, min_score)
              if w["id"] not in posted][:works_count]
@@ -2466,13 +2474,6 @@ def main():
                     state["week_authors"] = list(
                         week_authors | {s["author_id"] for s in album})
                 sent_any = True
-
-    # 4c) новые принятые в игру скины — пост «кого и что приняли»
-    if steam_key and not args.dry_run:
-        try:
-            post_new_accepts(tg, state, steam_key)
-        except Exception as e:
-            print("Пост о принятых скинах не удался:", e)
 
     # 4e) онлайн: замер каждый запуск, вечером — сводка, при рекорде — пост
     if not args.dry_run:
