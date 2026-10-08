@@ -13,7 +13,7 @@ import urllib.request
 import cs2_ai as ai
 import rust_digest_bot as bot
 
-LIVE = False               # по расписанию — после одобрения примера
+LIVE = True                # по расписанию (по просьбе 08.10)
 HOUR = 14                  # по Киеву, раз в день
 RSS = "https://www.reddit.com/r/GlobalOffensive/top/.rss?t=day&limit=15"
 TAGS = "#cs2 #кс2 #reddit"
