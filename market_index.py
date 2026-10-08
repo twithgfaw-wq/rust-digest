@@ -16,7 +16,7 @@ import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor
 
-LIVE = False                 # по расписанию — после одобрения примеров
+LIVE = True                  # по расписанию (одобрено 08.10)
 CS2_HOUR, RUST_HOUR = 10, 10  # по Киеву, каждый день
 
 ZONES = [  # (до, название, пояснение, совет)
