@@ -196,7 +196,7 @@ def patch_items(contents):
     out, section = [], ""
     for line in bb_strip(s).split("\n"):
         line = line.strip()
-        m = re.fullmatch(r"⟦\s*(.+?)\s*⟧", line) or re.fullmatch(
+        m = re.fullmatch(r"⟦\s*(.+?)\s*[⟧\]]", line) or re.fullmatch(
             r"\[\s*([A-Z0-9 &/\-]+?)\s*\]", line)
         if m:
             section = m.group(1).strip()
@@ -243,6 +243,7 @@ def translate_lines(lines):
     """Переводим пачкой одним запросом, при сбое — по одному."""
     if not lines:
         return []
+    lines = [re.sub(r"\bVK\b", "Vulkan", x) for x in lines]
     out = bot.translate_to_ru("\n".join(lines)).split("\n")
     if len(out) == len(lines):
         return [o.strip() for o in out]
@@ -399,6 +400,16 @@ def build_x_caption(p):
     return frame(bot.pick(X_HOOKS), "", body, bot.pick(FOOTERS))
 
 
+def x_only_patch_link(p):
+    """Твит вида «Release notes are up» со ссылкой на патч в Steam: сам
+    патч мы публикуем из ленты Steam, такой твит не дублируем."""
+    links = [u.get("expanded_url") or "" for u in p["urls"]]
+    rest = re.sub(r"https?://\S+", "", p["text"]).strip()
+    return (bool(links) and len(rest) < 120 and not p["media"]
+            and all("store.steampowered.com/news" in x or "/status/" in x
+                    for x in links))
+
+
 def x_user_id(token, state):
     if not state.get("x_uid"):
         state["x_uid"] = x_get(token, f"users/by/username/{X_NAME}", {})[
@@ -430,6 +441,9 @@ def post_x_news(tg, state):
         age = time.time() - born.replace(tzinfo=timezone.utc).timestamp()
         posts = [newest] if age < 86400 else []
     for p in sorted(posts, key=lambda p: int(p["id"])):   # от старых к новым
+        if x_only_patch_link(p):
+            state["x_last_id"] = p["id"]
+            continue
         text = build_x_caption(p)
         kind, url, preview = bot.x_media(p)
         res = {}
@@ -549,7 +563,11 @@ def demo(token, chat):
     xt = os.environ.get("X_BEARER_TOKEN", "").strip()
     if xt:
         try:
-            p = fetch_x_posts(xt, x_user_id(xt, {}), count=5)[:1]
+            posts = fetch_x_posts(xt, x_user_id(xt, {}), count=10)
+            for post in posts:
+                if x_only_patch_link(post):
+                    print("X: пропускаем (ссылка на патч):", post["id"])
+            p = [x for x in posts if not x_only_patch_link(x)][:1]
             for post in p:
                 print(f"\n===== ПРИМЕР (X, медиа: {bot.x_media(post)[0] or 'нет'})"
                       f" =====\n{build_x_caption(post)}")
