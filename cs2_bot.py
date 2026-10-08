@@ -34,6 +34,7 @@ from datetime import datetime, timezone
 
 import cs2_ai as ai
 import cs2_invest as invest
+import cs2_workshop as ws
 import rust_digest_bot as bot
 
 APPID = 730
@@ -954,6 +955,47 @@ def invest_tick(tg, state, forced=False):
             state["invest_week"] = week
 
 
+# ---------- «🎨 Мастерская CS2» (cs2_workshop.py) ----------
+
+WORKSHOP_LIVE = False          # по расписанию — после одобрения примера
+WORKSHOP_SLOTS = (12, 16, 20)  # по Киеву: до трёх постов в день
+
+
+def workshop_slot(kt):
+    hours = [h for h in WORKSHOP_SLOTS if kt.hour >= h]
+    return f"{kt:%Y-%m-%d}-{hours[-1]}" if hours else None
+
+
+def post_work(tg, best):
+    """Альбом из 2–4 картинок работы с подписью (или одно фото)."""
+    w, author, info, res = best
+    caption = ws.compose(w, author, info, res)
+    out = (tg.send_media_group(w["images"][:4], caption)
+           if len(w["images"]) > 1 else {})
+    if not out.get("ok"):
+        out = send(tg, w["images"][0], caption)
+    return out
+
+
+def workshop_tick(tg, state, now, forced=False):
+    """В каждый слот — лучшая новая работа с оценкой от 7 (если есть)."""
+    key = os.environ.get("STEAM_API_KEY", "").strip()
+    if not key or not ai.available():
+        return
+    slot = workshop_slot(bot.kyiv_time())
+    if not forced and (not WORKSHOP_LIVE or not slot
+                       or state.get("ws_slot") == slot):
+        return
+    best = ws.pick(key, state, now)
+    if not best:
+        print("Мастерская: достойных новых работ пока нет")
+        return
+    if post_work(tg, best).get("ok"):
+        state["ws_posted"] = (state.get("ws_posted", []) + [best[0]["id"]])[-500:]
+        if not forced:
+            state["ws_slot"] = slot
+
+
 def dump_card(path):
     """Для теста: уменьшенная картинка в лог (base64), чтобы её посмотреть."""
     import base64
@@ -1032,6 +1074,22 @@ def demo(token, chat):
         print(f"\n===== ПРИМЕР (цены, длина {visible_len(text)}) =====\n{text}")
 
 
+def demo_workshop():
+    """Пример поста мастерской в лог: какие работы оценены и лучшая."""
+    key = os.environ.get("STEAM_API_KEY", "").strip()
+    if not key:
+        print("Нет STEAM_API_KEY")
+        return
+    best = ws.pick(key, {}, time.time(), judge_limit=5)
+    if not best:
+        print("\n===== МАСТЕРСКАЯ: работ с оценкой от 7 сейчас нет =====")
+        return
+    w, author, info, res = best
+    caption = ws.compose(w, author, info, res)
+    print(f"\n===== ПРИМЕР (мастерская, оценка {res['score']}/10, длина "
+          f"{visible_len(caption)}) =====\n{caption}\nКартинки: {w['images']}")
+
+
 def demo_invest():
     """Пример еженедельного ТОП-5 в лог (с картинкой в base64)."""
     out = invest.compose(fetch_skinport(), bot.kyiv_time())
@@ -1057,6 +1115,9 @@ def main():
     if os.environ.get("CS2_DEMO_INVEST") == "1":
         demo_invest()
         return
+    if os.environ.get("CS2_DEMO_WORKSHOP") == "1":
+        demo_workshop()
+        return
     dry = os.environ.get("CS2_DRY") == "1"
     state = load_state()
     bot._RECENT[:] = state.get("recent_phrases", [])
@@ -1075,6 +1136,10 @@ def main():
         invest_tick(tg, state, os.environ.get("CS2_INVEST") == "1")
     except Exception as e:
         print("Инвест-разбор не вышел:", e)
+    try:
+        workshop_tick(tg, state, now)
+    except Exception as e:
+        print("Мастерская не вышла:", e)
     if not dry:
         save_state(state)
 
