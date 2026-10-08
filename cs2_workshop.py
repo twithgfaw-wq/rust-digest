@@ -181,7 +181,8 @@ def compose(w, author, author_info, res):
              res["text"].strip(), "",
              (f"👍 {bot.fmt_num(w['up'])} · " if w["up"] else "")
              + f"⭐ {bot.fmt_num(w['favs'])} в избранном · "
-             f"👁 {bot.fmt_num(w['views'])} просмотров",
+             f"👁 {bot.fmt_num(w['views'])} "
+             f"{bot.plural(w['views'], 'просмотр', 'просмотра', 'просмотров')}",
              f"🔗 <a href=\"{w['url']}\">Работа в мастерской</a>", "",
              "#cs2 #мастерская_cs2"]
     return "\n".join(lines)
