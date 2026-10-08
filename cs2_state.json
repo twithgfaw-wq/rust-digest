@@ -34,6 +34,10 @@
     [
       1791430174,
       486199
+    ],
+    [
+      1791430881,
+      467859
     ]
   ],
   "online_peaks": {
@@ -49,7 +53,8 @@
     "🔔 Больше CS2 — в {tag}",
     "А ты сейчас в игре? 🎮",
     "⚡️ CS2 сегодня: сколько игроков в сети",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "Потратил $10 на Dreams & Nightmares Case — в среднем получил обратно $4.77."
   ],
   "news_recent": [
     {
@@ -151,5 +156,34 @@
       "CS:GO Weapon Case",
       "Chroma 2 Case"
     ]
-  }
+  },
+  "sod_seen": [
+    "M4A4 | Hellish"
+  ],
+  "sod_day": "2026-10-08",
+  "ev_seen": [
+    "Dreams & Nightmares Case"
+  ],
+  "ev_week": "2026-41",
+  "duel": {
+    "date": "08.10",
+    "ts": 1791430903,
+    "poll_id": 19,
+    "items": [
+      {
+        "name": "M4A1-S | Nightmare (Field-Tested)",
+        "price": 8.9
+      },
+      {
+        "name": "AK-47 | Midnight Laminate (Minimal Wear)",
+        "price": 7.22
+      }
+    ]
+  },
+  "duel_used": [
+    "M4A1-S | Nightmare",
+    "AK-47 | Midnight Laminate"
+  ],
+  "duel_week": "2026-41",
+  "report_week": "2026-41"
 }
