@@ -112,19 +112,21 @@ def tile(img, draw, box, t):
                    width=p(2))
     base.place_item(img, fetch_image(t.get("image")), x0 + w / 2,
                     y0 + h * 0.42, w * 0.70, h * 0.44)
-    if t.get("tag"):
-        f = font(18, True)
-        tw = draw.textlength(t["tag"], font=f) / S + 16
-        draw.rectangle((p(x0 + 10), p(y0 + 12), p(x0 + 10 + tw), p(y0 + 38)),
-                       fill=RED)
-        draw.text((p(x0 + 10 + tw / 2), p(y0 + 25)), t["tag"], font=f,
-                  fill=WHITE, anchor="mm")
     if t.get("number"):
         draw.ellipse((p(x0 + 12), p(y0 + 12), p(x0 + 62), p(y0 + 62)),
                      fill=RED)
         draw.text((p(x0 + 37), p(y0 + 37)), str(t["number"]),
                   font=font(30, True), fill=WHITE, anchor="mm")
-    if t.get("price"):
+    if t.get("tag"):
+        f, tc = font(18, True), t.get("tag_color", RED)
+        tx = x0 + (64 if t.get("number") else 10)
+        tw = draw.textlength(t["tag"], font=f) / S + 16
+        draw.rectangle((p(tx), p(y0 + 12), p(tx + tw), p(y0 + 38)), fill=tc)
+        draw.text((p(tx + tw / 2), p(y0 + 25)), t["tag"], font=f,
+                  fill=INK if sum(tc) > 450 else WHITE, anchor="mm")
+    if t.get("mark") is not None:
+        mark(draw, x1 - 30, y0 + 30, t["mark"])
+    elif t.get("price"):
         f = font(22, True)
         bw = draw.textlength(t["price"], font=f) / S + 50
         bx = x1 - 10 - bw
@@ -151,6 +153,21 @@ def tile(img, draw, box, t):
                        fill=GREEN if t.get("value_up", True) else RED)
         draw.text((p(x0 + 14 + vw / 2), p(y - 12)), t["value"], font=f,
                   fill=WHITE, anchor="mm")
+
+
+def mark(draw, cx, cy, good):
+    """Галочка в зелёном круге или крестик в красном."""
+    r = 18
+    draw.ellipse((p(cx - r), p(cy - r), p(cx + r), p(cy + r)),
+                 fill=GREEN if good else RED)
+    if good:
+        draw.line([(p(cx - 8), p(cy + 1)), (p(cx - 2), p(cy + 7)),
+                   (p(cx + 9), p(cy - 7))], fill=WHITE, width=p(4),
+                  joint="curve")
+    else:
+        for a, b in (((-7, -7), (7, 7)), ((-7, 7), (7, -7))):
+            draw.line((p(cx + a[0]), p(cy + a[1]), p(cx + b[0]),
+                       p(cy + b[1])), fill=WHITE, width=p(4))
 
 
 def footer(draw, W, H, left):
@@ -241,5 +258,202 @@ def market_card(out_path, badge, sections):
             x0 = 76 + (3 - n) * (tw + 16) / 2 + i * (tw + 16)
             tile(img, draw, (x0, y0 + 108, x0 + tw, y0 + 108 + th),
                  dict(t, hot=up, value_up=up))
+    footer(draw, W, H, "цены: маркет Steam · rust.scmm.app")
+    return save(img, W, H, out_path)
+
+
+# ---------- новые рубрики ----------
+
+def chart(img, draw, sp, days, box, money, store=None):
+    """График цены на тёмном фоне: красная линия, золотой пунктир — цена
+    в магазине, пик и точка «сейчас», годы снизу."""
+    x0, y0, x1, y1 = box
+    if len(sp) < 2:
+        return
+    lo, hi = min(sp + ([store] if store else [])), max(sp + ([store] if store
+                                                               else []))
+    span = (hi - lo) or hi or 1
+    lo, hi = max(0.0, lo - span * 0.08), hi + span * 0.2
+    X = lambda i: x0 + (x1 - x0) * i / (len(sp) - 1)
+    Y = lambda v: y1 - (y1 - y0) * (v - lo) / (hi - lo)
+    for v in (min(sp), max(sp)):
+        draw.line((p(x0), p(Y(v)), p(x1), p(Y(v))), fill=(58, 55, 51),
+                  width=p(1))
+        draw.text((p(x0 - 10), p(Y(v))), money(v), font=font(18),
+                  fill=MUTED, anchor="rm")
+    if store:
+        zy = Y(store)
+        for x in range(int(x0), int(x1), 18):
+            draw.line((p(x), p(zy), p(min(x + 10, x1)), p(zy)), fill=GOLD,
+                      width=p(2))
+        draw.text((p(x1), p(zy - 8)), f"в магазине {money(store)}",
+                  font=font(18, True), fill=GOLD, anchor="rs")
+    pts = [(p(X(i)), p(Y(v))) for i, v in enumerate(sp)]
+    base.overlay(img, "polygon", pts + [(p(x1), p(y1)), (p(x0), p(y1))],
+                 RED + (60,))
+    draw.line(pts, fill=(232, 92, 70), width=p(4), joint="curve")
+    top = max(range(len(sp)), key=lambda i: sp[i])
+    if X(len(sp) - 1) - X(top) > 90:
+        draw.ellipse((pts[top][0] - p(6), pts[top][1] - p(6),
+                      pts[top][0] + p(6), pts[top][1] + p(6)), fill=WHITE)
+        label = f"пик {money(sp[top])}"
+        if store and abs(Y(store) - (Y(sp[top]) - 24)) < 20:
+            # над точкой — линия цены магазина: пишем сбоку от точки
+            draw.text((p(X(top) + 16), p(Y(sp[top]) + 4)), label,
+                      font=font(19, True), fill=WHITE, anchor="lm")
+        else:
+            draw.text((p(min(max(X(top), x0 + 60), x1 - 60)),
+                       p(Y(sp[top]) - 14)), label, font=font(19, True),
+                      fill=WHITE, anchor="mb")
+    nx, ny = pts[-1]
+    draw.ellipse((nx - p(9), ny - p(9), nx + p(9), ny + p(9)), fill=WHITE)
+    draw.ellipse((nx - p(6), ny - p(6), nx + p(6), ny + p(6)), fill=RED)
+    from datetime import date
+    days = days[:len(sp)]
+    span = ((date.fromisoformat(days[-1][:10])
+             - date.fromisoformat(days[0][:10])).days if days else 0)
+    if span < 400:
+        # чуть больше года и меньше — даты: начало, середина, «сейчас»
+        for i, anchor in ((0, "lm"), (len(days) // 2, "mm")):
+            if 0 <= i < len(days) - 1:
+                draw.text((p(X(i)), p(y1 + 22)),
+                          f"{days[i][8:10]}.{days[i][5:7]}", font=font(18),
+                          fill=MUTED, anchor=anchor)
+        draw.text((p(x1), p(y1 + 22)), "сейчас", font=font(18), fill=MUTED,
+                  anchor="rm")
+        return
+    last = -999
+    for i, d in enumerate(days):
+        if (i == 0 or d[:4] != days[i - 1][:4]) and X(i) - last >= 70:
+            draw.text((p(X(i)), p(y1 + 22)), d[:4], font=font(18),
+                      fill=MUTED, anchor="lm" if i == 0 else "mm")
+            last = X(i)
+
+
+def stat(draw, x, y, w, label, value, extra=None, extra_up=True):
+    """Строка «подпись — крупное значение» с тонкой линией снизу."""
+    draw.text((p(x), p(y)), label.upper(), font=font(19), fill=MUTED,
+              anchor="lm")
+    draw.text((p(x), p(y + 36)), value, font=font(36, True), fill=WHITE,
+              anchor="lm")
+    if extra:
+        f = font(22, True)
+        vx = x + draw.textlength(value, font=font(36, True)) / S + 14
+        vw = draw.textlength(extra, font=f) / S + 18
+        draw.rectangle((p(vx), p(y + 22), p(vx + vw), p(y + 50)),
+                       fill=GREEN if extra_up else RED)
+        draw.text((p(vx + vw / 2), p(y + 36)), extra, font=f, fill=WHITE,
+                  anchor="mm")
+    draw.line((p(x), p(y + 64), p(x + w), p(y + 64)), fill=(70, 60, 40),
+              width=p(1))
+
+
+def skin_card(out_path, date, s, money):
+    """«Скин дня»: витрина с большой плиткой, цифры справа, график цены
+    с линией цены магазина и факт внизу. s — dict: name, image, coll,
+    store, store_note, market, roi, roi_up, sold, fact, spark, days,
+    store_cents."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W = 1200
+    from PIL import Image, ImageDraw
+    probe = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+    facts = wrap(probe, s.get("fact") or "", font(26), W - 152, 2)
+    facts = [f for f in facts if f.strip()]
+    H = 1160 if facts else 1060
+    img, draw = canvas(W, H)
+    nav(draw, W, "МАРКЕТ")
+    panel(img, draw, (48, 120, W - 48, H - 74), "СКИН ДНЯ", date)
+    img.paste(gradient(p(440), p(440), *RED_TILE), (p(76), p(228)))
+    draw.rectangle((p(76), p(228), p(516), p(668)), outline=(16, 12, 10),
+                   width=p(2))
+    base.place_item(img, fetch_image(s.get("image")), 296, 440, 360, 330)
+    x, w = 548, W - 76 - 548
+    y = 252
+    for line in wrap(draw, s["name"].upper(), font(40, True), w, 2):
+        draw.text((p(x), p(y)), line, font=font(40, True), fill=WHITE,
+                  anchor="lm")
+        y += 46
+    if s.get("coll"):
+        draw.text((p(x), p(y + 2)), wrap(draw, s["coll"].upper(), font(22, True),
+                                         w, 1)[0],
+                  font=font(22, True), fill=GOLD, anchor="lm")
+    y = max(y + 48, 372)
+    stat(draw, x, y, w, "в магазине" + (f" · {s['store_note']}"
+                                        if s.get("store_note") else ""),
+         s["store"])
+    stat(draw, x, y + 92, w, "на маркете сейчас", s["market"], s.get("roi"),
+         s.get("roi_up", True))
+    stat(draw, x, y + 184, w, "продано в магазине", s["sold"])
+    base.overlay(img, "rectangle", (p(76), p(692), p(W - 76), p(950)),
+                 (0, 0, 0, 70))
+    draw.text((p(96), p(716)), "ЦЕНА НА МАРКЕТЕ ЗА ВСЁ ВРЕМЯ", font=font(20,
+                                                                         True),
+              fill=MUTED, anchor="lm")
+    chart(img, draw, s.get("spark") or [], s.get("days") or [],
+          (170, 748, W - 100, 906), money, s.get("store_cents"))
+    fy = 984
+    for line in facts:
+        draw.text((p(76), p(fy)), line, font=font(26), fill=WHITE,
+                  anchor="lm")
+        fy += 36
+    footer(draw, W, H, "цены: маркет Steam · rust.scmm.app")
+    return save(img, W, H, out_path)
+
+
+def duel_card(out_path, badge, sides, question, note, winner=None):
+    """«Угадай цену»: две большие плитки A и B. sides — dict: name,
+    image, price, sub, value, value_up."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W, H = 1200, 900
+    img, draw = canvas(W, H)
+    nav(draw, W, "МАРКЕТ")
+    panel(img, draw, (48, 120, W - 48, 830), "УГАДАЙ ЦЕНУ", badge)
+    tw = (W - 152 - 24) / 2
+    for i, s in enumerate(sides):
+        x0 = 76 + i * (tw + 24)
+        t = dict(s, number="AB"[i], hot=True)
+        if winner == i:
+            t.update(tag="ПОБЕДИТЕЛЬ", tag_color=GREEN)
+        tile(img, draw, (x0, 228, x0 + tw, 228 + 480), t)
+    bar(draw, (51, 732, W - 51, 796), question)
+    draw.text((p(W / 2), p(812)), note.upper(), font=font(18), fill=MUTED,
+              anchor="mm")
+    footer(draw, W, H, "цены: маркет Steam · rust.scmm.app")
+    return save(img, W, H, out_path)
+
+
+def report_card(out_path, badge, rows, summary):
+    """«Мы советовали — что вышло»: плитки по три — совет (цвет), прогноз
+    и что вышло, галочка или крестик. rows — dict: name, image, tag,
+    tag_color, value, value_up, sub, mark."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    rows = rows[:9]
+    n, W = len(rows), 1200
+    cols = grid(n)
+    nrows = -(-n // cols)
+    tw = (W - 96 - 56 - (cols - 1) * 16) / cols
+    th = min(tw * 1.2, 500)
+    top = 120
+    y1 = top + 108 + nrows * (th + 16) + 6 + 64
+    H = y1 + 70
+    img, draw = canvas(W, H)
+    nav(draw, W, "ИНВЕСТИЦИИ")
+    panel(img, draw, (48, top, W - 48, y1), "МЫ СОВЕТОВАЛИ — ЧТО ВЫШЛО", badge)
+    for i, r in enumerate(rows):
+        rr, c = divmod(i, cols)
+        in_row = min(cols, n - rr * cols)
+        x0 = 76 + (cols - in_row) * (tw + 16) / 2 + c * (tw + 16)
+        yy = top + 108 + rr * (th + 16)
+        tile(img, draw, (x0, yy, x0 + tw, yy + th), dict(r, hot=True))
+    bar(draw, (51, y1 - 67, W - 51, y1 - 3), summary)
     footer(draw, W, H, "цены: маркет Steam · rust.scmm.app")
     return save(img, W, H, out_path)
