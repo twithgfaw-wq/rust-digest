@@ -30,9 +30,9 @@ API = "https://api.scmm.app/api"
 NEWS = ("https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/"
         "?appid=252490&count={n}&maxlength=0")
 OFFICIAL = "steam_community_announcements"
-NEWS_LIVE = False               # новости через Claude — после одобрения
+NEWS_LIVE = True                # новости через Claude (одобрено 08.10)
 DAY = 86400
-LIVE = False                    # по расписанию — после одобрения примеров
+LIVE = True                     # по расписанию (одобрено 08.10)
 SOD_HOUR = 12                   # 🎨 скин дня — каждый день, по Киеву
 DUEL_DAY, DUEL_HOUR = 1, 19     # 🗳 угадай цену — вторник
 
