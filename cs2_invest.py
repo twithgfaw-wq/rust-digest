@@ -188,10 +188,14 @@ def score(m):
     return s
 
 
-def pick_top(items, n=5):
+def pick_top(items, n=5, recent=()):
+    """Лучшие n по score; недавно показанные (recent) — только если без них
+    не набирается n."""
     ok = [m for m in items if m["now"] >= MIN_PRICE
           and m["sales_day"] >= MIN_SALES and m["ch_1y"] is not None]
-    return sorted(ok, key=score, reverse=True)[:n]
+    ok.sort(key=score, reverse=True)
+    fresh = [m for m in ok if m["name"] not in recent]
+    return (fresh + [m for m in ok if m["name"] in recent])[:n]
 
 
 def market_context(items):
@@ -233,7 +237,7 @@ def write_post(top, context):
                   "steam": m.get("steam"), "net": m["net"],
                   "buy_zone_to": m["q1_1y"], "scenarios": m["scenarios"]})
         data.append(d)
-    prompt = f"""Рубрика «Инвестиции CS2»: еженедельный ТОП-5 предметов, за которыми
+    prompt = f"""Рубрика «Инвестиции CS2»: ежедневный ТОП-5 предметов, за которыми
 стоит следить. Ниже — уже посчитанные данные. Цены — в долларах, основная
 цена (now) — средняя продажа на CSFloat за неделю (реальные деньги).
 net — сколько продавец получит на руки: CSFloat минус 2% (деньги),
@@ -423,9 +427,10 @@ def safe_html(s):
     return s.replace("&lt;/a&gt;", "</a>").strip()
 
 
-def compose(skinport, kyiv_now):
-    """Готовый пост: (подпись к картинке, путь к картинке, подробный разбор)
-    или None. Всё считается заново из свежих данных."""
+def compose(skinport, kyiv_now, recent=()):
+    """Готовый пост: (подпись к картинке, путь к картинке, подробный разбор,
+    названия в ТОП-5) или None. Всё считается заново из свежих данных;
+    recent — показанные в последние дни, их ставим в конец очереди."""
     names = universe(skinport)
     print(f"Инвестиции: {len(names)} контейнеров в выборке")
     items = []
@@ -441,7 +446,7 @@ def compose(skinport, kyiv_now):
     if len(items) < 15:
         print("Мало данных для разбора:", len(items))
         return None
-    top = pick_top(items)
+    top = pick_top(items, recent=set(recent))
     for m in top:
         m["verdict"] = verdict(m)
         m["scenarios"] = scenarios(m)
@@ -466,7 +471,7 @@ def compose(skinport, kyiv_now):
     date = kyiv_now.strftime("%d.%m.%Y")
 
     def make_caption(intro, short):
-        lines = [f"<b>{RUBRIC} · ТОП-5 НЕДЕЛИ</b>", f"🗓 {date}", ""]
+        lines = [f"<b>{RUBRIC} · ТОП-5 ДНЯ</b>", f"🗓 {date}", ""]
         if intro:
             lines += [html.escape(text["intro"].strip()), ""]
         for k, (m, t) in enumerate(zip(top, text["items"])):
@@ -505,9 +510,10 @@ def compose(skinport, kyiv_now):
         })
     card = os.path.join(tempfile.gettempdir(), "cs2_invest.jpg")
     try:
-        ok = build_card("ТОП-5 НЕДЕЛИ", f"{date} · кейсы, капсулы и пакеты",
+        ok = build_card("ТОП-5 ДНЯ", f"{date} · кейсы, капсулы и пакеты",
                         rows, card)
     except Exception as e:
         print("Карточка не собралась:", e)
         ok = False
-    return caption, (card if ok else ""), "\n".join(details)
+    return (caption, (card if ok else ""), "\n".join(details),
+            [m["name"] for m in top])
