@@ -8,7 +8,7 @@ on:
       extra:
         description: "Доп. пост прямо сейчас"
         type: choice
-        options: ["нет", "лучшее из воркшопа", "сводка маркета", "топ мастерской", "пример новых картинок"]
+        options: ["нет", "лучшее из воркшопа", "сводка маркета", "топ мастерской", "пример новых картинок", "пример новых рубрик", "новые рубрики — выложить сейчас"]
         default: "нет"
 
 permissions:
@@ -42,8 +42,9 @@ jobs:
           YT_MAX_PER_DAY: ${{ vars.YT_MAX_PER_DAY }}
           EXTRA_POST: ${{ inputs.extra }}
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          pip install --quiet pillow
+          pip install --quiet pillow anthropic
           python rust_digest_bot.py
 
       - name: Save posted history
