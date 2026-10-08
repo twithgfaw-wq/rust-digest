@@ -67,6 +67,9 @@ FOOTERS = [
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📌 Сохрани себе {tag}",
+    # иногда — соседний канал и бот алертов (бесплатный перелив подписчиков)
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
 ]
 PATCH_HOOKS = [
     "🛠 VALVE ВЫКАТИЛИ ОБНОВЛЕНИЕ CS2",
@@ -1502,6 +1505,10 @@ def main():
     state = load_state()
     bot._RECENT[:] = state.get("recent_phrases", [])
     tg = bot.Telegram(token, channel, dry_run=dry)
+    if os.environ.get("CS2_GUIDE") == "1":
+        import guide
+        guide.post(tg, guide.CS2)
+        return
     if os.environ.get("CS2_LAUNCH") == "1":
         launch(tg, state, now)
         if not dry:
