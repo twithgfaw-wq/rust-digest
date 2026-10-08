@@ -1845,12 +1845,16 @@
     [
       1791456494,
       70963
+    ],
+    [
+      1791458195,
+      73159
     ]
   ],
   "online_peaks": {
     "2026-10-06": 86146,
     "2026-10-07": 111389,
-    "2026-10-08": 70963
+    "2026-10-08": 73159
   },
   "x_last_id": "2107833362077323284",
   "market_snaps": {
@@ -2026,5 +2030,47 @@
   "rust_index": {
     "2026-10-08": 33
   },
-  "rust_index_day": "2026-10-08"
+  "rust_index_day": "2026-10-08",
+  "rcomm_slot": "2026-10-08-14",
+  "rcomm_ids": {
+    "facepunch": null,
+    "garrynewman": {
+      "id": "17782068",
+      "name": "garrynewman",
+      "followers": 241732
+    },
+    "hedgesnvideos": {
+      "id": "1599511112193642498",
+      "name": "HedgesnVideos",
+      "followers": 3271
+    },
+    "hjune": null,
+    "spoonkid": null,
+    "blooprint": null,
+    "willjum": null,
+    "stevious": null,
+    "trausi": {
+      "id": "1043248764",
+      "name": "trausi",
+      "followers": 17652
+    },
+    "posty": null,
+    "welyn": {
+      "id": "733517541448941568",
+      "name": "welyn",
+      "followers": 127927
+    },
+    "rustafied": {
+      "id": "2508236846",
+      "name": "Rustafied",
+      "followers": 45922
+    },
+    "rustoriaco": null,
+    "rustlabs": null,
+    "helk": null,
+    "shadowfrax": null
+  },
+  "rcomm_posted": [
+    "2107985972076151273"
+  ]
 }
