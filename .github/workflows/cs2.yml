@@ -17,6 +17,7 @@ on:
           - сводка цен сейчас
           - пример инвест-разбора
           - пример мастерской
+          - пример сообщества
         default: обычный
 
 permissions:
@@ -50,6 +51,7 @@ jobs:
           CS2_PRICES: ${{ inputs.mode == 'сводка цен сейчас' && '1' || '' }}
           CS2_DEMO_INVEST: ${{ inputs.mode == 'пример инвест-разбора' && '1' || '' }}
           CS2_DEMO_WORKSHOP: ${{ inputs.mode == 'пример мастерской' && '1' || '' }}
+          CS2_DEMO_COMMUNITY: ${{ inputs.mode == 'пример сообщества' && '1' || '' }}
           STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
         run: |
           pip install --quiet pillow brotli anthropic
