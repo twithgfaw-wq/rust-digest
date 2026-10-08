@@ -25,34 +25,32 @@ LIVE = False               # по расписанию — после одобр
 RUBRIC = "💬 СООБЩЕСТВО RUST"
 ACCOUNTS = [
     "Facepunch", "garrynewman", "Helk",                   # разработчики
+    "HedgesnVideos",                                      # скины и магазин
     "hJune", "Spoonkid", "Blooprint", "willjum", "Stevious",
-    "shadowfrax", "Hedge", "Trausi", "Posty", "Welyn",    # стримеры, ютуберы
+    "shadowfrax", "Trausi", "Posty", "Welyn",             # стримеры, ютуберы
     "Rustafied", "RustoriaCo", "RustLabs",                # сервера, базы
 ]
 QUERY = ("(#playrust OR #rustgame OR facepunch OR \"rust wipe\" OR "
          "\"rust devblog\" OR \"rust update\") -is:retweet -is:reply")
 SLOTS = (14, 20)           # по Киеву
-MIN_ENGAGE = 80            # минимум «живости» (лайки + 2×репосты + ответы)
+MIN_ENGAGE = 25            # минимум «живости» (лайки + 2×репосты + ответы)
+MIN_FOLLOWERS = 2000       # мелкие однофамильцы из списка не нужны
 TAGS = "#rust #раст #сообщество"
 
 
 def resolve(token, state):
-    """Ник → id; только аккаунты, связанные с Rust (имя или описание)."""
+    """Ник → id для аккаунтов из списка (от MIN_FOLLOWERS подписчиков).
+    Посты не про игру Rust отсеет Claude при выборе."""
     ids = state.setdefault("rcomm_ids", {})
     need = [a for a in ACCOUNTS if a.lower() not in ids]
     if need:
         data = cc.x_get(token, "users/by", {
-            "usernames": ",".join(need),
-            "user.fields": "public_metrics,description"})
+            "usernames": ",".join(need), "user.fields": "public_metrics"})
         for u in data.get("data") or []:
-            about = f"{u.get('name', '')} {u.get('description', '')}".lower()
-            ok = any(w in about for w in ("rust", "facepunch", "раст"))
+            fol = u.get("public_metrics", {}).get("followers_count", 0)
             ids[u["username"].lower()] = ({
-                "id": u["id"], "name": u["username"],
-                "followers": u.get("public_metrics", {}).get(
-                    "followers_count", 0)} if ok else None)
-            if not ok:
-                print("X: не про Rust — пропускаем @" + u["username"])
+                "id": u["id"], "name": u["username"], "followers": fol}
+                if fol >= MIN_FOLLOWERS else None)
         for e in data.get("errors") or []:
             ids[(e.get("value") or "").lower()] = None
     return {k: v for k, v in ids.items() if v}
