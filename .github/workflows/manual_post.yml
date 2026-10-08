@@ -13,8 +13,9 @@ on:
 permissions:
   contents: write
 
+# та же очередь, что у CS2-бота: оба пишут cs2_state.json
 concurrency:
-  group: manual-post
+  group: cs2
   cancel-in-progress: false
 
 jobs:
@@ -38,10 +39,10 @@ jobs:
 
       - name: Сохранить состояние
         run: |
-          if [ -n "$(git status --porcelain manual_post_sent.json)" ]; then
+          if [ -n "$(git status --porcelain manual_post_sent.json cs2_state.json)" ]; then
             git config user.name "rust-digest-bot"
             git config user.email "bot@users.noreply.github.com"
-            git add manual_post_sent.json
+            git add manual_post_sent.json cs2_state.json
             git commit -m "chore: update manual_post_sent [skip ci]"
             git pull --rebase
             git push
