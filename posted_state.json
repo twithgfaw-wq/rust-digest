@@ -1795,6 +1795,10 @@
     [
       1791442420,
       52571
+    ],
+    [
+      1791443935,
+      54468
     ]
   ],
   "online_peaks": {
@@ -1972,5 +1976,9 @@
     "Valkyrie SAP",
     "Babylon Armored Double Door"
   ],
-  "rduel_week": "2026-41"
+  "rduel_week": "2026-41",
+  "rust_index": {
+    "2026-10-08": 33
+  },
+  "rust_index_day": "2026-10-08"
 }
