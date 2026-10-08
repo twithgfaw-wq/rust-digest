@@ -1190,10 +1190,13 @@ def foot():
 
 def extras_tick(tg, state, forced=False):
     import cs2_esports as esp
+    import cs2_reddit as rd
     import market_index as mi
     import quiz
     for name, fn in (
             ("Киберспорт", lambda: esp.tick(tg, state, foot(), forced)),
+            ("Лучшее с Reddit", lambda: rd.tick(tg, state, safe_html, foot(),
+                                                forced)),
             ("Индекс рынка", lambda: mi.tick(tg, state, "cs2", foot(),
                                              fetch_skinport, forced)),
             ("Викторина", lambda: quiz.tick(tg, state, "cs2", fetch_skinport,
@@ -1214,6 +1217,11 @@ def demo_extra():
         esp.demo(foot())
     except Exception as e:
         print("Киберспорт: пример не собрался —", e)
+    try:
+        import cs2_reddit
+        cs2_reddit.demo(safe_html, foot())
+    except Exception as e:
+        print("Reddit: пример не собрался —", e)
     sp, kt = fetch_skinport(), bot.kyiv_time()
     out = mi.cs2_post(sp, {}, kt, foot(), save=False)
     if out:
