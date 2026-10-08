@@ -94,6 +94,10 @@
     [
       1791454253,
       682090
+    ],
+    [
+      1791454371,
+      682090
     ]
   ],
   "online_peaks": {
@@ -141,7 +145,10 @@
     "📌 Сохрани себе {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔥 {tag} — CS2 без воды",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [
     {
@@ -297,7 +304,8 @@
     "hltvnews45669",
     "hltvnews45667",
     "hltvnews45666",
-    "hltvnews45641"
+    "hltvnews45641",
+    "hltvnews45599"
   ],
   "news_seen_t": [
     1788994268,
@@ -316,5 +324,14 @@
   },
   "cs2_index_day": "2026-10-08",
   "ws_slot": "2026-10-08-12",
-  "comm_slot": "2026-10-08-13"
+  "comm_slot": "2026-10-08-13",
+  "hltv_day": "2026-10-08",
+  "hltv_count": 0,
+  "hltv_digest": [
+    {
+      "headline": "HLTV Prospects ranking за октябрь 2026: syph0 поднялся на второе место",
+      "link": "https://www.hltv.org/news/45599/hltv-prospects-ranking-october-2026",
+      "score": 4
+    }
+  ]
 }
