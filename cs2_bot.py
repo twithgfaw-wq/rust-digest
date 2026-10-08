@@ -33,6 +33,7 @@ import urllib.request
 from datetime import datetime, timezone
 
 import cs2_ai as ai
+import cs2_community as comm
 import cs2_invest as invest
 import cs2_workshop as ws
 import rust_digest_bot as bot
@@ -996,6 +997,48 @@ def workshop_tick(tg, state, now, forced=False):
             state["ws_slot"] = slot
 
 
+# ---------- «💬 Сообщество CS2» (cs2_community.py) ----------
+
+COMMUNITY_LIVE = False         # по расписанию — после одобрения примера
+
+
+def post_with_media(tg, p, text):
+    """Пост с картинкой или видео из исходного твита (если есть)."""
+    kind, url, preview = bot.x_media(p)
+    res = {}
+    if kind == "video" and url:
+        res = tg._post("sendVideo", {
+            "chat_id": tg.chat, "video": url, "caption": text,
+            "parse_mode": "HTML", "supports_streaming": "true"})
+    image = url if kind == "photo" else preview
+    if not res.get("ok") and image:
+        res = tg.send_photo(image, text)
+    if not res.get("ok"):
+        res = send(tg, "", text)
+    return res
+
+
+def community_tick(tg, state, now, forced=False):
+    """В каждый слот — самый интересный пост сообщества (если есть)."""
+    token = os.environ.get("X_BEARER_TOKEN", "").strip()
+    if not token or not ai.available():
+        return
+    kt = bot.kyiv_time()
+    hours = [h for h in comm.SLOTS if kt.hour >= h]
+    slot = f"{kt:%Y-%m-%d}-{hours[-1]}" if hours else None
+    if not forced and (not COMMUNITY_LIVE or not slot
+                       or state.get("comm_slot") == slot):
+        return
+    if not forced:
+        state["comm_slot"] = slot      # одна попытка на слот — экономим X API
+    posts = comm.gather(token, state)
+    p, res = comm.choose(posts, set(state.get("comm_posted", [])))
+    if not p:
+        return
+    if post_with_media(tg, p, comm.compose(p, res, safe_html)).get("ok"):
+        state["comm_posted"] = (state.get("comm_posted", []) + [p["id"]])[-500:]
+
+
 def dump_card(path):
     """Для теста: уменьшенная картинка в лог (base64), чтобы её посмотреть."""
     import base64
@@ -1074,6 +1117,25 @@ def demo(token, chat):
         print(f"\n===== ПРИМЕР (цены, длина {visible_len(text)}) =====\n{text}")
 
 
+def demo_community():
+    """Пример поста сообщества в лог: какие аккаунты нашлись, топ и выбор."""
+    token = os.environ.get("X_BEARER_TOKEN", "").strip()
+    if not token:
+        print("Нет X_BEARER_TOKEN")
+        return
+    state = {}
+    posts = comm.gather(token, state)
+    print("Аккаунты:", ", ".join(v["name"] for v in state.get(
+        "comm_ids", {}).values() if v))
+    for p in sorted(posts, key=lambda p: p["score"], reverse=True)[:8]:
+        print(f"· @{p['author']} ❤️{p['likes']} 🔁{p['reposts']} "
+              f"💬{p['replies']} · {p['text'][:110]!r}")
+    p, res = comm.choose(posts, set())
+    if p:
+        print(f"\n===== ПРИМЕР (сообщество) =====\n"
+              f"{comm.compose(p, res, safe_html)}\nМедиа: {bot.x_media(p)[0]}")
+
+
 def demo_workshop():
     """Пример поста мастерской в лог: какие работы оценены и лучшая."""
     key = os.environ.get("STEAM_API_KEY", "").strip()
@@ -1118,6 +1180,9 @@ def main():
     if os.environ.get("CS2_DEMO_WORKSHOP") == "1":
         demo_workshop()
         return
+    if os.environ.get("CS2_DEMO_COMMUNITY") == "1":
+        demo_community()
+        return
     dry = os.environ.get("CS2_DRY") == "1"
     state = load_state()
     bot._RECENT[:] = state.get("recent_phrases", [])
@@ -1140,6 +1205,10 @@ def main():
         workshop_tick(tg, state, now)
     except Exception as e:
         print("Мастерская не вышла:", e)
+    try:
+        community_tick(tg, state, now)
+    except Exception as e:
+        print("Сообщество не вышло:", e)
     if not dry:
         save_state(state)
 
