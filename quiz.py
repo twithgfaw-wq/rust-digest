@@ -9,7 +9,7 @@ import json
 import random
 import time
 
-LIVE = False                    # по расписанию — после одобрения примеров
+LIVE = True                     # по расписанию (одобрено 08.10)
 HOUR = 18                       # по Киеву
 CS2_DAYS = (1, 4, 6)            # вт, пт, вс
 RUST_DAYS = (0, 2, 5)           # пн, ср, сб
