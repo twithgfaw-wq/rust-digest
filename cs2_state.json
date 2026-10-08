@@ -114,10 +114,14 @@
     [
       1791456986,
       717497
+    ],
+    [
+      1791458976,
+      782437
     ]
   ],
   "online_peaks": {
-    "2026-10-08": 717497
+    "2026-10-08": 782437
   },
   "recent_phrases": [
     "📢 Подписывайся: {tag}",
@@ -176,7 +180,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📢 Подписывайся: {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [
     {
@@ -367,5 +374,9 @@
       "link": "https://www.hltv.org/news/45674/all-top-14-teams-accept-invites-to-pgl-bucharest-2027",
       "score": 6
     }
+  ],
+  "reddit_day": "2026-10-08",
+  "reddit_posted": [
+    "1wzz7z0"
   ]
 }
