@@ -220,7 +220,9 @@ def fetch_youtube(channels, max_age_days=4):
             pub_el = entry.find(atom + "published")
             if vid_el is None or title_el is None:
                 continue
-            title = title_el.text or ""
+            import re
+            # хэштеги из названия (#shorts #fyp …) в посте не нужны
+            title = re.sub(r"\s*#\w+", "", title_el.text or "").strip()
             pub = pub_el.text if pub_el is not None else ""
             # 1) только свежие
             try:
@@ -1593,8 +1595,7 @@ def market_tick(tg, state, forced=False):
     if not res.get("ok"):
         res = tg.send_message(text)
     if res.get("ok"):
-        if not forced:   # ручной показ не отменяет обеденную сводку
-            state["market_day"] = today
+        state["market_day"] = today   # одна сводка в день, даже ручная
 
 # ---------- топ скинов недели из мастерской (micro522.com) ----------
 # Раз в ~3 дня вечером (по Киеву) — топ-3 работ недели по оценке Steam с
@@ -2216,9 +2217,14 @@ def main():
             1 for ts in yt_log
             if time.strftime("%Y-%m-%d", time.gmtime(ts)) == today)
         slots = yt_max - yt_today
+        # одно видео за запуск, между видео — от 4 часов, ночью не постим
+        if slots > 0 and (quiet_now() or (yt_log and time.time()
+                                          - yt_log[-1] < 4 * 3600)):
+            print("Видео подождёт: недавно уже было или сейчас ночь.")
+            slots = 0
         if slots > 0:
             best = [v for v in fetch_youtube(YT_CHANNELS)
-                    if v["id"] not in posted][:slots]
+                    if v["id"] not in posted][:1]
             if best:
                 for v in best:
                     res = tg.send_photo(v["image"], build_video_caption(v))
