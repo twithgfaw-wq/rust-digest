@@ -767,6 +767,129 @@ def save_state(state):
         json.dump(state, f, ensure_ascii=False, indent=2)
 
 
+# ---------- 📒 «мы советовали — что вышло» ----------
+# Через REPORT_AFTER_D дней после старта выпуска первая неделя торгов уже
+# прошла: сравниваем совет и прогноз с тем, что вышло на самом деле
+# (купил в магазине → продал в первую неделю торгов, комиссия вычтена).
+REPORT_LIVE = False       # публиковать — после одобрения примера
+REPORT_AFTER_D = 15
+REPORT_HOURS = (12, 22)   # по Киеву
+
+
+def full_icon(u):
+    if u and not u.startswith("http"):
+        return ("https://community.cloudflare.steamstatic.com/economy/image/"
+                + u + "/360fx360f")
+    return u or ""
+
+
+def compose_report(pk, now=None):
+    """(подпись, картинка) по сохранённым советам выпуска или None."""
+    import rust_cards
+    now = now or time.time()
+    start = ts(pk["start"])
+    rows = []
+    for it in pk["items"]:
+        try:
+            s = summarize(start, get("/item/"
+                                     + urllib.parse.quote(it["name"], safe="")
+                                     + "/sales/market?maxDays=-1"), now)
+        except Exception as e:
+            print("Нет истории:", it["name"], e)
+            continue
+        if s.get("launch"):
+            rows.append(dict(it, real=s["launch"] / FEE / it["store"] - 1))
+    if len(rows) < max(2, len(pk["items"]) // 2):
+        return None
+    order = list(VERDICTS)
+    rows.sort(key=lambda r: (order.index(r["v"]), -r["real"]))
+    right = lambda r: (None if r["v"] == "think" else
+                       (r["real"] > 0) == (r["v"] == "buy"))
+    tiles = [{"name": r["name"], "image": full_icon(r["icon"]),
+              "tag": VERDICTS[r["v"]][2], "tag_color": VERDICTS[r["v"]][3],
+              "value": signed(r["real"]).replace("−", "-"),
+              "value_up": r["real"] > 0, "mark": right(r),
+              "sub": (f"прогноз {signed(r['net'])} · магазин "
+                      f"{bot.money(r['store'])}" if r.get("net") is not None
+                      else f"в магазине {bot.money(r['store'])}")}
+             for r in rows]
+    judged = [r for r in rows if right(r) is not None]
+    hits = sum(1 for r in judged if right(r))
+    date = kyiv(start).strftime("%d.%m")
+    summary = (f"совет сбылся: {hits} из {len(judged)}" if judged
+               else "все скины были «подумать»")
+    card = os.path.join(tempfile.gettempdir(), "rust_report.jpg")
+    try:
+        ok = rust_cards.report_card(card, f"ВЫПУСК {date}", tiles, summary)
+    except Exception as e:
+        print("Картинка отчёта не собралась:", e)
+        ok = False
+    dot = "\U000025AB\U0000FE0F"
+    best = max(rows, key=lambda r: r["real"])
+
+    def compose(show_was, limit):
+        lines = [f"\U0001f4d2 <b>МЫ СОВЕТОВАЛИ — ЧТО ВЫШЛО</b> · выпуск {date}",
+                 "Честно проверяем свой разбор: купил в магазине, продал в"
+                 " первую неделю торгов, комиссия Steam вычтена."]
+        for code in VERDICTS:
+            group = [r for r in rows if r["v"] == code]
+            if not group:
+                continue
+            lines += ["", f"{VERDICTS[code][0]} <b>{VERDICTS[code][1]}</b>"]
+            for r in group[:limit]:
+                mk = {True: " ✅", False: " ❌", None: ""}[right(r)]
+                was = (f"прогноз {signed(r['net'])} → "
+                       if show_was and r.get("net") is not None else "")
+                lines.append(f"{dot} {html.escape(r['name'])} — {was}вышло "
+                             f"<b>{signed(r['real'])}</b>{mk}")
+            if len(group) > limit:
+                lines.append(f"{dot} и ещё {len(group) - limit} — на картинке")
+        lines.append("")
+        if judged:
+            lines.append(f"\U0001f3af Совет сбылся: {hits} из {len(judged)}"
+                         " (жёлтые не считаем — там был честный «50 на 50»)")
+        if best["real"] > 0:
+            lines.append(f"\U0001f3c6 Лучший: {html.escape(best['name'])} —"
+                         f" вложил 100 → вернулось"
+                         f" {round(100 * (1 + best['real']))}")
+        lines += ["", "#rust #раст #инвест #итоги"]
+        return "\n".join(lines)
+
+    for show_was, limit in ((True, 99), (False, 99), (False, 4), (False, 2)):
+        text = compose(show_was, limit)
+        if plain_len(text) <= 1024:
+            break
+    return text, (card if ok else "")
+
+
+def report_tick(state, tg, now, dry=False):
+    """Один отчёт за запуск: выпуск, которому REPORT_AFTER_D дней и больше."""
+    h = kyiv(now).hour
+    if not (REPORT_LIVE and REPORT_HOURS[0] <= h < REPORT_HOURS[1]):
+        return
+    picks = state.get("picks") or {}
+    for rid in sorted(picks):
+        pk = picks[rid]
+        if pk.get("reported") or now - ts(pk["start"]) < REPORT_AFTER_D * DAY:
+            continue
+        out = compose_report(pk, now)
+        if not out:
+            pk["tries"] = pk.get("tries", 0) + 1
+            if pk["tries"] >= 6:             # история так и не появилась
+                pk["reported"] = True
+            save_state(state)
+            continue
+        text, card = out
+        res = tg.send_photo_file(card, text) if card else {}
+        if not res.get("ok"):
+            res = tg.send_message(text)
+        if res.get("ok") and not dry:
+            pk["reported"] = True
+            save_state(state)
+            print("Отчёт опубликован:", rid)
+        return
+
+
 def run():
     now = time.time()
     forced = os.environ.get("INVEST_FORCE") == "1"
@@ -775,6 +898,11 @@ def run():
     if channel.startswith("@"):
         bot.CHANNEL_TAG = channel
     state = load_state()
+    tg = bot.Telegram(os.environ.get("BOT_TOKEN", ""), channel, dry_run=dry)
+    try:
+        report_tick(state, tg, now, dry)
+    except Exception as e:
+        print("Отчёт «что вышло» не удался:", e)
 
     stores = get("/store")
     cur = next((s for s in stores if s.get("start") and not s.get("end")),
@@ -1021,7 +1149,6 @@ def run():
     if dry:
         print("\n===== ПОДПИСЬ =====\n" + caption)
         print("Длина подписи:", plain_len(caption))
-    tg = bot.Telegram(os.environ.get("BOT_TOKEN", ""), channel, dry_run=dry)
     card = os.path.join(tempfile.gettempdir(), "rust_invest.jpg")
     res = {}
     try:
@@ -1035,6 +1162,14 @@ def run():
         res = tg.send_message(caption)
     if res.get("ok") and not dry:
         state.update({"last": cur["id"], "ts": int(now)})
+        # советы выпуска — для отчёта «что вышло» через REPORT_AFTER_D дней
+        picks = state.setdefault("picks", {})
+        picks[cur["id"]] = {"start": cur["start"], "items": [
+            {"name": it["name"], "v": it["v"], "net": round(it["net"], 4),
+             "n10": it["n10"], "store": it["store"], "icon": it["icon"]}
+            for it in new]}
+        for rid in sorted(picks)[:-12]:
+            del picks[rid]
         save_state(state)
         print("Разбор опубликован:", cur["id"])
 
