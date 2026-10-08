@@ -4,16 +4,15 @@
 
 Все цифры считает бот, а не модель:
   • история цен — CSFloat (дневные продажи с июня 2023, ключ не нужен);
-  • текущие цены и объём — Steam (priceoverview) и CSFloat;
   • статус предложения — в дропе или нет (список ACTIVE_POOL);
-  • зона покупки, сценарии и итоговое решение — по правилам ниже.
-Claude Opus 5.5 только объясняет эти данные человеческим языком.
+  • выгодная цена, сценарии и итоговое решение — по правилам ниже.
+Claude Opus 5.5 только объясняет решение простыми словами.
 
-Чистая сумма после продажи: CSFloat — минус 2% (реальные деньги),
-Steam — цена / 1.15 (только на кошелёк Steam).
+Пост — альбом картинок (cs2_cards.py): обзор ТОП-5 и по карточке на
+каждый предмет (цена, решение, график с выгодной зоной, что может быть
+дальше). Сумма «на руки» — после комиссии CSFloat 2%.
 """
 import html
-import io
 import json
 import os
 import statistics
@@ -21,15 +20,13 @@ import tempfile
 import re
 import time
 import urllib.parse
-import urllib.request
 from datetime import datetime, timedelta, timezone
 
 import cs2_ai as ai
+import cs2_cards as cards
 import rust_digest_bot as bot
 
 CSFLOAT = "https://csfloat.com/api/v1/history/{}/graph"
-STEAM_PRICE = ("https://steamcommunity.com/market/priceoverview/"
-               "?appid=730&currency=1&market_hash_name={}")
 # Активный еженедельный дроп (по трекерам сообщества, сверено 08.10.2026).
 # Предметы отсюда пополняются каждую неделю — их запас растёт.
 ACTIVE_POOL = {"Sealed Dead Hand Terminal", "Sealed Genesis Terminal",
@@ -38,10 +35,9 @@ RUBRIC = "💼 ИНВЕСТИЦИИ CS2"
 MIN_PRICE = 1.0          # $ на CSFloat — копеечные предметы не берём
 MIN_SALES = 5            # продаж в день на CSFloat за последний месяц
 CSFLOAT_FEE = 0.02
-STEAM_FEE = 1.15
-VERDICTS = {"buy": ("🟢", "ПОКУПАТЬ", (61, 220, 132)),
-            "watch": ("🟡", "НАБЛЮДАТЬ", (255, 200, 61)),
-            "avoid": ("🔴", "ИЗБЕГАТЬ", (255, 82, 82))}
+VERDICTS = {"buy": ("🟢", "МОЖНО БРАТЬ"), "watch": ("🟡", "ПОДОЖДАТЬ"),
+            "avoid": ("🔴", "НЕ БРАТЬ")}
+HORIZONS = ["несколько месяцев", "год и больше"]
 
 
 # ---------- данные ----------
@@ -52,17 +48,6 @@ def history(name):
                              timeout=30)
     return [(d["day"][:10], d["avg_price"] / 100, d["count"])
             for d in reversed(data or []) if d.get("avg_price")]
-
-
-def steam_price(name):
-    """Steam: самое дешёвое предложение, медиана и продажи за сутки."""
-    try:
-        d = bot.http_get_json(STEAM_PRICE.format(urllib.parse.quote(name)))
-    except Exception:
-        return {}
-    num = lambda s: float(s.replace("$", "").replace(",", "")) if s else None
-    return {"low": num(d.get("lowest_price")), "median": num(d.get("median_price")),
-            "volume": int((d.get("volume") or "0").replace(",", ""))}
 
 
 def steam_icon(name):
@@ -77,8 +62,7 @@ def steam_icon(name):
         if r.get("hash_name") == name:
             icon = (r.get("asset_description") or {}).get("icon_url")
             if icon:
-                return ("https://community.cloudflare.steamstatic.com/economy/"
-                        f"image/{icon}/256fx256f")
+                return cards.STEAM_IMG.format(icon)
     return ""
 
 
@@ -140,7 +124,9 @@ def metrics(name, h):
         "peak": round(peak[1], 2), "peak_week": peak[0],
         "first_day": h[0][0], "first_price": round(h[0][1], 2),
         "spark": [round(p, 2) for _, p in w],
+        "spark_days": [d for d, _ in w],
     }
+    m["buy_to"] = round(m["q1_1y"] * 1.05, 2)
     periods = []
     for y in range(int(h[0][0][:4]), datetime.now(timezone.utc).year + 1):
         for a, b, lab in ((f"{y}-01-01", f"{y}-07-01", f"{y} I пол."),
@@ -154,16 +140,16 @@ def metrics(name, h):
 
 def verdict(m):
     """Решение по правилам (модель его не меняет):
-    избегать — предмет в активном дропе (запас растёт) или падает
+    не брать — предмет в активном дропе (запас растёт) или падает
       больше чем на 25% за 3 месяца;
-    покупать — дропа нет, месяц без падения (не хуже −3%), три месяца
-      не хуже −10%, цена уже в зоне покупки (не дороже нижней четверти
-      цен за год + 5%) и не меньше 5 продаж в день;
-    иначе — наблюдать."""
+    можно брать — дропа нет, месяц без падения (не хуже −3%), три месяца
+      не хуже −10%, цена уже выгодная (buy_to: нижняя четверть цен за год
+      + 5%) и не меньше 5 продаж в день;
+    иначе — подождать."""
     if m["in_drop"] or (m["ch_3m"] is not None and m["ch_3m"] <= -25):
         return "avoid"
     if ((m["ch_1m"] or 0) >= -3 and (m["ch_3m"] or 0) >= -10
-            and m["now"] <= m["q1_1y"] * 1.05 and m["sales_day"] >= MIN_SALES):
+            and m["now"] <= m["buy_to"] and m["sales_day"] >= MIN_SALES):
         return "buy"
     return "watch"
 
@@ -206,6 +192,25 @@ def market_context(items):
             "median_ch_3m": med("ch_3m"), "median_ch_1y": med("ch_1y")}
 
 
+def kind(n):
+    """Что это за предмет — по-русски, для карточки."""
+    if n.endswith("Terminal"):
+        return "терминал"
+    if "Souvenir" in n:
+        return "сувенирный набор"
+    if n.endswith("Collection Package"):
+        return "набор коллекции"
+    if n.endswith("Capsule"):
+        return "капсула"
+    return "кейс"
+
+
+def easy_sell(n):
+    """Как быстро продаётся — словами, без слова «ликвидность»."""
+    return ("очень быстро" if n >= 100 else "быстро" if n >= 30
+            else "нормально" if n >= 10 else "медленно")
+
+
 # ---------- текст (Claude) ----------
 
 INVEST_SCHEMA = {
@@ -215,9 +220,9 @@ INVEST_SCHEMA = {
         "items": {"type": "array", "items": {
             "type": "object",
             "properties": {"name": {"type": "string"},
-                           "short": {"type": "string"},
-                           "details": {"type": "string"}},
-            "required": ["name", "short", "details"],
+                           "why": {"type": "string"},
+                           "horizon": {"type": "string", "enum": HORIZONS}},
+            "required": ["name", "why", "horizon"],
             "additionalProperties": False}},
     },
     "required": ["intro", "items"],
@@ -226,170 +231,54 @@ INVEST_SCHEMA = {
 
 
 def write_post(top, context):
-    """Claude объясняет готовые цифры. Решения и уровни уже посчитаны."""
+    """Claude объясняет готовые решения простыми словами."""
     data = []
     for m in top:
         d = {k: m[k] for k in ("name", "now", "sales_day", "in_drop", "ch_1m",
                                "ch_3m", "ch_1y", "low_1y", "high_1y",
-                               "median_1y", "q1_1y", "peak", "peak_week",
+                               "median_1y", "buy_to", "peak", "peak_week",
                                "first_day", "first_price", "periods")}
-        d.update({"verdict": VERDICTS[m["verdict"]][1].lower(),
-                  "steam": m.get("steam"), "net": m["net"],
-                  "buy_zone_to": m["q1_1y"], "scenarios": m["scenarios"]})
+        d["verdict"] = VERDICTS[m["verdict"]][1].lower()
         data.append(d)
-    prompt = f"""Рубрика «Инвестиции CS2»: ежедневный ТОП-5 предметов, за которыми
-стоит следить. Ниже — уже посчитанные данные. Цены — в долларах, основная
-цена (now) — средняя продажа на CSFloat за неделю (реальные деньги).
-net — сколько продавец получит на руки: CSFloat минус 2% (деньги),
-Steam — цена / 1.15 (только на кошелёк Steam, вывести нельзя).
-sales_day — продаж в день на CSFloat. in_drop — выпадает ли предмет в
-еженедельном дропе (запас растёт). periods — средние цены по полугодиям.
-Решение (verdict) и сценарии уже рассчитаны по правилам — не меняй их и не
-добавляй своих чисел.
+    prompt = f"""Рубрика «Инвестиции CS2»: ежедневный ТОП-5 кейсов и наборов.
+Читают обычные игроки, многие — школьники. Пиши очень просто, как другу,
+без терминов (никаких «ликвидность», «медиана», «квартиль», «волатильность»).
+
+Данные уже посчитаны. Цены — в долларах, now — средняя цена продаж на CSFloat
+за неделю. buy_to — до какой цены брать выгодно. in_drop — предмет ещё
+выпадает в игре (запас растёт). periods — средние цены по полугодиям.
+Решение (verdict) уже принято по правилам — не меняй его и не придумывай
+своих чисел, бери только числа из данных.
 
 Контекст рынка контейнеров: {json.dumps(context, ensure_ascii=False)}
-
-Важное о рынке (проверено на данных CSFloat): с января 2026 старые кейсы
-вообще не выпадают — их запас может только уменьшаться; весной на этом был
-всплеск цен, к осени большинство откатилось. Новые терминалы дешевеют на
-90%+ за первые месяцы.
+Важное (проверено на данных CSFloat): с января 2026 старые кейсы вообще не
+выпадают — их запас только уменьшается; весной на этом был всплеск цен,
+к осени большинство откатилось. Новые терминалы дешевеют на 90%+ за первые
+месяцы.
 
 Данные: {json.dumps(data, ensure_ascii=False)}
 
-Напиши:
-- intro: 1–2 предложения о состоянии рынка по контексту (без воды).
+Верни:
+- intro: одно короткое предложение (до 110 знаков) — что сейчас с ценами
+  на кейсы, простыми словами.
 - items: для каждого предмета в том же порядке:
   • name — как во входе;
-  • short — одна строка до 90 знаков: главная причина следить/не брать;
-  • details — разбор (до 650 знаков, Telegram HTML), строки:
-    «💵 Цена: …» (CSFloat и Steam, на руки после комиссии),
-    «📈 История: …» (коротко путь цены по periods + пик),
-    «💧 Ликвидность: …» (продаж в день),
-    «✅ За: …» (почему может расти — только из данных),
-    «⚠️ Риски: …» (почему может падать),
-    «🎯 Зона покупки: до …» (buy_zone_to), «⏳ Горизонт: …»
-    (оцени по истории колебаний: месяцы или год+, объясни одним словом),
-    «🔮 Сценарии: ↑ … / → … / ↓ …» (цены и % из scenarios),
-    «Итог: <b>…</b>» (verdict).
+  • why — главная причина решения, до 70 знаков, простыми словами
+    (пример: «Подешевел вдвое от пика и стоит почти на дне года»);
+  • horizon — сколько, скорее всего, придётся держать: «{HORIZONS[0]}»
+    или «{HORIZONS[1]}» — оцени по тому, как цена ходила раньше (periods).
 """
-    return ai.ask(prompt, INVEST_SCHEMA, effort="high")
+    return ai.ask(prompt, INVEST_SCHEMA, effort="medium")
 
 
-# ---------- картинка ----------
-
-def build_card(title, subtitle, rows, out_path):
-    """Карточка ТОП-5: иконка, название, цены, график за всё время и
-    плашка решения. Рисуем в 2× и уменьшаем."""
-    try:
-        from PIL import Image, ImageDraw, ImageFilter, ImageFont
-    except Exception:
-        return False
-    S, W = 2, 1440
-    RH, TOP = 168, 270
-    H = TOP + len(rows) * RH + 120
-    p = lambda v: int(v * S)
-    gold, card_bg = (240, 190, 70), (31, 34, 43)
-    line_c, muted = (48, 52, 64), (150, 156, 172)
-    grad = Image.linear_gradient("L").resize((p(W), p(H)))
-    img = Image.composite(Image.new("RGB", (p(W), p(H)), (11, 12, 16)),
-                          Image.new("RGB", (p(W), p(H)), (27, 29, 37)),
-                          grad).convert("RGBA")
-    glow = Image.new("RGBA", (W // 8, H // 8), (0, 0, 0, 0))
-    ImageDraw.Draw(glow).ellipse((W // 8 - 75, -55, W // 8 + 45, 45),
-                                 fill=gold + (100,))
-    img.alpha_composite(glow.filter(ImageFilter.GaussianBlur(14)).resize(
-        (p(W), p(H)), Image.BICUBIC))
-    draw = ImageDraw.Draw(img)
-
-    def font(size, bold=False):
-        name = "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf"
-        try:
-            return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/"
-                                      + name, p(size))
-        except Exception:
-            return ImageFont.load_default()
-
-    def fit(text, fnt, width):
-        if draw.textlength(text, font=fnt) <= width:
-            return text
-        while text and draw.textlength(text + "…", font=fnt) > width:
-            text = text[:-1]
-        return text.rstrip() + "…"
-
-    def icon(url, size):
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": bot.UA})
-            with urllib.request.urlopen(req, timeout=15) as r:
-                im = Image.open(io.BytesIO(r.read())).convert("RGBA")
-            im.thumbnail((p(size), p(size)), Image.LANCZOS)
-            return im
-        except Exception:
-            return None
-
-    draw.rectangle((0, 0, p(W), p(12)), fill=gold)
-    tag, tf = "ИНВЕСТИЦИИ CS2", font(22, True)
-    tw = draw.textlength(tag, font=tf)
-    draw.rounded_rectangle((p(64), p(52), p(64) + tw + p(40), p(94)),
-                           radius=p(21), fill=gold)
-    draw.text((p(64) + (tw + p(40)) / 2, p(73)), tag, font=tf,
-              fill=(20, 20, 24), anchor="mm")
-    draw.text((p(62), p(150)), title, font=font(64, True),
-              fill=(255, 255, 255), anchor="lm")
-    draw.text((p(64), p(212)), fit(subtitle, font(28), p(W - 128)),
-              font=font(28), fill=muted, anchor="lm")
-
-    y = TOP
-    for k, r in enumerate(rows):
-        emoji, label, color = VERDICTS[r["verdict"]]
-        draw.rounded_rectangle((p(56), p(y), p(W - 56), p(y + RH - 14)),
-                               radius=p(26), fill=card_bg, outline=line_c,
-                               width=p(2))
-        draw.text((p(84), p(y + 77)), str(k + 1), font=font(40, True),
-                  fill=gold, anchor="mm")
-        draw.rounded_rectangle((p(114), p(y + 22), p(224), p(y + 132)),
-                               radius=p(20), fill=(45, 49, 60))
-        ic = icon(r["icon"], 100) if r.get("icon") else None
-        if ic:
-            img.alpha_composite(ic, (p(114) + (p(110) - ic.width) // 2,
-                                     p(y + 22) + (p(110) - ic.height) // 2))
-        draw.text((p(248), p(y + 46)), fit(r["name"], font(34, True), p(560)),
-                  font=font(34, True), fill=(240, 242, 246), anchor="lm")
-        draw.text((p(248), p(y + 92)), fit(r["prices"], font(25), p(560)),
-                  font=font(25), fill=muted, anchor="lm")
-        draw.text((p(248), p(y + 126)), fit(r["change"], font(24), p(560)),
-                  font=font(24), fill=muted, anchor="lm")
-        # график цены за всё время (по неделям)
-        sp = r["spark"]
-        gx0, gx1, gy0, gy1 = 840, 1130, y + 26, y + 128
-        if len(sp) >= 2:
-            lo, hi = min(sp), max(sp)
-            pts = [(p(gx0 + (gx1 - gx0) * i / (len(sp) - 1)),
-                    p(gy1 - (gy1 - gy0) * ((v - lo) / (hi - lo) if hi > lo
-                                           else 0.5)))
-                   for i, v in enumerate(sp)]
-            draw.line(pts, fill=color, width=p(3), joint="curve")
-            draw.ellipse((pts[-1][0] - p(6), pts[-1][1] - p(6),
-                          pts[-1][0] + p(6), pts[-1][1] + p(6)), fill=color)
-            draw.text((p(gx0), p(gy1 + 18)), r["since"], font=font(18),
-                      fill=(110, 116, 132), anchor="lm")
-        bf = font(24, True)
-        bw = draw.textlength(label, font=bf)
-        bx1 = p(W - 80)
-        draw.rounded_rectangle((bx1 - bw - p(40), p(y + 56), bx1,
-                                p(y + 100)), radius=p(22), fill=color)
-        draw.text((bx1 - bw / 2 - p(20), p(y + 78)), label, font=bf,
-                  fill=(20, 20, 24), anchor="mm")
-        y += RH
-
-    draw.line((p(64), p(H - 80), p(W - 64), p(H - 80)), fill=line_c,
-              width=p(2))
-    draw.text((p(64), p(H - 44)), "цены: CSFloat (история с 2023) и Steam",
-              font=font(24), fill=(120, 126, 142), anchor="lm")
-    draw.text((p(W - 64), p(H - 44)), "@cs2_me", font=font(28, True),
-              fill=gold, anchor="rm")
-    img = img.convert("RGB").resize((W, H), Image.LANCZOS)
-    img.save(out_path, "JPEG", quality=95, subsampling=0)
-    return True
+def fallback_why(m):
+    """Если Claude недоступен — короткая причина по правилам."""
+    if m["verdict"] == "avoid":
+        return ("Ещё выпадает в игре — предметов становится больше"
+                if m["in_drop"] else "Цена быстро падает последние месяцы")
+    if m["verdict"] == "buy":
+        return "Цена у нижней границы за год и не падает"
+    return "Сейчас дороже выгодной цены — лучше дождаться скидки"
 
 
 # ---------- сборка поста ----------
@@ -411,7 +300,8 @@ def short_name(n):
 
 
 def signed(v):
-    return "—" if v is None else f"{v:+d}%".replace("-", "−")
+    """Процент для картинки — обычный дефис: «−» есть не во всех шрифтах."""
+    return "—" if v is None else f"{v:+d}%"
 
 
 def visible_len(text):
@@ -419,16 +309,62 @@ def visible_len(text):
     return len(plain.encode("utf-16-le")) // 2
 
 
-def safe_html(s):
-    """Текст от модели → безопасный Telegram HTML (только <b>, <i>, ссылки)."""
-    s = html.escape(html.unescape(s or ""), quote=False)
-    s = re.sub(r"&lt;(/?)(b|i)&gt;", r"<\1\2>", s)
-    s = re.sub(r'&lt;a href="(https?://[^"\s<>]+)"&gt;', r'<a href="\1">', s)
-    return s.replace("&lt;/a&gt;", "</a>").strip()
+def advice(m):
+    """Что делать — одной строкой (для подписи и карточек)."""
+    return {"buy": f"Хорошая цена — брать до {money(m['buy_to'])}",
+            "watch": f"Дороговато. Ждём {money(m['buy_to'])} или дешевле",
+            "avoid": ("Ещё выпадает в игре — предметов всё больше"
+                      if m["in_drop"] else "Цена быстро падает — лучше не трогать")
+            }[m["verdict"]]
+
+
+def make_cards(top, said, date):
+    """Обзор ТОП-5 и по карточке на каждый предмет — пути к картинкам."""
+    out, tmp = [], tempfile.gettempdir()
+    overview = [{"name": short_name(m["name"]), "icon": m["icon"],
+                 "verdict": m["verdict"], "price": money(m["now"]),
+                 "hint": {"buy": f"выгодно до {money(m['buy_to'])}",
+                          "watch": f"ждём {money(m['buy_to'])}",
+                          "avoid": ("ещё выпадает в игре" if m["in_drop"]
+                                    else "цена падает")}[m["verdict"]]}
+                for m in top]
+    path = os.path.join(tmp, "cs2_invest.jpg")
+    try:
+        if cards.top5_card("Инвестиции · ТОП-5 дня",
+                           f"{date} · что можно купить и что лучше не трогать",
+                           overview, path):
+            out.append(path)
+    except Exception as e:
+        print("Обзорная карточка не собралась:", e)
+    for k, (m, t) in enumerate(zip(top, said)):
+        sc = m["scenarios"]
+        val = lambda s: money(s["price"]) if s["price"] else "—"
+        path = os.path.join(tmp, f"cs2_invest_{k + 1}.jpg")
+        try:
+            if cards.item_card(
+                    path, k + 1, len(top), short_name(m["name"]),
+                    kind(m["name"]), m["icon"], money(m["now"]),
+                    money(m["now"] * (1 - CSFLOAT_FEE)), m["verdict"],
+                    advice(m), t["why"].strip(), m["spark"], m["spark_days"],
+                    m["buy_to"] if m["verdict"] != "avoid" else None,
+                    f"выгодно — до {money(m['buy_to'])}",
+                    [("Если повезёт", val(sc["optimistic"]),
+                      signed(sc["optimistic"]["pct"]), cards.GREEN),
+                     ("Скорее всего", val(sc["base"]),
+                      signed(sc["base"]["pct"]), cards.TEXT),
+                     ("Если не повезёт", val(sc["negative"]),
+                      signed(sc["negative"]["pct"]), cards.RED)],
+                    [f"Продаётся {easy_sell(m['sales_day'])}: "
+                     f"~{m['sales_day']} в день", f"Держать: {t['horizon']}"],
+                    money):
+                out.append(path)
+        except Exception as e:
+            print("Карточка не собралась:", m["name"], e)
+    return out
 
 
 def compose(skinport, kyiv_now, recent=()):
-    """Готовый пост: (подпись к картинке, путь к картинке, подробный разбор,
+    """Готовый пост: (подпись, [картинки: обзор + карточка на каждый],
     названия в ТОП-5) или None. Всё считается заново из свежих данных;
     recent — показанные в последние дни, их ставим в конец очереди."""
     names = universe(skinport)
@@ -450,70 +386,32 @@ def compose(skinport, kyiv_now, recent=()):
     for m in top:
         m["verdict"] = verdict(m)
         m["scenarios"] = scenarios(m)
-        st = steam_price(m["name"])
-        m["steam"] = st
-        m["net"] = {"csfloat": round(m["now"] * (1 - CSFLOAT_FEE), 2),
-                    "steam_wallet": (round((st.get("median") or st.get("low"))
-                                           / STEAM_FEE, 2)
-                                     if (st.get("median") or st.get("low"))
-                                     else None)}
         m["icon"] = steam_icon(m["name"])
-        time.sleep(2)
+        time.sleep(1)
     context = market_context(items)
     print("Рынок:", context)
     for m in top:
         print(f"{m['name']}: ${m['now']} · {m['verdict']} · 1м {m['ch_1m']}% ·"
               f" 3м {m['ch_3m']}% · год {m['ch_1y']}% · {m['sales_day']}/день")
-    text = write_post(top, context)
-    if not text or len(text.get("items") or []) != len(top):
-        print("Claude не написал разбор — пост не собираем")
-        return None
+    text = write_post(top, context) or {}
+    said = text.get("items") or []
+    if len(said) != len(top):
+        print("Claude не объяснил — причины по правилам")
+        said = [{"why": fallback_why(m), "horizon": HORIZONS[0]} for m in top]
     date = kyiv_now.strftime("%d.%m.%Y")
 
-    def make_caption(intro, short):
-        lines = [f"<b>{RUBRIC} · ТОП-5 ДНЯ</b>", f"🗓 {date}", ""]
-        if intro:
-            lines += [html.escape(text["intro"].strip()), ""]
-        for k, (m, t) in enumerate(zip(top, text["items"])):
-            e = VERDICTS[m["verdict"]][0]
-            tail = f" · {html.escape(t['short'].strip())}" if short else ""
-            lines.append(f"{k + 1}. {e} <b>{html.escape(m['name'])}</b> — "
-                         f"{money(m['now'])}{tail}")
-        lines += ["", "🟢 покупать · 🟡 наблюдать · 🔴 избегать",
-                  "Подробный разбор каждого — ниже 👇", "",
-                  "#cs2 #инвестиции_cs2"]
-        return "\n".join(lines)
-
-    for intro, short in ((True, True), (False, True), (False, False)):
-        caption = make_caption(intro, short)
-        if visible_len(caption) <= 1024:
-            break
-    details = [f"<b>{RUBRIC} · РАЗБОР</b>", ""]
-    for k, (m, t) in enumerate(zip(top, text["items"])):
-        details += [f"<b>{k + 1}. {html.escape(m['name'])}</b>",
-                    safe_html(t["details"]), ""]
-    details += ["<i>Цифры — продажи CSFloat с 2023 года и цены Steam. "
-                "Решение считается по правилам, это не обещание дохода.</i>"]
-    rows = []
-    for m in top:
-        st = m["steam"]
-        rows.append({
-            "name": short_name(m["name"]), "icon": m["icon"],
-            "verdict": m["verdict"],
-            "prices": (f"CSFloat {money(m['now'])}"
-                       + (f" · Steam {money(st['median'] or st['low'])}"
-                          if st.get("median") or st.get("low") else "")),
-            "change": (f"год {signed(m['ch_1y'])} · 3 мес {signed(m['ch_3m'])}"
-                       f" · {m['sales_day']} продаж/день"),
-            "spark": m["spark"],
-            "since": f"с {m['first_day'][:7]}",
-        })
-    card = os.path.join(tempfile.gettempdir(), "cs2_invest.jpg")
-    try:
-        ok = build_card("ТОП-5 ДНЯ", f"{date} · кейсы, капсулы и пакеты",
-                        rows, card)
-    except Exception as e:
-        print("Карточка не собралась:", e)
-        ok = False
-    return (caption, (card if ok else ""), "\n".join(details),
-            [m["name"] for m in top])
+    lines = [f"<b>{RUBRIC} · ТОП-5 ДНЯ</b>", f"🗓 {date}", ""]
+    if (text.get("intro") or "").strip():
+        lines += [html.escape(text["intro"].strip()), ""]
+    for k, m in enumerate(top):
+        tail = {"buy": f"можно брать до {money(m['buy_to'])}",
+                "watch": f"ждём {money(m['buy_to'])}",
+                "avoid": "не брать"}[m["verdict"]]
+        lines.append(f"{k + 1}. {VERDICTS[m['verdict']][0]} "
+                     f"<b>{html.escape(short_name(m['name']))}</b> — "
+                     f"{money(m['now'])} · {tail}")
+    lines += ["", "🟢 можно брать · 🟡 подождать · 🔴 не брать",
+              "👉 Листай карточки: график и что может быть дальше",
+              "<i>Не финансовый совет. Цены — продажи на CSFloat.</i>", "",
+              "#cs2 #инвестиции_cs2"]
+    return "\n".join(lines), make_cards(top, said, date), [m["name"] for m in top]
