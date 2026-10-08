@@ -2130,6 +2130,10 @@ def main():
     if os.environ.get("EXTRA_POST") == "пример новых картинок":
         demo_cards()
         return
+    if os.environ.get("EXTRA_POST") == "пример новых рубрик":
+        import rust_formats
+        rust_formats.demo()
+        return
 
     # Конфиг читаем из файла, если он есть (локальный запуск на ПК).
     # В облаке (GitHub Actions) файла нет — тогда берём значения из
@@ -2179,8 +2183,16 @@ def main():
 
     sent_any = False
 
-    # 1) официальные новости (с фирменной шапкой Rust)
-    if post_news:
+    # 1) официальные новости (с фирменной шапкой Rust). С ключом Claude
+    #    (rust_formats.NEWS_LIVE) — пересказ каждой новости отдельным постом
+    try:
+        import rust_formats
+    except Exception as e:
+        print("Новые рубрики не загрузились:", e)
+        rust_formats = None
+    if post_news and rust_formats and rust_formats.ai_ready():
+        rust_formats.post_news(tg, posted, args.dry_run)
+    elif post_news:
         news = [n for n in fetch_official_news(5) if n["id"] not in posted][:3]
         if news:
             res = tg.send_photo(NEWS_BANNER, build_news_caption(news))
@@ -2399,6 +2411,14 @@ def main():
                      os.environ.get("EXTRA_POST") == "топ мастерской")
         except Exception as e:
             print("Топ мастерской не удался:", e)
+
+    # 4i) новые рубрики: скин дня и «угадай цену» (rust_formats.py)
+    if rust_formats and not args.dry_run:
+        try:
+            rust_formats.tick(tg, state, os.environ.get("EXTRA_POST")
+                              == "новые рубрики — выложить сейчас")
+        except Exception as e:
+            print("Новые рубрики не удались:", e)
 
     # 5) итоги конкурса — в воскресенье, один раз за неделю
     if steam_key and not args.dry_run:
