@@ -33,11 +33,12 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import cs2_ai as ai
 import cs2_cards as cards
 import cs2_community as comm
+import cs2_formats as fmt
 import cs2_invest as invest
 import cs2_workshop as ws
 import rust_digest_bot as bot
@@ -639,9 +640,15 @@ def market_url(name):
             + urllib.parse.quote(name))
 
 
+_SKINPORT = []
+
+
 def fetch_skinport():
     """Продажи всех предметов CS2 на Skinport: медиана и число продаж за
-    24 ч, 7, 30 и 90 дней. Skinport отдаёт этот список сжатым brotli."""
+    24 ч, 7, 30 и 90 дней. Skinport отдаёт этот список сжатым brotli.
+    Один раз за запуск: у Skinport лимит — 8 запросов за 5 минут."""
+    if _SKINPORT:
+        return _SKINPORT[0]
     url = "https://api.skinport.com/v1/sales/history?app_id=730&currency=USD"
     req = urllib.request.Request(url, headers={"User-Agent": bot.UA,
                                                "Accept-Encoding": "br"})
@@ -650,7 +657,8 @@ def fetch_skinport():
     if enc == "br":
         import brotli
         raw = brotli.decompress(raw)
-    return json.loads(raw.decode("utf-8", "replace"))
+    _SKINPORT.append(json.loads(raw.decode("utf-8", "replace")))
+    return _SKINPORT[0]
 
 
 def price_moves(items):
@@ -936,33 +944,37 @@ def invest_tick(tg, state, forced=False):
     if not forced and (not INVEST_LIVE or kt.hour < INVEST_HOUR
                        or state.get("invest_day") == today):
         return
-    names = post_invest(tg, state, kt, today)
-    if names and not forced:
-        remember_invest(state, today, names)
+    picks = post_invest(tg, state, kt, today)
+    if picks and not forced:
+        remember_invest(state, today, picks)
 
 
 def post_invest(tg, state, kt, today):
     """ТОП-5: альбом (обзор и карточка на каждый) с короткой подписью.
-    Вернёт названия или None."""
+    Вернёт советы [{name, verdict, price}] или None."""
     out = invest.compose(fetch_skinport(), kt, recent_invest(state, today))
     if not out:
         return None
-    caption, pics, names = out
+    caption, pics, picks = out
     res = send_album(tg, pics, caption) if len(pics) >= 2 else {}
     if not res.get("ok") and pics:
         res = tg.send_photo_file(pics[0], caption)
     if not res.get("ok"):
         res = send(tg, "", caption)
-    return names if res.get("ok") else None
+    return picks if res.get("ok") else None
 
 
-def remember_invest(state, today, names):
-    """Сегодняшний выпуск вышел: запоминаем день и позиции для ротации."""
+def remember_invest(state, today, picks):
+    """Выпуск вышел: позиции — для ротации, советы с ценой — для отчёта
+    «Мы советовали — что вышло»."""
     state["invest_day"] = today
     days = state.setdefault("invest_days", {})
-    days[today] = names
+    days[today] = [x["name"] for x in picks]
     for d in sorted(days)[:-7]:
         del days[d]
+    log = state.setdefault("invest_log", [])
+    log += [dict(x, date=today) for x in picks]
+    del log[:-150]
 
 
 # ---------- «🎨 Мастерская CS2» (cs2_workshop.py) ----------
@@ -1046,6 +1058,121 @@ def community_tick(tg, state, now, forced=False):
         return
     if post_with_media(tg, p, comm.compose(p, res, safe_html)).get("ok"):
         state["comm_posted"] = (state.get("comm_posted", []) + [p["id"]])[-500:]
+
+
+# ---------- новые рубрики (cs2_formats.py) ----------
+
+FORMATS_LIVE = False             # по расписанию — после одобрения примеров
+SOD_HOUR = 11                    # ✨ скин дня — каждый день
+CASE_DAY, CASE_HOUR = 2, 19      # 🎰 открывать или нет — среда
+DUEL_DAY, DUEL_HOUR = 0, 19      # 🗳 угадай цену — понедельник
+REPORT_DAY, REPORT_HOUR = 6, 15  # 📒 мы советовали — воскресенье
+
+
+def post_card(tg, card, text):
+    res = tg.send_photo_file(card, text) if card else {}
+    if not res.get("ok"):
+        res = send(tg, "", text)
+    return res
+
+
+def skin_of_day(tg, state, kt):
+    """True — готово (вышел или нечего публиковать), False — не отправилось."""
+    sp = fetch_skinport()
+    s = fmt.pick_skin(sp, state, kt.strftime("%Y-%m-%d"))
+    out = fmt.compose_skin(s, sp, kt.strftime("%d.%m.%Y"),
+                           CHANNEL_TAG) if s else None
+    if not out:
+        return True
+    if not post_card(tg, out[1], out[0]).get("ok"):
+        return False
+    state["sod_seen"] = (state.get("sod_seen", []) + [s["name"]])[-200:]
+    return True
+
+
+def case_of_week(tg, state, kt):
+    st = fmt.pick_case(fetch_skinport(), state)
+    if not st:
+        return True
+    text, card = fmt.compose_case(st, CHANNEL_TAG)
+    if not post_card(tg, card, text).get("ok"):
+        return False
+    state["ev_seen"] = (state.get("ev_seen", []) + [st["case"]["name"]])[-40:]
+    return True
+
+
+def duel_round(tg, state, kt):
+    """Итог прошлого опроса (если был) и новый опрос."""
+    sp, date = fetch_skinport(), kt.strftime("%d.%m")
+    old = state.get("duel")
+    if old:
+        votes = None
+        if old.get("poll_id"):
+            res = tg._post("stopPoll", {"chat_id": tg.chat,
+                                        "message_id": old["poll_id"]})
+            if res.get("ok") and isinstance(res.get("result"), dict):
+                votes = [o.get("voter_count", 0)
+                         for o in res["result"].get("options", [])]
+        out = fmt.compose_duel_result(old, sp, votes, CHANNEL_TAG, date)
+        if out:
+            if not post_card(tg, out[1], out[0]).get("ok"):
+                return False
+            time.sleep(2)
+        state.pop("duel", None)
+    pair = fmt.pick_duel(sp, state)
+    if not pair:
+        return True
+    text, card, question, options = fmt.compose_duel(pair, CHANNEL_TAG, date)
+    if not post_card(tg, card, text).get("ok"):
+        return False
+    res = tg._post("sendPoll", {
+        "chat_id": tg.chat, "question": question, "is_anonymous": "true",
+        "options": json.dumps([{"text": o} for o in options],
+                              ensure_ascii=False)})
+    state["duel"] = {"date": date,
+                     "poll_id": (res.get("result") or {}).get("message_id"),
+                     "items": [{"name": n, "price": p} for n, p, _ in pair]}
+    state["duel_used"] = (state.get("duel_used", [])
+                          + [fmt.base_name(n) for n, _, _ in pair])[-60:]
+    return True
+
+
+def advice_report(tg, state, kt):
+    """Советы «Инвестиций», которым 7–14 дней: что с ними стало."""
+    lo = (kt - timedelta(days=14)).strftime("%Y-%m-%d")
+    hi = (kt - timedelta(days=7)).strftime("%Y-%m-%d")
+    seen, recs = set(), []
+    for r in sorted(state.get("invest_log", []), key=lambda r: r["date"]):
+        if lo <= r["date"] <= hi and r["name"] not in seen:
+            seen.add(r["name"])
+            recs.append(r)
+    out = fmt.compose_report(recs[-8:], kt.strftime("%d.%m"),
+                             CHANNEL_TAG) if recs else None
+    return not out or post_card(tg, out[1], out[0]).get("ok")
+
+
+FORMATS = (("skin", None, SOD_HOUR, "sod_day", "%Y-%m-%d", skin_of_day),
+           ("case", CASE_DAY, CASE_HOUR, "ev_week", "%G-%V", case_of_week),
+           ("duel", DUEL_DAY, DUEL_HOUR, "duel_week", "%G-%V", duel_round),
+           ("report", REPORT_DAY, REPORT_HOUR, "report_week", "%G-%V",
+            advice_report))
+
+
+def formats_tick(tg, state, forced=()):
+    """Новые рубрики по расписанию; forced — какие выложить прямо сейчас."""
+    kt = bot.kyiv_time()
+    for name, wd, hour, key, stamp, fn in FORMATS:
+        val = kt.strftime(stamp)
+        if name not in forced and not (
+                FORMATS_LIVE and (wd is None or kt.weekday() == wd)
+                and kt.hour >= hour and state.get(key) != val):
+            continue
+        try:
+            if fn(tg, state, kt):
+                state[key] = val
+        except Exception as e:
+            print(f"Рубрика {name} не вышла:", e)
+        time.sleep(3)
 
 
 def dump_card(path):
@@ -1178,6 +1305,55 @@ def demo_invest():
             dump_card(path)
 
 
+def demo_formats():
+    """Примеры новых рубрик в лог (картинки — base64). Ничего не шлёт.
+    Итог опроса и отчёт — иллюстрации на ценах недельной давности."""
+    def show(title, out):
+        if not out:
+            print(f"\n===== {title}: нет данных =====")
+            return
+        text, card = out
+        print(f"\n===== ПРИМЕР ({title}, длина {visible_len(text)}) ====="
+              f"\n{text}")
+        if card:
+            dump_card(card)
+
+    sp, kt, state = fetch_skinport(), bot.kyiv_time(), load_state()
+    s = fmt.pick_skin(sp, state, kt.strftime("%Y-%m-%d"))
+    show("скин дня", fmt.compose_skin(s, sp, kt.strftime("%d.%m.%Y"),
+                                      CHANNEL_TAG) if s else None)
+    st = fmt.pick_case(sp, state)
+    show("открывать или нет", fmt.compose_case(st, CHANNEL_TAG) if st else None)
+    pair = fmt.pick_duel(sp, state)
+    if pair:
+        text, card, q, opts = fmt.compose_duel(pair, CHANNEL_TAG,
+                                               kt.strftime("%d.%m"))
+        show("угадай цену", (f"{text}\n[опрос] {q} — {' / '.join(opts)}",
+                             card))
+        month = {i["market_hash_name"]: (i.get("last_30_days") or {}).get(
+            "median") for i in sp}
+        old = {"date": (kt - timedelta(days=7)).strftime("%d.%m"),
+               "items": [{"name": n, "price": month.get(n) or p}
+                         for n, p, _ in pair]}
+        show("угадай цену · итог (иллюстрация)",
+             fmt.compose_duel_result(old, sp, [31, 19], CHANNEL_TAG,
+                                     kt.strftime("%d.%m")))
+    names = (sorted(state.get("invest_days", {}).items()) or [("", [])])[-1][1]
+    recs = []
+    for n in names[:5]:
+        h = invest.history(n)
+        m = invest.metrics(n, h)
+        was = invest.wavg(h, invest.day(-14), invest.day(-7))
+        if m and was:
+            m["verdict"] = invest.verdict(m)
+            recs.append({"name": n, "verdict": m["verdict"], "price": was,
+                         "date": invest.day(-10)})
+        time.sleep(0.5)
+    show("мы советовали (иллюстрация)",
+         fmt.compose_report(recs, kt.strftime("%d.%m"), CHANNEL_TAG)
+         if recs else None)
+
+
 def launch(tg, state, now):
     """Старт канала: по одному посту каждой рубрики прямо сейчас. Каждый
     записывается как обычный — сегодня ничего не повторится, дальше всё
@@ -1271,6 +1447,9 @@ def main():
     if os.environ.get("CS2_DEMO_COMMUNITY") == "1":
         demo_community()
         return
+    if os.environ.get("CS2_DEMO_FORMATS") == "1":
+        demo_formats()
+        return
     dry = os.environ.get("CS2_DRY") == "1"
     state = load_state()
     bot._RECENT[:] = state.get("recent_phrases", [])
@@ -1302,6 +1481,9 @@ def main():
         community_tick(tg, state, now)
     except Exception as e:
         print("Сообщество не вышло:", e)
+    now_formats = ("skin", "case", "duel", "report") if os.environ.get(
+        "CS2_FORMATS_NOW") == "1" else ()
+    formats_tick(tg, state, now_formats)
     if not dry:
         save_state(state)
 
