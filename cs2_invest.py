@@ -382,7 +382,7 @@ def make_cards(top, said, date):
 
 def compose(skinport, kyiv_now, recent=()):
     """Готовый пост: (подпись, [картинки: обзор + карточка на каждый],
-    названия в ТОП-5) или None. Всё считается заново из свежих данных;
+    советы [{name, verdict, price}]) или None. Всё считается заново;
     recent — показанные в последние дни, их ставим в конец очереди."""
     names = universe(skinport)
     print(f"Инвестиции: {len(names)} контейнеров в выборке")
@@ -428,4 +428,6 @@ def compose(skinport, kyiv_now, recent=()):
               "👉 Листай карточки: график и что может быть дальше",
               "<i>Не финансовый совет. Цены — продажи на CSFloat.</i>", "",
               "#cs2 #инвестиции_cs2"]
-    return "\n".join(lines), make_cards(top, said, date), [m["name"] for m in top]
+    picks = [{"name": m["name"], "verdict": m["verdict"], "price": m["now"]}
+             for m in top]
+    return "\n".join(lines), make_cards(top, said, date), picks
