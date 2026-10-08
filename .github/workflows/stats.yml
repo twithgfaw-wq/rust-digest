@@ -1,0 +1,42 @@
+name: Channel Stats
+
+# Раз в день: просмотры и реакции постов обоих каналов (публичное превью
+# t.me/s) → stats.json и сводка по рубрикам в логе. Ничего не публикует.
+on:
+  schedule:
+    - cron: "50 20 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats
+  cancel-in-progress: false
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Забрать репозиторий
+        uses: actions/checkout@v4
+
+      - name: Поставить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Просмотры и реакции
+        run: python stats.py
+
+      - name: Сохранить
+        run: |
+          if [ -n "$(git status --porcelain stats.json)" ]; then
+            git config user.name "rust-digest-bot"
+            git config user.email "bot@users.noreply.github.com"
+            git add stats.json
+            git commit -m "chore: update stats [skip ci]"
+            git pull --rebase
+            git push
+          fi
