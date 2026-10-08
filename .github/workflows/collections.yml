@@ -1,8 +1,11 @@
 name: Rust Collections
 
 # 📚 «Лучшие коллекции Rust для покупки» — разбор по истории недельных
-# скинов. Запуск вручную; по умолчанию тест (только лог и картинка).
+# скинов. Сам — раз в месяц, в первый вторник (cron срабатывает каждый
+# вторник, скрипт пропускает остальные). Вручную по умолчанию тест.
 on:
+  schedule:
+    - cron: "0 14 * * 2"   # вторник 14:00 UTC = 16–17:00 по Киеву
   workflow_dispatch:
     inputs:
       publish:
@@ -31,7 +34,8 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHANNEL: ${{ secrets.CHANNEL }}
-          COLL_DRY: ${{ inputs.publish && '0' || '1' }}
+          COLL_DRY: ${{ (github.event_name == 'schedule' || inputs.publish) && '0' || '1' }}
+          COLL_MONTHLY: ${{ github.event_name == 'schedule' && '1' || '0' }}
         run: |
           pip install --quiet pillow
           python rust_collections.py
