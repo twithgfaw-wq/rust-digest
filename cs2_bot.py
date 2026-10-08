@@ -383,7 +383,13 @@ def build_x_caption(p):
         if exp and not u.get("media_key") and "/status/" not in exp:
             links.append(exp)
     text = "\n".join(line.rstrip() for line in text.strip().splitlines())
-    body = html.escape(bot.translate_to_ru(text))
+    kind = bot.x_media(p)[0]
+    if text:
+        body = html.escape(bot.translate_to_ru(text))
+    elif kind == "video":
+        body = "🎬 Новое видео от Valve — смотри ☝️"
+    else:
+        body = "🖼 Новая картинка от Valve ☝️"
     extra = []
     for link in links[:2]:
         href = html.escape(link, quote=True)
