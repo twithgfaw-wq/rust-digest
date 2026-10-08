@@ -2289,6 +2289,14 @@ def main():
         else:
             print("Новых официальных новостей нет.")
 
+    # 1b) магазин Rust: новинки недели с ценами — сразу после новостей,
+    #     чтобы пост выходил первым (сторож запускает бота за минуту)
+    if not args.dry_run:
+        try:
+            post_store_news(tg, state)
+        except Exception as e:
+            print("Пост о магазине не удался:", e)
+
     # 2) крутые работы
     works = [w for w in fetch_top_works(period, 15, min_score)
              if w["id"] not in posted][:works_count]
@@ -2457,13 +2465,6 @@ def main():
             post_new_accepts(tg, state, steam_key)
         except Exception as e:
             print("Пост о принятых скинах не удался:", e)
-
-    # 4d) магазин Rust: новинки недели с ценами
-    if not args.dry_run:
-        try:
-            post_store_news(tg, state)
-        except Exception as e:
-            print("Пост о магазине не удался:", e)
 
     # 4e) онлайн: замер каждый запуск, вечером — сводка, при рекорде — пост
     if not args.dry_run:
