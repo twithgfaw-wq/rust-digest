@@ -232,6 +232,14 @@ def item_name(draw, cx, y, name, rarity, size, width):
                   fill=readable(rarity), anchor="lm")
 
 
+def tag(draw, xy, text, fnt, fill, anchor):
+    """Подпись на белой плашке — читается поверх линии графика."""
+    x0, y0, x1, y1 = draw.textbbox(xy, text, font=fnt, anchor=anchor)
+    draw.rounded_rectangle((x0 - p(6), y0 - p(4), x1 + p(6), y1 + p(4)),
+                           radius=p(6), fill=WHITE)
+    draw.text(xy, text, font=fnt, fill=fill, anchor=anchor)
+
+
 def pill(draw, cx, cy, text, color, size=22):
     f = font(size, True)
     w = draw.textlength(text, font=f) / S + 34
@@ -348,8 +356,8 @@ def chart(img, draw, sp, days, box, color, zone, zone_label, money):
         for x in range(int(x0), int(x1), 18):
             draw.line((p(x), p(zy), p(min(x + 10, x1)), p(zy)), fill=GREEN,
                       width=p(2))
-        draw.text((p(x0 + 8), p(zy - 8)), zone_label, font=font(19, True),
-                  fill=GREEN, anchor="ls")
+        tag(draw, (p(x0 + 12), p(zy - 10)), zone_label, font(19, True),
+            GREEN, "ls")
     pts = [(p(X(i)), p(Y(v))) for i, v in enumerate(sp)]
     overlay(img, "polygon", pts + [(p(x1), p(y1)), (p(x0), p(y1))],
             color + (40,))
@@ -358,14 +366,12 @@ def chart(img, draw, sp, days, box, color, zone, zone_label, money):
     if X(len(sp) - 1) - X(top) > 90:      # пик не там же, где «сейчас»
         draw.ellipse((pts[top][0] - p(6), pts[top][1] - p(6),
                       pts[top][0] + p(6), pts[top][1] + p(6)), fill=TEXT)
-        draw.text((p(min(max(X(top), x0 + 60), x1 - 60)), p(Y(sp[top]) - 12)),
-                  f"пик {money(sp[top])}", font=font(19, True), fill=TEXT,
-                  anchor="mb")
+        tag(draw, (p(min(max(X(top), x0 + 70), x1 - 70)), p(Y(sp[top]) - 14)),
+            f"пик {money(sp[top])}", font(19, True), TEXT, "mb")
     nx, ny = pts[-1]
     draw.ellipse((nx - p(10), ny - p(10), nx + p(10), ny + p(10)), fill=WHITE)
     draw.ellipse((nx - p(7), ny - p(7), nx + p(7), ny + p(7)), fill=color)
-    draw.text((nx - p(16), ny - p(14)), "сейчас", font=font(19, True),
-              fill=TEXT, anchor="rb")
+    tag(draw, (nx - p(18), ny - p(16)), "сейчас", font(19, True), TEXT, "rb")
     last = -999
     for i, d in enumerate(days[:len(sp)]):
         if (i == 0 or d[:4] != days[i - 1][:4]) and X(i) - last >= 70:
