@@ -21,7 +21,7 @@ import cs2_ai as ai
 import cs2_community as cc
 import rust_digest_bot as bot
 
-LIVE = False               # по расписанию — после одобрения примера
+LIVE = True                # по расписанию (одобрено 08.10)
 RUBRIC = "💬 СООБЩЕСТВО RUST"
 ACCOUNTS = [
     "Facepunch", "garrynewman", "Helk",                   # разработчики
