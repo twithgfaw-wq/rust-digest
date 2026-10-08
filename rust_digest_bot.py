@@ -1174,6 +1174,28 @@ def price_value(p):
     except ValueError:
         return None
 
+def store_items(ids, usd, cur):
+    """Плитки витрины: название, цена $, цены ₽ и ₴, картинка."""
+    return [{"name": usd[i]["name"], "price": usd[i]["price"],
+             "sub": " · ".join(cur[cc][i]["price"] for cc in ("ru", "ua")
+                               if cur.get(cc, {}).get(i, {}).get("price")),
+             "image": usd[i]["image"]} for i in ids]
+
+def send_store_card(tg, ids, usd, cur, sums, text):
+    """Новинки магазина одной картинкой-витриной, как в игре."""
+    import rust_cards
+    card = os.path.join(tempfile.gettempdir(), "rust_store.jpg")
+    more = f" · ещё {len(ids) - 9} — в списке" if len(ids) > 9 else ""
+    note = ("Всё сразу: " + " · ".join(sums) if sums and len(ids) > 1
+            else "Цены — магазин Steam") + more
+    try:
+        if rust_cards.store_card(card, store_items(ids, usd, cur),
+                                 kyiv_time().strftime("%d.%m"), note):
+            return tg.send_photo_file(card, text)
+    except Exception as e:
+        print("Витрина магазина не собралась:", e)
+    return {}
+
 def post_store_news(tg, state):
     """Пост о новинках магазина Rust с ценами ($, ₽, ₴). Первый запуск только
     запоминает текущий ассортимент, дальше постим то, чего раньше не было."""
@@ -1227,9 +1249,11 @@ def post_store_news(tg, state):
     visible = len(html.unescape(re.sub(r"<[^>]+>", "", text)))
     images = [usd[i]["image"] for i in fresh if usd[i]["image"]][:10]
     res = {}
-    if visible <= 1024 and len(images) >= 2:
+    if visible <= 1024:   # витрина в стиле магазина Rust (rust_cards.py)
+        res = send_store_card(tg, fresh, usd, cur, sums, text)
+    if not res.get("ok") and visible <= 1024 and len(images) >= 2:
         res = tg.send_media_group(images, text)
-    elif visible <= 1024 and images:
+    elif not res.get("ok") and visible <= 1024 and images:
         res = tg.send_photo(images[0], text)
     if not res.get("ok"):   # картинки не прошли или текст длинный — просто текстом
         res = tg.send_message(text)
@@ -1442,121 +1466,25 @@ def series_moves(changes):
     return (up if up[1][0] >= 1 else None), (down if down[1][0] <= -1 else None)
 
 def build_market_card(title, subtitle, sections, out_path):
-    """Картинка-отчёт 1440×1800. Рисуем в 2× и уменьшаем (LANCZOS) — гладкие
-    края и чёткий текст; иконки скинов берём в 512px (_large) от Facepunch.
-    Шрифт DejaVu — с кириллицей."""
-    try:
-        from PIL import Image, ImageDraw, ImageFilter, ImageFont
-    except Exception:
-        return False
-    S, W, H = 2, 1440, 1800
-    p = lambda v: int(v * S)              # базовые координаты → холст 2×
-    card_bg, line_c = (31, 34, 43), (48, 52, 64)
-    muted, red = (150, 156, 172), (205, 65, 43)
-
-    # фон: тёмный вертикальный градиент + мягкое красное свечение в углу
-    grad = Image.linear_gradient("L").resize((p(W), p(H)))
-    img = Image.composite(Image.new("RGB", (p(W), p(H)), (11, 12, 16)),
-                          Image.new("RGB", (p(W), p(H)), (27, 29, 37)),
-                          grad).convert("RGBA")
-    glow = Image.new("RGBA", (W // 8, H // 8), (0, 0, 0, 0))
-    ImageDraw.Draw(glow).ellipse((W // 8 - 75, -55, W // 8 + 45, 45),
-                                 fill=red + (120,))
-    glow = glow.filter(ImageFilter.GaussianBlur(14)).resize(
-        (p(W), p(H)), Image.BICUBIC)
-    img.alpha_composite(glow)
-    draw = ImageDraw.Draw(img)
-
-    def font(size, bold=False):
-        name = "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf"
-        try:
-            return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/" + name,
-                                      p(size))
-        except Exception:
-            return ImageFont.load_default()
-
-    def fit(text, fnt, width):
-        if draw.textlength(text, font=fnt) <= width:
-            return text
-        while text and draw.textlength(text + "…", font=fnt) > width:
-            text = text[:-1]
-        return text.rstrip() + "…"
-
-    def icon(url, size):
-        for u in dict.fromkeys((url.replace("_small.png", "_large.png"), url)):
-            try:
-                req = urllib.request.Request(u, headers={"User-Agent": UA})
-                with urllib.request.urlopen(req, timeout=15) as r:
-                    im = Image.open(io.BytesIO(r.read())).convert("RGBA")
-                return im.resize((p(size), p(size)), Image.LANCZOS)
-            except Exception:
-                continue
-        return None
-
-    # шапка: красная полоса, метка, заголовок, дата
-    draw.rectangle((0, 0, p(W), p(12)), fill=red)
-    tag, tf = "ЕЖЕДНЕВНАЯ СВОДКА", font(22, True)
-    tw = draw.textlength(tag, font=tf)
-    draw.rounded_rectangle((p(64), p(52), p(64) + tw + p(40), p(94)),
-                           radius=p(21), fill=red)
-    draw.text((p(64) + (tw + p(40)) / 2, p(73)), tag, font=tf,
-              fill=(255, 255, 255), anchor="mm")
-    draw.text((p(62), p(150)), title, font=font(70, True),
-              fill=(255, 255, 255), anchor="lm")
-    draw.text((p(64), p(214)), subtitle, font=font(30), fill=muted,
-              anchor="lm")
-
-    y = 262
+    """Картинка-отчёт в стиле магазина Rust (rust_cards.py): витрины
+    «дороже, чем в магазине» и «дешевле» по три скина.
+    sections: [(заголовок, цвет, [(название, предмет, подпись, процент)])]."""
+    import rust_cards
+    out = []
     for head, color, rows in sections:
-        hf = font(34, True)
-        draw.text((p(64), p(y + 22)), head, font=hf, fill=color, anchor="lm")
-        hw = draw.textlength(head, font=hf)
-        draw.line((p(64) + hw + p(24), p(y + 22), p(W - 64), p(y + 22)),
-                  fill=line_c, width=p(2))
-        y += 58
-        tint = tuple(int(c * 0.3 + b * 0.7) for c, b in zip(color, card_bg))
-        for name, it, sub, right in rows:
-            draw.rounded_rectangle((p(56), p(y), p(W - 56), p(y + 118)),
-                                   radius=p(26), fill=card_bg, outline=line_c,
-                                   width=p(2))
-            # плитка цвета скина с большой чёткой иконкой
-            draw.rounded_rectangle((p(76), p(y + 11), p(172), p(y + 107)),
-                                   radius=p(20), fill="#" + (it.get("bg") or "2b2d33"))
+        tiles = []
+        for name, it, sub, right in rows[:3]:
             src = it.get("icon") or ""
             if src and not src.startswith("http"):
                 src = ("https://community.cloudflare.steamstatic.com/economy/"
-                       "image/" + src + "/256fx256f")
-            ic = icon(src, 88) if src else None
-            if ic:
-                img.alpha_composite(ic, (p(80), p(y + 15)))
-            # процент — цветная «таблетка» справа
-            pf = font(38, True)
-            px1 = p(W - 80)
-            px0 = px1 - draw.textlength(right, font=pf) - p(44)
-            draw.rounded_rectangle((px0, p(y + 30), px1, p(y + 88)),
-                                   radius=p(29), fill=tint)
-            draw.text(((px0 + px1) / 2, p(y + 59)), right, font=pf, fill=color,
-                      anchor="mm")
-            # название и цены
-            nf = font(36, True)
-            draw.text((p(198), p(y + 40)), fit(name, nf, px0 - p(218)),
-                      font=nf, fill=(240, 242, 246), anchor="lm")
-            sf = font(26)
-            draw.text((p(198), p(y + 82)), fit(sub, sf, px0 - p(218)),
-                      font=sf, fill=muted, anchor="lm")
-            y += 130
-        y += 10
-
-    # подвал
-    draw.line((p(64), p(H - 80), p(W - 64), p(H - 80)), fill=line_c,
-              width=p(2))
-    draw.text((p(64), p(H - 44)), "по данным rust.scmm.app", font=font(26),
-              fill=(120, 126, 142), anchor="lm")
-    draw.text((p(W - 64), p(H - 44)), CHANNEL_TAG, font=font(28, True),
-              fill=red, anchor="rm")
-    img = img.convert("RGB").resize((W, H), Image.LANCZOS)
-    img.save(out_path, "JPEG", quality=95, subsampling=0)
-    return True
+                       "image/" + src + "/360fx360f")
+            tiles.append({"name": name, "image": src,
+                          "price": money(it["price"]),
+                          "sub": f"в магазине {money(it['store'])}",
+                          "value": right.replace("−", "-")})
+        out.append((head.replace("▲ ", "").replace("▼ ", ""),
+                    color[1] > color[0], tiles))   # зелёный — рост
+    return rust_cards.market_card(out_path, subtitle.split(" · ")[0], out)
 
 def market_tick(tg, state, forced=False):
     """Раз в день в обед: как скины из магазина последних недель ведут себя
@@ -2159,12 +2087,48 @@ def score_week(state, accepted_pids):
 
 # ---------- главный сценарий ----------
 
+def demo_cards():
+    """Пример новых картинок в лог (base64) — ничего не публикует."""
+    import rust_cards
+    usd = fetch_store("us")
+    cur = {"us": usd}
+    for cc in ("ru", "ua"):
+        try:
+            cur[cc] = fetch_store(cc)
+        except Exception as e:
+            print(f"Цены магазина ({cc}) не загрузились:", e)
+            cur[cc] = {}
+    ids = list(usd)[:6]
+    total = sum(price_value(usd[i]["price"]) or 0 for i in ids)
+    card = os.path.join(tempfile.gettempdir(), "rust_store.jpg")
+    if rust_cards.store_card(card, store_items(ids, usd, cur),
+                             kyiv_time().strftime("%d.%m"),
+                             f"Всё сразу: ${total:.2f}"):
+        rust_cards.dump(card)
+    past = [s for s in fetch_store_history()[0]
+            if not s["current"] and s["price"]]
+    for s in past:
+        s["roi"] = (s["price"] - s["store"]) * 100 / s["store"]
+    ups = sorted((s for s in past if s["roi"] >= 1), key=lambda s: -s["roi"])
+    downs = sorted((s for s in past if s["roi"] <= -1), key=lambda s: s["roi"])
+    row = lambda s: (s["name"], s, "", pct_text(s["roi"]))
+    sections = [x for x in (
+        ("▲ ДОРОЖЕ, ЧЕМ В МАГАЗИНЕ", (61, 220, 132), [row(s) for s in ups[:3]]),
+        ("▼ ДЕШЕВЛЕ, ЧЕМ В МАГАЗИНЕ", (255, 82, 82),
+         [row(s) for s in downs[:3]])) if x[2]]
+    card = os.path.join(tempfile.gettempdir(), "rust_market.jpg")
+    if build_market_card("", kyiv_time().strftime("%d.%m.%Y"), sections, card):
+        rust_cards.dump(card)
+
 def main():
     ap = argparse.ArgumentParser(description="Rust Digest Bot для Telegram")
     ap.add_argument("--config", default="config.ini")
     ap.add_argument("--dry-run", action="store_true",
                     help="ничего не постить, только показать в консоли")
     args = ap.parse_args()
+    if os.environ.get("EXTRA_POST") == "пример новых картинок":
+        demo_cards()
+        return
 
     # Конфиг читаем из файла, если он есть (локальный запуск на ПК).
     # В облаке (GitHub Actions) файла нет — тогда берём значения из
