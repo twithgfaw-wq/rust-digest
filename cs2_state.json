@@ -50,6 +50,10 @@
     [
       1791435369,
       474578
+    ],
+    [
+      1791437352,
+      491726
     ]
   ],
   "online_peaks": {
@@ -66,7 +70,9 @@
     "А ты сейчас в игре? 🎮",
     "⚡️ CS2 сегодня: сколько игроков в сети",
     "👀 Следи за CS2 вместе с {tag}",
-    "Потратил $10 на Dreams & Nightmares Case — в среднем получил обратно $4.77."
+    "Потратил $10 на Dreams & Nightmares Case — в среднем получил обратно $4.77.",
+    "💣 Твой канал про CS2 — {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}"
   ],
   "news_recent": [
     {
@@ -197,5 +203,17 @@
     "AK-47 | Midnight Laminate"
   ],
   "duel_week": "2026-41",
-  "report_week": "2026-41"
+  "report_week": "2026-41",
+  "hltv_seen": [
+    "hltvnews45673",
+    "hltvnews45672",
+    "hltvnews45619",
+    "hltvnews45671",
+    "hltvnews45668",
+    "hltvnews45670",
+    "hltvnews45669",
+    "hltvnews45667",
+    "hltvnews45666",
+    "hltvnews45641"
+  ]
 }
