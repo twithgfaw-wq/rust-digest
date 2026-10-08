@@ -203,13 +203,15 @@ def fetch_announcements(count=10):
                 "contents": i.get("contents") or ""} for i in items]
     except Exception as e:
         errors.append(f"API: {e}")
-    have = {i["date"] for i in out}
+    # из store берём только то, что новее всего в API (API отстаёт) —
+    # старые записи не повторяем
+    newest = max((i["date"] for i in out), default=0)
     try:
         data = bot.http_get_json(STORE_EVENTS.format(n=min(count, 10)))
         for e in data.get("events") or []:
             b = e.get("announcement_body") or {}
             t = int(b.get("posttime") or 0)
-            if t and t not in have:
+            if t > newest:
                 out.append({"gid": str(b.get("gid") or e.get("gid")),
                             "title": b.get("headline") or e.get("event_name")
                             or "", "date": t, "contents": b.get("body") or ""})
