@@ -1727,6 +1727,10 @@
     [
       1791433022,
       48555
+    ],
+    [
+      1791433290,
+      48197
     ]
   ],
   "online_peaks": {
@@ -1878,5 +1882,31 @@
   "elite_last_ts": 1791397162,
   "elite_slot": "2026-10-07-21",
   "market_day": "2026-10-08",
-  "online_daily": "2026-10-07"
+  "online_daily": "2026-10-07",
+  "rsod_seen": [
+    "Young Dragon AR"
+  ],
+  "rsod_day": "2026-10-08",
+  "rduel": {
+    "date": "08.10",
+    "ts": 1791433343,
+    "poll_id": 131,
+    "items": [
+      {
+        "name": "Valkyrie SAP",
+        "price": 273,
+        "icon": "https://files.facepunch.com/rust/icons/inventory/rust/70400_small.png?4116794193"
+      },
+      {
+        "name": "Babylon Armored Double Door",
+        "price": 266,
+        "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Re5mLBfCk4nReh8DEiv5dYPqk3rrczQv-5PR8fye4"
+      }
+    ]
+  },
+  "rduel_used": [
+    "Valkyrie SAP",
+    "Babylon Armored Double Door"
+  ],
+  "rduel_week": "2026-41"
 }
