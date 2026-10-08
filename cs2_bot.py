@@ -33,6 +33,7 @@ import urllib.request
 from datetime import datetime, timezone
 
 import cs2_ai as ai
+import cs2_invest as invest
 import rust_digest_bot as bot
 
 APPID = 730
@@ -906,6 +907,53 @@ def price_tick(tg, state, forced=False):
         state["price_day"] = today
 
 
+# ---------- «💼 Инвестиции CS2»: еженедельный ТОП-5 (cs2_invest.py) ----------
+
+INVEST_LIVE = False      # по расписанию — после одобрения примера
+INVEST_WEEKDAY = 6       # воскресенье
+INVEST_HOUR = 18         # по Киеву
+
+
+def send_long(tg, text, limit=4000):
+    """Длинный текст — несколькими сообщениями, режем по пустым строкам."""
+    parts, cur = [], ""
+    for block in text.split("\n\n"):
+        if cur and len(cur) + len(block) + 2 > limit:
+            parts.append(cur)
+            cur = block
+        else:
+            cur = f"{cur}\n\n{block}" if cur else block
+    parts.append(cur)
+    res = {}
+    for part in parts:
+        res = send(tg, "", part)
+        time.sleep(1)
+    return res
+
+
+def invest_tick(tg, state, forced=False):
+    """Раз в неделю: ТОП-5 предметов — картинка с короткой сводкой и
+    подробный разбор следующим сообщением."""
+    kt = bot.kyiv_time()
+    week = kt.strftime("%G-%V")
+    if not forced and (not INVEST_LIVE or kt.weekday() != INVEST_WEEKDAY
+                       or kt.hour < INVEST_HOUR
+                       or state.get("invest_week") == week):
+        return
+    out = invest.compose(fetch_skinport(), kt)
+    if not out:
+        return
+    caption, card, details = out
+    res = tg.send_photo_file(card, caption) if card else {}
+    if not res.get("ok"):
+        res = send(tg, "", caption)
+    if res.get("ok"):
+        time.sleep(2)
+        send_long(tg, details)
+        if not forced:
+            state["invest_week"] = week
+
+
 def dump_card(path):
     """Для теста: уменьшенная картинка в лог (base64), чтобы её посмотреть."""
     import base64
@@ -982,6 +1030,16 @@ def demo(token, chat):
     if out:
         text, card = out
         print(f"\n===== ПРИМЕР (цены, длина {visible_len(text)}) =====\n{text}")
+
+
+def demo_invest():
+    """Пример еженедельного ТОП-5 в лог (с картинкой в base64)."""
+    out = invest.compose(fetch_skinport(), bot.kyiv_time())
+    if out:
+        caption, card, details = out
+        print(f"\n===== ПРИМЕР (инвестиции, подпись {visible_len(caption)},"
+              f" разбор {visible_len(details)}) =====\n{caption}"
+              f"\n\n----- РАЗБОР -----\n{details}")
         if card:
             dump_card(card)
 
@@ -995,6 +1053,9 @@ def main():
         CHANNEL_TAG = channel
     if os.environ.get("CS2_DEMO") == "1":
         demo(token, channel)
+        return
+    if os.environ.get("CS2_DEMO_INVEST") == "1":
+        demo_invest()
         return
     dry = os.environ.get("CS2_DRY") == "1"
     state = load_state()
@@ -1010,6 +1071,10 @@ def main():
         price_tick(tg, state, os.environ.get("CS2_PRICES") == "1")
     except Exception as e:
         print("Сводка цен не вышла:", e)
+    try:
+        invest_tick(tg, state, os.environ.get("CS2_INVEST") == "1")
+    except Exception as e:
+        print("Инвест-разбор не вышел:", e)
     if not dry:
         save_state(state)
 
