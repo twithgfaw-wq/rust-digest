@@ -106,10 +106,14 @@
     [
       1791455488,
       705192
+    ],
+    [
+      1791456349,
+      717497
     ]
   ],
   "online_peaks": {
-    "2026-10-08": 705192
+    "2026-10-08": 717497
   },
   "recent_phrases": [
     "📢 Подписывайся: {tag}",
@@ -162,7 +166,10 @@
     "📌 Сохрани себе {tag}",
     "🔔 Больше CS2 — в {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [
     {
@@ -319,7 +326,8 @@
     "hltvnews45667",
     "hltvnews45666",
     "hltvnews45641",
-    "hltvnews45599"
+    "hltvnews45599",
+    "hltvnews45674"
   ],
   "news_seen_t": [
     1788994268,
@@ -346,6 +354,11 @@
       "headline": "HLTV Prospects ranking за октябрь 2026: syph0 поднялся на второе место",
       "link": "https://www.hltv.org/news/45599/hltv-prospects-ranking-october-2026",
       "score": 4
+    },
+    {
+      "headline": "Все команды топ-14 приняли инвайты на PGL Bucharest 2027",
+      "link": "https://www.hltv.org/news/45674/all-top-14-teams-accept-invites-to-pgl-bucharest-2027",
+      "score": 6
     }
   ]
 }
