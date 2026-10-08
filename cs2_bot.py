@@ -1177,6 +1177,49 @@ def formats_tick(tg, state, forced=()):
         time.sleep(3)
 
 
+# ---------- киберспорт, индекс рынка, викторины ----------
+# 🎮 cs2_esports.py — новости HLTV; 📈 market_index.py — индекс рынка;
+# 🧠 quiz.py — опросы-викторины. У каждого свой флаг LIVE.
+
+def foot():
+    return bot.pick(FOOTERS).format(tag=CHANNEL_TAG)
+
+
+def extras_tick(tg, state, forced=False):
+    import cs2_esports as esp
+    import market_index as mi
+    import quiz
+    for name, fn in (
+            ("Киберспорт", lambda: esp.tick(tg, state, foot(), forced)),
+            ("Индекс рынка", lambda: mi.tick(tg, state, "cs2", foot(),
+                                             fetch_skinport, forced)),
+            ("Викторина", lambda: quiz.tick(tg, state, "cs2", fetch_skinport,
+                                            forced))):
+        try:
+            fn()
+        except Exception as e:
+            print(f"{name} не вышла:", e)
+        time.sleep(2)
+
+
+def demo_extra():
+    """Примеры: киберспорт, индекс рынка, викторины — в лог."""
+    import cs2_esports as esp
+    import market_index as mi
+    import quiz
+    try:
+        esp.demo(foot())
+    except Exception as e:
+        print("Киберспорт: пример не собрался —", e)
+    sp, kt = fetch_skinport(), bot.kyiv_time()
+    out = mi.cs2_post(sp, {}, kt, foot(), save=False)
+    if out:
+        print(f"\n===== ПРИМЕР (индекс рынка CS2) =====\n{out[0]}")
+        if out[1]:
+            dump_card(out[1])
+    quiz.demo("cs2", sp, 3)
+
+
 def dump_card(path):
     """Для теста: уменьшенная картинка в лог (base64), чтобы её посмотреть."""
     import base64
@@ -1452,6 +1495,9 @@ def main():
     if os.environ.get("CS2_DEMO_FORMATS") == "1":
         demo_formats()
         return
+    if os.environ.get("CS2_DEMO_EXTRA") == "1":
+        demo_extra()
+        return
     dry = os.environ.get("CS2_DRY") == "1"
     state = load_state()
     bot._RECENT[:] = state.get("recent_phrases", [])
@@ -1486,6 +1532,7 @@ def main():
     now_formats = ("skin", "case", "duel", "report") if os.environ.get(
         "CS2_FORMATS_NOW") == "1" else ()
     formats_tick(tg, state, now_formats)
+    extras_tick(tg, state, os.environ.get("CS2_EXTRA_NOW") == "1")
     if not dry:
         save_state(state)
 
