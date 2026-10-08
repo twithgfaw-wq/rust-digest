@@ -32,13 +32,31 @@ STYLE = """Ты — редактор русскоязычного Telegram-ка�
 """
 
 
+RUST_STYLE = """Ты — редактор русскоязычного Telegram-канала @rust_news_Pro об игре Rust
+(Facepunch): новости, обновления, магазин скинов, маркет, мастерская. Пишешь
+как опытный игрок и трейдер скинов: живой естественный русский, конкретика,
+короткие предложения. Читают обычные игроки, многие — школьники: объясняй
+просто. Без воды и шаблонных фраз («в мире Rust», «давайте разберёмся»,
+«итак», «не секрет, что», «друзья»), без канцелярита и восторгов.
+
+Правила:
+- Только факты и числа из входных данных. Ничего не придумывай.
+- Прогноз — словами «возможно», «если…, то…». Слухи — «⚠️ не подтверждено».
+- Названия предметов, монументов, механик оставляй как в игре (по-английски),
+  при первом упоминании можно коротко пояснить по-русски.
+- Формат — Telegram HTML: только <b>, <i>, <a href="…">.
+"""
+
+
 def available():
     return bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
 
 
-def ask(prompt, schema=None, effort="medium", images=(), max_tokens=16000):
+def ask(prompt, schema=None, effort="medium", images=(), max_tokens=16000,
+        system=None):
     """Один запрос к Claude. schema — JSON-схема ответа (тогда вернём dict),
-    images — ссылки на картинки (для оценки скинов). None — если не вышло."""
+    images — ссылки на картинки (для оценки скинов), system — стиль канала
+    (по умолчанию CS2). None — если не вышло."""
     if not available():
         return None
     try:
@@ -54,7 +72,7 @@ def ask(prompt, schema=None, effort="medium", images=(), max_tokens=16000):
         config["format"] = {"type": "json_schema", "schema": schema}
     try:
         r = anthropic.Anthropic().beta.messages.create(
-            model=MODEL, max_tokens=max_tokens, system=STYLE,
+            model=MODEL, max_tokens=max_tokens, system=system or STYLE,
             betas=[FALLBACK_BETA], fallbacks="default",
             output_config=config,
             messages=[{"role": "user", "content": content}])
