@@ -454,7 +454,180 @@ def duel_round(tg, state, kt):
     return True
 
 
+# ---------- 🗓 вайп-день ----------
+
+WIPE_LIVE = False          # после одобрения примера
+WIPE_EVE_HOUR = 18         # накануне вайпа, по Киеву
+WIPE_DAY_HOUR = 10         # в день вайпа
+WIPE_POLL = ["С первых минут 🔥", "В первый же вечер", "Через пару дней",
+             "Сейчас не играю"]
+
+
+def next_wipe():
+    """Ближайший глобальный вайп: первый четверг месяца, 19:00 по Лондону
+    (так объявляет Facepunch). Возвращает время по Киеву и по Москве."""
+    from datetime import timedelta, timezone
+    try:
+        from zoneinfo import ZoneInfo
+        zones = [ZoneInfo(z) for z in ("Europe/London", "Europe/Kyiv",
+                                       "Europe/Moscow")]
+    except Exception:          # нет базы поясов: летнее время по правилам ЕС
+        def summer(y, m, d):
+            last = lambda mo: max(x for x in range(25, 32)
+                                  if datetime(y, mo, x).weekday() == 6)
+            return (m, d) >= (3, last(3)) and (m, d) < (10, last(10))
+        zones = None
+    now = datetime.now(timezone.utc)
+    for add in range(3):
+        y, m = now.year + (now.month - 1 + add) // 12, (now.month - 1 + add) % 12 + 1
+        first = datetime(y, m, 1)
+        day = 1 + (3 - first.weekday()) % 7
+        if zones:
+            d = datetime(y, m, day, 19, 0, tzinfo=zones[0])
+            kyiv, msk = d.astimezone(zones[1]), d.astimezone(zones[2])
+        else:
+            bst = summer(y, m, day)
+            d = datetime(y, m, day, 18 if bst else 19, 0, tzinfo=timezone.utc)
+            kyiv = d.astimezone(timezone(timedelta(hours=3 if bst else 2)))
+            msk = d.astimezone(timezone(timedelta(hours=3)))
+        if d > now - timedelta(hours=6):
+            return kyiv, msk
+    return None, None
+
+
+def wipe_when(kyiv, msk):
+    t = f"{kyiv:%H:%M} по Киеву"
+    return t + (" и Москве" if f"{msk:%H:%M}" == f"{kyiv:%H:%M}"
+                else f" ({msk:%H:%M} МСК)")
+
+
+def wipe_card(out_path, kyiv, msk, today, store_n):
+    """Карточка вайпа в стиле магазина: крупно «ЗАВТРА/СЕГОДНЯ · 21:00»."""
+    from cs2_cards import p, font
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W, H = 1200, 900
+    img, draw = cards.canvas(W, H)
+    cards.nav(draw, W, "НОВОСТИ")
+    cards.panel(img, draw, (48, 120, W - 48, H - 70), "ГЛОБАЛЬНЫЙ ВАЙП",
+                f"{kyiv:%d.%m}")
+    when = "СЕГОДНЯ" if today else "ЗАВТРА"
+    draw.text((p(W / 2), p(320)), f"{when} · {kyiv:%H:%M}",
+              font=font(118, True), fill=cards.WHITE, anchor="mm")
+    draw.text((p(W / 2), p(410)), wipe_when(kyiv, msk).upper(),
+              font=font(30, True), fill=cards.GOLD, anchor="mm")
+    rows = [("КАРТА", "новая на всех серверах"),
+            ("ОБНОВЛЕНИЕ", "ежемесячное, разбор — в канале"),
+            ("ЧЕРТЕЖИ", "по правилам твоего сервера"),
+            ("МАГАЗИН", f"{store_n} новых скинов этой недели" if store_n
+             else "новинки — в четверг вечером")]
+    tw = (W - 152 - 16) / 2
+    for i, (head, sub) in enumerate(rows):
+        x0, y0 = 76 + (i % 2) * (tw + 16), 470 + (i // 2) * 136
+        img.paste(cards.gradient(p(tw), p(120), *cards.RED_TILE),
+                  (p(x0), p(y0)))
+        draw.text((p(x0 + 24), p(y0 + 40)), head, font=font(30, True),
+                  fill=cards.WHITE, anchor="lm")
+        draw.text((p(x0 + 24), p(y0 + 84)), sub.upper(), font=font(21),
+                  fill=cards.MUTED, anchor="lm")
+    cards.bar(draw, (51, H - 70 - 67, W - 51, H - 70 - 3),
+              "все сервера начинают с нуля — увидимся на острове")
+    cards.footer(draw, W, H, "первый четверг месяца · 19:00 по Лондону")
+    return cards.save(img, W, H, out_path)
+
+
+def wipe_post(kt, today, store_n=0):
+    """(подпись, картинка) или None, если вайп не завтра/не сегодня."""
+    kyiv, msk = next_wipe()
+    if not kyiv:
+        return None
+    days = (kyiv.date() - kt.date()).days
+    if days != (0 if today else 1):
+        return None
+    left = max(0, int((kyiv - kt).total_seconds() // 3600))
+    head = "⏰ ВАЙП СЕГОДНЯ" if today else "🗓 ЗАВТРА ГЛОБАЛЬНЫЙ ВАЙП"
+    lines = [f"<b>{head}</b>",
+             f"<b>{kyiv:%d.%m} в {wipe_when(kyiv, msk)}</b>", "",
+             "Facepunch выпускает ежемесячное обновление — все сервера Rust "
+             "начинают с чистой карты.",
+             "▫️ Карта — новая на всех серверах",
+             "▫️ Чертежи — сбрасываются по правилам твоего сервера",
+             "▫️ Что нового в обновлении — расскажем, как только Facepunch "
+             "опубликует", f"⏳ До вайпа: ~{left} ч", ""]
+    if not today:
+        lines += ["Когда заходишь? Голосуй ниже 👇", ""]
+    lines += footer_lines("#rust #раст #вайп")
+    card = os.path.join(tempfile.gettempdir(), "rust_wipe.jpg")
+    try:
+        ok = wipe_card(card, kyiv, msk, today, store_n)
+    except Exception as e:
+        print("Карточка вайпа не собралась:", e)
+        ok = False
+    return "\n".join(lines), (card if ok else "")
+
+
+def wipe_tick(tg, state, kt, forced=False):
+    kyiv, _ = next_wipe()
+    if not kyiv:
+        return
+    days = (kyiv.date() - kt.date()).days
+    for today, hour, key in ((False, WIPE_EVE_HOUR, "wipe_eve"),
+                             (True, WIPE_DAY_HOUR, "wipe_day")):
+        stamp = kt.strftime("%Y-%m-%d")
+        if days != (0 if today else 1) or not forced and not (
+                WIPE_LIVE and kt.hour >= hour and state.get(key) != stamp):
+            continue
+        try:
+            items, _ = bot.fetch_store_history(0)
+            store_n = sum(1 for s in items if s["current"])
+        except Exception:
+            store_n = 0
+        out = wipe_post(kt, today, store_n)
+        if not out:
+            continue
+        text, card = out
+        res = tg.send_photo_file(card, text) if card else {}
+        if not res.get("ok"):
+            res = tg.send_message(text)
+        if res.get("ok"):
+            state[key] = stamp
+            if not today:
+                tg._post("sendPoll", {
+                    "chat_id": tg.chat, "question": "Когда зайдёшь на вайп?",
+                    "is_anonymous": "true",
+                    "options": json.dumps([{"text": o} for o in WIPE_POLL],
+                                          ensure_ascii=False)})
+
+
 # ---------- расписание и примеры ----------
+
+def foot():
+    return bot.pick(bot.FOOTERS).format(tag=bot.CHANNEL_TAG)
+
+
+def extras_tick(tg, state, forced=False):
+    """Индекс рынка, викторина, вайп-день, сообщество из X (у каждого свой
+    флаг LIVE); forced — индекс, викторину и сообщество выложить сейчас."""
+    import market_index as mi
+    import quiz
+    import rust_community as rc
+    kt = bot.kyiv_time()
+    for name, fn in (
+            ("Индекс рынка", lambda: mi.tick(tg, state, "rust", foot(),
+                                             forced=forced)),
+            ("Викторина", lambda: quiz.tick(
+                tg, state, "rust", lambda: bot.fetch_store_history(26)[0],
+                forced)),
+            ("Вайп-день", lambda: wipe_tick(tg, state, kt)),
+            ("Сообщество", lambda: rc.tick(tg, state, safe, foot(), forced))):
+        try:
+            fn()
+        except Exception as e:
+            print(f"{name} не вышла:", e)
+        time.sleep(2)
+
 
 def tick(tg, state, forced=False):
     """Скин дня — каждый день в SOD_HOUR, «угадай цену» — раз в неделю."""
@@ -526,3 +699,37 @@ def demo():
         out = invest.compose_report(fake)
         if out:
             show("мы советовали (иллюстрация, советы условные)", *out)
+
+
+def demo_extra():
+    """Примеры: индекс рынка, викторины, вайп-день, сообщество из X."""
+    from datetime import timedelta
+    import market_index as mi
+    import quiz
+    import rust_community as rc
+
+    def show(title, text, card):
+        print(f"\n===== ПРИМЕР ({title}, длина {visible_len(text)}) ====="
+              f"\n{text}")
+        if card:
+            cards.dump(card)
+
+    kt = bot.kyiv_time()
+    out = mi.rust_post({}, kt, foot(), save=False)
+    if out:
+        show("индекс рынка Rust", *out)
+    quiz.demo("rust", bot.fetch_store_history(26)[0], 3)
+    kyiv, _ = next_wipe()
+    if kyiv:
+        eve = (kyiv - timedelta(days=1)).replace(hour=18, minute=0)
+        out = wipe_post(eve, False, 12)
+        if out:
+            show(f"вайп-день: накануне ({kyiv:%d.%m})", *out)
+            print("[опрос] Когда зайдёшь на вайп? — " + " / ".join(WIPE_POLL))
+        out = wipe_post(kyiv.replace(hour=10, minute=0), True, 12)
+        if out:
+            show("вайп-день: в день вайпа", *out)
+    try:
+        rc.demo(safe, foot())
+    except Exception as e:
+        print("Сообщество Rust: пример не собрался —", e)
