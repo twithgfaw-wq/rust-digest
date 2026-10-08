@@ -1847,7 +1847,7 @@ def top_tick(tg, state, forced=False):
     card = os.path.join(tempfile.gettempdir(), "rust_top.jpg")
     res = {}
     try:
-        if build_top_card(sub, top, card):
+        if top_store_card(key, n, top, card) or build_top_card(sub, top, card):
             res = tg.send_photo_file(card, text)
     except Exception as e:
         print("Картинка топа не собралась:", e)
@@ -1858,6 +1858,31 @@ def top_tick(tg, state, forced=False):
         state["top_last"] = ids
         # эти скины уже были в канале — «Лучшее из воркшопа» их не повторяет
         state["top_shown"] = (state.get("top_shown", []) + ids)[-30:]
+
+def top_store_card(key, n, top, out_path):
+    """Топ-3 недели в стиле магазина Rust (rust_cards.top_card)."""
+    try:
+        import rust_cards
+        return rust_cards.top_card(
+            out_path, f"НЕДЕЛЯ {key[1]}", top,
+            f"{n} {plural(n, 'работа', 'работы', 'работ')} за неделю"
+            " · оценки игроков Steam")
+    except Exception as e:
+        print("Топ в стиле магазина не собрался:", e)
+        return False
+
+def contest_store_card(album, out_path):
+    """Конкурс «кого примут в игру» в стиле магазина Rust."""
+    try:
+        import rust_cards
+        works = [{"title": clean(s["title_raw"], 80), "author": s["author"],
+                  "image": s["image"]} for s in album]
+        return rust_cards.contest_card(
+            out_path, kyiv_time().strftime("%d.%m"), works,
+            "жми номер под постом и подтверди · итоги в воскресенье")
+    except Exception as e:
+        print("Конкурс в стиле магазина не собрался:", e)
+        return False
 
 def build_collage(image_urls, out_path):
     """Коллаж из 5 скинов с номерами 1-5 в один JPEG. Нужен Pillow; если
@@ -2344,7 +2369,8 @@ def main():
                 [{"text": "✅ Подтвердить голос",
                   "callback_data": f"c{rid}"}]]}, ensure_ascii=False)
             collage = os.path.join(tempfile.gettempdir(), "rust_collage.jpg")
-            if build_collage([s["image"] for s in album], collage):
+            if (contest_store_card(album, collage)
+                    or build_collage([s["image"] for s in album], collage)):
                 res = tg.send_photo_file(collage, caption, markup)
             else:
                 # запасной путь: альбом + отдельное сообщение с кнопками
