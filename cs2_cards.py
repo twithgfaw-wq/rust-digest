@@ -454,3 +454,196 @@ def item_card(out_path, rank, total, name, kind, icon, price, net, verdict,
     draw.text((p(W / 2), p(1426)), "цены: продажи на CSFloat · не финансовый"
               " совет", font=font(17), fill=MUTED, anchor="mm")
     return save(img, W, H, out_path)
+
+
+# ---------- новые рубрики ----------
+
+def stat_tiles(img, draw, W, y, tiles):
+    """Три плитки в ряд: подпись, крупное значение, пояснение."""
+    tw = (W - 96 - 32) / 3
+    for i, (title, value, sub, color) in enumerate(tiles):
+        x0 = 48 + i * (tw + 16)
+        cx = x0 + tw / 2
+        panel(img, x0, y, x0 + tw, y + 130)
+        draw.text((p(cx), p(y + 30)), title, font=font(22), fill=MUTED,
+                  anchor="mm")
+        draw.text((p(cx), p(y + 74)), value, font=font(44, True), fill=color,
+                  anchor="mm")
+        draw.text((p(cx), p(y + 110)), sub, font=font(19), fill=MUTED,
+                  anchor="mm")
+
+
+def case_card(out_path, case_name, icon, tiles, label, color, sub, tiers,
+              jackpot):
+    """«Открывать кейс или нет?»: сколько стоит открытие, сколько в среднем
+    возвращается, шанс окупить и что может выпасть по цветам редкости.
+    tiers: [(цвет, название, шанс, средняя цена, картинка, лучший предмет)]."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W, H = 1080, 1440
+    img, draw = canvas(W, H)
+    header(draw, W, "Открывать или нет?", case_name)
+    place_item(img, fetch_image(icon), W / 2, 296, 420, 250)
+    stat_tiles(img, draw, W, 456, tiles)
+    draw.rounded_rectangle((p(48), p(606), p(W - 48), p(706)), radius=p(28),
+                           fill=color)
+    draw.text((p(W / 2), p(642)), label, font=font(42, True), fill=WHITE,
+              anchor="mm")
+    draw.text((p(W / 2), p(682)), sub, font=font(24), fill=WHITE, anchor="mm")
+    draw.text((p(48), p(744)), "Что может выпасть", font=font(26, True),
+              fill=TEXT, anchor="lm")
+    draw.text((p(W - 48), p(744)), "шансы — как у Valve", font=font(20),
+              fill=MUTED, anchor="rm")
+    y = 770
+    for tc, title, chance, avg, pic, best in tiers:
+        panel(img, 48, y, W - 48, y + 96)
+        draw.rounded_rectangle((p(48), p(y), p(58), p(y + 96)), radius=p(4),
+                               fill=tc)
+        place_item(img, fetch_image(pic), 140, y + 46, 120, 70)
+        draw.text((p(222), p(y + 32)), title, font=font(26, True),
+                  fill=readable("%02x%02x%02x" % tc), anchor="lm")
+        draw.text((p(222), p(y + 66)), chance, font=font(21), fill=MUTED,
+                  anchor="lm")
+        draw.text((p(W - 72), p(y + 32)), avg, font=font(28, True), fill=TEXT,
+                  anchor="rm")
+        bf = font(19)
+        best = wrap(draw, best, bf, 330, 1)[0]
+        draw.text((p(W - 72), p(y + 66)), best, font=bf, fill=MUTED,
+                  anchor="rm")
+        y += 106
+    for k, line in enumerate(wrap(draw, jackpot, font(22), W - 120)):
+        draw.text((p(W / 2), p(1318 + 30 * k)), line, font=font(22),
+                  fill=TEXT, anchor="mm")
+    footer(draw, W, H, "цены: продажи на Skinport · шансы открытия от Valve")
+    return save(img, W, H, out_path)
+
+
+def skin_card(out_path, date, name, rarity, subtitle, icon, wears, fact,
+              spark, spark_days, chart_title, money):
+    """«Скин дня»: большая картинка, цены по износу, факт и график цены.
+    wears: [(сокращение, цена)]."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W, H = 1080, 1350
+    img, draw = canvas(W, H)
+    header(draw, W, "Скин дня", date)
+    place_item(img, fetch_image(icon), W / 2, 318, 760, 300)
+    item_name(draw, W / 2, 530, name, rarity, 40, W - 120)
+    draw.text((p(W / 2), p(574)), subtitle, font=font(23), fill=MUTED,
+              anchor="mm")
+    if wears:
+        n, gap = len(wears), 12
+        tw = (W - 96 - gap * (n - 1)) / n
+        for i, (abbr, price) in enumerate(wears):
+            x0 = 48 + i * (tw + gap)
+            panel(img, x0, 608, x0 + tw, 694)
+            draw.text((p(x0 + tw / 2), p(632)), abbr, font=font(20),
+                      fill=MUTED, anchor="mm")
+            draw.text((p(x0 + tw / 2), p(668)), price, font=font(28, True),
+                      fill=TEXT, anchor="mm")
+    panel(img, 48, 716, W - 48, 900)
+    draw.text((p(72), p(744)), "Интересно", font=font(22, True), fill=MUTED,
+              anchor="lm")
+    for k, line in enumerate(wrap(draw, fact, font(27), W - 144, 4)):
+        draw.text((p(72), p(784 + 34 * k)), line, font=font(27), fill=TEXT,
+                  anchor="lm")
+    panel(img, 48, 920, W - 48, 1270)
+    draw.text((p(72), p(948)), chart_title, font=font(22, True), fill=MUTED,
+              anchor="lm")
+    chart(img, draw, spark, spark_days, (150, 984, W - 72, 1222),
+          readable(rarity), None, "", money)
+    footer(draw, W, H, "цены: продажи на Skinport и CSFloat · описание Valve")
+    return save(img, W, H, out_path)
+
+
+def duel_card(out_path, title, subtitle, sides, question, note, winner=None):
+    """«Угадай цену»: два предмета друг против друга. sides — два dict:
+    name, rarity, icon, price, line, line_color. winner — 0/1 для итога."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W, H = 1200, 900
+    img, draw = canvas(W, H)
+    header(draw, W, title, subtitle)
+    for i, s in enumerate(sides):
+        cx = 300 + 600 * i
+        letter = "AB"[i]
+        draw.ellipse((p(cx - 30), p(176), p(cx + 30), p(236)), fill=TEXT)
+        draw.text((p(cx), p(206)), letter, font=font(32, True),
+                  fill=(239, 239, 241), anchor="mm")
+        if winner == i:
+            pill(draw, cx, 262, "ПОБЕДИТЕЛЬ", GREEN)
+        place_item(img, fetch_image(s["icon"]), cx, 400, 460, 220)
+        item_name(draw, cx, 552, s["name"], s.get("rarity", ""), 28, 520)
+        draw.text((p(cx), p(604)), s["price"], font=font(42, True), fill=TEXT,
+                  anchor="mm")
+        draw.text((p(cx), p(654)), s["line"], font=font(28, True),
+                  fill=s.get("line_color", MUTED), anchor="mm")
+    draw.text((p(W / 2), p(400)), "или", font=font(34, True), fill=MUTED,
+              anchor="mm")
+    draw.line((p(48), p(700), p(W - 48), p(700)), fill=LINE, width=p(2))
+    draw.text((p(W / 2), p(746)), question, font=font(32, True), fill=TEXT,
+              anchor="mm")
+    draw.text((p(W / 2), p(792)), note, font=font(22), fill=MUTED,
+              anchor="mm")
+    footer(draw, W, H, "цены: продажи на Skinport")
+    return save(img, W, H, out_path)
+
+
+def mark(draw, cx, cy, good):
+    """Галочка в зелёном круге или крестик в красном."""
+    r = 20
+    draw.ellipse((p(cx - r), p(cy - r), p(cx + r), p(cy + r)),
+                 fill=GREEN if good else RED)
+    if good:
+        draw.line([(p(cx - 9), p(cy + 1)), (p(cx - 2), p(cy + 8)),
+                   (p(cx + 10), p(cy - 8))], fill=WHITE, width=p(4),
+                  joint="curve")
+    else:
+        for a, b in (((-8, -8), (8, 8)), ((-8, 8), (8, -8))):
+            draw.line((p(cx + a[0]), p(cy + a[1]), p(cx + b[0]),
+                       p(cy + b[1])), fill=WHITE, width=p(4))
+
+
+def report_card(out_path, title, subtitle, rows, summary):
+    """«Мы советовали — что вышло». rows — dict: name, icon, verdict, was,
+    now, pct, pct_color, good (True/False/None — None без оценки)."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W = 1200
+    H = 170 + 112 * len(rows) + 150
+    img, draw = canvas(W, H)
+    header(draw, W, title, subtitle)
+    y = 170
+    for r in rows:
+        panel(img, 48, y, W - 48, y + 100)
+        place_item(img, fetch_image(r["icon"]), 130, y + 50, 120, 76)
+        draw.text((p(222), p(y + 32)), wrap(draw, r["name"], font(26, True),
+                                           430, 1)[0],
+                  font=font(26, True), fill=TEXT, anchor="lm")
+        label, color = VERDICT[r["verdict"]]
+        f = font(18, True)
+        w = draw.textlength(label, font=f) / S + 24
+        draw.rounded_rectangle((p(222), p(y + 54), p(222 + w), p(y + 82)),
+                               radius=p(13), fill=color)
+        draw.text((p(222 + w / 2), p(y + 68)), label, font=f, fill=WHITE,
+                  anchor="mm")
+        draw.text((p(222 + w + 14), p(y + 68)),
+                  f"тогда {r['was']} · сейчас {r['now']}", font=font(21),
+                  fill=MUTED, anchor="lm")
+        draw.text((p(W - 130), p(y + 50)), r["pct"], font=font(36, True),
+                  fill=r["pct_color"], anchor="rm")
+        if r.get("good") is not None:
+            mark(draw, W - 86, y + 50, r["good"])
+        y += 112
+    draw.text((p(W / 2), p(y + 44)), summary, font=font(30, True), fill=TEXT,
+              anchor="mm")
+    footer(draw, W, H, "цены: продажи на CSFloat · честный отчёт @cs2_me")
+    return save(img, W, H, out_path)
