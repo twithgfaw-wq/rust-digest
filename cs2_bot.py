@@ -10,6 +10,9 @@ CS2 Digest Bot — новости Counter-Strike 2 в Telegram-канал @cs2_m
   3. Онлайн CS2: раз в день вечером сводка, рекорд месяца — сразу.
   4. Цены: раз в день — что подорожало и подешевело за неделю (продажи
      на Skinport, иконки из Steam) — пост с картинкой-отчётом.
+  5. 💼 Инвестиции: ежедневный ТОП-5 контейнеров (cs2_invest.py).
+  6. 🎨 Мастерская: до трёх сильных работ в день (cs2_workshop.py).
+  7. 💬 Сообщество: обсуждаемое из X, до трёх в день (cs2_community.py).
 
 Общие части (Telegram, перевод, подбор фраз) берём у Rust-бота.
 
@@ -47,7 +50,7 @@ X_NAME = "CounterStrike"
 ONLINE_POST_HOUR = 20            # ежедневная сводка онлайна — вечером по Киеву
 TAGS = "#cs2 #кс2 #counterstrike"
 RUBRIC_NEWS = "📰 НОВОСТИ CS2"   # у каждой рубрики своя узнаваемая шапка
-AI_NEWS_LIVE = False             # пересказ от Claude — после одобрения примера
+AI_NEWS_LIVE = True              # пересказ от Claude (одобрено 08.10)
 
 # ---------- стиль постов (как в Rust-канале) ----------
 
@@ -310,12 +313,13 @@ def safe_html(s):
     return s.replace("&lt;/a&gt;", "</a>").strip()
 
 
-def ai_news(item):
+def ai_news(item, earlier=""):
     """Пост о новости, написанный Claude: (картинка, текст), "skip" для
-    совсем мелкого патча или None, если ИИ недоступен."""
+    совсем мелкого патча или повтора, None — если ИИ недоступен."""
     kind = "патч" if is_patch(item) else "анонс"
     link = NEWS_URL.format(gid=item["gid"])
-    res = ai.news_post(kind, item["title"], bb_strip(item["contents"]), link)
+    res = ai.news_post(kind, item["title"], bb_strip(item["contents"]), link,
+                       earlier)
     if not res:
         return None
     if not res.get("important"):
@@ -332,13 +336,13 @@ def ai_news(item):
     return (photo if visible_len(text) <= 1024 else ""), text
 
 
-def compose_news(item, use_ai=None):
+def compose_news(item, use_ai=None, earlier=""):
     """Готовый пост: (картинка, подпись ≤ 1024) или (\"\", длинный текст).
     Сначала пробуем пересказ от Claude, иначе — шаблон с переводом."""
     if use_ai is None:
         use_ai = AI_NEWS_LIVE
     if use_ai and ai.available():
-        out = ai_news(item)
+        out = ai_news(item, earlier)
         if out:
             return out
     outro, footer = bot.pick(NEWS_OUTROS), bot.pick(FOOTERS)
@@ -387,16 +391,22 @@ def post_steam_news(tg, state, now):
         keep = [newest] if newest and now - newest["date"] < 86400 else []
         seen += [i["gid"] for i in fresh if i not in keep]
         fresh = keep
+    # что уже вышло за сутки: патч и анонс об одном обновлении не дублируем
+    recent = [r for r in state.get("news_recent", []) if now - r["t"] < 86400]
+    state["news_recent"] = recent
     for item in sorted(fresh, key=lambda i: i["date"]):
-        out = compose_news(item)
+        earlier = "\n---\n".join(r["text"] for r in recent)
+        out = compose_news(item, earlier=earlier)
         if out == "skip":
-            print("Мелкий технический патч — не публикуем:", item["gid"])
+            print("Мелкий патч или повтор — не публикуем:", item["gid"])
             seen.append(item["gid"])
             continue
         photo, text = out
         if not send(tg, photo, text).get("ok"):
             break   # повторим со следующего запуска
         seen.append(item["gid"])
+        plain = html.unescape(re.sub(r"<[^>]+>", "", text))
+        recent.append({"t": int(now), "text": plain[:700]})
         time.sleep(2)
 
 
@@ -598,7 +608,7 @@ def online_tick(tg, state, now):
 # Раз в день: ходовые предметы (от $3 и от 10 продаж за неделю на Skinport),
 # цена за 7 дней против цены за 30 дней — топ-5 вверх и вниз на картинке.
 
-PRICES_LIVE = False      # по расписанию — после одобрения примера
+PRICES_LIVE = True       # одобрено 08.10
 PRICE_HOUR = 16          # по Киеву
 PRICE_MIN = 3.0          # $ — дешёвые предметы скачут от одной сделки
 PRICE_MIN_SALES = 10     # продаж за неделю на Skinport
@@ -909,11 +919,11 @@ def price_tick(tg, state, forced=False):
         state["price_day"] = today
 
 
-# ---------- «💼 Инвестиции CS2»: еженедельный ТОП-5 (cs2_invest.py) ----------
+# ---------- «💼 Инвестиции CS2»: ежедневный ТОП-5 (cs2_invest.py) ----------
 
-INVEST_LIVE = False      # по расписанию — после одобрения примера
-INVEST_WEEKDAY = 6       # воскресенье
-INVEST_HOUR = 18         # по Киеву
+INVEST_LIVE = True       # одобрено 08.10
+INVEST_HOUR = 18         # по Киеву, каждый день
+INVEST_ROTATE_DAYS = 2   # предмет из вчерашних/позавчерашних ТОП-5 — пропускаем
 
 
 def send_long(tg, text, limit=4000):
@@ -933,19 +943,26 @@ def send_long(tg, text, limit=4000):
     return res
 
 
+def recent_invest(state, today):
+    """Предметы из ТОП-5 последних INVEST_ROTATE_DAYS дней (кроме сегодня)."""
+    days = state.get("invest_days", {})
+    keep = sorted(d for d in days if d < today)[-INVEST_ROTATE_DAYS:]
+    return {n for d in keep for n in days[d]}
+
+
 def invest_tick(tg, state, forced=False):
-    """Раз в неделю: ТОП-5 предметов — картинка с короткой сводкой и
-    подробный разбор следующим сообщением."""
+    """Каждый день: ТОП-5 предметов — картинка с короткой сводкой и
+    подробный разбор следующим сообщением. Вчерашние позиции уступают
+    место другим, чтобы подборка не повторялась изо дня в день."""
     kt = bot.kyiv_time()
-    week = kt.strftime("%G-%V")
-    if not forced and (not INVEST_LIVE or kt.weekday() != INVEST_WEEKDAY
-                       or kt.hour < INVEST_HOUR
-                       or state.get("invest_week") == week):
+    today = kt.strftime("%Y-%m-%d")
+    if not forced and (not INVEST_LIVE or kt.hour < INVEST_HOUR
+                       or state.get("invest_day") == today):
         return
-    out = invest.compose(fetch_skinport(), kt)
+    out = invest.compose(fetch_skinport(), kt, recent_invest(state, today))
     if not out:
         return
-    caption, card, details = out
+    caption, card, details, names = out
     res = tg.send_photo_file(card, caption) if card else {}
     if not res.get("ok"):
         res = send(tg, "", caption)
@@ -953,12 +970,16 @@ def invest_tick(tg, state, forced=False):
         time.sleep(2)
         send_long(tg, details)
         if not forced:
-            state["invest_week"] = week
+            state["invest_day"] = today
+            days = state.setdefault("invest_days", {})
+            days[today] = names
+            for d in sorted(days)[:-7]:
+                del days[d]
 
 
 # ---------- «🎨 Мастерская CS2» (cs2_workshop.py) ----------
 
-WORKSHOP_LIVE = False          # по расписанию — после одобрения примера
+WORKSHOP_LIVE = True           # одобрено 08.10
 WORKSHOP_SLOTS = (12, 16, 20)  # по Киеву: до трёх постов в день
 
 
@@ -999,7 +1020,7 @@ def workshop_tick(tg, state, now, forced=False):
 
 # ---------- «💬 Сообщество CS2» (cs2_community.py) ----------
 
-COMMUNITY_LIVE = False         # по расписанию — после одобрения примера
+COMMUNITY_LIVE = True          # одобрено 08.10
 
 
 def post_with_media(tg, p, text):
@@ -1153,10 +1174,10 @@ def demo_workshop():
 
 
 def demo_invest():
-    """Пример еженедельного ТОП-5 в лог (с картинкой в base64)."""
+    """Пример ежедневного ТОП-5 в лог (с картинкой в base64)."""
     out = invest.compose(fetch_skinport(), bot.kyiv_time())
     if out:
-        caption, card, details = out
+        caption, card, details, _ = out
         print(f"\n===== ПРИМЕР (инвестиции, подпись {visible_len(caption)},"
               f" разбор {visible_len(details)}) =====\n{caption}"
               f"\n\n----- РАЗБОР -----\n{details}")
