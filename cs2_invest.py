@@ -109,16 +109,10 @@ def wavg(h, a, b):
 
 
 def weekly(h):
-    """Средние по неделям — для графика и устойчивых максимумов/минимумов."""
-    out, cur = [], []
-    for x in h:
-        cur.append(x)
-        if len(cur) == 7:
-            c = sum(y[2] for y in cur)
-            if c:
-                out.append((cur[0][0], sum(y[1] * y[2] for y in cur) / c))
-            cur = []
-    return out
+    """Медиана дневных цен по неделям — для графика, максимумов и минимумов.
+    Медиана не даёт одной странной сделке нарисовать фальшивый пик."""
+    return [(h[i][0], statistics.median(x[1] for x in h[i:i + 7]))
+            for i in range(0, len(h) - 6, 7)]
 
 
 def pct(a, b):
@@ -163,12 +157,13 @@ def verdict(m):
     избегать — предмет в активном дропе (запас растёт) или падает
       больше чем на 25% за 3 месяца;
     покупать — дропа нет, месяц без падения (не хуже −3%), три месяца
-      не хуже −10%, цена не выше годовой медианы и не меньше 5 продаж в день;
+      не хуже −10%, цена уже в зоне покупки (не дороже нижней четверти
+      цен за год + 5%) и не меньше 5 продаж в день;
     иначе — наблюдать."""
     if m["in_drop"] or (m["ch_3m"] is not None and m["ch_3m"] <= -25):
         return "avoid"
     if ((m["ch_1m"] or 0) >= -3 and (m["ch_3m"] or 0) >= -10
-            and m["now"] <= m["median_1y"] and m["sales_day"] >= MIN_SALES):
+            and m["now"] <= m["q1_1y"] * 1.05 and m["sales_day"] >= MIN_SALES):
         return "buy"
     return "watch"
 
@@ -268,7 +263,7 @@ sales_day — продаж в день на CSFloat. in_drop — выпадае�
     «💧 Ликвидность: …» (продаж в день),
     «✅ За: …» (почему может расти — только из данных),
     «⚠️ Риски: …» (почему может падать),
-    «🎯 Покупка: от … и ниже» (buy_zone_to), «⏳ Горизонт: …»
+    «🎯 Зона покупки: до …» (buy_zone_to), «⏳ Горизонт: …»
     (оцени по истории колебаний: месяцы или год+, объясни одним словом),
     «🔮 Сценарии: ↑ … / → … / ↓ …» (цены и % из scenarios),
     «Итог: <b>…</b>» (verdict).
@@ -399,6 +394,18 @@ def money(v):
     return f"${v:,.2f}".replace(",", " ")
 
 
+def short_name(n):
+    """Короче для картинки: «… Souvenir Package» → «… Souvenir» и т. п."""
+    for a, b in ((" Souvenir Highlight Package", " Souvenir"),
+                 (" Souvenir Package", " Souvenir"),
+                 (" Collection Package", " Package"),
+                 (" Weapon Case", " Case"), (" Sticker Capsule", " Capsule"),
+                 (" Autograph Capsule", " Autographs"),
+                 ("Operation ", "Op. ")):
+        n = n.replace(a, b)
+    return n
+
+
 def signed(v):
     return "—" if v is None else f"{v:+d}%".replace("-", "−")
 
@@ -486,7 +493,8 @@ def compose(skinport, kyiv_now):
     for m in top:
         st = m["steam"]
         rows.append({
-            "name": m["name"], "icon": m["icon"], "verdict": m["verdict"],
+            "name": short_name(m["name"]), "icon": m["icon"],
+            "verdict": m["verdict"],
             "prices": (f"CSFloat {money(m['now'])}"
                        + (f" · Steam {money(st['median'] or st['low'])}"
                           if st.get("median") or st.get("low") else "")),
