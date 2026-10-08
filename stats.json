@@ -1,6 +1,6 @@
 {
  "rust_news_Pro": {
-  "updated": "2026-10-08T06:45:02.532787+00:00",
+  "updated": "2026-10-08T20:58:32.824755+00:00",
   "posts": [
    {
     "id": 1,
@@ -914,7 +914,7 @@
    {
     "id": 119,
     "date": "2026-10-07T17:21:50+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {
      "🔥": 3
     },
@@ -927,7 +927,7 @@
    {
     "id": 120,
     "date": "2026-10-07T18:09:42+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {
      "👍": 4
     },
@@ -953,7 +953,7 @@
    {
     "id": 126,
     "date": "2026-10-08T00:24:00+00:00",
-    "views": 8,
+    "views": 10,
     "reactions": {
      "❤": 3
     },
@@ -966,7 +966,7 @@
    {
     "id": 127,
     "date": "2026-10-08T00:24:03+00:00",
-    "views": 8,
+    "views": 10,
     "reactions": {
      "❤": 3
     },
@@ -979,7 +979,7 @@
    {
     "id": 128,
     "date": "2026-10-08T03:45:49+00:00",
-    "views": 6,
+    "views": 7,
     "reactions": {
      "🔥": 4
     },
@@ -992,7 +992,7 @@
    {
     "id": 129,
     "date": "2026-10-08T04:22:02+00:00",
-    "views": 7,
+    "views": 8,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1003,7 +1003,7 @@
    {
     "id": 130,
     "date": "2026-10-08T04:22:22+00:00",
-    "views": 7,
+    "views": 8,
     "reactions": {
      "❤": 4
     },
@@ -1016,7 +1016,7 @@
    {
     "id": 131,
     "date": "2026-10-08T04:22:23+00:00",
-    "views": 7,
+    "views": 8,
     "reactions": {},
     "react_total": 0,
     "media": "poll",
@@ -1027,7 +1027,7 @@
    {
     "id": 136,
     "date": "2026-10-08T06:21:30+00:00",
-    "views": 5,
+    "views": 7,
     "reactions": {
      "🔥": 3
     },
@@ -1051,7 +1051,7 @@
    {
     "id": 138,
     "date": "2026-10-08T06:22:19+00:00",
-    "views": 5,
+    "views": 7,
     "reactions": {
      "🔥": 3
     },
@@ -1064,7 +1064,7 @@
    {
     "id": 139,
     "date": "2026-10-08T06:22:22+00:00",
-    "views": 5,
+    "views": 7,
     "reactions": {
      "❤": 3
     },
@@ -1077,7 +1077,7 @@
    {
     "id": 140,
     "date": "2026-10-08T06:22:25+00:00",
-    "views": 5,
+    "views": 7,
     "reactions": {
      "❤": 3
     },
@@ -1090,20 +1090,148 @@
    {
     "id": 141,
     "date": "2026-10-08T06:22:39+00:00",
-    "views": 5,
+    "views": 9,
     "reactions": {
-     "👍": 3
+     "👍": 4
     },
-    "react_total": 3,
+    "react_total": 4,
     "media": "photo",
     "voters": null,
     "rubric": "🏆 Конкурс",
     "head": "🤝 КОНКУРС: выбираем фаворита среди новинок воркшопа"
+   },
+   {
+    "id": 142,
+    "date": "2026-10-08T07:19:16+00:00",
+    "views": 8,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#индекс",
+    "head": "📈 ИНДЕКС РЫНКА RUST: 33 — ХОЛОДНО"
+   },
+   {
+    "id": 143,
+    "date": "2026-10-08T07:48:34+00:00",
+    "views": 8,
+    "reactions": {
+     "🥰": 3
+    },
+    "react_total": 3,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#работы",
+    "head": "🌟 Лучшее от сообщества за сегодня"
+   },
+   {
+    "id": 144,
+    "date": "2026-10-08T08:18:38+00:00",
+    "views": 8,
+    "reactions": {
+     "🥰": 4
+    },
+    "react_total": 4,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "✨ ЛУЧШЕЕ ИЗ ВОРКШОПА — подборка свежих работ"
+   },
+   {
+    "id": 150,
+    "date": "2026-10-08T09:17:52+00:00",
+    "views": 10,
+    "reactions": {
+     "❤": 4
+    },
+    "react_total": 4,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#работы",
+    "head": "🧱 Когда в Rust есть фантазия и время"
+   },
+   {
+    "id": 151,
+    "date": "2026-10-08T11:16:58+00:00",
+    "views": 10,
+    "reactions": {
+     "❤": 3
+    },
+    "react_total": 3,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО RUST"
+   },
+   {
+    "id": 152,
+    "date": "2026-10-08T12:23:32+00:00",
+    "views": 11,
+    "reactions": {
+     "❤": 4
+    },
+    "react_total": 4,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💼 Инвест",
+    "head": "📚 ЛУЧШИЕ КОЛЛЕКЦИИ RUST ДЛЯ ПОКУПКИ"
+   },
+   {
+    "id": 153,
+    "date": "2026-10-08T13:48:33+00:00",
+    "views": 10,
+    "reactions": {
+     "❤": 3
+    },
+    "react_total": 3,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💪 Вот это уровень, сообщество"
+   },
+   {
+    "id": 154,
+    "date": "2026-10-08T14:03:01+00:00",
+    "views": 11,
+    "reactions": {
+     "👍": 3
+    },
+    "react_total": 3,
+    "media": "video",
+    "voters": null,
+    "rubric": "📰 Новости",
+    "head": "⚡️ Rust в X: новости от разработчиков"
+   },
+   {
+    "id": 155,
+    "date": "2026-10-08T17:16:41+00:00",
+    "views": 9,
+    "reactions": {
+     "🔥": 3
+    },
+    "react_total": 3,
+    "media": "text",
+    "voters": null,
+    "rubric": "👥 Онлайн",
+    "head": "⚡️ Rust сегодня: сколько игроков в сети"
+   },
+   {
+    "id": 156,
+    "date": "2026-10-08T18:44:17+00:00",
+    "views": 8,
+    "reactions": {
+     "👍": 4
+    },
+    "react_total": 4,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🤩 ЛУЧШЕЕ ИЗ ВОРКШОПА: новые работы недели"
    }
   ]
  },
  "cs2_me": {
-  "updated": "2026-10-08T06:45:05.921903+00:00",
+  "updated": "2026-10-08T20:58:36.199639+00:00",
   "posts": [
    {
     "id": 1,
@@ -1152,7 +1280,7 @@
    {
     "id": 5,
     "date": "2026-10-08T02:40:21+00:00",
-    "views": 2,
+    "views": 4,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1163,7 +1291,7 @@
    {
     "id": 6,
     "date": "2026-10-08T02:40:26+00:00",
-    "views": 2,
+    "views": 4,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -1174,7 +1302,7 @@
    {
     "id": 7,
     "date": "2026-10-08T02:40:52+00:00",
-    "views": 2,
+    "views": 4,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1185,7 +1313,7 @@
    {
     "id": 8,
     "date": "2026-10-08T02:41:58+00:00",
-    "views": 2,
+    "views": 4,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1196,7 +1324,7 @@
    {
     "id": 12,
     "date": "2026-10-08T02:42:18+00:00",
-    "views": 2,
+    "views": 5,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1207,7 +1335,7 @@
    {
     "id": 13,
     "date": "2026-10-08T02:43:58+00:00",
-    "views": 2,
+    "views": 4,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1218,7 +1346,7 @@
    {
     "id": 14,
     "date": "2026-10-08T02:44:00+00:00",
-    "views": 2,
+    "views": 4,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -1229,7 +1357,7 @@
    {
     "id": 15,
     "date": "2026-10-08T02:44:05+00:00",
-    "views": 2,
+    "views": 4,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -1240,7 +1368,7 @@
    {
     "id": 16,
     "date": "2026-10-08T03:41:34+00:00",
-    "views": 2,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1251,7 +1379,7 @@
    {
     "id": 17,
     "date": "2026-10-08T03:41:39+00:00",
-    "views": 2,
+    "views": 5,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1262,7 +1390,7 @@
    {
     "id": 18,
     "date": "2026-10-08T03:41:43+00:00",
-    "views": 2,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1273,7 +1401,7 @@
    {
     "id": 19,
     "date": "2026-10-08T03:41:43+00:00",
-    "views": 2,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "poll",
@@ -1284,7 +1412,7 @@
    {
     "id": 28,
     "date": "2026-10-08T06:21:43+00:00",
-    "views": 2,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -1302,6 +1430,153 @@
     "voters": null,
     "rubric": "💼 Инвест",
     "head": "Cs2 Me pinned «📌 ЧТО ЕСТЬ В КАНАЛЕ  📰 Новости CS2 — патчи и анонсы Valve простыми словами,"
+   },
+   {
+    "id": 30,
+    "date": "2026-10-08T07:02:14+00:00",
+    "views": 6,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#индекс",
+    "head": "📈 ИНДЕКС РЫНКА CS2: 39 — ХОЛОДНО"
+   },
+   {
+    "id": 31,
+    "date": "2026-10-08T09:30:45+00:00",
+    "views": 6,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 35,
+    "date": "2026-10-08T10:11:27+00:00",
+    "views": 7,
+    "reactions": {
+     "❤": 1
+    },
+    "react_total": 1,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО CS2"
+   },
+   {
+    "id": 36,
+    "date": "2026-10-08T11:29:50+00:00",
+    "views": 7,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "#reddit",
+    "head": "📣 ЛУЧШЕЕ С REDDIT"
+   },
+   {
+    "id": 37,
+    "date": "2026-10-08T13:02:48+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 41,
+    "date": "2026-10-08T14:33:19+00:00",
+    "views": 7,
+    "reactions": {
+     "❤": 1
+    },
+    "react_total": 1,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО CS2"
+   },
+   {
+    "id": 42,
+    "date": "2026-10-08T17:29:11+00:00",
+    "views": 6,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "👥 Онлайн",
+    "head": "🛰 Мониторинг онлайна CS2"
+   },
+   {
+    "id": 43,
+    "date": "2026-10-08T17:50:26+00:00",
+    "views": 7,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎬 НОВОЕ ВИДЕО: СКАЗОЧНЫЕ СКИНЫ ИЗ МАСТЕРСКОЙ"
+   },
+   {
+    "id": 44,
+    "date": "2026-10-08T17:50:26+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "poll",
+    "voters": null,
+    "rubric": "🗳 Опрос",
+    "head": "Какой скин из видео забрал бы себе?"
+   },
+   {
+    "id": 45,
+    "date": "2026-10-08T18:31:35+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО CS2"
+   },
+   {
+    "id": 46,
+    "date": "2026-10-08T18:31:36+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "#киберспорт",
+    "head": "🎮 КИБЕРСПОРТ ЗА ДЕНЬ · 08.10"
+   },
+   {
+    "id": 47,
+    "date": "2026-10-08T19:27:42+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#мастерская_cs2",
+    "head": "🤥 СКИН: PP-BIZON «PINOCCHIO»"
+   },
+   {
+    "id": 48,
+    "date": "2026-10-08T19:27:43+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "poll",
+    "voters": null,
+    "rubric": "🗳 Опрос",
+    "head": "Ваншот с Бизона — это…"
    }
   ]
  }
