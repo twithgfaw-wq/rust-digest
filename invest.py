@@ -731,6 +731,33 @@ def build_card(title, subtitle, tiles, example, footer, out_path):
     return True
 
 
+def store_card(tiles, example, badge, subtitle, note, footer, out_path):
+    """Разбор в стиле магазина Rust (rust_cards.invest_card): списком по
+    разделам «можно брать / подумать / не стоит», крупно для телефона.
+    Плитки — те же, что для build_card."""
+    import rust_cards
+    codes = {VERDICTS[c][2]: c for c in VERDICTS}
+    arrows = {"▲": True, "►": None, "▼": False}
+    sections = []
+    for code in VERDICTS:
+        rows = []
+        for t in tiles:
+            if codes.get(t["label"]) != code:
+                continue
+            mark, _, value = t["net"].partition(" ")
+            wait = (t.get("wait") or "").replace("В мастерской ждут", "ждут")
+            rows.append({
+                "name": t["name"], "image": full_icon(t["icon"]),
+                "price": t["price"], "net": value, "up": arrows.get(mark),
+                "n10": t["n10"], "ncolor": t.get("ncolor"),
+                "note": " · ".join(x for x in (t.get("note"), wait)
+                                   if x and "новых частей нет" not in x)})
+        if rows:
+            sections.append((VERDICTS[code][1], VERDICTS[code][3], rows))
+    return rust_cards.invest_card(out_path, badge, subtitle, sections,
+                                  example, note, footer)
+
+
 def dump_card(path):
     """Для теста: уменьшенная картинка в лог (base64), чтобы её посмотреть."""
     import base64
@@ -1151,8 +1178,19 @@ def run():
         print("Длина подписи:", plain_len(caption))
     card = os.path.join(tempfile.gettempdir(), "rust_invest.jpg")
     res = {}
+    made = False
+    try:      # стиль магазина Rust; не вышло — старая картинка
+        made = store_card(
+            tiles, ex, f"ВЫПУСК {kyiv(start):%d.%m}",
+            f"{n} {bot.plural(n, 'скин', 'скина', 'скинов')}"
+            + (" · неделя вайпа: после бана такие чаще дешевле" if wipe
+               else ""),
+            f"купить до {end_k:%d.%m} · продать через 7 дней после покупки",
+            footer, card)
+    except Exception as e:
+        print("Картинка в стиле магазина не собралась:", e)
     try:
-        if build_card(title, subtitle, tiles, ex, footer, card):
+        if made or build_card(title, subtitle, tiles, ex, footer, card):
             if dry:
                 dump_card(card)
             res = tg.send_photo_file(card, caption)
