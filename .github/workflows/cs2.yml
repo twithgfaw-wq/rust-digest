@@ -18,6 +18,7 @@ on:
           - пример инвест-разбора
           - пример мастерской
           - пример сообщества
+          - запуск — по одному посту каждой рубрики
         default: обычный
 
 permissions:
@@ -52,6 +53,7 @@ jobs:
           CS2_DEMO_INVEST: ${{ inputs.mode == 'пример инвест-разбора' && '1' || '' }}
           CS2_DEMO_WORKSHOP: ${{ inputs.mode == 'пример мастерской' && '1' || '' }}
           CS2_DEMO_COMMUNITY: ${{ inputs.mode == 'пример сообщества' && '1' || '' }}
+          CS2_LAUNCH: ${{ inputs.mode == 'запуск — по одному посту каждой рубрики' && '1' || '' }}
           STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
         run: |
           pip install --quiet pillow brotli anthropic
