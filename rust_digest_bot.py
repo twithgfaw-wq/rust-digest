@@ -2159,6 +2159,10 @@ def main():
         import rust_formats
         rust_formats.demo()
         return
+    if os.environ.get("EXTRA_POST") == "пример: индекс, викторина, вайп, X":
+        import rust_formats
+        rust_formats.demo_extra()
+        return
 
     # Конфиг читаем из файла, если он есть (локальный запуск на ПК).
     # В облаке (GitHub Actions) файла нет — тогда берём значения из
@@ -2445,6 +2449,9 @@ def main():
                               == "новые рубрики — выложить сейчас")
         except Exception as e:
             print("Новые рубрики не удались:", e)
+        # 4j) индекс рынка, викторина, вайп-день, сообщество из X
+        rust_formats.extras_tick(tg, state, os.environ.get("EXTRA_POST")
+                                 == "индекс, викторина, X — выложить сейчас")
 
     # 5) итоги конкурса — в воскресенье, один раз за неделю
     if steam_key and not args.dry_run:
