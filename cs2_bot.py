@@ -517,22 +517,27 @@ def post_x_news(tg, state):
         if x_only_patch_link(p):
             state["x_last_id"] = p["id"]
             continue
-        text = build_x_caption(p)
-        kind, url, preview = bot.x_media(p)
-        res = {}
-        if kind == "video" and url:
-            res = tg._post("sendVideo", {
-                "chat_id": tg.chat, "video": url, "caption": text,
-                "parse_mode": "HTML", "supports_streaming": "true"})
-        image = url if kind == "photo" else preview
-        if not res.get("ok") and image:
-            res = tg.send_photo(image, text)
-        if not res.get("ok"):   # подпись длинная или медиа не прошло
-            res = tg.send_message(text)
-        if not res.get("ok"):
+        if not send_x(tg, p).get("ok"):
             break   # повторим со следующего запуска
         state["x_last_id"] = p["id"]
         time.sleep(2)
+
+
+def send_x(tg, p):
+    """Пост Valve из X — с видео или картинкой из твита, если они есть."""
+    text = build_x_caption(p)
+    kind, url, preview = bot.x_media(p)
+    res = {}
+    if kind == "video" and url:
+        res = tg._post("sendVideo", {
+            "chat_id": tg.chat, "video": url, "caption": text,
+            "parse_mode": "HTML", "supports_streaming": "true"})
+    image = url if kind == "photo" else preview
+    if not res.get("ok") and image:
+        res = tg.send_photo(image, text)
+    if not res.get("ok"):   # подпись длинная или медиа не прошло
+        res = tg.send_message(text)
+    return res
 
 
 # ---------- онлайн CS2 ----------
@@ -595,13 +600,16 @@ def online_tick(tg, state, now):
     today = kt.strftime("%Y-%m-%d")
     if kt.hour < ONLINE_POST_HOUR or state.get("online_daily") == today:
         return
+    if send_online(tg, lines).get("ok"):
+        state["online_daily"] = today
+
+
+def send_online(tg, lines):
     outro = bot.pick(ONLINE_OUTROS)
     if outro:
-        lines += ["", outro]
-    res = tg.send_message(frame(bot.pick(ONLINE_HOOKS), "", "\n".join(lines),
-                                bot.pick(FOOTERS), TAGS + " #онлайн"))
-    if res.get("ok"):
-        state["online_daily"] = today
+        lines = lines + ["", outro]
+    return tg.send_message(frame(bot.pick(ONLINE_HOOKS), "", "\n".join(lines),
+                                 bot.pick(FOOTERS), TAGS + " #онлайн"))
 
 
 # ---------- цены: что дорожает и что дешевеет (Skinport) ----------
@@ -908,15 +916,20 @@ def price_tick(tg, state, forced=False):
     if not forced and (not PRICES_LIVE or kt.hour < PRICE_HOUR
                        or state.get("price_day") == today):
         return
+    if post_prices(tg, kt) and not forced:   # ручной показ не отменяет вечернюю
+        state["price_day"] = today
+
+
+def post_prices(tg, kt):
+    """Сводка цен: картинка с подписью (или текстом). True — вышла."""
     out = compose_prices(kt)
     if not out:
-        return
+        return False
     text, card = out
     res = tg.send_photo_file(card, text) if card else {}
     if not res.get("ok"):
         res = tg.send_message(text)
-    if res.get("ok") and not forced:   # ручной показ не отменяет вечернюю
-        state["price_day"] = today
+    return bool(res.get("ok"))
 
 
 # ---------- «💼 Инвестиции CS2»: ежедневный ТОП-5 (cs2_invest.py) ----------
@@ -959,22 +972,34 @@ def invest_tick(tg, state, forced=False):
     if not forced and (not INVEST_LIVE or kt.hour < INVEST_HOUR
                        or state.get("invest_day") == today):
         return
+    names = post_invest(tg, state, kt, today)
+    if names and not forced:
+        remember_invest(state, today, names)
+
+
+def post_invest(tg, state, kt, today):
+    """ТОП-5: картинка с подписью и разбор. Вернёт названия или None."""
     out = invest.compose(fetch_skinport(), kt, recent_invest(state, today))
     if not out:
-        return
+        return None
     caption, card, details, names = out
     res = tg.send_photo_file(card, caption) if card else {}
     if not res.get("ok"):
         res = send(tg, "", caption)
-    if res.get("ok"):
-        time.sleep(2)
-        send_long(tg, details)
-        if not forced:
-            state["invest_day"] = today
-            days = state.setdefault("invest_days", {})
-            days[today] = names
-            for d in sorted(days)[:-7]:
-                del days[d]
+    if not res.get("ok"):
+        return None
+    time.sleep(2)
+    send_long(tg, details)
+    return names
+
+
+def remember_invest(state, today, names):
+    """Сегодняшний выпуск вышел: запоминаем день и позиции для ротации."""
+    state["invest_day"] = today
+    days = state.setdefault("invest_days", {})
+    days[today] = names
+    for d in sorted(days)[:-7]:
+        del days[d]
 
 
 # ---------- «🎨 Мастерская CS2» (cs2_workshop.py) ----------
@@ -1185,6 +1210,80 @@ def demo_invest():
             dump_card(card)
 
 
+def launch(tg, state, now):
+    """Старт канала: по одному посту каждой рубрики прямо сейчас. Каждый
+    записывается как обычный — сегодня ничего не повторится, дальше всё
+    идёт по расписанию."""
+    kt = bot.kyiv_time()
+    today = kt.strftime("%Y-%m-%d")
+    last = lambda key: (state.get(key) or [None])[-1]
+    done = []
+
+    def news():
+        items = sorted(fetch_announcements(), key=lambda i: i["date"],
+                       reverse=True)
+        for item in items[:4]:
+            out = compose_news(item)
+            if out == "skip":
+                print("Мелкий патч — берём новость постарше:", item["title"])
+                continue
+            photo, text = out
+            if not send(tg, photo, text).get("ok"):
+                return False
+            plain = html.unescape(re.sub(r"<[^>]+>", "", text))
+            state.setdefault("news_recent", []).append(
+                {"t": int(now), "text": plain[:700]})
+            return True
+        return False
+
+    def x_post():
+        token = os.environ.get("X_BEARER_TOKEN", "").strip()
+        if not token:
+            return False
+        posts = fetch_x_posts(token, x_user_id(token, state), count=10)
+        p = next((x for x in posts if not x_only_patch_link(x)), None)
+        return bool(p) and send_x(tg, p).get("ok")
+
+    def community():
+        before = last("comm_posted")
+        community_tick(tg, state, now, forced=True)
+        return last("comm_posted") != before
+
+    def workshop():
+        before = last("ws_posted")
+        workshop_tick(tg, state, now, forced=True)
+        return last("ws_posted") != before
+
+    def prices():
+        if not post_prices(tg, kt):
+            return False
+        state["price_day"] = today      # вечером сегодня не повторяем
+        return True
+
+    def invest_post():
+        names = post_invest(tg, state, kt, today)
+        if names:
+            remember_invest(state, today, names)
+        return bool(names)
+
+    def online():
+        n = fetch_online()
+        return send_online(tg, online_text(state, n, now)).get("ok")
+
+    for name, fn in (("📰 новость Steam", news), ("🐦 пост Valve из X", x_post),
+                     ("💬 сообщество", community), ("🎨 мастерская", workshop),
+                     ("💹 цены", prices), ("💼 инвестиции", invest_post),
+                     ("👥 онлайн", online)):
+        try:
+            ok = fn()
+        except Exception as e:
+            print(f"{name}: ошибка —", e)
+            ok = False
+        done.append(f"{'✅' if ok else '—'} {name}")
+        time.sleep(3)
+    print("Запуск канала:\n" + "\n".join(done))
+
+
 def main():
     global CHANNEL_TAG
     now = time.time()
@@ -1208,6 +1307,11 @@ def main():
     state = load_state()
     bot._RECENT[:] = state.get("recent_phrases", [])
     tg = bot.Telegram(token, channel, dry_run=dry)
+    if os.environ.get("CS2_LAUNCH") == "1":
+        launch(tg, state, now)
+        if not dry:
+            save_state(state)
+        return
     post_steam_news(tg, state, now)
     post_x_news(tg, state)
     try:
