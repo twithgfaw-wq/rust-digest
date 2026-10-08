@@ -36,6 +36,7 @@ import urllib.request
 from datetime import datetime, timezone
 
 import cs2_ai as ai
+import cs2_cards as cards
 import cs2_community as comm
 import cs2_invest as invest
 import cs2_workshop as ws
@@ -612,30 +613,15 @@ def send_online(tg, lines):
                                  bot.pick(FOOTERS), TAGS + " #онлайн"))
 
 
-# ---------- цены: что дорожает и что дешевеет (Skinport) ----------
+# ---------- маркет: что дорожает и что дешевеет (Skinport) ----------
 # Раз в день: ходовые предметы (от $3 и от 10 продаж за неделю на Skinport),
-# цена за 7 дней против цены за 30 дней — топ-5 вверх и вниз на картинке.
+# цена за 7 дней против цены за 30 дней — по три вверх и вниз на картинке
+# (cs2_cards.py) и простыми словами, почему цена могла так сдвинуться.
 
 PRICES_LIVE = True       # одобрено 08.10
 PRICE_HOUR = 16          # по Киеву
 PRICE_MIN = 3.0          # $ — дешёвые предметы скачут от одной сделки
 PRICE_MIN_SALES = 10     # продаж за неделю на Skinport
-ACCENT = (222, 155, 53)  # фирменный оранжевый CS2
-PRICE_HOOKS = [
-    "📈 РЫНОК CS2: кто дорожает, кто дешевеет",
-    "💹 Маркет CS2 — главные движения цен за неделю",
-    "💰 Что творится с ценами на скины CS2",
-    "📊 Биржевая сводка CS2: скины на взлёте и в падении",
-    "🎢 Качели маркета CS2: итоги недели",
-    "💸 Для инвесторов в скины: сводка цен CS2",
-    "🔥 Скины CS2, которые взлетели в цене",
-    "🧾 Сводка по маркету CS2",
-]
-PRICE_OUTROS = [
-    "Кто успел закупиться? 😏", "Держим или продаём? 🤔",
-    "Ставь 🔥, если следишь за маркетом",
-    "Инвестиции в скины — дело тонкое 💼", "А у тебя что в инвентаре? 👀", "",
-]
 WEAR = {"Factory New": "FN", "Minimal Wear": "MW", "Field-Tested": "FT",
         "Well-Worn": "WW", "Battle-Scarred": "BS"}
 
@@ -687,7 +673,8 @@ def price_moves(items):
                if d.get("median") and (d.get("volume") or 0) >= 10 else None)
         out.append({"name": i["market_hash_name"], "now": w["median"],
                     "was": m["median"], "ch": ch, "day": day,
-                    "sales": w["volume"]})
+                    "sales": w["volume"],
+                    "usual": round(m["volume"] * 7 / 30)})   # обычно в неделю
     return out
 
 
@@ -708,122 +695,79 @@ def steam_item(name):
     return {}
 
 
-def build_price_card(title, subtitle, sections, footer, out_path):
-    """Картинка-сводка 1440×1800 в стиле Rust-канала, акцент — оранжевый
-    CS2. sections: [(заголовок, цвет, [(название, иконка, цвет редкости,
-    подпись, справа)])]. Рисуем в 2× и уменьшаем — чёткий текст."""
-    try:
-        from PIL import Image, ImageDraw, ImageFilter, ImageFont
-    except Exception:
-        return False
-    S, W, H = 2, 1440, 1800
-    p = lambda v: int(v * S)
-    card_bg, line_c, muted = (31, 34, 43), (48, 52, 64), (150, 156, 172)
-    grad = Image.linear_gradient("L").resize((p(W), p(H)))
-    img = Image.composite(Image.new("RGB", (p(W), p(H)), (11, 12, 16)),
-                          Image.new("RGB", (p(W), p(H)), (27, 29, 37)),
-                          grad).convert("RGBA")
-    glow = Image.new("RGBA", (W // 8, H // 8), (0, 0, 0, 0))
-    ImageDraw.Draw(glow).ellipse((W // 8 - 75, -55, W // 8 + 45, 45),
-                                 fill=ACCENT + (110,))
-    glow = glow.filter(ImageFilter.GaussianBlur(14)).resize(
-        (p(W), p(H)), Image.BICUBIC)
-    img.alpha_composite(glow)
-    draw = ImageDraw.Draw(img)
+MOVES_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "intro": {"type": "string"},
+        "items": {"type": "array", "items": {
+            "type": "object",
+            "properties": {"name": {"type": "string"},
+                           "why": {"type": "string"}},
+            "required": ["name", "why"],
+            "additionalProperties": False}},
+    },
+    "required": ["intro", "items"],
+    "additionalProperties": False,
+}
 
-    def font(size, bold=False):
-        name = "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf"
-        try:
-            return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/"
-                                      + name, p(size))
-        except Exception:
-            return ImageFont.load_default()
 
-    def fit(text, fnt, width):
-        if draw.textlength(text, font=fnt) <= width:
-            return text
-        while text and draw.textlength(text + "…", font=fnt) > width:
-            text = text[:-1]
-        return text.rstrip() + "…"
+def item_type(name):
+    if name.startswith("Sticker |"):
+        return "наклейка"
+    if name.endswith((" Case", " Terminal")):
+        return "кейс"
+    if name.endswith((" Capsule", " Package")):
+        return "капсула или набор"
+    if "★" in name:
+        return "нож или перчатки"
+    return "скин оружия"
 
-    def icon(url, size):
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": bot.UA})
-            with urllib.request.urlopen(req, timeout=15) as r:
-                im = Image.open(io.BytesIO(r.read())).convert("RGBA")
-            im.thumbnail((p(size), p(size)), Image.LANCZOS)
-            return im
-        except Exception:
-            return None
 
-    def hexrgb(h, default=(176, 195, 217)):
-        try:
-            return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
-        except Exception:
-            return default
+def move_why(m):
+    """Почему цена могла сдвинуться — по правилам, если Claude недоступен."""
+    more, less = m["sales"] >= m["usual"] * 1.3, m["sales"] <= m["usual"] * 0.8
+    if m["name"] in invest.ACTIVE_POOL and m["ch"] < 0:
+        return "Ещё выпадает в игре — их всё больше"
+    if m["ch"] >= 0:
+        return ("Покупают чаще обычного" if more
+                else "Продавцов стало меньше" if less else "Спрос держится")
+    return ("Похоже, многие продают" if more
+            else "Покупать стали реже" if less else "Потихоньку дешевеет")
 
-    # шапка: оранжевая полоса, метка, заголовок, подзаголовок
-    draw.rectangle((0, 0, p(W), p(12)), fill=ACCENT)
-    tag, tf = "СВОДКА РЫНКА", font(22, True)
-    tw = draw.textlength(tag, font=tf)
-    draw.rounded_rectangle((p(64), p(52), p(64) + tw + p(40), p(94)),
-                           radius=p(21), fill=ACCENT)
-    draw.text((p(64) + (tw + p(40)) / 2, p(73)), tag, font=tf,
-              fill=(20, 20, 24), anchor="mm")
-    draw.text((p(62), p(150)), title, font=font(70, True),
-              fill=(255, 255, 255), anchor="lm")
-    draw.text((p(64), p(214)), fit(subtitle, font(30), p(W - 128)),
-              font=font(30), fill=muted, anchor="lm")
 
-    y = 262
-    for head, color, rows in sections:
-        hf = font(34, True)
-        draw.text((p(64), p(y + 22)), head, font=hf, fill=color, anchor="lm")
-        hw = draw.textlength(head, font=hf)
-        draw.line((p(64) + hw + p(24), p(y + 22), p(W - 64), p(y + 22)),
-                  fill=line_c, width=p(2))
-        y += 58
-        tint = tuple(int(c * 0.3 + b * 0.7) for c, b in zip(color, card_bg))
-        for name, src, rarity, sub, right in rows:
-            draw.rounded_rectangle((p(56), p(y), p(W - 56), p(y + 118)),
-                                   radius=p(26), fill=card_bg, outline=line_c,
-                                   width=p(2))
-            # плитка в цвет редкости предмета и иконка по центру
-            rc = hexrgb(rarity)
-            tile = tuple(int(c * 0.35 + b * 0.65) for c, b in zip(rc, card_bg))
-            draw.rounded_rectangle((p(76), p(y + 11), p(172), p(y + 107)),
-                                   radius=p(20), fill=tile)
-            ic = icon(src, 88) if src else None
-            if ic:
-                img.alpha_composite(ic, (p(76) + (p(96) - ic.width) // 2,
-                                         p(y + 11) + (p(96) - ic.height) // 2))
-            # процент — цветная «таблетка» справа
-            pf = font(38, True)
-            px1 = p(W - 80)
-            px0 = px1 - draw.textlength(right, font=pf) - p(44)
-            draw.rounded_rectangle((px0, p(y + 30), px1, p(y + 88)),
-                                   radius=p(29), fill=tint)
-            draw.text(((px0 + px1) / 2, p(y + 59)), right, font=pf, fill=color,
-                      anchor="mm")
-            nf = font(36, True)
-            draw.text((p(198), p(y + 40)), fit(name, nf, px0 - p(218)),
-                      font=nf, fill=(240, 242, 246), anchor="lm")
-            sf = font(26)
-            draw.text((p(198), p(y + 82)), fit(sub, sf, px0 - p(218)),
-                      font=sf, fill=muted, anchor="lm")
-            y += 130
-        y += 10
+def explain_moves(moves):
+    """Claude простыми словами объясняет движения цен — только по фактам из
+    данных. {intro, items} или None."""
+    if not ai.available():
+        return None
+    data = [{"name": m["name"], "type": item_type(m["name"]),
+             "usual_price_month": round(m["was"], 2),
+             "price_this_week": round(m["now"], 2),
+             "change_pct": round(m["ch"] * 100),
+             "sales_this_week": m["sales"], "sales_usual_week": m["usual"],
+             "still_drops_in_game": m["name"] in invest.ACTIVE_POOL}
+            for m in moves]
+    prompt = f"""Рубрика «Маркет CS2»: что за неделю подорожало и что подешевело.
+Читают обычные игроки, многие — школьники: пиши очень просто, как другу,
+без терминов.
 
-    # подвал
-    draw.line((p(64), p(H - 80), p(W - 64), p(H - 80)), fill=line_c,
-              width=p(2))
-    draw.text((p(64), p(H - 44)), footer, font=font(26),
-              fill=(120, 126, 142), anchor="lm")
-    draw.text((p(W - 64), p(H - 44)), CHANNEL_TAG, font=font(28, True),
-              fill=ACCENT, anchor="rm")
-    img = img.convert("RGB").resize((W, H), Image.LANCZOS)
-    img.save(out_path, "JPEG", quality=95, subsampling=0)
-    return True
+Для каждого предмета есть только факты: обычная цена за месяц и цена за эту
+неделю (в долларах), сколько продаж за эту неделю и сколько обычно бывает
+за неделю, тип предмета, выпадает ли он ещё в игре.
+Объясни, почему цена могла так сдвинуться, ТОЛЬКО по этим фактам и мягко
+(«похоже», «видимо»). Не придумывай новостей, обновлений, турниров и событий.
+Подсказки: продаж больше обычного и цена растёт — спрос вырос; продаж больше
+обычного и цена падает — многие продают; продаж меньше обычного и цена
+растёт — продавцов стало меньше; продаж меньше обычного и цена падает —
+покупателей стало меньше; ещё выпадает в игре — предметов становится больше.
+
+Данные: {json.dumps(data, ensure_ascii=False)}
+
+Верни:
+- intro: одно предложение до 110 знаков — что видно на маркете за неделю.
+- items: для каждого предмета в том же порядке: name — как во входе,
+  why — до 45 знаков, простыми словами."""
+    return ai.ask(prompt, MOVES_SCHEMA, effort="low")
 
 
 def compose_prices(kt):
@@ -837,74 +781,68 @@ def compose_prices(kt):
         print("Мало данных Skinport:", len(moves))
         return None
     ups = sorted((m for m in moves if m["ch"] >= 0.03),
-                 key=lambda m: -m["ch"])[:5]
+                 key=lambda m: -m["ch"])[:3]
     downs = sorted((m for m in moves if m["ch"] <= -0.03),
-                   key=lambda m: m["ch"])[:5]
+                   key=lambda m: m["ch"])[:3]
     for m in ups + downs:
         m.update(steam_item(m["name"]))
         time.sleep(1)
+    res = explain_moves(ups + downs) or {}
+    said = res.get("items") or []
+    for k, m in enumerate(ups + downs):
+        why = (said[k].get("why") or "").strip() if len(said) == len(
+            ups + downs) else ""
+        m["why"] = why or move_why(m)
     pct = lambda v: f"{v * 100:+.0f}%".replace("-", "−")
     usd = lambda v: f"${v:,.2f}".replace(",", " ")
     link = lambda m: (f"<a href=\"{market_url(m['name'])}\">"
                       f"{html.escape(short_name(m['name']))}</a>")
-    line = lambda m: (f"▫️ {link(m)} — {usd(m['was'])} → {usd(m['now'])}"
-                      f" (<b>{pct(m['ch'])}</b>)")
-
-    def row(m):
-        src = (("https://community.cloudflare.steamstatic.com/economy/image/"
-                f"{m['icon']}/256fx256f") if m.get("icon") else "")
-        return (short_name(m["name"]), src, m.get("color", ""),
-                f"{usd(m['was'])} → {usd(m['now'])}  ·  {m['sales']} продаж"
-                " за неделю", pct(m["ch"]))
-
-    sections = [x for x in (
-        ("▲ ДОРОЖАЮТ", (61, 220, 132), [row(m) for m in ups]),
-        ("▼ ДЕШЕВЕЮТ", (255, 82, 82), [row(m) for m in downs])) if x[2]]
-    blocks = []
-    if ups:
-        blocks.append("\n".join(["📈 <b>Дорожают</b>"]
-                                + [line(m) for m in ups[:3]]))
-    if downs:
-        blocks.append("\n".join(["📉 <b>Дешевеют</b>"]
-                                + [line(m) for m in downs[:3]]))
-    # дополнительные строки — по важности; не влезут — отрежем с конца
-    extras = []
-    shown = {m["name"] for m in ups[:3] + downs[:3]}
-    cases = [m for m in moves
-             if m["name"].endswith(" Case") and m["name"] not in shown]
-    if cases:
-        top = max(cases, key=lambda m: abs(m["ch"]))
-        if abs(top["ch"]) >= 0.03:
-            extras.append(f"📦 Кейс недели: {link(top)} {pct(top['ch'])}"
-                          f" ({usd(top['now'])})")
-    day = [m for m in moves if m["day"] is not None and abs(m["day"]) >= 0.05
-           and m["name"] not in shown]
-    if day:
-        d = max(day, key=lambda m: abs(m["day"]))
-        extras.append(f"⚡ За сутки сильнее всех: {link(d)} {pct(d['day'])}")
-    hook, outro = bot.pick(PRICE_HOOKS), bot.pick(PRICE_OUTROS)
-    footer = bot.pick(FOOTERS)
     date = kt.strftime("%d.%m.%Y")
 
-    def compose(ex):
-        parts = blocks + (["\n".join(ex)] if ex else [])
-        if outro:
-            parts.append(outro)
-        return frame(hook, f"🗓 {date} · за неделю, продажи Skinport",
-                     "\n\n".join(parts), footer, TAGS + " #скины #маркет")
+    def caption(intro, tip):
+        lines = ["<b>💹 МАРКЕТ CS2 · ЗА НЕДЕЛЮ</b>", f"🗓 {date}", ""]
+        if intro:
+            lines += [html.escape(intro), ""]
+        for head, group in (("📈 <b>Дорожают</b>", ups),
+                            ("📉 <b>Дешевеют</b>", downs)):
+            if group:
+                lines.append(head)
+                for m in group:
+                    lines += [f"▫️ {link(m)} — {usd(m['was'])} → "
+                              f"{usd(m['now'])} (<b>{pct(m['ch'])}</b>)",
+                              f"      <i>{html.escape(m['why'])}</i>"]
+                lines.append("")
+        if tip:
+            lines += ["💡 Подорожало — не значит «срочно покупать»: после "
+                      "резкого скачка цена часто откатывается.", ""]
+        lines += [f"<i>Цены — продажи на Skinport.</i> {CHANNEL_TAG}",
+                  "#cs2 #скины #маркет"]
+        return "\n".join(lines)
 
-    text = compose(extras)
-    while extras and visible_len(text) > 1024:
-        extras.pop()
-        text = compose(extras)
+    intro = (res.get("intro") or "").strip()
+    for args in ((intro, True), (intro, False), ("", False)):
+        text = caption(*args)
+        if visible_len(text) <= 1024:
+            break
+
+    def tile(m):
+        return {"name": short_name(m["name"]),
+                "icon": cards.STEAM_IMG.format(m["icon"]) if m.get("icon") else "",
+                "rarity": m.get("color", ""),
+                "prices": f"было {usd(m['was'])} · стало {usd(m['now'])}",
+                "pct": f"{m['ch'] * 100:+.0f}%", "why": m["why"]}
+
+    sections = [x for x in (
+        ("ДОРОЖАЮТ", cards.GREEN, [tile(m) for m in ups]),
+        ("ДЕШЕВЕЮТ", cards.RED, [tile(m) for m in downs])) if x[2]]
     card = os.path.join(tempfile.gettempdir(), "cs2_prices.jpg")
     try:
-        ok = build_price_card(
-            "РЫНОК СКИНОВ CS2",
-            f"{date} · цена за 7 дней против цены за 30 дней", sections,
-            "по продажам на Skinport · иконки Steam", card)
+        ok = cards.market_card(
+            "Маркет CS2 · за неделю",
+            f"{date} · что подорожало и что подешевело", sections,
+            "цены: продажи на Skinport · картинки Steam", card)
     except Exception as e:
-        print("Картинка цен не собралась:", e)
+        print("Картинка маркета не собралась:", e)
         ok = False
     return text, (card if ok else "")
 
@@ -939,20 +877,46 @@ INVEST_HOUR = 18         # по Киеву, каждый день
 INVEST_ROTATE_DAYS = 2   # предмет из вчерашних/позавчерашних ТОП-5 — пропускаем
 
 
-def send_long(tg, text, limit=4000):
-    """Длинный текст — несколькими сообщениями, режем по пустым строкам."""
-    parts, cur = [], ""
-    for block in text.split("\n\n"):
-        if cur and len(cur) + len(block) + 2 > limit:
-            parts.append(cur)
-            cur = block
-        else:
-            cur = f"{cur}\n\n{block}" if cur else block
-    parts.append(cur)
-    res = {}
-    for part in parts:
-        res = send(tg, "", part)
-        time.sleep(1)
+def send_album(tg, paths, caption):
+    """Альбом из локальных картинок одним постом; подпись — на первой."""
+    if tg.dry_run:
+        print(f"[dry-run] альбом из {len(paths)} картинок: {caption[:120]}")
+        return {"ok": True}
+    boundary = "----CS2Bot" + str(int(time.time() * 1000))
+    media, files = [], []
+    for k, path in enumerate(paths[:10]):
+        with open(path, "rb") as f:
+            files.append((f"p{k}", f.read()))
+        item = {"type": "photo", "media": f"attach://p{k}"}
+        if k == 0:
+            item.update(caption=caption, parse_mode="HTML")
+        media.append(item)
+    parts = [(f"--{boundary}\r\nContent-Disposition: form-data; "
+              f"name=\"{k}\"\r\n\r\n{v}\r\n").encode("utf-8")
+             for k, v in (("chat_id", str(tg.chat)),
+                          ("media", json.dumps(media, ensure_ascii=False)))]
+    for name, data in files:
+        parts.append((f"--{boundary}\r\nContent-Disposition: form-data; "
+                      f"name=\"{name}\"; filename=\"{name}.jpg\"\r\n"
+                      "Content-Type: image/jpeg\r\n\r\n").encode("utf-8")
+                     + data + b"\r\n")
+    body = b"".join(parts) + f"--{boundary}--\r\n".encode("utf-8")
+    req = urllib.request.Request(
+        f"{tg.base}/sendMediaGroup", data=body,
+        headers={"User-Agent": bot.UA,
+                 "Content-Type": f"multipart/form-data; boundary={boundary}"})
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            res = json.loads(r.read().decode("utf-8", "replace"))
+    except urllib.error.HTTPError as e:
+        print("Telegram не принял альбом:", e.code,
+              e.read().decode("utf-8", "replace")[:300])
+        return {"ok": False}
+    except Exception as e:
+        print("Telegram не принял альбом:", e)
+        return {"ok": False}
+    if not res.get("ok"):
+        print("Telegram ошибка (альбом):", res)
     return res
 
 
@@ -964,9 +928,9 @@ def recent_invest(state, today):
 
 
 def invest_tick(tg, state, forced=False):
-    """Каждый день: ТОП-5 предметов — картинка с короткой сводкой и
-    подробный разбор следующим сообщением. Вчерашние позиции уступают
-    место другим, чтобы подборка не повторялась изо дня в день."""
+    """Каждый день: ТОП-5 предметов — альбом карточек с короткой подписью.
+    Вчерашние позиции уступают место другим, чтобы подборка не
+    повторялась изо дня в день."""
     kt = bot.kyiv_time()
     today = kt.strftime("%Y-%m-%d")
     if not forced and (not INVEST_LIVE or kt.hour < INVEST_HOUR
@@ -978,19 +942,18 @@ def invest_tick(tg, state, forced=False):
 
 
 def post_invest(tg, state, kt, today):
-    """ТОП-5: картинка с подписью и разбор. Вернёт названия или None."""
+    """ТОП-5: альбом (обзор и карточка на каждый) с короткой подписью.
+    Вернёт названия или None."""
     out = invest.compose(fetch_skinport(), kt, recent_invest(state, today))
     if not out:
         return None
-    caption, card, details, names = out
-    res = tg.send_photo_file(card, caption) if card else {}
+    caption, pics, names = out
+    res = send_album(tg, pics, caption) if len(pics) >= 2 else {}
+    if not res.get("ok") and pics:
+        res = tg.send_photo_file(pics[0], caption)
     if not res.get("ok"):
         res = send(tg, "", caption)
-    if not res.get("ok"):
-        return None
-    time.sleep(2)
-    send_long(tg, details)
-    return names
+    return names if res.get("ok") else None
 
 
 def remember_invest(state, today, names):
@@ -1199,15 +1162,20 @@ def demo_workshop():
 
 
 def demo_invest():
-    """Пример ежедневного ТОП-5 в лог (с картинкой в base64)."""
-    out = invest.compose(fetch_skinport(), bot.kyiv_time())
+    """Пример маркета и ТОП-5 в лог (картинки — в base64)."""
+    out = compose_prices(bot.kyiv_time())
     if out:
-        caption, card, details, _ = out
-        print(f"\n===== ПРИМЕР (инвестиции, подпись {visible_len(caption)},"
-              f" разбор {visible_len(details)}) =====\n{caption}"
-              f"\n\n----- РАЗБОР -----\n{details}")
+        text, card = out
+        print(f"\n===== ПРИМЕР (маркет, длина {visible_len(text)}) =====\n{text}")
         if card:
             dump_card(card)
+    out = invest.compose(fetch_skinport(), bot.kyiv_time())
+    if out:
+        caption, pics, _ = out
+        print(f"\n===== ПРИМЕР (инвестиции, подпись {visible_len(caption)},"
+              f" картинок {len(pics)}) =====\n{caption}")
+        for path in pics:
+            dump_card(path)
 
 
 def launch(tg, state, now):
