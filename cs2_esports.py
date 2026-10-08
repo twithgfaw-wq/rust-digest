@@ -23,7 +23,7 @@ WORKER = "https://rust-votes.twithgfaw.workers.dev/hltv"  # если HLTV не �
 LIVE = True              # по расписанию (одобрено 08.10)
 MIN_SCORE = 7            # с какой важности — отдельным постом
 DIGEST_SCORE = 4         # с какой — в вечерний дайджест
-MAX_DAY = 6              # отдельных постов в день
+MAX_DAY = 0              # отдельных постов в день: 0 — только вечерний итог
 MAX_RUN = 2              # за один запуск
 QUIET = (1, 8)           # по Киеву: ночью копим, утром — в дайджест
 DIGEST_HOUR = 21
@@ -119,7 +119,7 @@ def compose_digest(items, footer, date):
     for it in items[:8]:
         lines.append(f"▫️ <a href=\"{it['link']}\">"
                      f"{html.escape(it['headline'].strip())}</a>")
-    lines += ["", "Всё самое важное — отдельными постами в течение дня ⚡",
+    lines += ["", "Главное из киберспорта CS2 — одним постом каждый вечер 🎮",
               "", footer, TAGS]
     return "\n".join(lines)
 
