@@ -154,21 +154,66 @@ def fetch_official_news(count=3):
         })
     return out
 
+REDDIT_JSON = ["https://www.reddit.com/r/playrust/top.json?t={t}&limit={n}",
+               "https://old.reddit.com/r/playrust/top.json?t={t}&limit={n}",
+               "https://api.reddit.com/r/playrust/top?t={t}&limit={n}"]
+REDDIT_RSS = "https://www.reddit.com/r/playrust/top/.rss?t={t}&limit={n}"
+
+def fetch_top_works_rss(t, limit):
+    """Запасной путь, если Reddit не отдаёт JSON: RSS-лента топа (уже
+    по убыванию рейтинга, но без числа апвоутов) — берём первые 5."""
+    import re
+    req = urllib.request.Request(REDDIT_RSS.format(t=t, n=limit),
+                                 headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        feed = r.read().decode("utf-8", "replace")
+    works = []
+    for entry in re.findall(r"<entry>(.*?)</entry>", feed, re.S)[:5]:
+        get = lambda pat: (re.search(pat, entry, re.S) or [None, ""])[1]
+        content = html.unescape(get(r"<content[^>]*>(.*?)</content>"))
+        # полный размер: ссылка на i.redd.it, иначе превью без параметров
+        img = (re.search(r'href="(https://i\.redd\.it/[^"]+)"', content)
+               or re.search(r'<img src="https://preview\.redd\.it/([^"?]+)',
+                            content))
+        if img and not img.group(1).startswith("http"):
+            img = re.match(r"(.*)", "https://i.redd.it/" + img.group(1))
+        link = get(r'<link href="([^"]+)"')
+        pid = re.search(r"/comments/([a-z0-9]+)/", link)
+        if not (img and pid):
+            continue
+        works.append({
+            "id": "work_" + pid.group(1),
+            "title": translate_to_ru(clean(html.unescape(
+                get(r"<title>(.*?)</title>")), 200)),
+            "author": clean(get(r"<name>/u/(.*?)</name>"), 40),
+            "score": 0, "flair": "",
+            "image": html.unescape(img.group(1)), "url": link})
+    return works
+
 def fetch_top_works(period="day", limit=12, min_score=300):
     """Топ постов r/playrust — базы, билды, арт, моменты."""
     t = "day" if period not in ("day", "week") else period
-    url = (f"https://www.reddit.com/r/playrust/top.json"
-           f"?t={t}&limit={limit}")
-    try:
-        data = http_get_json(url, headers={"User-Agent": UA})
-        children = data.get("data", {}).get("children", [])
-    except urllib.error.HTTPError as e:
-        print(f"Reddit вернул {e.code}. Если это 429/403 — он режет "
-              f"запросы; попробуй позже или реже. Работы пропущены.")
-        return []
-    except Exception as e:
-        print("Reddit не загрузился:", e)
-        return []
+    children, codes = None, []
+    for url in REDDIT_JSON:
+        try:
+            data = http_get_json(url.format(t=t, n=limit),
+                                 headers={"User-Agent": UA})
+            children = data.get("data", {}).get("children", [])
+            break
+        except urllib.error.HTTPError as e:
+            codes.append(str(e.code))
+        except Exception as e:
+            codes.append(type(e).__name__)
+    if children is None:
+        try:
+            works = fetch_top_works_rss(t, limit)
+            print(f"Reddit JSON закрыт ({', '.join(codes)}) — взяли RSS:",
+                  len(works))
+            return works
+        except Exception as e:
+            print(f"Reddit не отдаёт ни JSON ({', '.join(codes)}), ни RSS"
+                  f" ({e}). Работы пропущены.")
+            return []
 
     works = []
     for ch in children:
@@ -617,6 +662,9 @@ FOOTERS = [
     "🛡 Твой канал про Rust — {tag}",
     "🎮 Новости, скины и видео по Rust — {tag}",
     "📌 Сохрани себе {tag}",
+    # иногда — соседний канал и бот алертов (бесплатный перелив подписчиков)
+    "🎯 Играешь и в CS2? Новости и скины — в @cs2_me",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
 ]
 
 def frame(kicker, title, body, hashtags):
@@ -687,7 +735,8 @@ def build_work_caption(w, index):
     if w["flair"]:
         emoji = FLAIR_EMOJI.get(w["flair"], "🔥")
         hook += f" · {emoji} {html.escape(w['flair'])}"
-    body = (f"👤 u/{html.escape(w['author'])}   ⬆️ {w['score']}\n"
+    score = f"   ⬆️ {w['score']}" if w["score"] else "   🔝 топ дня"
+    body = (f"👤 u/{html.escape(w['author'])}{score}\n"
             f"💬 <a href=\"{w['url']}\">Обсуждение на Reddit</a>")
     return frame(hook, w["title"], body, "#rust #раст #работы")
 
@@ -2201,6 +2250,10 @@ def main():
     _RECENT[:] = state.get("recent_phrases", [])   # чтобы фразы не повторялись
     posted = set(state.get("posted_ids", []))
     tg = Telegram(token, chat, dry_run=args.dry_run)
+    if os.environ.get("EXTRA_POST") == "гид по каналу — опубликовать и закрепить":
+        import guide
+        guide.post(tg, guide.RUST)
+        return
 
     # сначала забираем новые голоса конкурса и обновляем живой счётчик
     if not args.dry_run:
