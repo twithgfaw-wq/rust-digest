@@ -1,9 +1,10 @@
 name: CS2 Digest
 
 # Канал @cs2_me: официальные новости CS2 из Steam, посты @CounterStrike из X
-# и онлайн. Бот тот же, что у Rust-канала (BOT_TOKEN). Расписание (каждые
-# 30 минут) включим после того, как будут одобрены примеры постов.
+# и онлайн. Каждые 30 минут; бот тот же, что у Rust-канала (BOT_TOKEN).
 on:
+  schedule:
+    - cron: "12,42 * * * *"
   workflow_dispatch:
     inputs:
       mode:
