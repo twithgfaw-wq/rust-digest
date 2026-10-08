@@ -32,6 +32,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
+import cs2_ai as ai
 import rust_digest_bot as bot
 
 APPID = 730
@@ -42,6 +43,8 @@ NEWS_URL = "https://store.steampowered.com/news/app/730/view/{gid}"
 X_NAME = "CounterStrike"
 ONLINE_POST_HOUR = 20            # ежедневная сводка онлайна — вечером по Киеву
 TAGS = "#cs2 #кс2 #counterstrike"
+RUBRIC_NEWS = "📰 НОВОСТИ CS2"   # у каждой рубрики своя узнаваемая шапка
+AI_NEWS_LIVE = False             # пересказ от Claude — после одобрения примера
 
 # ---------- стиль постов (как в Rust-канале) ----------
 
@@ -295,8 +298,46 @@ def build_blog_caption(item, chars, hook, outro, footer):
     return frame(hook, "", body, footer)
 
 
-def compose_news(item):
-    """Готовый пост: (картинка, подпись ≤ 1024) или (\"\", длинный текст)."""
+def safe_html(s):
+    """Текст от модели → безопасный Telegram HTML: оставляем только <b>,
+    <i> и ссылки, всё остальное экранируем."""
+    s = html.escape(html.unescape(s or ""), quote=False)
+    s = re.sub(r"&lt;(/?)(b|i)&gt;", r"<\1\2>", s)
+    s = re.sub(r'&lt;a href="(https?://[^"\s<>]+)"&gt;', r'<a href="\1">', s)
+    return s.replace("&lt;/a&gt;", "</a>").strip()
+
+
+def ai_news(item):
+    """Пост о новости, написанный Claude: (картинка, текст), "skip" для
+    совсем мелкого патча или None, если ИИ недоступен."""
+    kind = "патч" if is_patch(item) else "анонс"
+    link = NEWS_URL.format(gid=item["gid"])
+    res = ai.news_post(kind, item["title"], bb_strip(item["contents"]), link)
+    if not res:
+        return None
+    if not res.get("important"):
+        return "skip"
+    parts = [f"<b>{RUBRIC_NEWS} · {kind.upper()}</b>",
+             f"<b>{html.escape(res['headline'].strip())}</b>", "",
+             safe_html(res["body"])]
+    if res.get("market", "").strip():
+        parts += ["", f"💼 <b>Для рынка:</b> {safe_html(res['market'])}"]
+    parts += ["", f"🔗 <a href=\"{link}\">Первоисточник — Steam</a>", "",
+              bot.pick(FOOTERS).format(tag=CHANNEL_TAG), "#cs2 #новости_cs2"]
+    text = "\n".join(parts)
+    photo = HEADER if is_patch(item) else (bb_image(item["contents"]) or HEADER)
+    return (photo if visible_len(text) <= 1024 else ""), text
+
+
+def compose_news(item, use_ai=None):
+    """Готовый пост: (картинка, подпись ≤ 1024) или (\"\", длинный текст).
+    Сначала пробуем пересказ от Claude, иначе — шаблон с переводом."""
+    if use_ai is None:
+        use_ai = AI_NEWS_LIVE
+    if use_ai and ai.available():
+        out = ai_news(item)
+        if out:
+            return out
     outro, footer = bot.pick(NEWS_OUTROS), bot.pick(FOOTERS)
     if is_patch(item):
         hook = bot.pick(PATCH_HOOKS)
@@ -321,6 +362,9 @@ def send(tg, photo, text):
     res = tg.send_photo(photo, text) if photo else {}
     if not res.get("ok"):
         res = tg.send_message(text[:4096])
+    if not res.get("ok"):   # сломанная разметка — шлём без тегов
+        plain = html.escape(html.unescape(re.sub(r"<[^>]+>", "", text)))
+        res = tg.send_message(plain[:4096])
     return res
 
 
@@ -341,7 +385,12 @@ def post_steam_news(tg, state, now):
         seen += [i["gid"] for i in fresh if i not in keep]
         fresh = keep
     for item in sorted(fresh, key=lambda i: i["date"]):
-        photo, text = compose_news(item)
+        out = compose_news(item)
+        if out == "skip":
+            print("Мелкий технический патч — не публикуем:", item["gid"])
+            seen.append(item["gid"])
+            continue
+        photo, text = out
         if not send(tg, photo, text).get("ok"):
             break   # повторим со следующего запуска
         seen.append(item["gid"])
@@ -893,13 +942,25 @@ def demo(token, chat):
     """Примеры постов в лог — чтобы показать их до запуска канала."""
     check_rights(token, chat)
     items = fetch_announcements(30)
-    for item in (next((i for i in items if is_patch(i)), None),
-                 next((i for i in items if not is_patch(i)), None)):
+    patches = [i for i in items if is_patch(i)]
+    month = [i for i in patches if time.time() - i["date"] < 30 * 86400]
+    picks = (max(month or patches[:1], key=lambda i: len(i["contents"]),
+                 default=None),
+             patches[0] if patches else None,
+             next((i for i in items if not is_patch(i)), None))
+    for item in picks:
         if item:
-            photo, text = compose_news(item)
-            print(f"\n===== ПРИМЕР ({'патч' if is_patch(item) else 'анонс'},"
-                  f" картинка: {photo or 'нет — текстом'},"
-                  f" длина {visible_len(text)}) =====\n{text}")
+            out = compose_news(item, use_ai=True)
+            if out == "skip":
+                print(f"\n===== ПРИМЕР: «{item['title']}» "
+                      f"{kdate(item['date']):%d.%m} — Claude решил не публиковать"
+                      " (мелкий технический патч) =====")
+                continue
+            photo, text = out
+            print(f"\n===== ПРИМЕР ({'патч' if is_patch(item) else 'анонс'}"
+                  f" от {kdate(item['date']):%d.%m}, картинка: "
+                  f"{photo or 'нет — текстом'}, длина {visible_len(text)})"
+                  f" =====\n{text}")
     xt = os.environ.get("X_BEARER_TOKEN", "").strip()
     if xt:
         try:
