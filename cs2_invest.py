@@ -239,6 +239,7 @@ def write_post(top, context):
                                "median_1y", "buy_to", "peak", "peak_week",
                                "first_day", "first_price", "periods")}
         d["verdict"] = VERDICTS[m["verdict"]][1].lower()
+        d["cheap_but_still_falling"] = still_falling(m)
         data.append(d)
     prompt = f"""Рубрика «Инвестиции CS2»: ежедневный ТОП-5 кейсов и наборов.
 Читают обычные игроки, многие — школьники. Пиши очень просто, как другу,
@@ -248,7 +249,8 @@ def write_post(top, context):
 за неделю. buy_to — до какой цены брать выгодно. in_drop — предмет ещё
 выпадает в игре (запас растёт). periods — средние цены по полугодиям.
 Решение (verdict) уже принято по правилам — не меняй его и не придумывай
-своих чисел, бери только числа из данных.
+своих чисел, бери только числа из данных. cheap_but_still_falling — цена
+уже низкая, но всё ещё падает: поэтому «подождать», а не «брать».
 
 Контекст рынка контейнеров: {json.dumps(context, ensure_ascii=False)}
 Важное (проверено на данных CSFloat): с января 2026 старые кейсы вообще не
@@ -278,6 +280,8 @@ def fallback_why(m):
                 if m["in_drop"] else "Цена быстро падает последние месяцы")
     if m["verdict"] == "buy":
         return "Цена у нижней границы за год и не падает"
+    if m["now"] <= m["buy_to"]:
+        return "Цена низкая, но ещё снижается — лучше дождаться дна"
     return "Сейчас дороже выгодной цены — лучше дождаться скидки"
 
 
@@ -309,8 +313,15 @@ def visible_len(text):
     return len(plain.encode("utf-16-le")) // 2
 
 
+def still_falling(m):
+    """«Подождать», хотя цена уже в выгодной зоне: она ещё падает."""
+    return m["verdict"] == "watch" and m["now"] <= m["buy_to"]
+
+
 def advice(m):
-    """Что делать — одной строкой (для подписи и карточек)."""
+    """Что делать — одной строкой (для карточки)."""
+    if still_falling(m):
+        return "Цена уже низкая, но ещё падает — ждём, когда остановится"
     return {"buy": f"Хорошая цена — брать до {money(m['buy_to'])}",
             "watch": f"Дороговато. Ждём {money(m['buy_to'])} или дешевле",
             "avoid": ("Ещё выпадает в игре — предметов всё больше"
@@ -318,16 +329,22 @@ def advice(m):
             }[m["verdict"]]
 
 
+def hint(m):
+    """Что делать — коротко (обзор и подпись)."""
+    if still_falling(m):
+        return "ещё падает — ждём"
+    return {"buy": f"можно брать до {money(m['buy_to'])}",
+            "watch": f"ждём {money(m['buy_to'])}",
+            "avoid": ("ещё выпадает в игре" if m["in_drop"]
+                      else "цена падает")}[m["verdict"]]
+
+
 def make_cards(top, said, date):
     """Обзор ТОП-5 и по карточке на каждый предмет — пути к картинкам."""
     out, tmp = [], tempfile.gettempdir()
     overview = [{"name": short_name(m["name"]), "icon": m["icon"],
                  "verdict": m["verdict"], "price": money(m["now"]),
-                 "hint": {"buy": f"выгодно до {money(m['buy_to'])}",
-                          "watch": f"ждём {money(m['buy_to'])}",
-                          "avoid": ("ещё выпадает в игре" if m["in_drop"]
-                                    else "цена падает")}[m["verdict"]]}
-                for m in top]
+                 "hint": hint(m)} for m in top]
     path = os.path.join(tmp, "cs2_invest.jpg")
     try:
         if cards.top5_card("Инвестиции · ТОП-5 дня",
@@ -404,12 +421,9 @@ def compose(skinport, kyiv_now, recent=()):
     if (text.get("intro") or "").strip():
         lines += [html.escape(text["intro"].strip()), ""]
     for k, m in enumerate(top):
-        tail = {"buy": f"можно брать до {money(m['buy_to'])}",
-                "watch": f"ждём {money(m['buy_to'])}",
-                "avoid": "не брать"}[m["verdict"]]
         lines.append(f"{k + 1}. {VERDICTS[m['verdict']][0]} "
                      f"<b>{html.escape(short_name(m['name']))}</b> — "
-                     f"{money(m['now'])} · {tail}")
+                     f"{money(m['now'])} · {hint(m)}")
     lines += ["", "🟢 можно брать · 🟡 подождать · 🔴 не брать",
               "👉 Листай карточки: график и что может быть дальше",
               "<i>Не финансовый совет. Цены — продажи на CSFloat.</i>", "",
