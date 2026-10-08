@@ -168,8 +168,9 @@ def save(img, W, H, path):
 
 
 def plain(text):
-    """Символов ★ и ≈ нет в Roboto — на картинке они стали бы квадратиками."""
-    return (text or "").replace("★ ", "").replace("★", "").replace("≈", "~")
+    """Символов ★, ≈, ₽ и ₴ нет в Roboto — на картинке стали бы квадратиками."""
+    return ((text or "").replace("★ ", "").replace("★", "").replace("≈", "~")
+            .replace("₽", " руб").replace("₴", " грн"))
 
 
 def wrap(draw, text, fnt, width, lines=2):
