@@ -11,7 +11,8 @@
   • сколько скинов уже вышло, когда последний и ждут ли ещё работы этой
     коллекции в мастерской.
 Места — по «оценке»: медиана, притянутая к обычному скину (см. analyze).
-Запуск: python rust_collections.py (COLL_DRY=1 — только лог и картинка).
+Запуск: python rust_collections.py (COLL_DRY=1 — только лог и картинка;
+COLL_MONTHLY=1 — только в первый вторник месяца, для расписания).
 """
 import html
 import json
@@ -342,6 +343,9 @@ def build(footer):
 
 
 def main():
+    if os.environ.get("COLL_MONTHLY") == "1" and bot.kyiv_time().day > 7:
+        print("Не первый вторник месяца — рубрика выходит раз в месяц.")
+        return
     dry = os.environ.get("COLL_DRY") == "1"
     channel = os.environ.get("CHANNEL", "")
     if channel.startswith("@"):
