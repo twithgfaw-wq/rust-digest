@@ -599,7 +599,7 @@ def fetch_skinport():
 
 def price_moves(items):
     """Ходовые предметы: цена за 7 дней против цены за 30 дней и движение
-    за сутки (если за сутки было хотя бы 5 продаж)."""
+    за сутки (если за сутки было хотя бы 10 продаж)."""
     out = []
     for i in items:
         w = i.get("last_7_days") or {}
@@ -614,7 +614,7 @@ def price_moves(items):
         if abs(ch) > 0.8 and w["volume"] < 25:   # пара странных сделок
             continue
         day = (d["median"] / w["median"] - 1
-               if d.get("median") and (d.get("volume") or 0) >= 5 else None)
+               if d.get("median") and (d.get("volume") or 0) >= 10 else None)
         out.append({"name": i["market_hash_name"], "now": w["median"],
                     "was": m["median"], "ch": ch, "day": day,
                     "sales": w["volume"]})
@@ -799,13 +799,16 @@ def compose_prices(kt):
                                 + [line(m) for m in downs[:3]]))
     # дополнительные строки — по важности; не влезут — отрежем с конца
     extras = []
-    cases = [m for m in moves if m["name"].endswith(" Case")]
+    shown = {m["name"] for m in ups[:3] + downs[:3]}
+    cases = [m for m in moves
+             if m["name"].endswith(" Case") and m["name"] not in shown]
     if cases:
         top = max(cases, key=lambda m: abs(m["ch"]))
         if abs(top["ch"]) >= 0.03:
             extras.append(f"📦 Кейс недели: {link(top)} {pct(top['ch'])}"
                           f" ({usd(top['now'])})")
-    day = [m for m in moves if m["day"] is not None and abs(m["day"]) >= 0.05]
+    day = [m for m in moves if m["day"] is not None and abs(m["day"]) >= 0.05
+           and m["name"] not in shown]
     if day:
         d = max(day, key=lambda m: abs(m["day"]))
         extras.append(f"⚡ За сутки сильнее всех: {link(d)} {pct(d['day'])}")
