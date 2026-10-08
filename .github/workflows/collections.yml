@@ -31,7 +31,7 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHANNEL: ${{ secrets.CHANNEL }}
-          COLL_DRY: ${{ inputs.publish && '' || '1' }}
+          COLL_DRY: ${{ inputs.publish && '0' || '1' }}
         run: |
           pip install --quiet pillow
           python rust_collections.py
