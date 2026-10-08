@@ -167,10 +167,15 @@ def save(img, W, H, path):
     return True
 
 
+def plain(text):
+    """Символов ★ и ≈ нет в Roboto — на картинке они стали бы квадратиками."""
+    return (text or "").replace("★ ", "").replace("★", "").replace("≈", "~")
+
+
 def wrap(draw, text, fnt, width, lines=2):
     """Перенос по словам в ширину width (лишнее — «…»)."""
     out, cur = [], ""
-    for word in (text or "").split():
+    for word in plain(text).split():
         t = f"{cur} {word}".strip()
         if not cur or draw.textlength(t, font=fnt) <= p(width):
             cur = t
@@ -212,6 +217,7 @@ def place_item(img, im, cx, cy, bw, bh):
 def item_name(draw, cx, y, name, rarity, size, width):
     """«AK-47 | Blue Laminate · FN»: оружие серым, скин — цветом редкости,
     как подписи на постерах кейсов. Одна строка по центру."""
+    name = plain(name)
     a, b = (name.split(" | ", 1) if " | " in name else (name, ""))
     a = a + " | " if b else a
     f = font(size)
@@ -469,7 +475,7 @@ def stat_tiles(img, draw, W, y, tiles):
                   anchor="mm")
         draw.text((p(cx), p(y + 74)), value, font=font(44, True), fill=color,
                   anchor="mm")
-        draw.text((p(cx), p(y + 110)), sub, font=font(19), fill=MUTED,
+        draw.text((p(cx), p(y + 110)), plain(sub), font=font(19), fill=MUTED,
                   anchor="mm")
 
 
