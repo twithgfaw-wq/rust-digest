@@ -193,7 +193,7 @@ def compose_case(st, channel_tag):
              ("В среднем вернётся", money(st["ev"]),
               f"{ratio * 100:.0f}% от потраченного", color),
              ("Шанс окупить", f"{st['win'] * 100:.0f}%",
-              f"≈ {odds_text(st['win'])}", cards.TEXT)]
+              f"примерно {odds_text(st['win'])}", cards.TEXT)]
     tiers = [(t["color"], t["label"],
               f"шанс {t['chance'] * 100:.2f}%".replace(".", ","),
               f"~{money(t['avg'])}", t["image"], f"лучший: {t['best']}")
@@ -212,8 +212,8 @@ def compose_case(st, channel_tag):
              f"Вернётся в среднем {money(st['ev'])}.",
              f"Потратил $10 на {c['name']} — в среднем получил обратно "
              f"${back:.2f}.",
-             f"{c['name']}: окупится примерно {odds_text(st['win'])} "
-             "открытий."]
+             f"{c['name']}: в плюс выходит примерно одно открытие из "
+             f"{max(1, round(1 / st['win'])) if st['win'] else 'тысяч'}."]
     syn = st["tiers"][0]
     lines = [f"<b>🎰 ОТКРЫВАТЬ ИЛИ НЕТ?</b>",
              f"<b>{html.escape(bot.pick(hooks))}</b>", "",
@@ -306,8 +306,10 @@ def compose_skin(s, skinport, date, channel_tag):
                  "description") or "").replace("\\n", " "))[:900],
              "valve_quote": lore(s),
              "prices_by_wear_usd": {a: round(v, 2) for a, v in wears},
-             "price_history_weekly": [round(p, 2) for p in spark[::8]],
-             "history_since": days[0] if days else None}
+             "history_for": main,
+             "history_since": days[0] if days else None,
+             "history_peak_usd": round(max(spark), 2) if spark else None,
+             "history_now_usd": round(spark[-1], 2) if spark else None}
     res = ai.ask(f"""Рубрика «Скин дня» в канале @cs2_me. Читают обычные игроки,
 многие — школьники: пиши просто, живо, как другу. Вот факты о скине:
 {json.dumps(facts, ensure_ascii=False)}
@@ -318,7 +320,9 @@ def compose_skin(s, skinport, date, channel_tag):
 - fact: 1–2 предложения до 170 знаков для картинки — самое интересное из
   описания Valve (переведи по-русски, можно пересказать подпись) или из цен.
 - text: 2–3 коротких предложения до 330 знаков для подписи: что за скин,
-  чем интересен, что видно по ценам. Только из фактов, ничего не придумывай.""",
+  чем интересен, что видно по ценам. Только из фактов, ничего не придумывай.
+  Пик и цена «сейчас» — для износа из history_for. Без слов «точка»,
+  «история цен», «Classified» — пиши «на пике стоил», «сейчас», «редкий».""",
                  SOD_SCHEMA, effort="medium") or {}
     hook = (res.get("hook") or f"{s['name']} — скин дня").strip()
     fact = (res.get("fact") or lore(s) or "Один из самых популярных скинов "
@@ -399,7 +403,7 @@ def duel_side(n, price, s, line, line_color=None):
 
 def compose_duel(pair, channel_tag, date):
     """Новый опрос: (подпись, картинка, вопрос, варианты)."""
-    sides = [duel_side(n, p, s, "цена за неделю") for n, p, s in pair]
+    sides = [duel_side(n, p, s, "средняя цена недели") for n, p, s in pair]
     card = os.path.join(tempfile.gettempdir(), "cs2_duel.jpg")
     try:
         ok = cards.duel_card(card, "Угадай цену", f"{date} · новая неделя",
