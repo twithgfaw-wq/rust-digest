@@ -82,6 +82,9 @@ def cs2_items(sp, n=4, lo=2.0, hi=400.0, vol=60):
         name = i["market_hash_name"]
         if (w.get("median") and lo <= w["median"] <= hi
                 and (w.get("volume") or 0) >= vol and " | " in name
+                and name.endswith(("(Factory New)", "(Minimal Wear)",
+                                   "(Field-Tested)", "(Well-Worn)",
+                                   "(Battle-Scarred)"))   # только скины оружия
                 and "Sticker" not in name and "★" not in name):
             out.append((name, w["median"]))
     return out
