@@ -42,11 +42,12 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHANNEL: "@cs2_me"
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CS2_DRY: ${{ inputs.mode == 'тест (ничего не отправлять)' && '1' || '' }}
           CS2_DEMO: ${{ inputs.mode == 'примеры постов в лог' && '1' || '' }}
           CS2_PRICES: ${{ inputs.mode == 'сводка цен сейчас' && '1' || '' }}
         run: |
-          pip install --quiet pillow brotli
+          pip install --quiet pillow brotli anthropic
           python cs2_bot.py
 
       - name: Сохранить состояние
