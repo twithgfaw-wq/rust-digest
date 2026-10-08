@@ -179,7 +179,9 @@ def compose(w, author, author_info, res):
     lines = [f"<b>{RUBRIC}</b>", f"<b>{html.escape(res['title_ru'])}</b>",
              f"👤 {html.escape(author or 'автор')} · {badge}", "",
              res["text"].strip(), "",
-             f"👍 {bot.fmt_num(w['up'])} · ⭐ {bot.fmt_num(w['favs'])} в избранном",
+             (f"👍 {bot.fmt_num(w['up'])} · " if w["up"] else "")
+             + f"⭐ {bot.fmt_num(w['favs'])} в избранном · "
+             f"👁 {bot.fmt_num(w['views'])} просмотров",
              f"🔗 <a href=\"{w['url']}\">Работа в мастерской</a>", "",
              "#cs2 #мастерская_cs2"]
     return "\n".join(lines)
