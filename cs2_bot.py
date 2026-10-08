@@ -1062,10 +1062,10 @@ def community_tick(tg, state, now, forced=False):
 
 # ---------- новые рубрики (cs2_formats.py) ----------
 
-FORMATS_LIVE = False             # по расписанию — после одобрения примеров
+FORMATS_LIVE = True              # одобрено 08.10
 SOD_HOUR = 11                    # ✨ скин дня — каждый день
 CASE_DAY, CASE_HOUR = 2, 19      # 🎰 открывать или нет — среда
-DUEL_DAY, DUEL_HOUR = 0, 19      # 🗳 угадай цену — понедельник
+DUEL_DAY, DUEL_HOUR = 3, 19      # 🗳 угадай цену — четверг (старт 08.10)
 REPORT_DAY, REPORT_HOUR = 6, 15  # 📒 мы советовали — воскресенье
 
 
@@ -1105,6 +1105,8 @@ def duel_round(tg, state, kt):
     """Итог прошлого опроса (если был) и новый опрос."""
     sp, date = fetch_skinport(), kt.strftime("%d.%m")
     old = state.get("duel")
+    if old and time.time() - old.get("ts", 0) < 5 * 86400:
+        return True       # прошлый опрос ещё идёт: итог — через неделю
     if old:
         votes = None
         if old.get("poll_id"):
@@ -1129,7 +1131,7 @@ def duel_round(tg, state, kt):
         "chat_id": tg.chat, "question": question, "is_anonymous": "true",
         "options": json.dumps([{"text": o} for o in options],
                               ensure_ascii=False)})
-    state["duel"] = {"date": date,
+    state["duel"] = {"date": date, "ts": int(time.time()),
                      "poll_id": (res.get("result") or {}).get("message_id"),
                      "items": [{"name": n, "price": p} for n, p, _ in pair]}
     state["duel_used"] = (state.get("duel_used", [])
