@@ -457,3 +457,327 @@ def report_card(out_path, badge, rows, summary):
     bar(draw, (51, y1 - 67, W - 51, y1 - 3), summary)
     footer(draw, W, H, "цены: маркет Steam · rust.scmm.app")
     return save(img, W, H, out_path)
+
+
+# ---------- инвест-разбор недельного выпуска ----------
+
+def arrow(draw, x, cy, up, color, size=16):
+    """Треугольник ▲/▼, а при up=None — ► «около нуля» (в Roboto таких
+    знаков нет)."""
+    h = size * 0.9
+    if up is None:
+        pts = [(x, cy - size / 2), (x, cy + size / 2), (x + h, cy)]
+    elif up:
+        pts = [(x, cy + h / 2), (x + size, cy + h / 2), (x + size / 2, cy - h / 2)]
+    else:
+        pts = [(x, cy - h / 2), (x + size, cy - h / 2), (x + size / 2, cy + h / 2)]
+    draw.polygon([(p(a), p(b)) for a, b in pts], fill=color)
+
+
+def dots(draw, x, cy, n, color, rest=None, r=8, step=22):
+    """10 кружков «шанс N из 10»: n закрашено, остальные пустые или rest."""
+    for i in range(10):
+        cx = x + r + i * step
+        box = (p(cx - r), p(cy - r), p(cx + r), p(cy + r))
+        if i < n:
+            draw.ellipse(box, fill=color)
+        elif rest:
+            draw.ellipse(box, fill=rest)
+        else:
+            draw.ellipse(box, outline=(110, 104, 96), width=p(2))
+
+
+def invest_card(out_path, badge, subtitle, sections, example, note,
+                foot="rust.scmm.app · история недельных скинов"):
+    """Инвест-разбор списком — крупно, чтобы читалось с телефона: разделы
+    «можно брать / подумать / не стоит», в строке — скин, цена в магазине,
+    прибыль после комиссии и «шанс N из 10». sections: [(заголовок, цвет,
+    строки dict: name, image, price, net, up (None — около нуля), n10,
+    note, ncolor)]; example: net, back, n10 — для блока «как читать»."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W, RH, SH = 1200, 132, 62
+    n = sum(len(rows) for _, _, rows in sections)
+    top = 120
+    y = top + 150
+    H = y + len(sections) * (SH + 8) + n * RH + 24 + 196 + 64 + 6 + 70
+    img, draw = canvas(W, H)
+    nav(draw, W, "ИНВЕСТИЦИИ")
+    y1 = H - 70
+    panel(img, draw, (48, top, W - 48, y1), "ИНВЕСТ-РАЗБОР", badge)
+    draw.text((p(76), p(top + 112)), subtitle.upper(), font=font(21),
+              fill=MUTED, anchor="lm")
+    for head, color, rows in sections:
+        draw.rectangle((p(76), p(y), p(W - 76), p(y + SH)),
+                       fill=tuple(int(c * 0.22 + 20) for c in color))
+        draw.rectangle((p(76), p(y), p(84), p(y + SH)), fill=color)
+        draw.text((p(104), p(y + SH / 2)), head.upper(), font=font(30, True),
+                  fill=color, anchor="lm")
+        cnt = f"{len(rows)}"
+        draw.text((p(W - 100), p(y + SH / 2)), cnt, font=font(30, True),
+                  fill=color, anchor="rm")
+        y += SH + 8
+        for r in rows:
+            img.paste(gradient(p(112), p(112), *RED_TILE), (p(76), p(y + 6)))
+            base.place_item(img, fetch_image(r.get("image")), 132, y + 62, 96,
+                            96)
+            x, w = 208, 560
+            name = wrap(draw, r["name"].upper(), font(32, True), w, 1)[0]
+            draw.text((p(x), p(y + 36)), name, font=font(32, True), fill=WHITE,
+                      anchor="lm")
+            draw.text((p(x), p(y + 76)), f"в магазине {r['price']}".upper(),
+                      font=font(22), fill=MUTED, anchor="lm")
+            if r.get("note"):
+                draw.text((p(x), p(y + 108)),
+                          wrap(draw, r["note"], font(21, True), w, 1)[0],
+                          font=font(21, True),
+                          fill=tuple(r.get("ncolor") or MUTED),
+                          anchor="lm")
+            rx = 800
+            arrow(draw, rx, y + 42, r.get("up", True), color, 26)
+            draw.text((p(rx + 38), p(y + 42)), r["net"], font=font(56, True),
+                      fill=color, anchor="lm")
+            dots(draw, rx, y + 98, r["n10"], color)
+            draw.text((p(rx + 228), p(y + 98)), f"шанс {r['n10']}/10",
+                      font=font(22, True), fill=color, anchor="lm")
+            draw.line((p(76), p(y + RH - 1), p(W - 76), p(y + RH - 1)),
+                      fill=(66, 56, 38), width=p(1))
+            y += RH
+    # как читать
+    y += 24
+    half = (W - 152 - 24) / 2
+    good, bad = (61, 220, 132), (255, 82, 82)
+    for i in range(2):
+        bx = 76 + i * (half + 24)
+        base.overlay(img, "rectangle", (p(bx), p(y), p(bx + half), p(y + 180)),
+                     (0, 0, 0, 90))
+    tx = 100
+    draw.text((p(tx), p(y + 36)), f"{example['net']} — ЭТО", font=font(28, True),
+              fill=WHITE, anchor="lm")
+    draw.text((p(tx), p(y + 76)), "купил в магазине, продал через 7 дней,",
+              font=font(22), fill=MUTED, anchor="lm")
+    draw.text((p(tx), p(y + 104)), "комиссия Steam уже вычтена:", font=font(22),
+              fill=MUTED, anchor="lm")
+    ok = example["back"] >= 100
+    draw.text((p(tx), p(y + 146)), "ВЛОЖИЛ 100", font=font(26, True),
+              fill=WHITE, anchor="lm")
+    vx = tx + draw.textlength("ВЛОЖИЛ 100", font=font(26, True)) / S + 18
+    arrow(draw, vx, y + 146, None, MUTED, 18)
+    vx += 36
+    draw.text((p(vx), p(y + 146)), f"ВЕРНУЛОСЬ {example['back']}",
+              font=font(26, True), fill=good if ok else bad, anchor="lm")
+    rx = 76 + half + 24 + 24
+    n10 = example["n10"]
+    draw.text((p(rx), p(y + 36)), f"ШАНС {n10} ИЗ 10 — ЭТО", font=font(28, True),
+              fill=WHITE, anchor="lm")
+    draw.text((p(rx), p(y + 76)), "из 10 похожих скинов прошлых недель",
+              font=font(22), fill=MUTED, anchor="lm")
+    draw.text((p(rx), p(y + 104)), f"{n10} продались в плюс, {10 - n10} — в минус",
+              font=font(22), fill=MUTED, anchor="lm")
+    dots(draw, rx, y + 146, n10, good, rest=bad, r=10, step=27)
+    bar(draw, (51, y1 - 67, W - 51, y1 - 3), note)
+    footer(draw, W, H, foot)
+    return save(img, W, H, out_path)
+
+
+# ---------- мастерская: топ недели и конкурс ----------
+
+def safe_text(text):
+    """Без эмодзи и значков: в Roboto их нет — были бы квадратики."""
+    import unicodedata
+    out = "".join(ch for ch in (text or "") if ord(ch) <= 0xFFFF
+                  and unicodedata.category(ch) not in ("So", "Cs", "Co", "Cn")
+                  and not 0xFE00 <= ord(ch) <= 0xFE0F and ch != "\u200d")
+    return " ".join(out.split())
+
+
+def trim(im):
+    """Обрезаем чёрные/однотонные поля вокруг картинки (letterbox)."""
+    from PIL import Image, ImageChops
+    rgb = im.convert("RGB")
+    corner = rgb.getpixel((0, 0))
+    if sum(corner) > 90:
+        return im
+    diff = ImageChops.difference(rgb, Image.new("RGB", rgb.size, corner))
+    box = diff.convert("L").point(lambda v: 255 if v > 14 else 0).getbbox()
+    if box and (box[2] - box[0]) * (box[3] - box[1]) < 0.92 * im.width * im.height:
+        return im.crop(box)
+    return im
+
+
+def photo(img, url, box):
+    """Картинка работы из мастерской — во всю рамку, лишнее обрезаем."""
+    from PIL import Image
+    x0, y0, x1, y1 = box
+    w, h = p(x1 - x0), p(y1 - y0)
+    bg = Image.new("RGBA", (w, h), (24, 22, 20, 255))
+    im = fetch_image(url)
+    if im is not None:
+        im = trim(im)
+        k = max(w / im.width, h / im.height)
+        im = im.resize((max(1, int(im.width * k)), max(1, int(im.height * k))),
+                       Image.LANCZOS)
+        left, up = (im.width - w) // 2, (im.height - h) // 2
+        bg.alpha_composite(im.crop((left, up, left + w, up + h)))
+    img.paste(bg, (p(x0), p(y0)))
+
+
+def shade(img, box, strength=200):
+    """Затемнение снизу вверх — чтобы текст поверх картинки читался."""
+    from PIL import Image
+    x0, y0, x1, y1 = box
+    mask = Image.linear_gradient("L").resize((p(x1 - x0), p(y1 - y0)))
+    mask = mask.point(lambda v: v * strength // 255)
+    layer = Image.new("RGBA", mask.size, (12, 10, 9, 255))
+    layer.putalpha(mask)
+    img.alpha_composite(layer, (p(x0), p(y0)))
+
+
+def medal(draw, cx, cy, n, r=30):
+    """Кружок с местом: 0–2 — золото, серебро, бронза; дальше — красный
+    кружок с номером n − 2 (номера конкурса 1–5)."""
+    colors = [(232, 186, 62), (200, 205, 214), (205, 128, 62)]
+    c = colors[n] if n < 3 else RED
+    draw.ellipse((p(cx - r), p(cy - r), p(cx + r), p(cy + r)), fill=c,
+                 outline=(16, 12, 10), width=p(3))
+    draw.text((p(cx), p(cy)), str(n + 1 if n < 3 else n - 2),
+              font=font(int(r * 1.2), True), fill=INK if n < 3 else WHITE,
+              anchor="mm")
+
+
+def votes(draw, x, y, up, down, size=26):
+    """▲ 1 234  ▼ 56  · 96% лайков."""
+    f = font(size, True)
+    arrow(draw, x, y, True, (98, 200, 80), size * 0.7)
+    x += size * 0.7 + 10
+    t = f"{up:,}".replace(",", " ")
+    draw.text((p(x), p(y)), t, font=f, fill=WHITE, anchor="lm")
+    x += draw.textlength(t, font=f) / S + 24
+    arrow(draw, x, y, False, (230, 80, 64), size * 0.7)
+    x += size * 0.7 + 10
+    t = f"{down:,}".replace(",", " ")
+    draw.text((p(x), p(y)), t, font=f, fill=WHITE, anchor="lm")
+    x += draw.textlength(t, font=f) / S + 24
+    if up + down:
+        draw.text((p(x), p(y)), f"{round(100 * up / (up + down))}% ЗА",
+                  font=font(size - 4, True), fill=GOLD, anchor="lm")
+
+
+def top_card(out_path, badge, works, bar_text):
+    """Топ-3 недели в мастерской: №1 крупно (картинка + цифры справа),
+    №2 и №3 рядом снизу. works — dict: title, author, image, up, down,
+    category."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W, top = 1200, 120
+    H = top + 108 + 560 + 24 + 512 + 24 + 64 + 6 + 70
+    img, draw = canvas(W, H)
+    nav(draw, W, "МАСТЕРСКАЯ")
+    y1 = H - 70
+    panel(img, draw, (48, top, W - 48, y1), "ТОП-3 НЕДЕЛИ", badge)
+    if works:
+        it, y = works[0], top + 108
+        photo(img, it["image"], (76, y, 636, y + 560))
+        draw.rectangle((p(76), p(y), p(636), p(y + 560)), outline=GOLD,
+                       width=p(3))
+        medal(draw, 120, y + 44, 0, 34)
+        x, w = 664, W - 76 - 664
+        draw.text((p(x), p(y + 24)), "1 МЕСТО НЕДЕЛИ", font=font(24, True),
+                  fill=GOLD, anchor="lt")
+        yy = y + 70
+        for line in wrap(draw, safe_text(it["title"]).upper(), font(44, True),
+                         w, 3):
+            draw.text((p(x), p(yy)), line, font=font(44, True), fill=WHITE,
+                      anchor="lt")
+            yy += 52
+        draw.text((p(x), p(yy + 14)),
+                  wrap(draw, "автор: " + (safe_text(it["author"]) or "—"),
+                       font(26), w, 1)[0],
+                  font=font(26), fill=MUTED, anchor="lt")
+        yy += 80
+        draw.text((p(x), p(yy)), "ОЦЕНКИ ИГРОКОВ STEAM", font=font(19),
+                  fill=MUTED, anchor="lt")
+        votes(draw, x, yy + 48, it["up"], it["down"], 30)
+        total = it["up"] + it["down"]
+        if total:
+            by = yy + 90
+            share = it["up"] / total
+            draw.rectangle((p(x), p(by), p(x + w), p(by + 14)),
+                           fill=(150, 54, 42))
+            draw.rectangle((p(x), p(by), p(x + w * share), p(by + 14)),
+                           fill=(98, 200, 80))
+            draw.text((p(x), p(by + 40)),
+                      f"{round(share * 10)} из 10 игроков — «за»".upper(),
+                      font=font(22, True), fill=WHITE, anchor="lm")
+        if it.get("category"):
+            f = font(20, True)
+            cw = draw.textlength(it["category"].upper(), font=f) / S + 28
+            draw.rectangle((p(x), p(y + 500), p(x + cw), p(y + 536)),
+                           fill=(116, 32, 25))
+            draw.text((p(x + cw / 2), p(y + 518)), it["category"].upper(),
+                      font=f, fill=WHITE, anchor="mm")
+    tw = (W - 152 - 24) / 2
+    for k, it in enumerate(works[1:3], start=1):
+        x0, y0 = 76 + (k - 1) * (tw + 24), top + 108 + 560 + 24
+        photo(img, it["image"], (x0, y0, x0 + tw, y0 + 512))
+        shade(img, (x0, y0 + 260, x0 + tw, y0 + 512), 245)
+        draw.rectangle((p(x0), p(y0), p(x0 + tw), p(y0 + 512)),
+                       outline=(16, 12, 10), width=p(2))
+        medal(draw, x0 + 40, y0 + 40, k, 28)
+        names = wrap(draw, safe_text(it["title"]).upper(), font(32, True),
+                     tw - 40, 2)
+        ny = y0 + 512 - 106 - 38 * (len(names) - 1)
+        for line in names:
+            draw.text((p(x0 + 20), p(ny)), line, font=font(32, True),
+                      fill=WHITE, anchor="ls")
+            ny += 38
+        draw.text((p(x0 + 20), p(y0 + 512 - 66)),
+                  wrap(draw, "автор: " + (safe_text(it["author"]) or "—"),
+                       font(21), tw - 40, 1)[0],
+                  font=font(21), fill=MUTED, anchor="ls")
+        votes(draw, x0 + 20, y0 + 512 - 32, it["up"], it["down"], 24)
+    bar(draw, (51, y1 - 67, W - 51, y1 - 3), bar_text)
+    footer(draw, W, H, "оценки Steam · micro522.com")
+    return save(img, W, H, out_path)
+
+
+def contest_card(out_path, badge, works, bar_text):
+    """Конкурс «угадай, кого примут»: 5 работ с номерами 1–5 (3 + 2).
+    works — dict: title, author, image."""
+    try:
+        import PIL  # noqa: F401
+    except Exception:
+        return False
+    W, top, gap = 1200, 120, 16
+    tw = (W - 152 - 2 * gap) / 3
+    H = top + 108 + 2 * tw + gap + 16 + 64 + 6 + 70
+    img, draw = canvas(W, H)
+    nav(draw, W, "МАСТЕРСКАЯ")
+    y1 = H - 70
+    panel(img, draw, (48, top, W - 48, y1), "КОГО ПРИМУТ В ИГРУ?", badge)
+    for i, it in enumerate(works[:5]):
+        row, col = divmod(i, 3)
+        in_row = 3 if row == 0 else len(works[3:5])
+        x0 = 76 + (3 - in_row) * (tw + gap) / 2 + col * (tw + gap)
+        y0 = top + 108 + row * (tw + gap)
+        photo(img, it["image"], (x0, y0, x0 + tw, y0 + tw))
+        shade(img, (x0, y0 + tw * 0.62, x0 + tw, y0 + tw), 230)
+        draw.rectangle((p(x0), p(y0), p(x0 + tw), p(y0 + tw)),
+                       outline=(16, 12, 10), width=p(2))
+        medal(draw, x0 + 38, y0 + 38, i + 3, 28)
+        draw.text((p(x0 + 16), p(y0 + tw - 46)),
+                  wrap(draw, safe_text(it["title"]).upper(), font(24, True),
+                       tw - 32, 1)[0],
+                  font=font(24, True), fill=WHITE, anchor="ls")
+        if safe_text(it.get("author")):
+            draw.text((p(x0 + 16), p(y0 + tw - 16)),
+                      wrap(draw, safe_text(it["author"]), font(19), tw - 32,
+                           1)[0],
+                      font=font(19), fill=MUTED, anchor="ls")
+    bar(draw, (51, y1 - 67, W - 51, y1 - 3), bar_text)
+    footer(draw, W, H, "работы из мастерской Steam")
+    return save(img, W, H, out_path)
