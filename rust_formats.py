@@ -127,14 +127,39 @@ def bb_image(s):
                               "https://clan.fastly.steamstatic.com/images")
 
 
+STORE_EVENTS = ("https://store.steampowered.com/events/"
+                "ajaxgetpartnereventspageable/?clan_accountid=0&appid=252490"
+                "&offset=0&count=5&l=english")
+
+
 def fetch_news(n=6):
+    """Steam News API + лента страницы новостей Steam (store): там посты
+    Facepunch появляются сразу, в API — иногда на несколько минут позже."""
     data = bot.http_get_json(NEWS.format(n=n), timeout=20)
-    return [{"id": "news_" + str(i.get("gid")), "title": i.get("title") or "",
-             "url": i.get("url") or "", "date": i.get("date") or 0,
-             "contents": i.get("contents") or "",
-             "official": i.get("feedname") == OFFICIAL,
-             "source": i.get("feedlabel") or "Steam"}
-            for i in (data.get("appnews") or {}).get("newsitems") or []]
+    out = [{"id": "news_" + str(i.get("gid")), "title": i.get("title") or "",
+            "url": i.get("url") or "", "date": i.get("date") or 0,
+            "contents": i.get("contents") or "",
+            "official": i.get("feedname") == OFFICIAL,
+            "source": i.get("feedlabel") or "Steam"}
+           for i in (data.get("appnews") or {}).get("newsitems") or []]
+    # из store берём только то, что новее всего в API (API отстаёт) —
+    # старые записи не повторяем
+    newest = max((i["date"] for i in out), default=0)
+    try:
+        for e in bot.http_get_json(STORE_EVENTS, timeout=20).get("events") or []:
+            b = e.get("announcement_body") or {}
+            t = int(b.get("posttime") or 0)
+            if t > newest:
+                gid = str(b.get("gid") or e.get("gid"))
+                out.append({"id": "news_" + gid,
+                            "title": b.get("headline") or "", "date": t,
+                            "url": "https://store.steampowered.com/news/app/"
+                                   "252490/view/" + gid,
+                            "contents": b.get("body") or "", "official": True,
+                            "source": "Steam"})
+    except Exception as e:
+        print("Лента новостей Steam (store) не загрузилась:", e)
+    return out
 
 
 def news_post(item):
@@ -188,7 +213,9 @@ def post_news(tg, posted, dry=False):
     except Exception as e:
         print("Новости Steam не загрузились:", e)
         return
+    # одна запись в API и в ленте store — с одним временем публикации
     fresh = [i for i in items if i["id"] not in posted
+             and f"newsdate_{i['date']}" not in posted
              and time.time() - i["date"] < 3 * DAY]
     if not fresh:
         print("Новых официальных новостей нет.")
@@ -198,14 +225,14 @@ def post_news(tg, posted, dry=False):
             return                     # Claude не ответил — повторим позже
         if out == "skip":
             print("Мелкая новость — пропускаем:", item["title"])
-            posted.add(item["id"])
+            posted.update({item["id"], f"newsdate_{item['date']}"})
             continue
         photo, text = out
         res = tg.send_photo(photo, text) if photo else {}
         if not res.get("ok"):
             res = tg.send_message(text)
         if dry or res.get("ok"):
-            posted.add(item["id"])
+            posted.update({item["id"], f"newsdate_{item['date']}"})
         time.sleep(2)
 
 
