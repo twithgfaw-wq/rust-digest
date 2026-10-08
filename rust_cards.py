@@ -87,7 +87,7 @@ def bar(draw, box, text, gold=True):
     x0, y0, x1, y1 = box
     draw.rectangle((p(x0), p(y0), p(x1), p(y1)),
                    fill=GOLD if gold else (78, 75, 70))
-    draw.text((p((x0 + x1) / 2), p((y0 + y1) / 2)), text.upper(),
+    draw.text((p((x0 + x1) / 2), p((y0 + y1) / 2)), base.plain(text).upper(),
               font=font(24, True), fill=INK if gold else WHITE, anchor="mm")
 
 
