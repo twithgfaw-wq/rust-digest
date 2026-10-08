@@ -1259,12 +1259,20 @@ def post_store_news(tg, state):
         state["store_seen"] = sorted(usd)
         return
     known = set(seen)
-    fresh = [i for i in usd if i not in known]
-    if not fresh:
+    new_ids = [i for i in usd if i not in known]
+    if not new_ids:
         return
-    if len(fresh) > 30:   # почти весь магазин «новый» — сбой выдачи, не спамим
-        print(f"Подозрительно много новинок магазина ({len(fresh)}) — пропускаю.")
-        state["store_seen"] = (seen + fresh)[-3000:]
+    if len(new_ids) > 30:   # почти весь магазин «новый» — сбой выдачи, не спамим
+        print(f"Подозрительно много новинок магазина ({len(new_ids)}) — пропускаю.")
+        state["store_seen"] = (seen + new_ids)[-3000:]
+        return
+    # только недельные скины мастерской (номера от 20000, сейчас 709xx):
+    # DLC-наборы, строительные скины и постоянные товары (10xxx) давно в игре
+    fresh = [i for i in new_ids if i.isdigit() and int(i) >= 20000]
+    if not fresh:
+        print("В магазине новые постоянные товары/DLC — не публикуем:",
+              ", ".join(usd[i]["name"] for i in new_ids))
+        state["store_seen"] = (seen + new_ids)[-3000:]
         return
     cur = {"us": usd}
     for cc in ("ru", "ua"):
@@ -1309,7 +1317,7 @@ def post_store_news(tg, state):
     if not res.get("ok"):   # картинки не прошли или текст длинный — просто текстом
         res = tg.send_message(text)
     if res.get("ok"):
-        state["store_seen"] = (seen + fresh)[-3000:]
+        state["store_seen"] = (seen + new_ids)[-3000:]
 
 # ---------- новости из X (официальный @playrust) ----------
 # Читаем через официальный X API: оплата за использование, ~$0.005 за твит,
