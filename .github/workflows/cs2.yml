@@ -19,6 +19,8 @@ on:
           - пример мастерской
           - пример сообщества
           - запуск — по одному посту каждой рубрики
+          - пример новых рубрик
+          - новые рубрики — выложить сейчас
         default: обычный
 
 permissions:
@@ -54,6 +56,8 @@ jobs:
           CS2_DEMO_WORKSHOP: ${{ inputs.mode == 'пример мастерской' && '1' || '' }}
           CS2_DEMO_COMMUNITY: ${{ inputs.mode == 'пример сообщества' && '1' || '' }}
           CS2_LAUNCH: ${{ inputs.mode == 'запуск — по одному посту каждой рубрики' && '1' || '' }}
+          CS2_DEMO_FORMATS: ${{ inputs.mode == 'пример новых рубрик' && '1' || '' }}
+          CS2_FORMATS_NOW: ${{ inputs.mode == 'новые рубрики — выложить сейчас' && '1' || '' }}
           STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
         run: |
           pip install --quiet pillow brotli anthropic
