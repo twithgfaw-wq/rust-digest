@@ -182,15 +182,42 @@ def save_state(state):
 
 # ---------- официальные новости из Steam ----------
 
+STORE_EVENTS = ("https://store.steampowered.com/events/"
+                "ajaxgetpartnereventspageable/?clan_accountid=0&appid=730"
+                "&offset=0&count={n}&l=english")
+
+
 def fetch_announcements(count=10):
-    """Официальная лента CS2 в Steam: патчноуты и анонсы Valve."""
+    """Официальная лента CS2 в Steam: патчноуты и анонсы Valve. Два
+    источника: Steam News API и лента страницы новостей Steam (store) —
+    она обновляется сразу, API иногда на несколько минут позже. Одна и та же
+    запись в обоих — с одним временем публикации, дубли отсекаем по нему."""
     url = ("https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/"
            f"?appid={APPID}&count={count}&maxlength=0"
            "&feeds=steam_community_announcements")
-    items = bot.http_get_json(url).get("appnews", {}).get("newsitems", [])
-    return [{"gid": str(i.get("gid")), "title": i.get("title") or "",
-             "date": int(i.get("date") or 0),
-             "contents": i.get("contents") or ""} for i in items]
+    out, errors = [], []
+    try:
+        items = bot.http_get_json(url).get("appnews", {}).get("newsitems", [])
+        out = [{"gid": str(i.get("gid")), "title": i.get("title") or "",
+                "date": int(i.get("date") or 0),
+                "contents": i.get("contents") or ""} for i in items]
+    except Exception as e:
+        errors.append(f"API: {e}")
+    have = {i["date"] for i in out}
+    try:
+        data = bot.http_get_json(STORE_EVENTS.format(n=min(count, 10)))
+        for e in data.get("events") or []:
+            b = e.get("announcement_body") or {}
+            t = int(b.get("posttime") or 0)
+            if t and t not in have:
+                out.append({"gid": str(b.get("gid") or e.get("gid")),
+                            "title": b.get("headline") or e.get("event_name")
+                            or "", "date": t, "contents": b.get("body") or ""})
+    except Exception as e:
+        errors.append(f"store: {e}")
+    if not out:
+        raise RuntimeError("; ".join(errors) or "лента пуста")
+    return out
 
 
 def is_patch(item):
@@ -389,12 +416,18 @@ def post_steam_news(tg, state, now):
         print("Новости Steam не загрузились:", e)
         return
     seen = state.setdefault("news_seen", [])
-    fresh = [i for i in items if i["gid"] not in seen]
+    # время публикации — общее для обоих источников (API и store)
+    seen_t = state.setdefault("news_seen_t", [])
+    if not seen_t:
+        seen_t += sorted({i["date"] for i in items if i["gid"] in seen})
+    fresh = [i for i in items if i["gid"] not in seen
+             and i["date"] not in seen_t]
     if "news_init" not in state:
         state["news_init"] = int(now)
         newest = max(fresh, key=lambda i: i["date"], default=None)
         keep = [newest] if newest and now - newest["date"] < 86400 else []
         seen += [i["gid"] for i in fresh if i not in keep]
+        seen_t += [i["date"] for i in fresh if i not in keep]
         fresh = keep
     # что уже вышло за сутки: патч и анонс об одном обновлении не дублируем
     recent = [r for r in state.get("news_recent", []) if now - r["t"] < 86400]
@@ -405,11 +438,14 @@ def post_steam_news(tg, state, now):
         if out == "skip":
             print("Мелкий патч или повтор — не публикуем:", item["gid"])
             seen.append(item["gid"])
+            seen_t.append(item["date"])
             continue
         photo, text = out
         if not send(tg, photo, text).get("ok"):
             break   # повторим со следующего запуска
         seen.append(item["gid"])
+        seen_t.append(item["date"])
+        del seen_t[:-200]
         plain = html.unescape(re.sub(r"<[^>]+>", "", text))
         recent.append({"t": int(now), "text": plain[:700]})
         time.sleep(2)
