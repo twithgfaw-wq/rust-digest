@@ -148,8 +148,11 @@ def news_post(item):
 - headline: короткий цепляющий заголовок по сути (до 70 знаков, без эмодзи).
 - body: главное для игроков. Для обновления или патча — 3–6 самых заметных
   изменений, каждое строкой с «▫️ », простыми словами: что это значит в
-  игре; мелочи объединяй («плюс мелкие фиксы»). Для анонса или девблога —
-  2–3 коротких абзаца. Не длиннее 650 знаков. Telegram HTML.
+  игре; мелочи объединяй («плюс мелкие фиксы»). Для анонса, девблога или
+  короткой статьи — 2–3 коротких абзаца. Не длиннее 650 знаков. Telegram
+  HTML. Без ссылок и без упоминания источника — ссылку бот добавит сам.
+  Пиши только то, что есть в тексте; не пиши «судя по заголовку»,
+  «подробностей нет» — просто не упоминай то, чего не знаешь.
 - meaning: 1–2 предложения «что это значит» — для вайпа, фарма, рейдов или
   скинов (новые скины, магазин, Twitch drops). Нечего сказать — пусто.
 - important: false, если это мелочь без новой информации (хотфикс в строку,
@@ -235,23 +238,38 @@ def compose_skin(s, date):
            for i in range(0, len(h), k)]
     spark, days = [m for _, m in pts], [d for d, _ in pts]
     roi = (s["price"] / s["store"] - 1) * 100
+    usd = lambda c: round(c / 100, 2) if c else None
+    back = lambda d: statistics.median(
+        [x[1] for x in h if x[0] <= time.strftime(
+            "%Y-%m-%d", time.gmtime(time.time() - d * DAY))][-3:] or [0])
+    peak = max(pts, key=lambda x: x[1]) if pts else None
+    low = min(pts, key=lambda x: x[1]) if pts else None
     facts = {"name": s["name"], "collection": s["collection"] or None,
-             "released": s["start"][:10], "store_usd": s["store"] / 100,
-             "market_now_usd": s["price"] / 100, "vs_store_pct": round(roi),
+             "released": s["start"][:10], "store_usd": usd(s["store"]),
+             "market_now_usd": usd(s["price"]), "vs_store_pct": round(roi),
              "sold_in_store_estimate": s["sold"],
-             "peak_usd": round(max(spark) / 100, 2) if spark else None,
-             "low_usd": round(min(spark) / 100, 2) if spark else None}
+             "first_week_on_market_usd": usd(statistics.median(
+                 x[1] for x in h[:7])) if h else None,
+             "peak_usd": usd(peak[1]) if peak else None,
+             "peak_date": peak[0] if peak else None,
+             "low_usd": usd(low[1]) if low else None,
+             "low_date": low[0] if low else None,
+             "price_14_days_ago_usd": usd(back(14)),
+             "price_30_days_ago_usd": usd(back(30)),
+             "days_on_market": len(h)}
     res = ai.ask(f"""Рубрика «Скин дня» в канале @rust_news_Pro. Вот факты о скине:
 {json.dumps(facts, ensure_ascii=False)}
 
 Верни:
 - hook: первая строка поста до 70 знаков — цепляющая, по фактам (сколько
   стоил в магазине и сколько сейчас, сколько продали). Без эмодзи.
-- fact: 1–2 предложения до 160 знаков для картинки — самое интересное из
-  фактов простыми словами.
+- fact: 1–2 предложения до 160 знаков для картинки — история цены, которой
+  нет в цифрах на картинке (там уже есть цена магазина, цена сейчас, % и
+  продажи): как цена вела себя после выхода, где был пик и дно, что
+  происходит последние 2–4 недели. Простыми словами.
 - text: 2–3 коротких предложения до 300 знаков для подписи: что за скин,
   что видно по ценам, есть ли смысл его брать сейчас (без обещаний).
-  Только из фактов.""", SOD_SCHEMA, effort="medium",
+  Только из фактов, без повтора fact.""", SOD_SCHEMA, effort="medium",
                  system=ai.RUST_STYLE) or {}
     m = bot.money
     hook = (res.get("hook") or f"{s['name']}: {m(s['store'])} в магазине → "
