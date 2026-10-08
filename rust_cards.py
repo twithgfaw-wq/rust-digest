@@ -161,7 +161,7 @@ def footer(draw, W, H, left):
 
 
 def save(img, W, H, path):
-    return base.save(img, W, H, path)
+    return base.save(img, int(round(W)), int(round(H)), path)
 
 
 def dump(path):
