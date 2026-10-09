@@ -567,6 +567,10 @@
     [
       1791568529,
       1076280
+    ],
+    [
+      1791568875,
+      1080253
     ]
   ],
   "online_peaks": {
@@ -977,7 +981,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📡 Не пропусти важное: {tag}",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "📌 Сохрани себе {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [
     {
@@ -1043,7 +1050,8 @@
     "2108137184574177573",
     "2108182520521015550",
     "2108357559967215900",
-    "2108507906228506963"
+    "2108507906228506963",
+    "2108588947790307790"
   ],
   "ws_scores": {
     "3815186169": {
@@ -1243,58 +1251,17 @@
   },
   "cs2_index_day": "2026-10-09",
   "ws_slot": "2026-10-09-20",
-  "comm_slot": "2026-10-09-17",
+  "comm_slot": "2026-10-09-21",
   "hltv_day": "2026-10-09",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "Плей-офф ESL Pro League S24: онлайн-трансляция из Spodek",
-      "link": "https://www.hltv.org/news/45680/live-updates-from-esl-pro-league-s24-playoffs",
-      "score": 8
-    },
-    {
-      "headline": "Aurora обыграли 1win и вышли в полуфинал EPL",
-      "link": "https://www.hltv.org/news/45681/aurora-advance-to-epl-semi-finals-over-1win",
-      "score": 8
-    },
-    {
-      "headline": "kyxsan ответил NiKo: «Я всегда открыт к критике»",
-      "link": "https://www.hltv.org/news/45682/kyxsan-im-always-open-to-feedback-when-you-play-with-so-many-experienced-and-good-players-you-can-learn-from-every-one-of-them",
-      "score": 5
-    },
-    {
-      "headline": "Vitality прошли PARIVISION и вышли в полуфинал EPL",
-      "link": "https://www.hltv.org/news/45683/vitality-move-past-parivision-to-make-epl-semi",
-      "score": 8
-    },
-    {
-      "headline": "flameZ: «Каждую секунду в TeamSpeak была жизнь — когда мы так общаемся, нас не победить»",
-      "link": "https://www.hltv.org/news/45684/flamez-every-second-on-teamspeak-was-alive-and-when-we-talk-like-that-no-one-can-beat-us",
-      "score": 4
-    },
-    {
-      "headline": "MOUZ обыграли FURIA 2-0 и идут без поражений на EPL",
-      "link": "https://www.hltv.org/news/45686/mouz-see-off-furia-2-0-to-continue-flawless-epl-run",
-      "score": 7
-    },
-    {
-      "headline": "Thunderpick World Championship: сетка объявлена, NIP заменили Virtus.pro",
-      "link": "https://www.hltv.org/news/45688/thunderpick-world-championship-matchups-announced-with-virtuspro-replaced-by-nip",
-      "score": 8
-    },
-    {
-      "headline": "Astralis отправили HooXi и jabbi в запас",
-      "link": "https://www.hltv.org/news/45676/astralis-bench-hooxi-and-jabbi",
-      "score": 8
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-09",
   "reddit_posted": [
     "1wzz7z0",
     "1x1ey6g"
   ],
   "online_daily": "2026-10-09",
-  "hltv_digest_day": "2026-10-08",
+  "hltv_digest_day": "2026-10-09",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
