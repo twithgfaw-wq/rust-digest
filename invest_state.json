@@ -1,22 +1,14 @@
 {
   "last": "2026-10-08-2349",
-  "ts": 1791507621,
+  "ts": 1791509443,
   "picks": {
     "2026-10-08-2349": {
       "start": "2026-10-08T23:49:37.043Z",
       "items": [
         {
-          "name": "Young Dragon Metal Double Door",
-          "v": "buy",
-          "net": 0.2408,
-          "n10": 8,
-          "store": 249,
-          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71002_small.png?2704616116"
-        },
-        {
           "name": "The Fallen Chair",
           "v": "buy",
-          "net": 0.1731,
+          "net": 0.1704,
           "n10": 7,
           "store": 149,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71006_small.png?3260958182"
@@ -24,63 +16,63 @@
         {
           "name": "Neon Armored Ladder Hatch",
           "v": "buy",
-          "net": 0.1049,
+          "net": 0.1061,
           "n10": 7,
           "store": 249,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71005_small.png?967441631"
         },
         {
           "name": "Apotheosis of War Wood Gloves",
-          "v": "buy",
-          "net": 0.0712,
-          "n10": 6,
+          "v": "think",
+          "net": 0.0674,
+          "n10": 5,
           "store": 149,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71009_small.png?3001662664"
         },
         {
-          "name": "HellCore Garage Door",
-          "v": "buy",
-          "net": 0.0575,
-          "n10": 6,
-          "store": 199,
-          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71007_small.png?924481786"
-        },
-        {
-          "name": "Cold Hunter Triangle Ladder Hatch",
-          "v": "buy",
-          "net": 0.023,
-          "n10": 6,
-          "store": 249,
-          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71003_small.png?2523896739"
-        },
-        {
           "name": "Wrought Iron Auto Turret",
           "v": "think",
-          "net": 0.051,
+          "net": 0.0491,
           "n10": 5,
           "store": 249,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71004_small.png?2429257101"
         },
         {
+          "name": "HellCore Garage Door",
+          "v": "think",
+          "net": 0.0411,
+          "n10": 6,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71007_small.png?924481786"
+        },
+        {
+          "name": "Young Dragon Metal Double Door",
+          "v": "think",
+          "net": 0.0135,
+          "n10": 6,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71002_small.png?2704616116"
+        },
+        {
           "name": "Plague Doctor Small Backpack",
           "v": "think",
-          "net": 0.0213,
+          "net": 0.0094,
           "n10": 5,
           "store": 149,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71008_small.png?554808459"
         },
         {
-          "name": "Nuke Bunker Ladder Hatch",
-          "v": "no",
-          "net": -0.0385,
-          "n10": 4,
-          "store": 299,
-          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71000_small.png?3543658370"
+          "name": "Cold Hunter Triangle Ladder Hatch",
+          "v": "think",
+          "net": -0.0163,
+          "n10": 5,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71003_small.png?2523896739"
         },
         {
           "name": "Moo-Moo Sheet Metal Door",
           "v": "no",
-          "net": -0.0447,
+          "net": -0.0521,
           "n10": 4,
           "store": 249,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71010_small.png?1214406949"
@@ -88,16 +80,24 @@
         {
           "name": "Frostwrath SKS",
           "v": "no",
-          "net": -0.0778,
-          "n10": 4,
+          "net": -0.0907,
+          "n10": 3,
           "store": 299,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71011_small.png?58194403"
         },
         {
+          "name": "Nuke Bunker Ladder Hatch",
+          "v": "no",
+          "net": -0.0968,
+          "n10": 3,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71000_small.png?3543658370"
+        },
+        {
           "name": "Covenant SAR",
           "v": "no",
-          "net": -0.1149,
-          "n10": 3,
+          "net": -0.1242,
+          "n10": 2,
           "store": 249,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71001_small.png?977748922"
         }
