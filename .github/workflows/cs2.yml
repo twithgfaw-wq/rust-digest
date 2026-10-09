@@ -41,6 +41,8 @@ jobs:
     steps:
       - name: Забрать репозиторий
         uses: actions/checkout@v4
+        with:
+          ref: main   # запуск из очереди берёт свежее состояние (иначе дубли)
 
       - name: Поставить Python
         uses: actions/setup-python@v5
