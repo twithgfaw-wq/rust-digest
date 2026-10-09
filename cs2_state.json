@@ -455,11 +455,15 @@
     [
       1791532621,
       540130
+    ],
+    [
+      1791534705,
+      589905
     ]
   ],
   "online_peaks": {
     "2026-10-08": 1216228,
-    "2026-10-09": 540130
+    "2026-10-09": 589905
   },
   "recent_phrases": [
     "📢 Подписывайся: {tag}",
@@ -777,7 +781,10 @@
     "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📌 Сохрани себе {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "📢 Подписывайся: {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [
     {
@@ -905,9 +912,10 @@
     ]
   },
   "sod_seen": [
-    "M4A4 | Hellish"
+    "M4A4 | Hellish",
+    "Glock-18 | AXIA"
   ],
-  "sod_day": "2026-10-08",
+  "sod_day": "2026-10-09",
   "ev_seen": [
     "Dreams & Nightmares Case"
   ],
@@ -949,7 +957,8 @@
     "hltvnews45675",
     "hltvnews45678",
     "hltvnews45677",
-    "hltvnews45679"
+    "hltvnews45679",
+    "hltvnews45680"
   ],
   "news_seen_t": [
     1788994268,
@@ -971,9 +980,15 @@
   "cs2_index_day": "2026-10-09",
   "ws_slot": "2026-10-08-16",
   "comm_slot": "2026-10-08-21",
-  "hltv_day": "2026-10-08",
+  "hltv_day": "2026-10-09",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "Плей-офф ESL Pro League S24: онлайн-трансляция из Spodek",
+      "link": "https://www.hltv.org/news/45680/live-updates-from-esl-pro-league-s24-playoffs",
+      "score": 8
+    }
+  ],
   "reddit_day": "2026-10-08",
   "reddit_posted": [
     "1wzz7z0"
