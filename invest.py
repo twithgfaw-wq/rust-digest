@@ -57,7 +57,7 @@ VERDICTS = {  # код: (эмодзи, раздел в посте, плашка 
 }
 COLL_COLORS = {  # цвет строки о коллекции на плитке
     "strong": (61, 220, 132), "weak": (255, 120, 120), "rare": (255, 120, 120),
-    "new": (110, 175, 255), "whole": (255, 200, 61),
+    "new": (110, 175, 255), "whole": (255, 200, 61), "none": (255, 160, 80),
 }
 
 
@@ -302,7 +302,7 @@ def coll_status(it, same):
     """Что сказать о коллекции скина: код значка и строка для плитки.
     same — сколько скинов этой коллекции в нынешнем выпуске."""
     if not it["coll"]:
-        return "none", "Без коллекции"
+        return "none", "Без коллекции — одиночный скин"
     if not it["parts"]:
         if same > 1:
             return "whole", "Новая коллекция, принята целиком"
@@ -1070,7 +1070,8 @@ def run():
     end_k = kyiv(nxt)
     groups = {k: [it for it in new if it["v"] == k] for k in VERDICTS}
     marks = {"strong": " \U0001f9e9", "weak": " ⚠️",
-             "rare": " ⚠️", "new": " \U0001f195", "whole": " \U0001f51a"}
+             "rare": " ⚠️", "new": " \U0001f195", "whole": " \U0001f51a",
+             "none": " \U0001f538"}
     seen = {it["cs"] for it in new}
     legend = []
     if "strong" in seen:
@@ -1085,12 +1086,16 @@ def run():
     elif "rare" in seen:
         legend.append("⚠️ — части коллекции выходят редко: прошлая"
                       " — больше полугода назад")
-    if "new" in seen and cont[0] is not None:
-        legend.append(f"\U0001f195 — новая коллекция: у {cont[0]} из 10 таких"
-                      f" потом выходят новые части")
+    if "new" in seen:
+        legend.append("\U0001f195 — новая коллекция, прошлых продаж нет"
+                      + (f": у {cont[0]} из 10 таких потом выходят новые"
+                         f" части" if cont[0] is not None else ""))
     if "whole" in seen and cont[1] is not None:
         legend.append(f"\U0001f51a — новую коллекцию приняли сразу целиком:"
                       f" продолжение бывает у {cont[1]} из 10")
+    if "none" in seen:
+        legend.append("\U0001f538 — скин без коллекции: сравниваем с похожими"
+                      " скинами того же типа")
     best = max(groups["buy"] or new, key=lambda it: it["net"])
     ex = {"net": signed(best["net"]), "n10": best["n10"],
           "back": round(100 * (1 + best["net"]))}
