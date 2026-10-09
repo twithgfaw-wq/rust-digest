@@ -319,6 +319,34 @@ def coll_status(it, same):
     return "even", f"{it['parts'] + 1}-я часть коллекции"
 
 
+def guess_collection(name, creator, items):
+    """SCMM в первые часы ещё не знает коллекцию нового скина. Угадываем по
+    прошлым коллекциям того же автора: если названия их скинов обычно
+    начинаются с тех же слов («Neon …», «Cold Hunter …») — это она."""
+    import re
+
+    def words(s):
+        return re.findall(r"[a-z0-9]+", s.lower())
+
+    w = words(name)
+    by = {}
+    for h in items:
+        if h["coll"] and h["creator"] == creator:
+            by.setdefault(h["coll"], []).append(words(h["name"]))
+    best = None
+    for coll, ws in by.items():
+        if len(ws) < 2:
+            continue
+        for k in (3, 2, 1):
+            if len(w) <= k:
+                continue
+            if sum(1 for x in ws if x[:k] == w[:k]) / len(ws) >= 0.6:
+                if best is None or (k, len(ws)) > best[1]:
+                    best = (coll, (k, len(ws)))
+                break
+    return best[0] if best else ""
+
+
 def submissions(creator):
     """Все работы автора в мастерской, принятые и нет: коллекция, тип,
     файл, когда загружена и когда принята."""
@@ -1011,6 +1039,12 @@ def run():
     frac = sales_fraction(done, (now - start) / 3600)
     sup_now = [i.get("supplyTotalEstimated") or 0 for i in items]
     m = med(sup_now) or 1
+    for i in items:   # SCMM ещё не привязал скин к коллекции — угадываем
+        if not (i.get("itemCollection") or "").strip() and i.get("creatorId"):
+            c = guess_collection(i["name"], i["creatorId"], hist)
+            if c:
+                i["itemCollection"] = c
+                print("Коллекция по названию:", i["name"], "→", c)
     new = []
     for i, sup in zip(items, sup_now):
         kind = i.get("itemType") or ""
@@ -1094,8 +1128,8 @@ def run():
         legend.append(f"\U0001f51a — новую коллекцию приняли сразу целиком:"
                       f" продолжение бывает у {cont[1]} из 10")
     if "none" in seen:
-        legend.append("\U0001f538 — скин без коллекции: сравниваем с похожими"
-                      " скинами того же типа")
+        legend.append("\U0001f538 — без коллекции или первая часть новой:"
+                      " сравниваем с похожими скинами того же типа")
     best = max(groups["buy"] or new, key=lambda it: it["net"])
     ex = {"net": signed(best["net"]), "n10": best["n10"],
           "back": round(100 * (1 + best["net"]))}
