@@ -591,6 +591,10 @@
     [
       1791572532,
       1114000
+    ],
+    [
+      1791574093,
+      1127070
     ]
   ],
   "online_peaks": {
@@ -1019,7 +1023,10 @@
     "🔔 Больше CS2 — в {tag}",
     "📡 Не пропусти важное: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [
     {
@@ -1265,7 +1272,8 @@
     "hltvnews45685",
     "hltvnews45686",
     "hltvnews45688",
-    "hltvnews45676"
+    "hltvnews45676",
+    "hltvnews45689"
   ],
   "news_seen_t": [
     1788994268,
@@ -1289,7 +1297,13 @@
   "comm_slot": "2026-10-09-21",
   "hltv_day": "2026-10-09",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "Spirit всухую обыграли Falcons и снова встретятся с MOUZ",
+      "link": "https://www.hltv.org/news/45689/spirit-outclass-falcons-to-set-up-mouz-rematch",
+      "score": 8
+    }
+  ],
   "reddit_day": "2026-10-09",
   "reddit_posted": [
     "1wzz7z0",
