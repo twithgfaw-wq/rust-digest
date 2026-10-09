@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 📈 Индекс рынка — одна понятная цифра в день для каждого канала:
-  CS2:  из 100 ходовых предметов (Skinport, от 20 продаж в неделю) — сколько
-        сейчас дороже, чем в среднем за месяц; плюс кейсы, ножи и перчатки,
-        наклейки, скины отдельно;
+  CS2:  ходовые предметы маркета Steam (кейсы, ножи и перчатки, наклейки,
+        скины — по 15 самых популярных): из 100 — сколько сейчас дороже, чем
+        в среднем за месяц (дневные медианы продаж со страницы предмета).
+        Считаем заранее (python market_index.py precompute, index.yml в
+        09:20) — в 10:00 бот берёт готовое; не вышло — считает сам, а если
+        и маркет не ответил — по Skinport;
   Rust: из 100 скинов магазина последних 12 недель — сколько подорожали за
         неделю на маркете Steam; плюс сколько из них дороже цены магазина.
 0–20 «мороз» (почти всё дешевеет) … 80–100 «жара» (почти всё дорожает).
@@ -71,6 +74,142 @@ CS2_CATS = [("Кейсы", lambda n: n.endswith((" Case", " Terminal", " Capsule
             ("Скины", lambda n: True)]
 
 
+STEAM_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/126 Safari/537.36")
+STEAM_CACHE = "cs2_index_steam.json"
+STEAM_INFO = {}   # валюта истории (1 — доллар; зависит от страны сервера)
+# корзина: (категория индекса, тег маркета Steam, сколько самых популярных)
+STEAM_BASKET = [("Кейсы", "tag_CSGO_Type_WeaponCase", 15),
+                ("Ножи и перчатки", "tag_CSGO_Type_Knife", 8),
+                ("Ножи и перчатки", "tag_Type_Hands", 7),
+                ("Наклейки", "tag_CSGO_Tool_Sticker", 15),
+                ("Скины", "tag_CSGO_Type_Rifle", 8),
+                ("Скины", "tag_CSGO_Type_Pistol", 7)]
+
+
+def steam_get(url, tries=4):
+    """Страница маркета Steam; на 429/5xx ждём и пробуем ещё."""
+    import urllib.request
+    for k in range(tries):
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": STEAM_UA, "Accept-Language": "en-US,en"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return r.read().decode("utf-8", "replace")
+        except Exception as e:
+            if k == tries - 1:
+                raise
+            time.sleep(5 * (k + 1) * (3 if "429" in str(e) else 1))
+
+
+def steam_popular(tag, n):
+    """Самые популярные предметы CS2 категории на маркете Steam."""
+    import json
+    names, start = [], 0
+    while len(names) < n and start < 40:
+        url = ("https://steamcommunity.com/market/search/render/?appid=730"
+               f"&norender=1&count=10&start={start}&sort_column=popular"
+               f"&sort_dir=desc&category_730_Type%5B%5D={tag}")
+        res = json.loads(steam_get(url)).get("results") or []
+        if not res:
+            break
+        names += [r["hash_name"] for r in res if r.get("hash_name")]
+        start += 10
+        time.sleep(1.2)
+    return names[:n]
+
+
+def steam_history(name, appid=730):
+    """Дневные медианы продаж предмета на маркете Steam: [(время, цена,
+    покупок)]. Новая страница предмета кладёт историю в HTML (запрос
+    «pricehistory»); историй там бывает несколько — берём ровно эту."""
+    import json
+    import re
+    import urllib.parse
+    page = steam_get(f"https://steamcommunity.com/market/listings/{appid}/"
+                     + urllib.parse.quote(name))
+    m = re.search(r'"queryData":("(?:[^"\\]|\\.)*")', page)
+    if not m:
+        return []
+    for q in json.loads(json.loads(m.group(1))).get("queries") or []:
+        key = q.get("queryKey") or []
+        if len(key) >= 4 and key[1] == "pricehistory" and key[3] == name:
+            data = (q.get("state") or {}).get("data") or {}
+            STEAM_INFO["currency"] = data.get("ecurrency")
+            return [(p["time"], p["price_median"], p.get("purchases") or 0)
+                    for p in data.get("prices") or [] if p.get("price_median")]
+    return []
+
+
+def cs2_index_steam():
+    """Индекс по маркету Steam: неделя против месяца, как и по Skinport,
+    но по продажам самого маркета Steam. None — маркет не ответил."""
+    rows, now = [], time.time()
+    for cat, tag, n in STEAM_BASKET:
+        try:
+            names = steam_popular(tag, n)
+        except Exception as e:
+            print("Маркет Steam: поиск не ответил:", tag, e)
+            continue
+        for name in names:
+            try:
+                pts = steam_history(name)
+            except Exception as e:
+                print("Маркет Steam: нет истории", name, e)
+                pts = []
+            time.sleep(1.2)
+            week = [p for p in pts if now - p[0] <= 7 * 86400]
+            month = [p[1] for p in pts if now - p[0] <= 30 * 86400]
+            if len(week) < 3 or len(month) < 15 or sum(p[2] for p in week) < 20:
+                continue
+            ch = statistics.median(p[1] for p in week) / statistics.median(month) - 1
+            if abs(ch) <= 0.8:
+                rows.append((cat, name, ch))
+    print(f"Маркет Steam: {len(rows)} предметов с историей,"
+          f" валюта {STEAM_INFO.get('currency')}")
+    if len(rows) < 25:
+        return None
+    cats = {}
+    for cat, _, ch in rows:
+        cats.setdefault(cat, []).append(ch)
+    order = [c for c, _ in CS2_CATS]
+    return {"value": breadth([c for _, _, c in rows]), "n": len(rows),
+            "median": statistics.median([c for _, _, c in rows]),
+            "cats": [(c, breadth(cats.get(c, []), 5)) for c in order],
+            "source": "steam"}
+
+
+def cs2_index_cached(kt):
+    """Готовый индекс за сегодня (посчитан заранее) или считаем сейчас."""
+    import json
+    try:
+        with open(STEAM_CACHE, encoding="utf-8") as f:
+            saved = json.load(f)
+        if saved.get("date") == kt.strftime("%Y-%m-%d") and saved.get("idx"):
+            idx = saved["idx"]
+            idx["cats"] = [tuple(c) for c in idx["cats"]]
+            print("Индекс CS2: готовый, посчитан", saved.get("at"))
+            return idx
+    except Exception:
+        pass
+    return cs2_index_steam()
+
+
+def precompute():
+    """Для index.yml: считаем индекс CS2 по маркету Steam заранее."""
+    import json
+    import rust_digest_bot as bot
+    kt = bot.kyiv_time()
+    idx = cs2_index_steam()
+    if not idx:
+        print("Маркет Steam не дал данных — в 10:00 бот попробует сам")
+        return
+    with open(STEAM_CACHE, "w", encoding="utf-8") as f:
+        json.dump({"date": kt.strftime("%Y-%m-%d"), "at": kt.strftime("%H:%M"),
+                   "idx": idx}, f, ensure_ascii=False, indent=2)
+    print("Индекс CS2 по маркету Steam:", idx["value"], idx["cats"])
+
+
 def cs2_index(sp):
     rows = []
     for i in sp:
@@ -89,7 +228,8 @@ def cs2_index(sp):
         cats.setdefault(cat, []).append(ch)
     return {"value": breadth([c for _, c in rows]), "n": len(rows),
             "median": statistics.median([c for _, c in rows]) if rows else 0,
-            "cats": [(c, breadth(cats.get(c, []), 5)) for c, _ in CS2_CATS]}
+            "cats": [(c, breadth(cats.get(c, []), 5)) for c, _ in CS2_CATS],
+            "source": "skinport"}
 
 
 # ---------- Rust ----------
@@ -196,7 +336,9 @@ def cs2_card(out_path, date, idx, hist):
     else:
         draw.text((c.p(W / 2), c.p(1040)), "график появится через пару дней",
                   font=c.font(24), fill=c.MUTED, anchor="mm")
-    c.footer(draw, W, H, f"Skinport · {idx['n']} предметов от 20 продаж в неделю")
+    c.footer(draw, W, H, (f"маркет Steam · {idx['n']} ходовых предметов"
+                          if idx.get("source") == "steam" else
+                          f"Skinport · {idx['n']} предметов от 20 продаж в неделю"))
     return c.save(img, W, H, out_path)
 
 
@@ -256,11 +398,20 @@ def delta(v, prev):
     return f" Вчера — {prev} ({'+' if d >= 0 else '−'}{abs(d)})."
 
 
-def cs2_post(sp, state, kt, footer, save=True):
-    """(подпись, картинка) или None."""
-    idx = cs2_index(sp)
+def cs2_post(get_sp, state, kt, footer, save=True):
+    """(подпись, картинка) или None. Маркет Steam; если он не ответил —
+    Skinport (лучше пост по Skinport, чем никакого)."""
+    idx = None
+    try:
+        idx = cs2_index_cached(kt)
+    except Exception as e:
+        print("Индекс по маркету Steam не посчитался:", e)
+    if not idx or idx.get("value") is None:
+        idx = cs2_index(get_sp())
     if idx["value"] is None:
         return None
+    where = ("продажам маркета Steam" if idx.get("source") == "steam"
+             else "продажам Skinport")
     hist, prev = (remember(state, "cs2_index", idx["value"], kt) if save
                   else ([idx["value"]], None))
     zi, zname, what, tip = zone(idx["value"])
@@ -271,7 +422,7 @@ def cs2_post(sp, state, kt, footer, save=True):
         f" за месяц.{delta(idx['value'], prev)}", "",
         f"▫️ {cats}", f"💡 {tip}", "",
         "<i>0 — всё дешевеет, 100 — всё дорожает. Считаем каждый день по"
-        " продажам Skinport.</i>", "", footer, "#cs2 #кс2 #индекс"])
+        f" {where}.</i>", "", footer, "#cs2 #кс2 #индекс"])
     card = os.path.join(tempfile.gettempdir(), "cs2_index.jpg")
     try:
         ok = cs2_card(card, kt.strftime("%d.%m.%Y"), idx, hist)
@@ -322,7 +473,7 @@ def tick(tg, state, kind, footer, get_sp=None, forced=False):
     hour = CS2_HOUR if kind == "cs2" else RUST_HOUR
     if not forced and not (LIVE and kt.hour >= hour and state.get(key) != today):
         return
-    out = (cs2_post(get_sp(), state, kt, footer) if kind == "cs2"
+    out = (cs2_post(get_sp, state, kt, footer) if kind == "cs2"
            else rust_post(state, kt, footer))
     if not out:
         return
@@ -332,3 +483,9 @@ def tick(tg, state, kind, footer, get_sp=None, forced=False):
         res = tg.send_message(text)
     if res.get("ok"):
         state[key] = today
+
+
+if __name__ == "__main__":
+    import sys
+    if sys.argv[1:] == ["precompute"]:
+        precompute()
