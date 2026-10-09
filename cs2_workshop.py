@@ -25,7 +25,8 @@ RUBRIC = "🎨 МАСТЕРСКАЯ CS2"
 SKIN_TAGS = {"Weapon Finish", "Sticker", "Charm", "Gloves", "Knife",
              "Agent", "Patch", "Graffiti", "Music Kit"}
 PASS_SCORE = 7          # минимальная оценка для публикации
-FRESH_DAYS = 4          # «свежая» работа проверенного автора
+FRESH_DAYS = 10         # «свежая» работа проверенного автора (с 4 — сильные
+                        # работы с оценкой 7+ выпадали, не дождавшись слота)
 JUDGE_PER_RUN = 4       # сколько новых работ оцениваем за один запуск
 
 
