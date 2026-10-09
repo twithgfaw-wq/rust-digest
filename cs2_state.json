@@ -483,11 +483,15 @@
     [
       1791543709,
       771617
+    ],
+    [
+      1791545270,
+      821517
     ]
   ],
   "online_peaks": {
     "2026-10-08": 1216228,
-    "2026-10-09": 771617
+    "2026-10-09": 821517
   },
   "recent_phrases": [
     "📢 Подписывайся: {tag}",
@@ -827,7 +831,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "💣 Твой канал про CS2 — {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "📌 Сохрани себе {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [
     {
@@ -1021,7 +1028,8 @@
     "hltvnews45677",
     "hltvnews45679",
     "hltvnews45680",
-    "hltvnews45681"
+    "hltvnews45681",
+    "hltvnews45682"
   ],
   "news_seen_t": [
     1788994268,
@@ -1055,6 +1063,11 @@
       "headline": "Aurora обыграли 1win и вышли в полуфинал EPL",
       "link": "https://www.hltv.org/news/45681/aurora-advance-to-epl-semi-finals-over-1win",
       "score": 8
+    },
+    {
+      "headline": "kyxsan ответил NiKo: «Я всегда открыт к критике»",
+      "link": "https://www.hltv.org/news/45682/kyxsan-im-always-open-to-feedback-when-you-play-with-so-many-experienced-and-good-players-you-can-learn-from-every-one-of-them",
+      "score": 5
     }
   ],
   "reddit_day": "2026-10-09",
