@@ -1560,6 +1560,12 @@ def main():
         if not dry:
             save_state(state)
         return
+    if os.environ.get("CS2_INDEX_NOW") == "1":   # только индекс рынка, сейчас
+        import market_index as mi
+        mi.tick(tg, state, "cs2", foot(), fetch_skinport, forced=True)
+        if not dry:
+            save_state(state)
+        return
     post_steam_news(tg, state, now)
     post_x_news(tg, state)
     try:
