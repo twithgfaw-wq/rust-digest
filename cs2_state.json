@@ -475,11 +475,15 @@
     [
       1791541865,
       703689
+    ],
+    [
+      1791543400,
+      730452
     ]
   ],
   "online_peaks": {
     "2026-10-08": 1216228,
-    "2026-10-09": 703689
+    "2026-10-09": 730452
   },
   "recent_phrases": [
     "📢 Подписывайся: {tag}",
@@ -813,7 +817,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📌 Сохрани себе {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "📢 Подписывайся: {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [
     {
@@ -1006,7 +1013,8 @@
     "hltvnews45678",
     "hltvnews45677",
     "hltvnews45679",
-    "hltvnews45680"
+    "hltvnews45680",
+    "hltvnews45681"
   ],
   "news_seen_t": [
     1788994268,
@@ -1034,6 +1042,11 @@
     {
       "headline": "Плей-офф ESL Pro League S24: онлайн-трансляция из Spodek",
       "link": "https://www.hltv.org/news/45680/live-updates-from-esl-pro-league-s24-playoffs",
+      "score": 8
+    },
+    {
+      "headline": "Aurora обыграли 1win и вышли в полуфинал EPL",
+      "link": "https://www.hltv.org/news/45681/aurora-advance-to-epl-semi-finals-over-1win",
       "score": 8
     }
   ],
