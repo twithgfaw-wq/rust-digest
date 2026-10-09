@@ -4,11 +4,12 @@
 например, анонс нового видео автора канала.
   text    — подпись (HTML Telegram);
   photo   — ссылка на картинку: пост с фото (подпись до 1024 знаков);
+  photos  — список ссылок: альбом до 10 фото, подпись на первом (без кнопки);
   video   — ссылка: Telegram покажет над текстом большое превью
             с плеером (YouTube смотрят прямо в канале);
   button  — [надпись, ссылка] — кнопка под постом;
   poll    — {question, options} — опрос сразу после поста;
-  ws_id   — работа мастерской CS2: отметим как выложенную, чтобы рубрика
+  ws_id / ws_ids — работа(ы) мастерской CS2: отметим как выложенные, чтобы рубрика
             «Мастерская CS2» не повторила её (cs2_state.json → ws_posted);
   id      — один и тот же пост дважды не уйдёт (manual_post_sent.json).
 Запуск: python manual_post.py (MANUAL_DRY=1 — только показать в логе).
@@ -62,7 +63,14 @@ def main():
         return
     token = os.environ.get("BOT_TOKEN", "")
     msg = {"chat_id": post["channel"], "parse_mode": "HTML"}
-    if post.get("photo"):
+    if post.get("photos"):   # альбом: подпись на первом фото, кнопок нет
+        method = "sendMediaGroup"
+        msg = {"chat_id": post["channel"], "media": [
+            dict({"type": "photo", "media": u},
+                 **({"caption": post["text"], "parse_mode": "HTML"}
+                    if k == 0 else {}))
+            for k, u in enumerate(post["photos"][:10])]}
+    elif post.get("photo"):
         method = "sendPhoto"
         msg.update(photo=post["photo"], caption=post["text"])
     else:
@@ -74,20 +82,24 @@ def main():
                                            "show_above_text": True}
         else:
             msg["link_preview_options"] = {"is_disabled": True}
-    if post.get("button"):
+    if post.get("button") and method != "sendMediaGroup":
         msg["reply_markup"] = {"inline_keyboard": [[
             {"text": post["button"][0], "url": post["button"][1]}]]}
     res = api(token, method, msg)
-    print("Пост:", res.get("ok"), (res.get("result") or {}).get("message_id"))
+    first = res.get("result") or {}
+    if isinstance(first, list):
+        first = first[0] if first else {}
+    print("Пост:", res.get("ok"), first.get("message_id"))
     if not res.get("ok"):
         return
     sent.append(post["id"])
     with open(SENT, "w", encoding="utf-8") as f:
         json.dump(sent, f, ensure_ascii=False, indent=2)
-    if post.get("ws_id"):
+    ws = post.get("ws_ids") or ([post["ws_id"]] if post.get("ws_id") else [])
+    if ws:
         state = load("cs2_state.json", None)
         if state is not None:
-            state.setdefault("ws_posted", []).append(post["ws_id"])
+            state.setdefault("ws_posted", []).extend(ws)
             with open("cs2_state.json", "w", encoding="utf-8") as f:
                 json.dump(state, f, ensure_ascii=False, indent=2)
     if post.get("poll"):
