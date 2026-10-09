@@ -278,6 +278,12 @@ def mark_collection(it, idx, dates):
             if h["rel"] < it["rel"] - 5 * DAY]
     it["prev_n"] = len(prev)
     it["prev_l"] = med(ratio(h, "launch") for h in prev)
+    # итог прошлых частей после комиссии: сколько в плюс, медиана, 3 последние
+    nets = [ratio(h, "launch") / FEE - 1
+            for h in sorted(prev, key=lambda h: h["rel"]) if ratio(h, "launch")]
+    it["prev_win"] = (sum(1 for x in nets if x > 0), len(nets))
+    it["prev_med"] = med(nets)
+    it["prev_last3"] = med(nets[-3:])
     w = waves([t for t in dates.get(it["coll"], []) if t < it["rel"] - 2 * DAY])
     it["parts"] = len(w)
     it["gap"] = (it["rel"] - w[-1]) / DAY if w else None
@@ -307,44 +313,39 @@ def coll_status(it, same):
         if same > 1:
             return "whole", "Новая коллекция, принята целиком"
         return "new", "Новая коллекция"
-    pl = it.get("prev_l")
-    if pl and pl >= FEE:
-        return "strong", "Прошлые части дороже магазина"
+    plus, n = it.get("prev_win") or (0, 0)
+    if not n:
+        return "even", f"{it['parts'] + 1}-я часть коллекции"
+    rec = f"Прошлые части: в плюс {plus} из {n}"
+    if n >= 3 and (plus / n <= 1 / 3 or (it.get("prev_med") or 0) < -0.10
+                   or (it.get("prev_last3") or 0) < -0.10):
+        return "weak", rec
+    if n >= 2 and plus / n >= 0.6 and (it.get("prev_med") or 0) > 0:
+        return "strong", rec
     if (it["gap"] or 0) > 180:
-        return "rare", f"Прошлая часть — {round(it['gap'] / 30.4)} мес назад"
-    if pl and pl < 0.85:
-        return "weak", "Прошлые части дешевле магазина"
-    if pl:
-        return "even", "Прошлые части — около магазина"
-    return "even", f"{it['parts'] + 1}-я часть коллекции"
+        return "rare", f"{rec} · пауза {round(it['gap'] / 30.4)} мес"
+    return "even", rec
 
 
 def guess_collection(name, creator, items):
-    """SCMM в первые часы ещё не знает коллекцию нового скина. Угадываем по
-    прошлым коллекциям того же автора: если названия их скинов обычно
-    начинаются с тех же слов («Neon …», «Cold Hunter …») — это она."""
+    """SCMM в первые часы ещё не знает коллекцию нового скина. Ищем серию у
+    того же автора: прошлые скины, чьи названия начинаются с тех же слов
+    («Neon …», «Cold Hunter …», «Nuke Room …» → «Nuke Bunker …»), хотя бы 2.
+    Коллекция — та, в которой эта серия чаще всего."""
     import re
 
     def words(s):
         return re.findall(r"[a-z0-9]+", s.lower())
 
     w = words(name)
-    by = {}
-    for h in items:
-        if h["coll"] and h["creator"] == creator:
-            by.setdefault(h["coll"], []).append(words(h["name"]))
-    best = None
-    for coll, ws in by.items():
-        if len(ws) < 2:
+    mine = [h for h in items if h["coll"] and h["creator"] == creator]
+    for k in (3, 2, 1):
+        if len(w) <= k or (k == 1 and (len(w[0]) < 4 or w[0] == "the")):
             continue
-        for k in (3, 2, 1):
-            if len(w) <= k:
-                continue
-            if sum(1 for x in ws if x[:k] == w[:k]) / len(ws) >= 0.6:
-                if best is None or (k, len(ws)) > best[1]:
-                    best = (coll, (k, len(ws)))
-                break
-    return best[0] if best else ""
+        colls = [h["coll"] for h in mine if words(h["name"])[:k] == w[:k]]
+        if len(colls) >= 2:
+            return max(set(colls), key=colls.count)
+    return ""
 
 
 def submissions(creator):
@@ -446,11 +447,13 @@ def wipe_week(t):
 
 
 def flip_features(it, flips):
-    """Признаки моделей «после бана» (шанс и цена)."""
+    """Признаки моделей «после бана» (шанс и цена). Тираж — только
+    относительно соседей по неделе (rs): абсолютная оценка тиража через час
+    ошибается сразу для всей недели (×0,55…×1,9), а с rs точнее (проверено
+    на истории)."""
     if "xf" not in it:
         f = min(0.95, max(0.05, flip_rate(it, flips)))
         it["xf"] = [1.0, math.log(it["rs"]),
-                    math.log(max(it["supply"], 500) / 12000),
                     math.log(it["store"] / 199), 1.0 if it["glow"] else 0.0,
                     math.log(f / (1 - f))] + coll_feats(it) + [
                     1.0 if it.get("wipe") else 0.0]
@@ -1083,6 +1086,8 @@ def run():
     for it in new:
         same = [o for o in new if it["coll"] and o["coll"] == it["coll"]]
         it["cs"], it["ctext"] = coll_status(it, len(same))
+        if it["cs"] == "weak":   # прошлые части чаще в минус — на ступень ниже
+            it["v"] = {"buy": "think", "think": "no"}.get(it["v"], it["v"])
         mine = [s for c in owners.get(it["coll"], ()) for s in subs.get(c, [])]
         it["wait"] = (pending(mine, it["coll"], now,
                               done={o["type"] for o in same},
@@ -1109,14 +1114,14 @@ def run():
     seen = {it["cs"] for it in new}
     legend = []
     if "strong" in seen:
-        legend.append("\U0001f9e9 — прошлые части коллекции продавались дороже"
-                      " магазина")
+        legend.append("\U0001f9e9 — прошлые части коллекции чаще продавались"
+                      " в плюс")
     if {"weak", "rare"} <= seen:
-        legend.append("⚠️ — прошлые части дешевле магазина или новые"
-                      " части выходят редко")
+        legend.append("⚠️ — прошлые части чаще уходили в минус (оценку"
+                      " понизили) или части выходят редко")
     elif "weak" in seen:
-        legend.append("⚠️ — прошлые части коллекции продавались"
-                      " дешевле магазина")
+        legend.append("⚠️ — прошлые части коллекции чаще уходили в минус:"
+                      " оценку понизили")
     elif "rare" in seen:
         legend.append("⚠️ — части коллекции выходят редко: прошлая"
                       " — больше полугода назад")
