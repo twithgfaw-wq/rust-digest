@@ -1086,8 +1086,15 @@ def run():
     for it in new:
         same = [o for o in new if it["coll"] and o["coll"] == it["coll"]]
         it["cs"], it["ctext"] = coll_status(it, len(same))
-        if it["cs"] == "weak":   # прошлые части чаще в минус — на ступень ниже
-            it["v"] = {"buy": "think", "think": "no"}.get(it["v"], it["v"])
+        if it["cs"] == "weak":
+            # прошлые части чаще в минус: модель это недооценивает — цифры
+            # поровну с историей коллекции, вердикт не выше чем на ступень ниже
+            plus, n = it["prev_win"]
+            it["n10"] = round((it["n10"] + 10 * plus / n) / 2)
+            it["net"] = (it["net"] + it["prev_med"]) / 2
+            order = list(VERDICTS)
+            down = {"buy": "think", "think": "no"}.get(it["v"], it["v"])
+            it["v"] = max(down, verdict(it["n10"], it["net"]), key=order.index)
         mine = [s for c in owners.get(it["coll"], ()) for s in subs.get(c, [])]
         it["wait"] = (pending(mine, it["coll"], now,
                               done={o["type"] for o in same},
@@ -1114,14 +1121,12 @@ def run():
     seen = {it["cs"] for it in new}
     legend = []
     if "strong" in seen:
-        legend.append("\U0001f9e9 — прошлые части коллекции чаще продавались"
-                      " в плюс")
+        legend.append("\U0001f9e9 — прошлые части коллекции чаще в плюс")
     if {"weak", "rare"} <= seen:
-        legend.append("⚠️ — прошлые части чаще уходили в минус (оценку"
-                      " понизили) или части выходят редко")
+        legend.append("⚠️ — прошлые части чаще в минус (оценку понизили)"
+                      " или части выходят редко")
     elif "weak" in seen:
-        legend.append("⚠️ — прошлые части коллекции чаще уходили в минус:"
-                      " оценку понизили")
+        legend.append("⚠️ — прошлые части чаще в минус, оценку понизили")
     elif "rare" in seen:
         legend.append("⚠️ — части коллекции выходят редко: прошлая"
                       " — больше полугода назад")
@@ -1133,8 +1138,7 @@ def run():
         legend.append(f"\U0001f51a — новую коллекцию приняли сразу целиком:"
                       f" продолжение бывает у {cont[1]} из 10")
     if "none" in seen:
-        legend.append("\U0001f538 — без коллекции или первая часть новой:"
-                      " сравниваем с похожими скинами того же типа")
+        legend.append("\U0001f538 — без коллекции или первая часть новой")
     best = max(groups["buy"] or new, key=lambda it: it["net"])
     ex = {"net": signed(best["net"]), "n10": best["n10"],
           "back": round(100 * (1 + best["net"]))}
