@@ -563,6 +563,10 @@
     [
       1791566841,
       1062679
+    ],
+    [
+      1791568529,
+      1076280
     ]
   ],
   "online_peaks": {
@@ -970,7 +974,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
     "📢 Подписывайся: {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📡 Не пропусти важное: {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [
     {
@@ -1214,7 +1221,8 @@
     "hltvnews45684",
     "hltvnews45685",
     "hltvnews45686",
-    "hltvnews45688"
+    "hltvnews45688",
+    "hltvnews45676"
   ],
   "news_seen_t": [
     1788994268,
@@ -1272,6 +1280,11 @@
     {
       "headline": "Thunderpick World Championship: сетка объявлена, NIP заменили Virtus.pro",
       "link": "https://www.hltv.org/news/45688/thunderpick-world-championship-matchups-announced-with-virtuspro-replaced-by-nip",
+      "score": 8
+    },
+    {
+      "headline": "Astralis отправили HooXi и jabbi в запас",
+      "link": "https://www.hltv.org/news/45676/astralis-bench-hooxi-and-jabbi",
       "score": 8
     }
   ],
