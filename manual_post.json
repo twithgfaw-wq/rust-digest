@@ -1,12 +1,15 @@
 {
-  "id": "fun_ws_3811573596",
+  "id": "fairy_top3_2026_10_09",
   "channel": "@cs2_me",
-  "photo": "https://images.steamusercontent.com/ugc/14358591989648768104/C064406819A89E998C5BD8A083CF7A013606124F/",
-  "ws_id": "3811573596",
-  "text": "🤥 <b>СКИН ПО ФАНУ: PP-BIZON «PINOCCHIO»</b>\n\nДеревянный Бизон прямо с верстака папы Карло. На корпусе вырезано «ONE TAP, I SWEAR.» — пожалуй, самое наглое враньё в CS2: ваншот с Бизона 😅\n\nА на магазине — зарубки и подпись «LIES». Похоже, кто-то честно считает каждое враньё, и нос тут ни при чём.\n\n👤 Автор — apel8, Valve уже приняла в игру 5 его работ. Этот скин сделан под сказочную тему мастерской, в игре его пока нет.\n\n👍 Понравился? Поддержи автора в мастерской — кнопка ниже.\n\n📢 @cs2_me\n#cs2 #мастерская_cs2 #скины",
-  "button": ["🪵 Скин в мастерской", "https://steamcommunity.com/sharedfiles/filedetails/?id=3811573596"],
+  "photos": [
+    "https://images.steamusercontent.com/ugc/9407665273739922474/0676E0ADA5F63A5AFFB377A7741ED793DC074D64/?imw=1280&imh=720&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+    "https://images.steamusercontent.com/ugc/9885480342436449537/A628B70DFDA90FE28E37E1650E95ABE7F61D873A/?imw=1280&imh=720&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+    "https://images.steamusercontent.com/ugc/9697613345776454696/3E11EF7F1F30D30786E94104AE4A0F21E9211277/?imw=1280&imh=720&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
+  ],
+  "ws_ids": ["3785865527", "3813233766", "3789144745"],
+  "text": "🎨 <b>МАСТЕРСКАЯ CS2 · ТОП-3 СКАЗКИ</b>\nВ мастерской сейчас тема «Сказки». Пересмотрели самые популярные работы 2026 года — вот три сильнейшие.\n\n🥇 <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=3785865527\">AK-47 «Green Knight»</a> — 9,5/10\nЗелёный рыцарь из легенд о короле Артуре: кельтские узоры, золото и рыцарь с топором на корпусе. Нарисовано вручную — и это видно.\n👤 Lehmann · ⭐ 64 в избранном\n\n🥈 <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=3813233766\">P90 «Swamp Princess»</a> — 9/10\nЦаревна-лягушка наоборот: жаба в короне и с горой золотых монет. Сочное болото и много юмора.\n👤 kioShimyo · ⭐ 32\n\n🥉 <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=3789144745\">AWP «Beanstalk»</a> — 9/10\n«Джек и бобовый стебель»: стебель вьётся по AWP прямо в облака. Чисто, ярко и читается издалека.\n👤 Niran · ⭐ 59\n\nКакой из трёх должен попасть в игру? Голосуй ниже 👇\n\n📢 @cs2_me\n#cs2 #мастерская_cs2 #скины",
   "poll": {
-    "question": "Ваншот с Бизона — это…",
-    "options": ["🤥 Враньё, нос уже растёт", "😎 Было один раз, все видели", "🐻 Бизон — имба, не трогайте"]
+    "question": "Какой сказочный скин добавить в CS2?",
+    "options": ["🗡 AK-47 «Green Knight»", "🐸 P90 «Swamp Princess»", "🌱 AWP «Beanstalk»"]
   }
 }
