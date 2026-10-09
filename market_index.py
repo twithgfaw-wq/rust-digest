@@ -422,7 +422,10 @@ def cs2_post(get_sp, state, kt, footer, save=True):
         return None
     where = ("продажам маркета Steam" if idx.get("source") == "steam"
              else "продажам Skinport")
-    hist, prev = (remember(state, "cs2_index", idx["value"], kt) if save
+    # история и «вчера» — отдельно для каждого источника: Steam и Skinport
+    # считают по-разному, сравнивать их между собой нельзя
+    key = "cs2_index_steam" if idx.get("source") == "steam" else "cs2_index"
+    hist, prev = (remember(state, key, idx["value"], kt) if save
                   else ([idx["value"]], None))
     zi, zname, what, tip = zone(idx["value"])
     cats = " · ".join(f"{n} {v}" for n, v in idx["cats"] if v is not None)
