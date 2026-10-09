@@ -547,6 +547,10 @@
     [
       1791561731,
       1091151
+    ],
+    [
+      1791563385,
+      1073414
     ]
   ],
   "online_peaks": {
@@ -939,7 +943,10 @@
     "📌 Сохрани себе {tag}",
     "🔔 Больше CS2 — в {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "📢 Подписывайся: {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}"
   ],
   "news_recent": [
     {
@@ -1174,7 +1181,8 @@
     "hltvnews45682",
     "hltvnews45683",
     "hltvnews45684",
-    "hltvnews45685"
+    "hltvnews45685",
+    "hltvnews45686"
   ],
   "news_seen_t": [
     1788994268,
@@ -1223,6 +1231,11 @@
       "headline": "flameZ: «Каждую секунду в TeamSpeak была жизнь — когда мы так общаемся, нас не победить»",
       "link": "https://www.hltv.org/news/45684/flamez-every-second-on-teamspeak-was-alive-and-when-we-talk-like-that-no-one-can-beat-us",
       "score": 4
+    },
+    {
+      "headline": "MOUZ обыграли FURIA 2-0 и идут без поражений на EPL",
+      "link": "https://www.hltv.org/news/45686/mouz-see-off-furia-2-0-to-continue-flawless-epl-run",
+      "score": 7
     }
   ],
   "reddit_day": "2026-10-09",
