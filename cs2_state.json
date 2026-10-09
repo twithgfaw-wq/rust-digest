@@ -515,11 +515,15 @@
     [
       1791554285,
       1217232
+    ],
+    [
+      1791554519,
+      1231618
     ]
   ],
   "online_peaks": {
     "2026-10-08": 1216228,
-    "2026-10-09": 1217232
+    "2026-10-09": 1231618
   },
   "recent_phrases": [
     "📢 Подписывайся: {tag}",
@@ -883,7 +887,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "👉 Подписывайся на {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "📢 Подписывайся: {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "💣 Твой канал про CS2 — {tag}"
   ],
   "news_recent": [
     {
@@ -948,7 +955,8 @@
     "2107941002694492668",
     "2108137184574177573",
     "2108182520521015550",
-    "2108357559967215900"
+    "2108357559967215900",
+    "2108507906228506963"
   ],
   "ws_scores": {
     "3815186169": {
@@ -1108,7 +1116,8 @@
     "hltvnews45680",
     "hltvnews45681",
     "hltvnews45682",
-    "hltvnews45683"
+    "hltvnews45683",
+    "hltvnews45684"
   ],
   "news_seen_t": [
     1788994268,
@@ -1129,7 +1138,7 @@
   },
   "cs2_index_day": "2026-10-09",
   "ws_slot": "2026-10-09-16",
-  "comm_slot": "2026-10-09-13",
+  "comm_slot": "2026-10-09-17",
   "hltv_day": "2026-10-09",
   "hltv_count": 0,
   "hltv_digest": [
@@ -1152,6 +1161,11 @@
       "headline": "Vitality прошли PARIVISION и вышли в полуфинал EPL",
       "link": "https://www.hltv.org/news/45683/vitality-move-past-parivision-to-make-epl-semi",
       "score": 8
+    },
+    {
+      "headline": "flameZ: «Каждую секунду в TeamSpeak была жизнь — когда мы так общаемся, нас не победить»",
+      "link": "https://www.hltv.org/news/45684/flamez-every-second-on-teamspeak-was-alive-and-when-we-talk-like-that-no-one-can-beat-us",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-09",
