@@ -158,11 +158,21 @@ def cs2_index_steam():
                 print("Маркет Steam: нет истории", name, e)
                 pts = []
             time.sleep(1.2)
-            week = [p for p in pts if now - p[0] <= 7 * 86400]
-            month = [p[1] for p in pts if now - p[0] <= 30 * 86400]
-            if len(week) < 3 or len(month) < 15 or sum(p[2] for p in week) < 20:
+            # последний месяц Steam отдаёт по часам (в часе бывает 1–2
+            # продажи) — сводим в цену дня с учётом числа продаж
+            days = {}
+            for t, price, vol in pts:
+                if now - t <= 30 * 86400:
+                    d = days.setdefault(int(t // 86400), [0.0, 0])
+                    d[0] += price * max(vol, 1)
+                    d[1] += max(vol, 1)
+            daily = sorted((k, s / v) for k, (s, v) in days.items())
+            week = [p for k, p in daily if now - k * 86400 <= 7 * 86400]
+            month = [p for _, p in daily]
+            sales = sum(v for t, _, v in pts if now - t <= 7 * 86400)
+            if len(week) < 3 or len(month) < 15 or sales < 20:
                 continue
-            ch = statistics.median(p[1] for p in week) / statistics.median(month) - 1
+            ch = statistics.median(week) / statistics.median(month) - 1
             if abs(ch) <= 0.8:
                 rows.append((cat, name, ch))
     print(f"Маркет Steam: {len(rows)} предметов с историей,"
