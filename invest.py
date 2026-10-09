@@ -317,9 +317,10 @@ def coll_status(it, same):
     if not n:
         return "even", f"{it['parts'] + 1}-я часть коллекции"
     rec = f"Прошлые части: в плюс {plus} из {n}"
-    if n >= 3 and (plus / n <= 1 / 3 or (it.get("prev_med") or 0) < -0.10
-                   or (it.get("prev_last3") or 0) < -0.10):
+    if n >= 3 and (plus / n <= 1 / 3 or (it.get("prev_med") or 0) < -0.10):
         return "weak", rec
+    if n >= 3 and (it.get("prev_last3") or 0) < -0.10:
+        return "weak", f"Последние части в минус · всего в плюс {plus} из {n}"
     if n >= 2 and plus / n >= 0.6 and (it.get("prev_med") or 0) > 0:
         return "strong", rec
     if (it["gap"] or 0) > 180:
@@ -1123,10 +1124,11 @@ def run():
     if "strong" in seen:
         legend.append("\U0001f9e9 — прошлые части коллекции чаще в плюс")
     if {"weak", "rare"} <= seen:
-        legend.append("⚠️ — прошлые части чаще в минус (оценку понизили)"
-                      " или части выходят редко")
+        legend.append("⚠️ — прошлые или последние части в минус (оценку"
+                      " понизили) или части выходят редко")
     elif "weak" in seen:
-        legend.append("⚠️ — прошлые части чаще в минус, оценку понизили")
+        legend.append("⚠️ — прошлые или последние части в минус, оценку"
+                      " понизили")
     elif "rare" in seen:
         legend.append("⚠️ — части коллекции выходят редко: прошлая"
                       " — больше полугода назад")
