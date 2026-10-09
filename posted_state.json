@@ -2185,6 +2185,10 @@
     [
       1791535765,
       64472
+    ],
+    [
+      1791537484,
+      67629
     ]
   ],
   "online_peaks": {
@@ -2339,9 +2343,10 @@
   "market_day": "2026-10-08",
   "online_daily": "2026-10-08",
   "rsod_seen": [
-    "Young Dragon AR"
+    "Young Dragon AR",
+    "Cargo Heli Small Backpack"
   ],
-  "rsod_day": "2026-10-08",
+  "rsod_day": "2026-10-09",
   "rduel": {
     "date": "08.10",
     "ts": 1791433343,
