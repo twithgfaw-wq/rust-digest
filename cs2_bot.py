@@ -1261,7 +1261,7 @@ def demo_extra():
     except Exception as e:
         print("Reddit: пример не собрался —", e)
     sp, kt = fetch_skinport(), bot.kyiv_time()
-    out = mi.cs2_post(sp, {}, kt, foot(), save=False)
+    out = mi.cs2_post(lambda: sp, {}, kt, foot(), save=False)
     if out:
         print(f"\n===== ПРИМЕР (индекс рынка CS2) =====\n{out[0]}")
         if out[1]:
