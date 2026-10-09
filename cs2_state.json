@@ -559,6 +559,10 @@
     [
       1791565289,
       1069803
+    ],
+    [
+      1791566841,
+      1062679
     ]
   ],
   "online_peaks": {
@@ -963,7 +967,10 @@
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "📢 Подписывайся: {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}"
   ],
   "news_recent": [
     {
@@ -1206,7 +1213,8 @@
     "hltvnews45683",
     "hltvnews45684",
     "hltvnews45685",
-    "hltvnews45686"
+    "hltvnews45686",
+    "hltvnews45688"
   ],
   "news_seen_t": [
     1788994268,
@@ -1260,6 +1268,11 @@
       "headline": "MOUZ обыграли FURIA 2-0 и идут без поражений на EPL",
       "link": "https://www.hltv.org/news/45686/mouz-see-off-furia-2-0-to-continue-flawless-epl-run",
       "score": 7
+    },
+    {
+      "headline": "Thunderpick World Championship: сетка объявлена, NIP заменили Virtus.pro",
+      "link": "https://www.hltv.org/news/45688/thunderpick-world-championship-matchups-announced-with-virtuspro-replaced-by-nip",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-09",
