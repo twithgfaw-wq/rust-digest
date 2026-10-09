@@ -511,11 +511,15 @@
     [
       1791552752,
       1169594
+    ],
+    [
+      1791554285,
+      1217232
     ]
   ],
   "online_peaks": {
     "2026-10-08": 1216228,
-    "2026-10-09": 1169594
+    "2026-10-09": 1217232
   },
   "recent_phrases": [
     "📢 Подписывайся: {tag}",
@@ -876,7 +880,10 @@
     "📡 Не пропусти важное: {tag}",
     "📌 Сохрани себе {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "👉 Подписывайся на {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [
     {
@@ -1100,7 +1107,8 @@
     "hltvnews45679",
     "hltvnews45680",
     "hltvnews45681",
-    "hltvnews45682"
+    "hltvnews45682",
+    "hltvnews45683"
   ],
   "news_seen_t": [
     1788994268,
@@ -1139,6 +1147,11 @@
       "headline": "kyxsan ответил NiKo: «Я всегда открыт к критике»",
       "link": "https://www.hltv.org/news/45682/kyxsan-im-always-open-to-feedback-when-you-play-with-so-many-experienced-and-good-players-you-can-learn-from-every-one-of-them",
       "score": 5
+    },
+    {
+      "headline": "Vitality прошли PARIVISION и вышли в полуфинал EPL",
+      "link": "https://www.hltv.org/news/45683/vitality-move-past-parivision-to-make-epl-semi",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-09",
