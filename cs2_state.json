@@ -527,6 +527,10 @@
     [
       1791557934,
       1230940
+    ],
+    [
+      1791558111,
+      1205922
     ]
   ],
   "online_peaks": {
@@ -904,7 +908,10 @@
     "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👉 Подписывайся на {tag}",
-    "📡 Не пропусти важное: {tag}"
+    "📡 Не пропусти важное: {tag}",
+    "📢 Подписывайся: {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [
     {
@@ -1070,7 +1077,7 @@
     "3816309982"
   ],
   "price_day": "2026-10-09",
-  "invest_day": "2026-10-08",
+  "invest_day": "2026-10-09",
   "invest_days": {
     "2026-10-08": [
       "Paris 2023 Vertigo Souvenir Package",
@@ -1078,6 +1085,13 @@
       "Winter Offensive Weapon Case",
       "CS:GO Weapon Case",
       "Chroma 2 Case"
+    ],
+    "2026-10-09": [
+      "Chroma 3 Case",
+      "Operation Bravo Case",
+      "Stockholm 2021 Challengers Sticker Capsule",
+      "Gamma 2 Case",
+      "Rio 2022 Dust II Souvenir Package"
     ]
   },
   "sod_seen": [
@@ -1189,5 +1203,39 @@
     "1x1ey6g"
   ],
   "online_daily": "2026-10-08",
-  "hltv_digest_day": "2026-10-08"
+  "hltv_digest_day": "2026-10-08",
+  "invest_log": [
+    {
+      "name": "Chroma 3 Case",
+      "verdict": "buy",
+      "price": 3.06,
+      "date": "2026-10-09"
+    },
+    {
+      "name": "Operation Bravo Case",
+      "verdict": "watch",
+      "price": 50.88,
+      "date": "2026-10-09"
+    },
+    {
+      "name": "Stockholm 2021 Challengers Sticker Capsule",
+      "verdict": "watch",
+      "price": 1.56,
+      "date": "2026-10-09"
+    },
+    {
+      "name": "Gamma 2 Case",
+      "verdict": "buy",
+      "price": 2.71,
+      "date": "2026-10-09"
+    },
+    {
+      "name": "Rio 2022 Dust II Souvenir Package",
+      "verdict": "watch",
+      "price": 2.57,
+      "date": "2026-10-09"
+    }
+  ],
+  "cs2_quiz_n": 1,
+  "cs2_quiz_day": "2026-10-09"
 }
