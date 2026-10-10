@@ -462,7 +462,7 @@ def quiz_card(label, question, out_path, colors=None, font_path=None,
         if colors:
             n, gap, h = len(colors), 22, 250
             w = min(190, (840 - gap * (n - 1)) / n)
-            x = 200
+            x = 200 + (840 - n * w - gap * (n - 1)) / 2   # по центру
             for i, c in enumerate(colors):
                 d.rectangle((p(x + 8), p(296), p(x + w + 8), p(288 + h + 8)),
                             fill=SHADOW)
