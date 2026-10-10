@@ -1669,7 +1669,13 @@
     "🏆",
     " — ",
     "вот это уровень",
-    "🎮 Новости, скины и видео по Rust — {tag}"
+    "🎮 Новости, скины и видео по Rust — {tag}",
+    "Ждём подробностей 👀",
+    "📡 Rust пишет в X — переводим",
+    "📡 Не пропусти важное: {tag}",
+    "За кого болеете? Ставь 🔥",
+    "🔥 Мастерская Rust: тройка лидеров недели",
+    "🎯 Играешь и в CS2? Новости и скины — в @cs2_me"
   ],
   "store_seen": [
     "10198",
@@ -2648,6 +2654,10 @@
     [
       1791639923,
       126109
+    ],
+    [
+      1791640920,
+      127129
     ]
   ],
   "online_peaks": {
@@ -2655,9 +2665,9 @@
     "2026-10-07": 111389,
     "2026-10-08": 117208,
     "2026-10-09": 134081,
-    "2026-10-10": 126109
+    "2026-10-10": 127129
   },
-  "x_last_id": "2108596007130763310",
+  "x_last_id": "2108920747544441059",
   "market_snaps": {
     "2026-10-07": {
       "c64cb7b3-daed-4265-ae38-acb35392aa2b": 316,
@@ -2924,11 +2934,11 @@
       "f468f8cd-8cc2-4dfe-8a3f-7cfe1f532cd3": 115
     }
   },
-  "top_ts": 1791332307,
+  "top_ts": 1791640931,
   "top_last": [
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3814002695",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3811375052",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3814386174"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816299349",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816287673",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3815285296"
   ],
   "elite_last_ts": 1791637310,
   "elite_slot": "2026-10-10-16",
@@ -3011,5 +3021,10 @@
     "2107985972076151273",
     "2108300699901579671",
     "2108604505805795396"
+  ],
+  "top_shown": [
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816299349",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816287673",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3815285296"
   ]
 }
