@@ -2570,6 +2570,10 @@
     [
       1791621965,
       86201
+    ],
+    [
+      1791622918,
+      87018
     ]
   ],
   "online_peaks": {
@@ -2577,7 +2581,7 @@
     "2026-10-07": 111389,
     "2026-10-08": 117208,
     "2026-10-09": 134081,
-    "2026-10-10": 86201
+    "2026-10-10": 87018
   },
   "x_last_id": "2108596007130763310",
   "market_snaps": {
@@ -2792,9 +2796,10 @@
   "online_daily": "2026-10-09",
   "rsod_seen": [
     "Young Dragon AR",
-    "Cargo Heli Small Backpack"
+    "Cargo Heli Small Backpack",
+    "Ice Eye Salvaged Axe"
   ],
-  "rsod_day": "2026-10-09",
+  "rsod_day": "2026-10-10",
   "rduel": {
     "date": "08.10",
     "ts": 1791433343,
