@@ -4,6 +4,12 @@
   🔤 Шрифт дня — щодня о 09:00: безкоштовний шрифт із Google Fonts з
      кирилицею. Картка набрана самим шрифтом; факти (тип, автори,
      накреслення) — з Google Fonts, опис Claude пише, дивлячись на зразок.
+  🎨 Кейс дня — щодня об 11:00: сильний проєкт із Behance чи Abduzeedo; пн
+     сайти й застосунки, вт анімація, ср логотипи й айдентика, чт упаковка,
+     пт постери, сб–нд найкраще з будь-якої категорії. Claude дивиться на
+     самі зображення; автор — лише якщо названий у джерелі.
+  🎨 Палітра дня — щодня о 13:00: 5 кольорів із HEX (копіюються натиском)
+     і пораховано найкращий контраст для тексту (WCAG).
   🧠 Вікторина — щодня о 15:00: «Вгадай бренд» за 2–5 фірмовими кольорами
      (лише бренди — так вирішили 10.10; «Вгадай шрифт» лишається в коді, але
      не публікується). Картка + опитування-квіз Telegram (з поясненням).
@@ -12,10 +18,13 @@
 """
 import base64
 import colorsys
+import html
 import json
 import random
 import re
 import time
+import urllib.error
+import urllib.parse
 import urllib.request
 
 import cs2_ai as ai
@@ -25,6 +34,24 @@ import quiz
 LIVE = False                     # увімкнемо після схвалення прикладів
 FONT_HOUR = 9
 QUIZ_HOUR = 15
+CASE_HOUR = 11
+PALETTE_HOUR = 13
+CASE_FEEDS = [("Behance", "https://www.behance.net/feeds/projects"),
+              ("Abduzeedo", "https://abduzeedo.com/rss.xml")]
+# категорія кейсу → (назва, хештег); по днях тижня (пн = 0), сб–нд — будь-яка
+CASE_CATS = {"web": ("Сайти й застосунки", "#вебдизайн"),
+             "motion": ("Анімація", "#моушн"),
+             "identity": ("Логотипи й айдентика", "#айдентика"),
+             "packaging": ("Упаковка", "#упаковка"),
+             "poster": ("Постери", "#постери")}
+CASE_DAYS = ["web", "motion", "identity", "packaging", "poster", None, None]
+# набори символів Google Fonts → мови словами
+SUBSETS = [("cyrillic", "кирилиця (українська та інші)"),
+           ("cyrillic-ext", "розширена кирилиця"),
+           ("latin", "латиниця (англійська та інші)"),
+           ("latin-ext", "розширена латиниця (польська, чеська, турецька…)"),
+           ("greek", "грецька"), ("vietnamese", "в'єтнамська"),
+           ("hebrew", "іврит"), ("arabic", "арабська")]
 GF_META = "https://fonts.google.com/metadata/fonts"
 SAMPLE = "Аа Бб Ґґ Її Єє"
 SAMPLE_LAT = "Aa Bb Gg Rr Ss"
@@ -125,6 +152,11 @@ def sample_weight(f):
 
 def has_cyr(f):
     return "cyrillic" in (f.get("subsets") or [])
+
+
+def languages(f):
+    subs = f.get("subsets") or []
+    return ", ".join(name for key, name in SUBSETS if key in subs)
 
 
 # ---------- 🔤 шрифт дня ----------
@@ -233,11 +265,12 @@ def font_caption(f, desc, foot):
     if desc:
         lines += [desc, ""]
     lines += [f"▫️ Тип: {facts['category']}",
-              "▫️ Кирилиця: є, з українськими літерами",
+              f"▫️ Мови: {languages(f)}",
               f"▫️ Накреслення: {facts['styles']}"]
     if facts["designers"]:
         lines.append(f"▫️ Автор: {h.escape(facts['designers'])}")
-    lines += ["▫️ Ліцензія: безкоштовний, відкрита ліцензія",
+    lines += ["▫️ Ліцензія: безкоштовний для особистого й комерційного "
+              "використання (відкрита ліцензія Google Fonts)",
               f'🔗 <a href="{url}">Завантажити на Google Fonts</a>',
               "", foot, "#шрифт_дня #шрифти"]
     return "\n".join(lines)
@@ -360,13 +393,342 @@ def make_quiz(state, rnd, kind="brand"):
     return q if q and len(set(q["options"])) == 4 else None
 
 
+# ---------- 🎨 палітра дня ----------
+
+PALETTE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "name": {"type": "string"},
+        "about": {"type": "string"},
+        "colors": {"type": "array", "items": {
+            "type": "object",
+            "properties": {"hex": {"type": "string"},
+                           "name": {"type": "string"}},
+            "required": ["hex", "name"],
+            "additionalProperties": False}},
+    },
+    "required": ["name", "about", "colors"],
+    "additionalProperties": False,
+}
+HEX_RE = re.compile(r"^#[0-9A-Fa-f]{6}$")
+
+
+def luminance(c):
+    def ch(v):
+        v /= 255
+        return v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4
+    r, g, b = cards.hex_rgb(c)
+    return 0.2126 * ch(r) + 0.7152 * ch(g) + 0.0722 * ch(b)
+
+
+def contrast(a, b):
+    """Контраст двох кольорів за WCAG (1–21)."""
+    hi, lo = sorted((luminance(a), luminance(b)), reverse=True)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+def make_palette(state, style):
+    recent = state.get("palettes", [])[-40:]
+    prompt = f"""Склади «палітру дня» для дизайнерів: 5 кольорів, які гарно
+працюють разом. Тема — свіжа й конкретна (сезон, місце, настрій, епоха,
+матеріал, кухня, природне явище). Не повторюй теми: {", ".join(recent) or "—"}.
+
+- name: коротка назва українською, до 28 знаків;
+- about: 1–2 речення — настрій і де ця палітра доречна (айдентика, лендінг,
+  упаковка, постер тощо);
+- colors: рівно 5 кольорів від найсвітлішого до найтемнішого: hex у форматі
+  #RRGGBB і коротка назва кольору українською (1–2 слова)."""
+    res = ai.ask(prompt, PALETTE_SCHEMA, effort="low", max_tokens=3000,
+                 system=style)
+    if not res:
+        return None
+    cols = [(c["hex"].upper(), c["name"].strip()) for c in res.get("colors", [])
+            if HEX_RE.match(c.get("hex", ""))]
+    if len(cols) != 5 or len({c[0] for c in cols}) != 5:
+        print("Палітра не підійшла:", res)
+        return None
+    return {"name": res["name"].strip(), "about": res["about"].strip(),
+            "colors": cols}
+
+
+def palette_caption(pal, foot):
+    pairs = [(a, b) for a in pal["colors"] for b in pal["colors"] if a != b]
+    a, b = max(pairs, key=lambda x: contrast(x[0][0], x[1][0]))
+    text, bg = (a, b) if luminance(a[0]) < luminance(b[0]) else (b, a)
+    c = contrast(a[0], b[0])
+    level = ("AAA" if c >= 7 else "AA" if c >= 4.5
+             else "лише для великих заголовків")
+    lines = ["<b>🎨 ПАЛІТРА ДНЯ</b>",
+             f"<b>{html.escape(pal['name'], quote=False)}</b>", "",
+             html.escape(pal["about"], quote=False), ""]
+    lines += [f"<code>{hx}</code> — {html.escape(nm, quote=False)}"
+              for hx, nm in pal["colors"]]
+    lines += ["", f"▫️ Для тексту: {html.escape(text[1], quote=False)} на тлі "
+              f"«{html.escape(bg[1], quote=False)}» — контраст {c:.1f}:1 "
+              f"({level})",
+              "Натисни на код кольору, щоб скопіювати.", "", foot,
+              "#палітра #кольори"]
+    return "\n".join(lines)
+
+
+def make_palette_post(state, handle, foot, style):
+    pal = make_palette(state, style)
+    if not pal:
+        return None
+    path = cards.tmp_path("palette")
+    if not cards.palette_card(pal["name"], pal["colors"], path, handle=handle):
+        return None
+    return pal, path, palette_caption(pal, foot)
+
+
+def post_palette(tg, state, handle, foot, style):
+    out = make_palette_post(state, handle, foot, style)
+    if out and tg.send_photo_file(out[1], out[2]).get("ok"):
+        state.setdefault("palettes", []).append(out[0]["name"])
+        state["palettes"] = state["palettes"][-100:]
+        print("Палітра дня:", out[0]["name"])
+        return True
+    return False
+
+
+# ---------- 🎨 кейс дня ----------
+
+CASE_SCHEMA = {
+    "type": "object",
+    "properties": {"items": {"type": "array", "items": {
+        "type": "object",
+        "properties": {
+            "idx": {"type": "integer"},
+            "cat": {"type": "string", "enum": ["web", "motion", "identity",
+                                               "packaging", "poster", "other"]},
+            "score": {"type": "integer"},
+        },
+        "required": ["idx", "cat", "score"],
+        "additionalProperties": False}}},
+    "required": ["items"],
+    "additionalProperties": False,
+}
+CASE_POST_SCHEMA = {
+    "type": "object",
+    "properties": {"title": {"type": "string"},
+                   "card_title": {"type": "string"},
+                   "body": {"type": "string"},
+                   "credit": {"type": "string"}},
+    "required": ["title", "card_title", "body", "credit"],
+    "additionalProperties": False,
+}
+IMG_ALL = re.compile(r"<img[^>]+src=[\"']([^\"']+)[\"']", re.I)
+
+
+def clean_html(s):
+    """Лишаємо тільки <b> та <i>, решту екрануємо."""
+    s = html.escape(html.unescape(s or ""), quote=False)
+    for t in ("b", "i"):
+        s = s.replace(f"&lt;{t}&gt;", f"<{t}>").replace(f"&lt;/{t}&gt;",
+                                                        f"</{t}>")
+    return s.strip()
+
+
+def working(url):
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": cards.UA})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            return r.status == 200
+    except Exception:
+        return False
+
+
+def case_items():
+    """Проєкти з RSS Behance (обрані) і Abduzeedo: назва, текст, усі фото."""
+    import xml.etree.ElementTree as ET
+    import design_bot as db
+    out = []
+    for name, url in CASE_FEEDS:
+        try:
+            root = ET.fromstring(db.http_get(url).lstrip(b"\xef\xbb\xbf \t\r\n"))
+        except Exception as e:
+            print(f"{name}: не прочитався ({type(e).__name__})")
+            continue
+        for e in [x for x in root.iter() if db.local(x.tag) == "item"][:40]:
+            t, ln = db.child(e, "title"), db.child(e, "link")
+            if t is None or ln is None or not (ln.text or "").strip():
+                continue
+            link = ln.text.strip()
+            raw = max(("".join(c.itertext()) for c in e if db.local(c.tag) in
+                       ("encoded", "description")), key=len, default="")
+            imgs = []
+            for u in [db.item_image(e, raw)] + IMG_ALL.findall(raw):
+                if not u:
+                    continue
+                u = urllib.parse.urljoin(link, html.unescape(u))
+                if (u.startswith("http") and u not in imgs
+                        and not re.search(r"\.(gif|svg)(\?|$)", u, re.I)):
+                    imgs.append(u)
+            if imgs:
+                out.append({"src": name, "link": link,
+                            "title": db.strip_html("".join(t.itertext())),
+                            "text": db.strip_html(raw)[:5000],
+                            "images": imgs[:8]})
+    print("Кейси:", len(out))
+    return out
+
+
+def pick_case(state, kt, style):
+    done = set(state.get("cases_posted", []))
+    items = [i for i in case_items() if i["link"] not in done][:60]
+    if not items:
+        return None
+    lines = "\n".join(f"[{i}] {it['src']} | {it['title']} | "
+                      + it["text"][:300].replace("\n", " ")
+                      for i, it in enumerate(items))
+    prompt = f"""Ось свіжі проєкти з Behance та Abduzeedo. Для кожного визнач категорію
+і оціни від 1 до 10, наскільки це сильна робота, яку варто показати дизайнерам.
+
+cat: «web» — сайти, застосунки, UI/UX; «motion» — анімація, моушн, 3D-анімація;
+«identity» — логотипи, айдентика, брендинг; «packaging» — упаковка;
+«poster» — постери, афіші; «other» — усе інше (ілюстрація, фото, архітектура).
+score: 9–10 — вражає й надихає; 7–8 — сильна якісна робота; 1–6 — рядова.
+
+Проєкти:
+{lines}"""
+    res = ai.ask(prompt, CASE_SCHEMA, effort="low", max_tokens=6000,
+                 system=style)
+    if not res:
+        return None
+    scored = [(r, items[r["idx"]]) for r in res.get("items", [])
+              if 0 <= r.get("idx", -1) < len(items)]
+    good = [x for x in scored if x[0]["cat"] != "other" and x[0]["score"] >= 7]
+    want = CASE_DAYS[kt.weekday()]
+    pool = [x for x in good if x[0]["cat"] == want] if want else good
+    if not pool:
+        pool = good
+    if not pool:
+        return None
+    r, it = max(pool, key=lambda x: x[0]["score"])
+    imgs = []
+    for u in it["images"]:              # обкладинка Behance у RSS — 404 px
+        big = u.replace("/projects/404/", "/projects/808/")
+        imgs.append(big if big != u and working(big) else u)
+    return dict(it, images=imgs, cat=r["cat"], score=r["score"])
+
+
+def write_case(c, style):
+    cat = CASE_CATS[c["cat"]][0]
+    prompt = f"""Перед тобою проєкт із {c['src']} (категорія: {cat}) — його зображення
+і текст. Напиши пост «Кейс дня» українською, своїми словами.
+- title: назва проєкту як в оригіналі;
+- card_title: заголовок для картинки українською, до 55 знаків;
+- body: 2–3 короткі речення, до 400 знаків: що це за проєкт і що в ньому
+  варто роздивитися (ідея, шрифт, колір, композиція). Тільки те, що видно на
+  зображеннях або сказано в тексті. Telegram HTML, лише <b> та <i>;
+- credit: студія чи дизайнер, якщо прямо названі в тексті; інакше порожньо.
+Нічого не вигадуй: ні імен, ні клієнтів, ні фактів.
+
+Назва: {c['title']}
+Посилання: {c['link']}
+Текст:
+{c['text'][:5000] or '(опису немає)'}"""
+    return (ai.ask(prompt, CASE_POST_SCHEMA, effort="medium", max_tokens=4000,
+                   images=c["images"][:3], system=style)
+            or ai.ask(prompt, CASE_POST_SCHEMA, effort="medium",
+                      max_tokens=4000, system=style))
+
+
+def case_caption(c, post, foot):
+    name, tag = CASE_CATS[c["cat"]]
+    lines = [f"<b>🎨 КЕЙС ДНЯ · {name.upper()}</b>",
+             f"<b>{html.escape(post['title'].strip(), quote=False)}</b>", "",
+             clean_html(post["body"]), ""]
+    credit = (post.get("credit") or "").strip()
+    if credit:
+        lines.append("🎨 Автор: " + html.escape(credit, quote=False))
+    lines += [f'🔗 <a href="{html.escape(c["link"])}">Дивитися кейс на '
+              f'{c["src"]}</a>', "", foot, f"#кейс {tag}"]
+    return "\n".join(lines)
+
+
+def make_case(state, kt, handle, foot, style):
+    c = pick_case(state, kt, style)
+    if not c:
+        print("Кейс дня: немає підходящих проєктів")
+        return None
+    post = write_case(c, style)
+    if not post:
+        return None
+    name, tag = CASE_CATS[c["cat"]]
+    path = cards.tmp_path("case")
+    ok = cards.news_card("КЕЙС ДНЯ", post["card_title"] or post["title"],
+                         f"{c['src']} · {name}", c["images"][0], path,
+                         tag=tag, handle=handle,
+                         note=("більше фото — далі" if len(c["images"]) > 1
+                               else "деталі — в пості"))
+    return c, post, (path if ok else None), case_caption(c, post, foot)
+
+
+def send_album(tg, card, urls, caption):
+    """Альбом: наша картка (файлом) + фото проєкту (посиланнями)."""
+    if tg.dry_run:
+        print(f"[dry-run] альбом: картка + {len(urls)} фото")
+        return {"ok": True}
+    media = ([{"type": "photo", "media": "attach://card", "caption": caption,
+               "parse_mode": "HTML"}]
+             + [{"type": "photo", "media": u} for u in urls])
+    with open(card, "rb") as f:
+        img = f.read()
+    boundary = "----HerDesignAlbum" + str(int(time.time() * 1000))
+    head = "".join(f"--{boundary}\r\nContent-Disposition: form-data; "
+                   f"name=\"{k}\"\r\n\r\n{v}\r\n" for k, v in
+                   (("chat_id", str(tg.chat)),
+                    ("media", json.dumps(media, ensure_ascii=False))))
+    body = ((head + f"--{boundary}\r\nContent-Disposition: form-data; "
+             "name=\"card\"; filename=\"card.jpg\"\r\n"
+             "Content-Type: image/jpeg\r\n\r\n").encode("utf-8") + img
+            + f"\r\n--{boundary}--\r\n".encode("utf-8"))
+    req = urllib.request.Request(
+        f"{tg.base}/sendMediaGroup", data=body,
+        headers={"User-Agent": cards.UA,
+                 "Content-Type": f"multipart/form-data; boundary={boundary}"})
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            res = json.loads(r.read().decode("utf-8", "replace"))
+        if not res.get("ok"):
+            print("Telegram (альбом):", str(res)[:300])
+        return res
+    except urllib.error.HTTPError as e:
+        print("Telegram (альбом):", e.code,
+              e.read().decode("utf-8", "replace")[:300])
+    except Exception as e:
+        print("Альбом не надіслався:", type(e).__name__)
+    return {"ok": False}
+
+
+def post_case(tg, state, kt, handle, foot, style):
+    out = make_case(state, kt, handle, foot, style)
+    if not out or not out[2]:
+        return False
+    c, post, card, text = out
+    res = send_album(tg, card, c["images"][1:4], text) if len(c["images"]) > 1 else {}
+    if not res.get("ok"):
+        res = tg.send_photo_file(card, text)
+    if not res.get("ok"):
+        return False
+    state.setdefault("cases_posted", []).append(c["link"])
+    state["cases_posted"] = state["cases_posted"][-300:]
+    print("Кейс дня:", c["cat"], c["title"][:80])
+    return True
+
+
 # ---------- розклад ----------
 
-def tick(tg, state, kt, handle, foot, style, font_now=False, quiz_now=False):
+def tick(tg, state, kt, handle, foot, style, font_now=False, quiz_now=False,
+         case_now=False, palette_now=False):
     today = kt.strftime("%Y-%m-%d")
     rnd = random.Random(f"{today}-{time.time() // 3600}")
-    if font_now or (LIVE and kt.hour >= FONT_HOUR
-                    and state.get("font_day") != today):
+
+    def due(hour, key):
+        return LIVE and kt.hour >= hour and state.get(key) != today
+
+    if font_now or due(FONT_HOUR, "font_day"):
         out = make_font_post(state, rnd, handle, foot, style)
         if out:
             f, path, text = out
@@ -375,8 +737,13 @@ def tick(tg, state, kt, handle, foot, style, font_now=False, quiz_now=False):
                 state.setdefault("fonts_posted", []).append(f["family"])
                 state["fonts_posted"] = state["fonts_posted"][-500:]
                 print("Шрифт дня:", f["family"])
-    if quiz_now or (LIVE and kt.hour >= QUIZ_HOUR
-                    and state.get("quiz_day") != today):
+    if case_now or due(CASE_HOUR, "case_day"):
+        if post_case(tg, state, kt, handle, foot, style):
+            state["case_day"] = today
+    if palette_now or due(PALETTE_HOUR, "palette_day"):
+        if post_palette(tg, state, handle, foot, style):
+            state["palette_day"] = today
+    if quiz_now or due(QUIZ_HOUR, "quiz_day"):
         q = make_quiz(state, rnd, "brand")   # лише «Вгадай бренд» (10.10)
         card = q and quiz_card(q, handle)
         if q and card and tg.send_photo_file(card, quiz_caption(q, foot)).get("ok"):
@@ -410,3 +777,17 @@ def demo(dump, handle, foot, style):
               + f"\n💡 {q['explain']}")
         if card:
             dump(card)
+    import rust_digest_bot as bot
+    out = make_case(state, bot.kyiv_time(), handle, foot, style)
+    if out:
+        c, post, card, text = out
+        print(f"\n===== ПРИКЛАД (кейс дня: {c['cat']}, оцінка {c['score']}) "
+              f"=====\n{text}\n--- фото в альбомі ---\n"
+              + "\n".join(c["images"][:4]))
+        if card:
+            dump(card)
+    out = make_palette_post(state, handle, foot, style)
+    if out:
+        pal, path, text = out
+        print(f"\n===== ПРИКЛАД (палітра дня) =====\n{text}")
+        dump(path)
