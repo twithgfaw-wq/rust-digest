@@ -887,6 +887,10 @@
     [
       1791665618,
       1082946
+    ],
+    [
+      1791666107,
+      1067982
     ]
   ],
   "online_peaks": {
@@ -895,9 +899,6 @@
     "2026-10-10": 1404142
   },
   "recent_phrases": [
-    "📢 Подписывайся: {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "👉 Подписывайся на {tag}",
     "🔥 {tag} — CS2 без воды",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -1394,7 +1395,10 @@
     "🔔 Больше CS2 — в {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📢 Подписывайся: {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1671,7 +1675,8 @@
     "hltvnews45687",
     "hltvnews45690",
     "hltvnews45691",
-    "hltvnews45692"
+    "hltvnews45692",
+    "hltvnews45693"
   ],
   "news_seen_t": [
     1788994268,
@@ -1693,13 +1698,18 @@
   "cs2_index_day": "2026-10-10",
   "ws_slot": "2026-10-10-16",
   "comm_slot": "2026-10-10-21",
-  "hltv_day": "2026-10-10",
+  "hltv_day": "2026-10-11",
   "hltv_count": 0,
   "hltv_digest": [
     {
       "headline": "FaZe взяли Roman Imperium Cup IX и подбираются к топ-15",
       "link": "https://www.hltv.org/news/45692/faze-knocking-on-the-door-of-top-15-with-roman-imperium-cup-ix-title",
       "score": 7
+    },
+    {
+      "headline": "MOUZ обыграли Spirit и вышли в финал EPL",
+      "link": "https://www.hltv.org/news/45693/mouz-beat-spirit-en-route-to-epl-final",
+      "score": 9
     }
   ],
   "reddit_day": "2026-10-10",
