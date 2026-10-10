@@ -4,8 +4,9 @@
   🔤 Шрифт дня — щодня о 09:00: безкоштовний шрифт із Google Fonts з
      кирилицею. Картка набрана самим шрифтом; факти (тип, автори,
      накреслення) — з Google Fonts, опис Claude пише, дивлячись на зразок.
-  🧠 Вікторина — щодня о 15:00, по черзі: «Вгадай бренд» за 2–5 кольорами
-     і «Вгадай шрифт». Картка + опитування-квіз Telegram (з поясненням).
+  🧠 Вікторина — щодня о 15:00: «Вгадай бренд» за 2–5 фірмовими кольорами
+     (лише бренди — так вирішили 10.10; «Вгадай шрифт» лишається в коді, але
+     не публікується). Картка + опитування-квіз Telegram (з поясненням).
      Неправильні варіанти — бренди з іншими кольорами, щоб відповідь була
      одна.
 """
@@ -350,16 +351,13 @@ def quiz_caption(q, foot):
     return f"<b>🧠 ВІКТОРИНА</b>\n{what} — відповідай в опитуванні 👇\n\n{foot}\n{tags}"
 
 
-def make_quiz(state, rnd, kind):
-    for k in (kind, "font" if kind == "brand" else "brand"):
-        try:
-            q = brand_quiz(state, rnd) if k == "brand" else font_quiz(state, rnd)
-        except Exception as e:
-            print("Вікторина не зібралась:", type(e).__name__, e)
-            q = None
-        if q and len(set(q["options"])) == 4:
-            return q
-    return None
+def make_quiz(state, rnd, kind="brand"):
+    try:
+        q = brand_quiz(state, rnd) if kind == "brand" else font_quiz(state, rnd)
+    except Exception as e:
+        print("Вікторина не зібралась:", type(e).__name__, e)
+        return None
+    return q if q and len(set(q["options"])) == 4 else None
 
 
 # ---------- розклад ----------
@@ -379,8 +377,7 @@ def tick(tg, state, kt, handle, foot, style, font_now=False, quiz_now=False):
                 print("Шрифт дня:", f["family"])
     if quiz_now or (LIVE and kt.hour >= QUIZ_HOUR
                     and state.get("quiz_day") != today):
-        kind = "brand" if kt.toordinal() % 2 == 0 else "font"
-        q = make_quiz(state, rnd, kind)
+        q = make_quiz(state, rnd, "brand")   # лише «Вгадай бренд» (10.10)
         card = q and quiz_card(q, handle)
         if q and card and tg.send_photo_file(card, quiz_caption(q, foot)).get("ok"):
             if quiz.send(tg, q).get("ok"):
@@ -400,7 +397,7 @@ def demo(dump, handle, foot, style):
         f, path, text = out
         print(f"\n===== ПРИКЛАД (шрифт дня: {f['family']}) =====\n{text}")
         dump(path)
-    for kind in ("brand", "font"):
+    for kind in ("brand",):
         q = make_quiz(state, rnd, kind)
         card = q and quiz_card(q, handle)
         if not q:
