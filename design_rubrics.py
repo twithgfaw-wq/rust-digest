@@ -31,7 +31,8 @@ import cs2_ai as ai
 import design_cards as cards
 import quiz
 
-LIVE = False                     # увімкнемо після схвалення прикладів
+LIVE = True                      # увімкнено 10.10 («вмикай»)
+WINDOW_H = 4                     # рубрика виходить лише в перші 4 год від свого часу
 FONT_HOUR = 9
 QUIZ_HOUR = 15
 CASE_HOUR = 11
@@ -726,7 +727,8 @@ def tick(tg, state, kt, handle, foot, style, font_now=False, quiz_now=False,
     rnd = random.Random(f"{today}-{time.time() // 3600}")
 
     def due(hour, key):
-        return LIVE and kt.hour >= hour and state.get(key) != today
+        return (LIVE and hour <= kt.hour < hour + WINDOW_H
+                and state.get(key) != today)
 
     if font_now or due(FONT_HOUR, "font_day"):
         out = make_font_post(state, rnd, handle, foot, style)
