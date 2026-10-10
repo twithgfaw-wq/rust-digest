@@ -252,5 +252,9 @@
       "src": "designboom"
     }
   ],
-  "queue": []
+  "queue": [],
+  "font_day": "2026-10-10",
+  "fonts_posted": [
+    "Nunito Sans"
+  ]
 }
