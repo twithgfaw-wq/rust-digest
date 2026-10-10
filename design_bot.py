@@ -54,6 +54,7 @@ FEEDS = [
     ("Fast Company", "https://www.fastcompany.com/co-design/rss"),
     ("Figma", "https://www.figma.com/blog/feed/atom.xml"),
     ("Awwwards", "https://www.awwwards.com/blog/feed/"),
+    ("Figma Release Notes", "https://www.figma.com/release-notes/feed/atom.xml"),
 ]
 LIVE = True            # запущено 10.10 після схвалення прикладів
 MIN_SCORE = 8          # одразу публікуємо лише 8+ з 10
@@ -67,6 +68,9 @@ QUIET = (0, 8)         # вночі за Києвом не постимо; зр�
 RUBRICS = {
     "news": ("⚡ НОВИНИ ДИЗАЙНУ", "НОВИНА", "#новини", "#дизайн #новини"),
     "designer": ("👤 ДИЗАЙНЕР", "ДИЗАЙНЕР", "#дизайнер", "#дизайн #дизайнер"),
+    "rebrand": ("🔄 РЕБРЕНДИНГ", "РЕБРЕНДИНГ", "#ребрендинг",
+                "#дизайн #ребрендинг"),
+    "update": ("🆕 ОНОВЛЕННЯ", "ОНОВЛЕННЯ", "#оновлення", "#дизайн #оновлення"),
 }
 FOOTERS = [
     "💙 Все про дизайн — {tag}",
@@ -303,7 +307,8 @@ SCORE_SCHEMA = {
         "properties": {
             "idx": {"type": "integer"},
             "score": {"type": "integer"},
-            "kind": {"type": "string", "enum": ["news", "designer", "skip"]},
+            "kind": {"type": "string", "enum": ["news", "designer", "rebrand",
+                                                "update", "skip"]},
             "duplicate": {"type": "boolean"},
         },
         "required": ["idx", "score", "kind", "duplicate"],
@@ -356,9 +361,13 @@ score від 1 до 10 — наскільки це круто і важливо 
   родзинки, корпоративні новини без візуальної цікавинки.
 Архітектуру та інтер'єри оцінюй на 8+ лише якщо це справді вражає.
 
-kind: «designer» — якщо стаття насамперед про конкретного дизайнера чи
-студію (інтерв'ю, портрет, творчий шлях, огляд їхніх робіт); «news» — усе
-інше, що підходить каналу; «skip» — не для каналу.
+kind: «rebrand» — відомий бренд змінив логотип чи айдентику; «update» —
+оновлення Photoshop, Illustrator, Figma, After Effects чи інших інструментів
+дизайнера (нові функції); «designer» — стаття насамперед про конкретного
+дизайнера чи студію (інтерв'ю, портрет, творчий шлях, огляд їхніх робіт);
+«news» — усе інше, що підходить каналу; «skip» — не для каналу.
+Великі оновлення інструментів із помітними новими функціями — 8–9;
+дрібні виправлення й маркетингові пости — 1–6.
 duplicate: true — якщо це та сама подія, що вже вийшла в каналі (список
 нижче), або якщо інша стаття в цьому списку розповідає про те саме і
 цікавіша; інакше false.
@@ -377,9 +386,14 @@ duplicate: true — якщо це та сама подія, що вже вийш
 
 def write_post(item, kind, earlier):
     """Пост українською: {duplicate, headline, card_title, body, credit}."""
-    rubric = ("👤 ДИЗАЙНЕР — історія про конкретного дизайнера чи студію: хто "
-              "це, чим цікаві, що зробили" if kind == "designer" else
-              "⚡ НОВИНИ ДИЗАЙНУ — що сталося і чому це цікаво дизайнерам")
+    rubric = {
+        "designer": "👤 ДИЗАЙНЕР — історія про конкретного дизайнера чи "
+                    "студію: хто це, чим цікаві, що зробили",
+        "rebrand": "🔄 РЕБРЕНДИНГ — який бренд оновив логотип чи айдентику, "
+                   "що саме змінилось і хто це зробив",
+        "update": "🆕 ОНОВЛЕННЯ — що нового в інструменті, які функції "
+                  "з'явились і чим вони корисні дизайнерам",
+    }.get(kind, "⚡ НОВИНИ ДИЗАЙНУ — що сталося і чому це цікаво дизайнерам")
     prompt = f"""Перед тобою стаття з {item['src']}. Напиши пост для каналу своїми
 словами — не перекладай дослівно.
 
@@ -685,8 +699,10 @@ def demo(token, chat):
               f"{it['src']}: {it['title'][:90]}")
     good = [x for x in ranked if x[0]["kind"] != "skip"
             and not x[0]["duplicate"]]
-    chosen = ([x for x in good if x[0]["kind"] == "news"][:2]
-              + [x for x in good if x[0]["kind"] == "designer"][:2])
+    chosen = ([x for x in good if x[0]["kind"] == "news"][:1]
+              + [x for x in good if x[0]["kind"] == "designer"][:1]
+              + [x for x in good if x[0]["kind"] == "rebrand"][:1]
+              + [x for x in good if x[0]["kind"] == "update"][:1])
     for r, it in chosen:
         article_text(it)
         post = write_post(it, r["kind"], [])
@@ -737,7 +753,9 @@ def main():
         rub.tick(tg, state, bot.kyiv_time(), CHANNEL_TAG,
                  random.choice(FOOTERS).format(tag=CHANNEL_TAG), STYLE,
                  font_now=os.environ.get("DESIGN_FONT_NOW") == "1",
-                 quiz_now=os.environ.get("DESIGN_QUIZ_NOW") == "1")
+                 quiz_now=os.environ.get("DESIGN_QUIZ_NOW") == "1",
+                 case_now=os.environ.get("DESIGN_CASE_NOW") == "1",
+                 palette_now=os.environ.get("DESIGN_PALETTE_NOW") == "1")
     except Exception as e:
         print("Рубрики не вийшли:", type(e).__name__, e)
     if not dry:
