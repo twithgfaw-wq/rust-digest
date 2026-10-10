@@ -6,10 +6,11 @@ Her Design Bot — канал @Her_Design «Все про дизайн».
 Що робить за один прогін (GitHub Actions раз на 30 хв, а також миттєвий
 запуск від Cloudflare Worker, щойно в джерелах з'являється нове):
   ⚡ Новини дизайну і 👤 дизайнери — свіжі статті з дизайнерських медіа
-     (Dezeen, designboom, Creative Boom, Abduzeedo, Design Week, Creative
-     Bloq, Wallpaper*, Fast Company, Figma, Awwwards). Claude оцінює кожну
+     (Dezeen, designboom, Creative Boom, Abduzeedo, Creative Bloq,
+     Wallpaper*, Fast Company, Figma, Awwwards). Claude оцінює кожну
      від 1 до 10, і одразу виходять лише 8+. Текст українською, тільки
-     факти зі статті. Картка у фірмовому стилі з фото джерела, автор
+     факти зі статті, і перед публікацією окремий фактчек звіряє кожне
+     твердження зі статтею. Картка у фірмовому стилі з фото джерела, автор
      роботи й посилання на оригінал.
 
 Бот той самий, що в @rust_news_Pro і @cs2_me (BOT_TOKEN).
@@ -48,7 +49,6 @@ FEEDS = [
     ("designboom", "https://www.designboom.com/feed/"),
     ("Creative Boom", "https://www.creativeboom.com/feed/"),
     ("Abduzeedo", "https://abduzeedo.com/rss.xml"),
-    ("Design Week", "https://www.designweek.co.uk/feed/"),
     ("Creative Bloq", "https://www.creativebloq.com/feeds.xml"),
     ("Wallpaper*", "https://www.wallpaper.com/feeds.xml"),
     ("Fast Company", "https://www.fastcompany.com/co-design/rss"),
@@ -395,7 +395,8 @@ def write_post(item, kind, earlier):
 - duplicate: true, якщо це та сама подія, що вже вийшла в каналі (список
   нижче); інакше false.
 
-Тільки факти зі статті.{earlier_block(earlier)}
+Тільки факти зі статті, і точно: не узагальнюй («усе», «завжди», «перший»),
+якщо в тексті сказано обережніше, і не переплутуй деталі.{earlier_block(earlier)}
 
 Заголовок статті: {item['title']}
 Посилання: {item['link']}
@@ -404,6 +405,49 @@ def write_post(item, kind, earlier):
 {item.get('text', '')[:9000]}"""
     return ai.ask(prompt, POST_SCHEMA, effort="medium", max_tokens=8000,
                   system=STYLE)
+
+
+CHECK_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "fixes": {"type": "array", "items": {"type": "string"}},
+        "headline": {"type": "string"},
+        "card_title": {"type": "string"},
+        "body": {"type": "string"},
+        "credit": {"type": "string"},
+    },
+    "required": ["fixes", "headline", "card_title", "body", "credit"],
+    "additionalProperties": False,
+}
+
+
+def verify_post(item, post):
+    """Звіряємо чернетку з текстом статті й виправляємо неточності.
+    Повертає виправлений пост (fixes — що змінено) або None."""
+    draft = json.dumps({k: post[k] for k in
+                        ("headline", "card_title", "body", "credit")},
+                       ensure_ascii=False, indent=1)
+    prompt = f"""Ти — фактчекер. Звір кожне твердження чернетки поста з текстом
+статті: імена, назви, числа, дати, хто що зробив, які деталі є в проєкті.
+Виправ усе, що текст не підтверджує або що сказано неточно: перебільшення
+(«усе», «завжди», «перший»), переплутані деталі, приписані не тим людям роботи.
+Непідтверджене — прибери. Стиль і довжину не змінюй, нічого нового не додавай.
+Якщо все точно — поверни чернетку без змін і порожній fixes. fixes — коротко,
+що саме виправлено.
+
+Чернетка (JSON):
+{draft}
+
+Стаття «{item['title']}» ({item['src']}):
+{item.get('text', '')[:9000]}"""
+    res = ai.ask(prompt, CHECK_SCHEMA, effort="medium", max_tokens=8000,
+                 system=STYLE)
+    if not res:
+        return None
+    if res["fixes"]:
+        print("Фактчек виправив:", "; ".join(res["fixes"])[:500])
+    return dict(post, **{k: res[k] for k in
+                         ("headline", "card_title", "body", "credit")})
 
 
 # ---------- пост ----------
@@ -471,6 +515,9 @@ def publish(tg, state, q, now):
     if post.get("duplicate"):
         print("Дубль — пропускаю:", q["title"][:90])
         return "skip"
+    post = verify_post(q, post)
+    if not post:                 # без фактчеку не публікуємо
+        return "retry"
     text = caption(q["kind"], post, q)
     card = make_card(q["kind"], post, q)
     res = send_post(tg, card, q.get("image"), text)
@@ -643,6 +690,7 @@ def demo(token, chat):
     for r, it in chosen:
         article_text(it)
         post = write_post(it, r["kind"], [])
+        post = post and verify_post(it, post)
         if not post:
             continue
         text = caption(r["kind"], post, it)
