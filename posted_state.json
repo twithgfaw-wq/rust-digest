@@ -172,7 +172,8 @@
     "work_1x1v1j3",
     "work_1x1y3ei",
     "work_1x25ax8",
-    "yt_asXfRV_K2ak"
+    "yt_asXfRV_K2ak",
+    "ws_3816577482"
   ],
   "ws_albums": [
     1791314077,
@@ -1649,7 +1650,12 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🎞 Новый ролик на канале {author}",
     "Приятного просмотра 🍿",
-    "🪓 Свежий Rust каждый день — {tag}"
+    "🪓 Свежий Rust каждый день — {tag}",
+    "Facepunch, обратите внимание 😏",
+    "⚡️",
+    ": ",
+    "качество на уровне",
+    "🔔 Больше Rust — в {tag}"
   ],
   "store_seen": [
     "10198",
@@ -2552,6 +2558,10 @@
     [
       1791618323,
       76364
+    ],
+    [
+      1791619320,
+      78684
     ]
   ],
   "online_peaks": {
@@ -2768,8 +2778,8 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3811375052",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3814386174"
   ],
-  "elite_last_ts": 1791568878,
-  "elite_slot": "2026-10-09-21",
+  "elite_last_ts": 1791619312,
+  "elite_slot": "2026-10-10-11",
   "market_day": "2026-10-09",
   "online_daily": "2026-10-09",
   "rsod_seen": [
