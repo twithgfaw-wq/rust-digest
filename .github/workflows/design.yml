@@ -1,0 +1,64 @@
+name: Her Design
+
+# Канал @Her_Design «Все про дизайн»: найкрутіші новини дизайну і дизайнери
+# з дизайнерських медіа. Раз на 30 хвилин + миттєвий запуск від Cloudflare
+# Worker. Бот той самий, що в @rust_news_Pro і @cs2_me (BOT_TOKEN).
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Режим"
+        type: choice
+        options:
+          - звичайний
+          - тест (нічого не надсилати)
+          - приклади постів у лог
+          - найкраща новина за добу — опублікувати зараз
+        default: звичайний
+
+permissions:
+  contents: write
+
+concurrency:
+  group: design
+  cancel-in-progress: false
+
+jobs:
+  design:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Забрати репозиторій
+        uses: actions/checkout@v4
+        with:
+          ref: main   # запуск із черги бере свіжий стан (інакше дублі)
+
+      - name: Поставити Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Дизайн-бот
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHANNEL: "@Her_Design"
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DESIGN_DRY: ${{ inputs.mode == 'тест (нічого не надсилати)' && '1' || '' }}
+          DESIGN_DEMO: ${{ inputs.mode == 'приклади постів у лог' && '1' || '' }}
+          DESIGN_BEST_NOW: ${{ inputs.mode == 'найкраща новина за добу — опублікувати зараз' && '1' || '' }}
+        run: |
+          pip install --quiet pillow anthropic
+          python design_bot.py
+
+      - name: Зберегти стан
+        run: |
+          if [ -n "$(git status --porcelain design_state.json)" ]; then
+            git config user.name "rust-digest-bot"
+            git config user.email "bot@users.noreply.github.com"
+            git add design_state.json
+            git commit -m "chore: update design_state [skip ci]"
+            git pull --rebase
+            git push
+          fi
