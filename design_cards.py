@@ -325,3 +325,164 @@ def news_card(label, title, meta, photo_url, out_path, tag="#новини",
     except Exception as e:
         print("Картка не намалювалась:", type(e).__name__, e)
         return False
+
+
+# ---------- шрифт дня і вікторина ----------
+
+TEXT_DARK = (27, 27, 47)
+_gfonts = {}
+
+
+def tmp_path(kind):
+    import time
+    return os.path.join(tempfile.gettempdir(),
+                        f"hd_{kind}_{int(time.time() * 1000)}.jpg")
+
+
+def gfont(family, weight=400):
+    """TTF конкретного шрифту з Google Fonts (для шрифту дня і вікторини)."""
+    if (family, weight) in _gfonts:
+        return _gfonts[(family, weight)]
+    path = None
+    try:
+        url = ("https://fonts.googleapis.com/css?family="
+               + family.replace(" ", "+") + f":{weight}"
+               + "&subset=latin,latin-ext,cyrillic,cyrillic-ext")
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/4.0"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            css = r.read().decode("utf-8", "replace")
+        u = re.search(r"url\((https://[^)]+\.ttf)\)", css)
+        if u:
+            path = os.path.join(tempfile.gettempdir(), "hd_g_"
+                                + re.sub(r"\W+", "_", family) + f"_{weight}.ttf")
+            if not os.path.exists(path):
+                with urllib.request.urlopen(u.group(1), timeout=20) as r:
+                    data = r.read()
+                with open(path, "wb") as f:
+                    f.write(data)
+        else:
+            print("Google Fonts не дав TTF для", family)
+    except Exception as e:
+        print("Шрифт", family, "не скачався:", type(e).__name__)
+        path = None
+    _gfonts[(family, weight)] = path
+    return path
+
+
+def fit_font(draw, path, text, maxw, start, minsize=24):
+    """Найбільший кегль шрифту path, з яким text влазить у maxw."""
+    from PIL import ImageFont
+    size = start
+    while size > minsize:
+        f = ImageFont.truetype(path, p(size))
+        if draw.textlength(text, font=f) <= p(maxw):
+            return f, size
+        size -= 4
+    return ImageFont.truetype(path, p(minsize)), minsize
+
+
+def hex_rgb(c):
+    return tuple(int(c[i:i + 2], 16) for i in (1, 3, 5))
+
+
+def sheet(label):
+    """Дошка, аркуш, затискач і мітка рубрики — основа карток рубрик."""
+    img, d = board()
+    paper(d, (150, 80, 1090, 600))
+    clip(d, 268, 38)
+    lf = font("unbounded", 700, 24)
+    lw = d.textlength(label, font=lf) / S
+    d.rounded_rectangle((p(200), p(146), p(240 + lw), p(198)), radius=p(8),
+                        fill=BLUE)
+    d.text((p(220 + lw / 2), p(172)), label, font=lf, fill=WHITE, anchor="mm")
+    return img, d
+
+
+def finish(img, tag, handle, out_path, cur=(1000, 470)):
+    from PIL import ImageDraw
+    d = ImageDraw.Draw(img)
+    cursor(d, *cur)
+    folder(d, 1124, 250, 1.1)
+    sparkle(d, 1184, 118, 22, PINK)
+    sparkle(d, 84, 380, 18, WHITE)
+    sparkle(d, 1200, 560, 16, YELLOW)
+    pills(d, tag, handle)
+    save(img, out_path)
+
+
+def chips(d, x, y, items):
+    f = font("onest", 600, 20)
+    for text, fill, color in items:
+        w = d.textlength(text, font=f) / S + 36
+        d.rounded_rectangle((p(x), p(y), p(x + w), p(y + 40)), radius=p(20),
+                            fill=fill)
+        d.text((p(x + w / 2), p(y + 20)), text, font=f, fill=color,
+               anchor="mm")
+        x += w + 12
+    return x
+
+
+def font_card(family, font_path, items, out_path, handle="@Her_Design",
+              sample="Аа Бб Ґґ Її Єє", line=None, label="ШРИФТ ДНЯ",
+              tag="#шрифт_дня"):
+    """Шрифт дня: назва, великий зразок і панграма самим шрифтом, чипи."""
+    try:
+        from PIL import ImageFont
+        img, d = sheet(label)
+        d.text((p(200), p(232)), family, font=font("unbounded", 700, 30),
+               fill=INK, anchor="lm")
+        sf, size = fit_font(d, font_path, sample, 840, 108)
+        d.text((p(200), p(262)), sample, font=sf, fill=TEXT_DARK)
+        y = 262 + size * 1.35
+        if line:
+            lf = ImageFont.truetype(font_path, p(32))
+            for ln in wrap(d, line, lf, 840)[:2]:
+                d.text((p(200), p(y)), ln, font=lf, fill=MUTED)
+                y += 46
+        chips(d, 200, 530, items)
+        finish(img, tag, handle, out_path, cur=(1010, 430))
+        return True
+    except Exception as e:
+        print("Картка шрифту не намалювалась:", type(e).__name__, e)
+        return False
+
+
+def quiz_card(label, question, out_path, colors=None, font_path=None,
+              sample=None, line=None, handle="@Her_Design", tag="#вікторина"):
+    """Вікторина: питання і або кольори бренду (без кодів), або напис
+    загаданим шрифтом."""
+    try:
+        from PIL import ImageDraw, ImageFont
+        img, d = sheet(label)
+        d.text((p(200), p(236)), question, font=font("unbounded", 700, 36),
+               fill=INK, anchor="lm")
+        tilted_text(img, 700, 112, "відповідай в опитуванні",
+                    font("caveat", 600, 36), PINK, 4)
+        d = ImageDraw.Draw(img)
+        if colors:
+            n, gap, h = len(colors), 22, 250
+            w = min(190, (840 - gap * (n - 1)) / n)
+            x = 200
+            for i, c in enumerate(colors):
+                d.rectangle((p(x + 8), p(296), p(x + w + 8), p(288 + h + 8)),
+                            fill=SHADOW)
+                d.rectangle((p(x), p(288), p(x + w), p(288 + h)), fill=WHITE,
+                            outline=(214, 219, 232), width=p(2))
+                d.rectangle((p(x + 10), p(298), p(x + w - 10), p(288 + h - 56)),
+                            fill=hex_rgb(c), outline=(214, 219, 232),
+                            width=p(1))
+                d.text((p(x + 18), p(288 + h - 28)), str(i + 1),
+                       font=font("caveat", 600, 30), fill=MUTED, anchor="lm")
+                x += w + gap
+        else:
+            sf, size = fit_font(d, font_path, sample, 840, 140)
+            d.text((p(200), p(282)), sample, font=sf, fill=TEXT_DARK)
+            if line:
+                lf = ImageFont.truetype(font_path, p(40))
+                d.text((p(200), p(282 + size * 1.4)), line, font=lf,
+                       fill=MUTED)
+        finish(img, tag, handle, out_path, cur=(1030, 500))
+        return True
+    except Exception as e:
+        print("Картка вікторини не намалювалась:", type(e).__name__, e)
+        return False
