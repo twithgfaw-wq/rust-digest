@@ -19,6 +19,9 @@ on:
           - приклади рубрик у лог (шрифт дня, вікторини)
           - шрифт дня — опублікувати зараз
           - вікторина — опублікувати зараз
+          - аватарки 9 і 10 — показати
+          - аватарка 9 — поставити на канал
+          - аватарка 10 — поставити на канал
         default: звичайний
 
 permissions:
@@ -54,16 +57,18 @@ jobs:
           DESIGN_DEMO_RUBRICS: ${{ inputs.mode == 'приклади рубрик у лог (шрифт дня, вікторини)' && '1' || '' }}
           DESIGN_FONT_NOW: ${{ inputs.mode == 'шрифт дня — опублікувати зараз' && '1' || '' }}
           DESIGN_QUIZ_NOW: ${{ inputs.mode == 'вікторина — опублікувати зараз' && '1' || '' }}
+          DESIGN_AVATAR: ${{ inputs.mode == 'аватарки 9 і 10 — показати' && 'show' || inputs.mode == 'аватарка 9 — поставити на канал' && '9' || inputs.mode == 'аватарка 10 — поставити на канал' && '10' || '' }}
         run: |
           pip install --quiet pillow anthropic
           python design_bot.py
 
       - name: Зберегти стан
         run: |
-          if [ -n "$(git status --porcelain design_state.json)" ]; then
+          if [ -n "$(git status --porcelain design_state.json avatars)" ]; then
             git config user.name "rust-digest-bot"
             git config user.email "bot@users.noreply.github.com"
             git add design_state.json
+            if [ -d avatars ]; then git add avatars; fi
             git commit -m "chore: update design_state [skip ci]"
             git pull --rebase
             git push
