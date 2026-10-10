@@ -486,3 +486,36 @@ def quiz_card(label, question, out_path, colors=None, font_path=None,
     except Exception as e:
         print("Картка вікторини не намалювалась:", type(e).__name__, e)
         return False
+
+
+def palette_card(name, colors, out_path, handle="@Her_Design",
+                 tag="#палітра"):
+    """Палітра дня: назва і 5 кольорів-«свотчів» із HEX і назвою."""
+    try:
+        img, d = sheet("ПАЛІТРА ДНЯ")
+        d.text((p(200), p(236)), name, font=font("unbounded", 700, 34),
+               fill=INK, anchor="lm")
+        n, gap, h = len(colors), 20, 262
+        w = (840 - gap * (n - 1)) / n
+        x = 200
+        hf, nf = font("onest", 600, 20), font("onest", 400, 16)
+        for hx, nm in colors:
+            d.rectangle((p(x + 8), p(286), p(x + w + 8), p(278 + h + 8)),
+                        fill=SHADOW)
+            d.rectangle((p(x), p(278), p(x + w), p(278 + h)), fill=WHITE,
+                        outline=(214, 219, 232), width=p(2))
+            d.rectangle((p(x + 8), p(286), p(x + w - 8), p(278 + h - 78)),
+                        fill=hex_rgb(hx), outline=(214, 219, 232), width=p(1))
+            d.text((p(x + 12), p(278 + h - 52)), hx, font=hf, fill=INK,
+                   anchor="lm")
+            label = nm
+            while len(label) > 1 and d.textlength(label, font=nf) > p(w - 22):
+                label = label[:-1]
+            d.text((p(x + 12), p(278 + h - 24)), label, font=nf, fill=MUTED,
+                   anchor="lm")
+            x += w + gap
+        finish(img, tag, handle, out_path, cur=(1040, 470))
+        return True
+    except Exception as e:
+        print("Картка палітри не намалювалась:", type(e).__name__, e)
+        return False
