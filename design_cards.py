@@ -280,7 +280,7 @@ def save(img, path):
 # ---------- картки ----------
 
 def news_card(label, title, meta, photo_url, out_path, tag="#новини",
-              handle="@Her_Design", note="деталі — в пості ↓"):
+              handle="@Her_Design", note="деталі — в пості"):
     """Картка новини або дизайнера: мітка рубрики, джерело й дата,
     заголовок, фото статті в рамці. False — якщо не вийшло."""
     try:
