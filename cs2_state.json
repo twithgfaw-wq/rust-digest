@@ -779,17 +779,18 @@
     [
       1791633708,
       1094772
+    ],
+    [
+      1791635514,
+      1165224
     ]
   ],
   "online_peaks": {
     "2026-10-08": 1216228,
     "2026-10-09": 1241281,
-    "2026-10-10": 1094772
+    "2026-10-10": 1165224
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "👉 Подписывайся на {tag}",
     "📌 Сохрани себе {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
@@ -1286,7 +1287,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "👉 Подписывайся на {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1550,7 +1554,8 @@
     "hltvnews45688",
     "hltvnews45676",
     "hltvnews45689",
-    "hltvnews45687"
+    "hltvnews45687",
+    "hltvnews45690"
   ],
   "news_seen_t": [
     1788994268,
@@ -1572,7 +1577,7 @@
   "cs2_index_day": "2026-10-10",
   "ws_slot": "2026-10-10-12",
   "comm_slot": "2026-10-10-13",
-  "hltv_day": "2026-10-09",
+  "hltv_day": "2026-10-10",
   "hltv_count": 0,
   "hltv_digest": [
     {
@@ -1583,6 +1588,11 @@
     {
       "headline": "sidde: FURIA нужно найти баланс, чтобы не приехать на Major выгоревшими",
       "link": "https://www.hltv.org/news/45687/sidde-we-need-to-find-a-good-balance-to-not-get-to-the-major-feeling-100-burned-out",
+      "score": 4
+    },
+    {
+      "headline": "BBL официально подписали MistR",
+      "link": "https://www.hltv.org/news/45690/bbl-confirm-mistr-signing",
       "score": 4
     }
   ],
