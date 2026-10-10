@@ -174,7 +174,8 @@
     "work_1x25ax8",
     "yt_asXfRV_K2ak",
     "ws_3816577482",
-    "yt_yu55ZYEZkQA"
+    "yt_yu55ZYEZkQA",
+    "ws_3816968651"
   ],
   "ws_albums": [
     1791314077,
@@ -1663,7 +1664,12 @@
     "📢 Подписывайся: {tag}",
     "📺 Свежее видео от {author} уже на YouTube",
     "",
-    "🟥 {tag} — всё о Rust"
+    "🟥 {tag} — всё о Rust",
+    "Красиво же? 😍",
+    "🏆",
+    " — ",
+    "вот это уровень",
+    "🎮 Новости, скины и видео по Rust — {tag}"
   ],
   "store_seen": [
     "10198",
@@ -2630,6 +2636,10 @@
     [
       1791636670,
       121632
+    ],
+    [
+      1791637316,
+      122298
     ]
   ],
   "online_peaks": {
@@ -2637,7 +2647,7 @@
     "2026-10-07": 111389,
     "2026-10-08": 117208,
     "2026-10-09": 134081,
-    "2026-10-10": 121632
+    "2026-10-10": 122298
   },
   "x_last_id": "2108596007130763310",
   "market_snaps": {
@@ -2912,8 +2922,8 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3811375052",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3814386174"
   ],
-  "elite_last_ts": 1791619312,
-  "elite_slot": "2026-10-10-11",
+  "elite_last_ts": 1791637310,
+  "elite_slot": "2026-10-10-16",
   "market_day": "2026-10-10",
   "online_daily": "2026-10-09",
   "rsod_seen": [
