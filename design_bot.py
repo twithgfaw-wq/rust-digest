@@ -55,7 +55,7 @@ FEEDS = [
     ("Figma", "https://www.figma.com/blog/feed/atom.xml"),
     ("Awwwards", "https://www.awwwards.com/blog/feed/"),
 ]
-LIVE = False           # увімкнемо після схвалення прикладів
+LIVE = True            # запущено 10.10 після схвалення прикладів
 MIN_SCORE = 8          # одразу публікуємо лише 8+ з 10
 MAX_PER_RUN = 2        # за один прогін — не більше двох новин
 MAX_PER_DAY = 10
