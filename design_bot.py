@@ -712,6 +712,11 @@ def main():
     if os.environ.get("DESIGN_DEMO") == "1":
         demo(token, channel)
         return
+    avatar = os.environ.get("DESIGN_AVATAR", "").strip()
+    if avatar:                       # show — показати 9 і 10; 9/10 — поставити
+        import design_avatar
+        design_avatar.run(token, channel, avatar)
+        return
     import design_rubrics as rub
     if os.environ.get("DESIGN_DEMO_RUBRICS") == "1":
         rub.demo(dump_card, CHANNEL_TAG,
