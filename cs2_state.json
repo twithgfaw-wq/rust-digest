@@ -879,6 +879,10 @@
     [
       1791662517,
       1175462
+    ],
+    [
+      1791663988,
+      1122810
     ]
   ],
   "online_peaks": {
@@ -887,9 +891,6 @@
     "2026-10-10": 1404142
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📌 Сохрани себе {tag}",
     "💣 Твой канал про CS2 — {tag}",
@@ -1386,7 +1387,10 @@
     "🔥 {tag} — CS2 без воды",
     "👀 Следи за CS2 вместе с {tag}",
     "👉 Подписывайся на {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1662,7 +1666,8 @@
     "hltvnews45689",
     "hltvnews45687",
     "hltvnews45690",
-    "hltvnews45691"
+    "hltvnews45691",
+    "hltvnews45692"
   ],
   "news_seen_t": [
     1788994268,
@@ -1686,7 +1691,13 @@
   "comm_slot": "2026-10-10-21",
   "hltv_day": "2026-10-10",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "FaZe взяли Roman Imperium Cup IX и подбираются к топ-15",
+      "link": "https://www.hltv.org/news/45692/faze-knocking-on-the-door-of-top-15-with-roman-imperium-cup-ix-title",
+      "score": 7
+    }
+  ],
   "reddit_day": "2026-10-10",
   "reddit_posted": [
     "1wzz7z0",
