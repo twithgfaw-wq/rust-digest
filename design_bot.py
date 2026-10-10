@@ -712,6 +712,11 @@ def main():
     if os.environ.get("DESIGN_DEMO") == "1":
         demo(token, channel)
         return
+    import design_rubrics as rub
+    if os.environ.get("DESIGN_DEMO_RUBRICS") == "1":
+        rub.demo(dump_card, CHANNEL_TAG,
+                 random.choice(FOOTERS).format(tag=CHANNEL_TAG), STYLE)
+        return
     dry = os.environ.get("DESIGN_DRY") == "1"
     best_now = os.environ.get("DESIGN_BEST_NOW") == "1"
     if not (LIVE or dry or best_now):
@@ -723,6 +728,13 @@ def main():
         news_tick(tg, state, now, bot.kyiv_time(), best_now=best_now)
     except Exception as e:
         print("Новини не вийшли:", type(e).__name__, e)
+    try:
+        rub.tick(tg, state, bot.kyiv_time(), CHANNEL_TAG,
+                 random.choice(FOOTERS).format(tag=CHANNEL_TAG), STYLE,
+                 font_now=os.environ.get("DESIGN_FONT_NOW") == "1",
+                 quiz_now=os.environ.get("DESIGN_QUIZ_NOW") == "1")
+    except Exception as e:
+        print("Рубрики не вийшли:", type(e).__name__, e)
     if not dry:
         save_state(state)
 
