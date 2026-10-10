@@ -237,26 +237,20 @@
     "https://www.figma.com/blog/got-skills-make-the-figma-agent-a-better-collaborator"
   ],
   "day": "2026-10-10",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
       "title": "Чи передбачила книга 1973 року логотипи AMD, Google Drive і Chase?",
       "link": "https://www.creativebloq.com/news/did-a-book-from-1973-predict-the-logo-designs-of-some-of-todays-biggest-companies",
       "src": "Creative Bloq"
+    },
+    {
+      "t": 1791653014.1402087,
+      "title": "Stefan Sagmeister вивів інфографіку на вулицю: дані тепер на взутті",
+      "link": "https://www.designboom.com/design/stefan-sagmeister-ekn-global-data-colorful-sneakers-boots-frankfurt",
+      "src": "designboom"
     }
   ],
-  "queue": [
-    {
-      "src": "designboom",
-      "title": "stefan sagmeister and ekn transform global data into colorful sneakers and boots",
-      "link": "https://www.designboom.com/design/stefan-sagmeister-ekn-global-data-colorful-sneakers-boots-frankfurt/",
-      "ts": 1791622188.0,
-      "text": "STEFAN SAGMEISTER AND EKN TURN DATA INTO WEARABLE DESIGN\nStefan Sagmeister is taking his data visualizations somewhere they rarely go: onto people’s feet. In collaboration with Frankfurt-based ekn footwear , the Austrian graphic designer has developed a sneaker and a boot that translate statistics on renewable electricity and street homelessness into wearable objects. The two designs accompany his exhibition Finally, Something Good., opening at La Gaîté Lyrique in Paris on October 15, 2026. Rather than simply reproducing existing artworks on footwear, the project brings together graphic design and traditional shoemaking. ‘It was about seeing what happens when Stefan’s way of thinking meets our way of making things,’ ekn founder Noel Klein-Reesink tells designboom in an exclusive interview .\nFor Sagmeister, the attraction lies in reaching an audience beyond the exhibition space. ‘A painting in a gallery or museum is seen by people who decided to come in and look. A shoe is seen on the street by people who decided nothing of the sort,’ he explains to designboom. The collaboration extends his ongoing exploration of long-term social progress through visualized data, previously presented across historic paintings, installations and everyday objects. Klein-Reesink sees a natural connection between this approach and footwear design. ‘What has always interested us about his work is the way he turns complex information into something immediate and visual,’ he says. Here, the artwork no longer has to wait for visitors. It can catch their attention on the way to the supermarket.\ncolorful sneakers visualize renewable electricity generation\nRENEWABLE ENERGY AND HOMELESSNESS SHAPE TWO SHOE DESIGNS\nThe first model, Bring It On, is a colorful suede sneaker visualizing worldwide renewable electricity generation between 1965 and 2022, including hydro, wind, solar and other renewable sources. The rising figures become a graphic composition across the shoe’s upper, while the complete dataset appears on the footbed. ‘With Bring It On, the shapes and colours became part of the overall design of the sneaker, while the complete information sits on the footbed,’ explains Klein-Reesink from ekn . For Sagmeister , the subject carries particular significance. ‘While everybody is talking about AI, I find the improvement in renewable electricity generation more consequential,’ he tells designboom, pointing to the possibilities that cheaper renewable energy could unlock, from vertical farming to desalination and carbon capture.\nThe second design, Like a Complete Unknown, takes a more uncomfortable subject and gives it the form of a cream-colored leather boot. Its embroidered graphics visualize reported street homelessness across six countries, drawing on the OECD Affordable Housing Database. The figures range from 76 people living on the street or in public spaces per 100,000 inhabitants in the United States to 46 in Germany, 16 in the United Kingdom, eight in France, five in ",
-      "image": "https://www.designboom.com/wp-content/uploads/2026/10/stefan-sagmeister-ekn-global-data-colorful-sneakers-boots-frankfurt-2-500x400-22b08q85r203.jpg",
-      "score": 8,
-      "kind": "designer",
-      "found": 1791652951.8106186
-    }
-  ]
+  "queue": []
 }
