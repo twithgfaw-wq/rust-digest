@@ -176,7 +176,8 @@
     "ws_3816577482",
     "yt_yu55ZYEZkQA",
     "ws_3816968651",
-    "work_1x1yvvj"
+    "work_1x1yvvj",
+    "work_1x2iw5e"
   ],
   "ws_albums": [
     1791314077,
@@ -1678,7 +1679,12 @@
     "🔥 Мастерская Rust: тройка лидеров недели",
     "🎯 Играешь и в CS2? Новости и скины — в @cs2_me",
     "🧱 Когда в Rust есть фантазия и время",
-    "🔥 {tag} — Rust без воды"
+    "🔥 {tag} — Rust без воды",
+    "🔥 РАБОТА ДНЯ С R/PLAYRUST",
+    "⚡️ Всё самое свежее по Rust — {tag}",
+    "А ты сейчас в игре? 🎮",
+    "🌍 Rust не спит — онлайн на этот вечер",
+    "🛡 Твой канал про Rust — {tag}"
   ],
   "store_seen": [
     "10198",
@@ -2713,6 +2719,10 @@
     [
       1791650745,
       132611
+    ],
+    [
+      1791651735,
+      132867
     ]
   ],
   "online_peaks": {
@@ -2998,7 +3008,7 @@
   "elite_last_ts": 1791637310,
   "elite_slot": "2026-10-10-16",
   "market_day": "2026-10-10",
-  "online_daily": "2026-10-09",
+  "online_daily": "2026-10-10",
   "rsod_seen": [
     "Young Dragon AR",
     "Cargo Heli Small Backpack",
@@ -3033,7 +3043,7 @@
     "2026-10-10": 32
   },
   "rust_index_day": "2026-10-10",
-  "rcomm_slot": "2026-10-10-14",
+  "rcomm_slot": "2026-10-10-20",
   "rcomm_ids": {
     "facepunch": null,
     "garrynewman": {
