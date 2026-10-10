@@ -260,5 +260,8 @@
   "quiz_day": "2026-10-10",
   "quiz_fonts": [
     "Saira Condensed"
+  ],
+  "quiz_brands": [
+    "Subway"
   ]
 }
