@@ -256,5 +256,9 @@
   "font_day": "2026-10-10",
   "fonts_posted": [
     "Nunito Sans"
+  ],
+  "quiz_day": "2026-10-10",
+  "quiz_fonts": [
+    "Saira Condensed"
   ]
 }
