@@ -1047,18 +1047,19 @@
     [
       1791725323,
       1334209
+    ],
+    [
+      1791726874,
+      1389420
     ]
   ],
   "online_peaks": {
     "2026-10-08": 1216228,
     "2026-10-09": 1241281,
     "2026-10-10": 1404142,
-    "2026-10-11": 1334209
+    "2026-10-11": 1389420
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🔔 Больше CS2 — в {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
     "🎯 Свежий CS2 каждый день — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
@@ -1555,7 +1556,10 @@
     "📡 Не пропусти важное: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "👉 Подписывайся на {tag}",
+    "📢 Подписывайся: {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1846,7 +1850,8 @@
     "hltvnews45695",
     "hltvnews45694",
     "hltvnews45696",
-    "hltvnews45697"
+    "hltvnews45697",
+    "hltvnews45698"
   ],
   "news_seen_t": [
     1788994268,
@@ -1889,6 +1894,11 @@
     {
       "headline": "Гранд-финал ESL Pro League S24: текстовая трансляция",
       "link": "https://www.hltv.org/news/45696/live-updates-from-esl-pro-league-s24-grand-final",
+      "score": 8
+    },
+    {
+      "headline": "Aurora всухую обыграли Spirit и заняли третье место на EPL",
+      "link": "https://www.hltv.org/news/45698/aurora-claim-third-at-epl-with-spirit-sweep",
       "score": 8
     }
   ],
