@@ -1059,6 +1059,10 @@
     [
       1791730490,
       1358755
+    ],
+    [
+      1791730913,
+      1379664
     ]
   ],
   "online_peaks": {
@@ -1068,9 +1072,6 @@
     "2026-10-11": 1404227
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📢 Подписывайся: {tag}",
-    "📌 Сохрани себе {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🔔 Больше CS2 — в {tag}",
     "👉 Подписывайся на {tag}",
@@ -1567,7 +1568,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📌 Сохрани себе {tag}",
-    "📡 Не пропусти важное: {tag}"
+    "📡 Не пропусти важное: {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1768,7 +1772,7 @@
     "3817145161"
   ],
   "price_day": "2026-10-11",
-  "invest_day": "2026-10-10",
+  "invest_day": "2026-10-11",
   "invest_days": {
     "2026-10-08": [
       "Paris 2023 Vertigo Souvenir Package",
@@ -1790,6 +1794,13 @@
       "Paris 2023 Anubis Souvenir Package",
       "Paris 2023 Ancient Souvenir Package",
       "Gamma Case"
+    ],
+    "2026-10-11": [
+      "Horizon Case",
+      "Paris 2023 Vertigo Souvenir Package",
+      "Anubis Collection Package",
+      "Winter Offensive Weapon Case",
+      "CS:GO Weapon Case"
     ]
   },
   "sod_seen": [
@@ -1980,10 +1991,40 @@
       "verdict": "watch",
       "price": 2.7,
       "date": "2026-10-10"
+    },
+    {
+      "name": "Horizon Case",
+      "verdict": "watch",
+      "price": 7.24,
+      "date": "2026-10-11"
+    },
+    {
+      "name": "Paris 2023 Vertigo Souvenir Package",
+      "verdict": "watch",
+      "price": 2.22,
+      "date": "2026-10-11"
+    },
+    {
+      "name": "Anubis Collection Package",
+      "verdict": "buy",
+      "price": 1.69,
+      "date": "2026-10-11"
+    },
+    {
+      "name": "Winter Offensive Weapon Case",
+      "verdict": "watch",
+      "price": 8.7,
+      "date": "2026-10-11"
+    },
+    {
+      "name": "CS:GO Weapon Case",
+      "verdict": "watch",
+      "price": 99.04,
+      "date": "2026-10-11"
     }
   ],
-  "cs2_quiz_n": 1,
-  "cs2_quiz_day": "2026-10-09",
+  "cs2_quiz_n": 2,
+  "cs2_quiz_day": "2026-10-11",
   "cs2_index_steam": {
     "2026-10-10": 2,
     "2026-10-11": 7
