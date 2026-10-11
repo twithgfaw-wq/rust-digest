@@ -259,9 +259,10 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-10-10",
+  "font_day": "2026-10-11",
   "fonts_posted": [
-    "Nunito Sans"
+    "Nunito Sans",
+    "Caveat"
   ],
   "quiz_day": "2026-10-10",
   "quiz_fonts": [
