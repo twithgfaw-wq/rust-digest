@@ -1091,6 +1091,10 @@
     [
       1791741242,
       1172230
+    ],
+    [
+      1791743429,
+      1186702
     ]
   ],
   "online_peaks": {
@@ -1100,9 +1104,6 @@
     "2026-10-11": 1404227
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🔔 Больше CS2 — в {tag}",
     "📢 Подписывайся: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -1599,7 +1600,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "📡 Не пропусти важное: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "👉 Подписывайся на {tag}",
+    "📌 Сохрани себе {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1666,7 +1670,8 @@
     "2108818889752854886",
     "2108626045272482220",
     "2109014967726784726",
-    "2109275247941746818"
+    "2109275247941746818",
+    "2109346074016276562"
   ],
   "ws_scores": {
     "3815186169": {
@@ -1900,7 +1905,8 @@
     "hltvnews45696",
     "hltvnews45697",
     "hltvnews45698",
-    "hltvnews45699"
+    "hltvnews45699",
+    "hltvnews45700"
   ],
   "news_seen_t": [
     1788994268,
@@ -1921,36 +1927,10 @@
   },
   "cs2_index_day": "2026-10-11",
   "ws_slot": "2026-10-11-12",
-  "comm_slot": "2026-10-11-17",
+  "comm_slot": "2026-10-11-21",
   "hltv_day": "2026-10-11",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "FaZe взяли Roman Imperium Cup IX и подбираются к топ-15",
-      "link": "https://www.hltv.org/news/45692/faze-knocking-on-the-door-of-top-15-with-roman-imperium-cup-ix-title",
-      "score": 7
-    },
-    {
-      "headline": "MOUZ обыграли Spirit и вышли в финал EPL",
-      "link": "https://www.hltv.org/news/45693/mouz-beat-spirit-en-route-to-epl-final",
-      "score": 9
-    },
-    {
-      "headline": "sycrone о xertioN: капитан MOUZ сохранял хладнокровие под давлением",
-      "link": "https://www.hltv.org/news/45694/sycrone-sometimes-tactically-you-can-get-somewhere-with-a-good-look-and-a-round-doesnt-convert-but-xertion-always-kept-composure",
-      "score": 4
-    },
-    {
-      "headline": "Гранд-финал ESL Pro League S24: текстовая трансляция",
-      "link": "https://www.hltv.org/news/45696/live-updates-from-esl-pro-league-s24-grand-final",
-      "score": 8
-    },
-    {
-      "headline": "Aurora всухую обыграли Spirit и заняли третье место на EPL",
-      "link": "https://www.hltv.org/news/45698/aurora-claim-third-at-epl-with-spirit-sweep",
-      "score": 8
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-11",
   "reddit_posted": [
     "1wzz7z0",
@@ -1958,7 +1938,7 @@
     "1x1k31k"
   ],
   "online_daily": "2026-10-11",
-  "hltv_digest_day": "2026-10-10",
+  "hltv_digest_day": "2026-10-11",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
