@@ -1099,6 +1099,10 @@
     [
       1791744997,
       1188098
+    ],
+    [
+      1791746815,
+      1144544
     ]
   ],
   "online_peaks": {
@@ -1108,9 +1112,6 @@
     "2026-10-11": 1404227
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📌 Сохрани себе {tag}",
@@ -1607,7 +1608,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "📢 Подписывайся: {tag}",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1910,7 +1914,8 @@
     "hltvnews45697",
     "hltvnews45698",
     "hltvnews45699",
-    "hltvnews45700"
+    "hltvnews45700",
+    "hltvnews45701"
   ],
   "news_seen_t": [
     1788994268,
@@ -1934,7 +1939,13 @@
   "comm_slot": "2026-10-11-21",
   "hltv_day": "2026-10-11",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "ZywOo взял 34-й MVP в карьере на ESL Pro League S24",
+      "link": "https://www.hltv.org/news/45701/zywoo-claims-34th-career-mvp-at-esl-pro-league-s24",
+      "score": 8
+    }
+  ],
   "reddit_day": "2026-10-11",
   "reddit_posted": [
     "1wzz7z0",
