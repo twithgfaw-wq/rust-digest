@@ -987,18 +987,19 @@
     [
       1791703751,
       811375
+    ],
+    [
+      1791705269,
+      847061
     ]
   ],
   "online_peaks": {
     "2026-10-08": 1216228,
     "2026-10-09": 1241281,
     "2026-10-10": 1404142,
-    "2026-10-11": 811375
+    "2026-10-11": 847061
   },
   "recent_phrases": [
-    "📢 Подписывайся: {tag}",
-    "📌 Сохрани себе {tag}",
-    "📡 Не пропусти важное: {tag}",
     "🔔 Больше CS2 — в {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👀 Следи за CS2 вместе с {tag}",
@@ -1495,7 +1496,10 @@
     "📡 Не пропусти важное: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔥 {tag} — CS2 без воды",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "📢 Подписывайся: {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1774,7 +1778,8 @@
     "hltvnews45691",
     "hltvnews45692",
     "hltvnews45693",
-    "hltvnews45695"
+    "hltvnews45695",
+    "hltvnews45694"
   ],
   "news_seen_t": [
     1788994268,
@@ -1808,6 +1813,11 @@
       "headline": "MOUZ обыграли Spirit и вышли в финал EPL",
       "link": "https://www.hltv.org/news/45693/mouz-beat-spirit-en-route-to-epl-final",
       "score": 9
+    },
+    {
+      "headline": "sycrone о xertioN: капитан MOUZ сохранял хладнокровие под давлением",
+      "link": "https://www.hltv.org/news/45694/sycrone-sometimes-tactically-you-can-get-somewhere-with-a-good-look-and-a-round-doesnt-convert-but-xertion-always-kept-composure",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-10",
