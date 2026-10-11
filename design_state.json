@@ -245,10 +245,12 @@
     "https://www.creativebloq.com/news/an-embroidered-logo-shows-apples-understands-something-that-other-tech-brands-dont",
     "https://www.wallpaper.com/architecture/post-war-belgian-modernism",
     "https://www.creativebloq.com/features/electric-cars-are-killing-the-cinematic-experience-of-driving-but-sonic-design-is-here-to-help",
-    "https://www.wallpaper.com/architecture/residential/south-barn-studio-weave-uk"
+    "https://www.wallpaper.com/architecture/residential/south-barn-studio-weave-uk",
+    "https://www.creativebloq.com/news/disneys-announcements-at-d23-tell-you-everything-thats-wrong-with-disney-right-now",
+    "https://www.creativebloq.com/news/the-coca-cola-rebrand-is-still-causing-confusion-three-months-on"
   ],
   "day": "2026-10-11",
-  "day_count": 0,
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -261,6 +263,12 @@
       "title": "Stefan Sagmeister вивів інфографіку на вулицю: дані тепер на взутті",
       "link": "https://www.designboom.com/design/stefan-sagmeister-ekn-global-data-colorful-sneakers-boots-frankfurt",
       "src": "designboom"
+    },
+    {
+      "t": 1791710634.139155,
+      "title": "Новий Coke Zero легше сплутати з класичною колою",
+      "link": "https://www.creativebloq.com/news/the-coca-cola-rebrand-is-still-causing-confusion-three-months-on",
+      "src": "Creative Bloq"
     }
   ],
   "queue": [],
