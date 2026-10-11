@@ -1015,18 +1015,19 @@
     [
       1791714444,
       948624
+    ],
+    [
+      1791716072,
+      984928
     ]
   ],
   "online_peaks": {
     "2026-10-08": 1216228,
     "2026-10-09": 1241281,
     "2026-10-10": 1404142,
-    "2026-10-11": 948624
+    "2026-10-11": 984928
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "💣 Твой канал про CS2 — {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📢 Подписывайся: {tag}",
@@ -1523,7 +1524,10 @@
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
     "💣 Твой канал про CS2 — {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "📡 Не пропусти важное: {tag}",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1812,7 +1816,8 @@
     "hltvnews45692",
     "hltvnews45693",
     "hltvnews45695",
-    "hltvnews45694"
+    "hltvnews45694",
+    "hltvnews45696"
   ],
   "news_seen_t": [
     1788994268,
@@ -1851,6 +1856,11 @@
       "headline": "sycrone о xertioN: капитан MOUZ сохранял хладнокровие под давлением",
       "link": "https://www.hltv.org/news/45694/sycrone-sometimes-tactically-you-can-get-somewhere-with-a-good-look-and-a-round-doesnt-convert-but-xertion-always-kept-composure",
       "score": 4
+    },
+    {
+      "headline": "Гранд-финал ESL Pro League S24: текстовая трансляция",
+      "link": "https://www.hltv.org/news/45696/live-updates-from-esl-pro-league-s24-grand-final",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-10",
