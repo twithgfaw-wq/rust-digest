@@ -1283,6 +1283,10 @@
     [
       1791815768,
       1243379
+    ],
+    [
+      1791817419,
+      1221136
     ]
   ],
   "online_peaks": {
@@ -1293,9 +1297,6 @@
     "2026-10-12": 1248671
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "👉 Подписывайся на {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🔥 {tag} — CS2 без воды",
     "📡 Не пропусти важное: {tag}",
@@ -1792,7 +1793,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📡 Не пропусти важное: {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1996,7 +2000,7 @@
     "3817145161"
   ],
   "price_day": "2026-10-12",
-  "invest_day": "2026-10-11",
+  "invest_day": "2026-10-12",
   "invest_days": {
     "2026-10-08": [
       "Paris 2023 Vertigo Souvenir Package",
@@ -2025,6 +2029,13 @@
       "Anubis Collection Package",
       "Winter Offensive Weapon Case",
       "CS:GO Weapon Case"
+    ],
+    "2026-10-12": [
+      "Rio 2022 Dust II Souvenir Package",
+      "Chroma 3 Case",
+      "Chroma 2 Case",
+      "Paris 2023 Mirage Souvenir Package",
+      "Operation Bravo Case"
     ]
   },
   "sod_seen": [
@@ -2260,6 +2271,36 @@
       "verdict": "watch",
       "price": 99.04,
       "date": "2026-10-11"
+    },
+    {
+      "name": "Rio 2022 Dust II Souvenir Package",
+      "verdict": "watch",
+      "price": 2.59,
+      "date": "2026-10-12"
+    },
+    {
+      "name": "Chroma 3 Case",
+      "verdict": "buy",
+      "price": 3.03,
+      "date": "2026-10-12"
+    },
+    {
+      "name": "Chroma 2 Case",
+      "verdict": "watch",
+      "price": 3.32,
+      "date": "2026-10-12"
+    },
+    {
+      "name": "Paris 2023 Mirage Souvenir Package",
+      "verdict": "buy",
+      "price": 2.34,
+      "date": "2026-10-12"
+    },
+    {
+      "name": "Operation Bravo Case",
+      "verdict": "watch",
+      "price": 49.56,
+      "date": "2026-10-12"
     }
   ],
   "cs2_quiz_n": 2,
