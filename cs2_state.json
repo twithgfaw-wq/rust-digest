@@ -1307,6 +1307,10 @@
     [
       1791822666,
       1097796
+    ],
+    [
+      1791824174,
+      1097265
     ]
   ],
   "online_peaks": {
@@ -1317,9 +1321,6 @@
     "2026-10-12": 1248671
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔥 {tag} — CS2 без воды",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "👉 Подписывайся на {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
@@ -1816,7 +1817,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2144,7 +2148,8 @@
     "hltvnews45705",
     "hltvnews45706",
     "hltvnews45708",
-    "hltvnews45709"
+    "hltvnews45709",
+    "hltvnews45711"
   ],
   "news_seen_t": [
     1788994268,
@@ -2198,6 +2203,11 @@
       "headline": "Thunderpick World Championship: восемь команд, $1 млн и Мальта",
       "link": "https://www.hltv.org/news/45706/thunderpick-world-championship-teams-format-schedule-prizes-talent-fantasy",
       "score": 6
+    },
+    {
+      "headline": "Falcons продлили контракт с m0NESY",
+      "link": "https://www.hltv.org/news/45711/falcons-announce-m0nesy-contract-extension",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-12",
