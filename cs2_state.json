@@ -1247,6 +1247,10 @@
     [
       1791801166,
       685712
+    ],
+    [
+      1791802745,
+      712367
     ]
   ],
   "online_peaks": {
@@ -1254,12 +1258,9 @@
     "2026-10-09": 1241281,
     "2026-10-10": 1404142,
     "2026-10-11": 1404227,
-    "2026-10-12": 685712
+    "2026-10-12": 712367
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📌 Сохрани себе {tag}",
-    "💣 Твой канал про CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "👉 Подписывайся на {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -1756,7 +1757,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "📡 Не пропусти важное: {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2064,7 +2068,8 @@
     "hltvnews45700",
     "hltvnews45701",
     "hltvnews45702",
-    "hltvnews45703"
+    "hltvnews45703",
+    "hltvnews45704"
   ],
   "news_seen_t": [
     1788994268,
@@ -2103,6 +2108,11 @@
       "headline": "Wildcard взяли FRAG University и приблизились к Singapore Major",
       "link": "https://www.hltv.org/news/45703/wildcards-major-chances-soar-with-frag-university-title",
       "score": 5
+    },
+    {
+      "headline": "TOBIZ возвращается в MOUZ на должность head of talent development",
+      "link": "https://www.hltv.org/news/45704/tobiz-returns-to-mouz-as-head-of-talent-development",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-11",
