@@ -1,15 +1,12 @@
 {
-  "id": "fairy_top3_2026_10_09",
+  "id": "yt_ksqRs-6pbwc",
   "channel": "@cs2_me",
-  "photos": [
-    "https://images.steamusercontent.com/ugc/9407665273739922474/0676E0ADA5F63A5AFFB377A7741ED793DC074D64/?imw=1280&imh=720&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
-    "https://images.steamusercontent.com/ugc/9885480342436449537/A628B70DFDA90FE28E37E1650E95ABE7F61D873A/?imw=1280&imh=720&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
-    "https://images.steamusercontent.com/ugc/9697613345776454696/3E11EF7F1F30D30786E94104AE4A0F21E9211277/?imw=1280&imh=720&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
-  ],
-  "ws_ids": ["3785865527", "3813233766", "3789144745"],
-  "text": "🎨 <b>МАСТЕРСКАЯ CS2 · ТОП-3 СКАЗКИ</b>\nВ мастерской сейчас тема «Сказки». Пересмотрели самые популярные работы 2026 года — вот три сильнейшие.\n\n🥇 <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=3785865527\">AK-47 «Green Knight»</a> — 9,5/10\nЗелёный рыцарь из легенд о короле Артуре: кельтские узоры, золото и рыцарь с топором на корпусе. Нарисовано вручную — и это видно.\n👤 Lehmann · ⭐ 64 в избранном\n\n🥈 <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=3813233766\">P90 «Swamp Princess»</a> — 9/10\nЦаревна-лягушка наоборот: жаба в короне и с горой золотых монет. Сочное болото и много юмора.\n👤 kioShimyo · ⭐ 32\n\n🥉 <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=3789144745\">AWP «Beanstalk»</a> — 9/10\n«Джек и бобовый стебель»: стебель вьётся по AWP прямо в облака. Чисто, ярко и читается издалека.\n👤 Niran · ⭐ 59\n\nКакой из трёх должен попасть в игру? Голосуй ниже 👇\n\n📢 @cs2_me\n#cs2 #мастерская_cs2 #скины",
+  "video": "https://www.youtube.com/watch?v=ksqRs-6pbwc",
+  "button": ["▶️ Смотреть на YouTube", "https://www.youtube.com/watch?v=ksqRs-6pbwc"],
+  "ws_ids": ["3797488195", "3803078752", "3791802870", "3791802070", "3769584457", "3769582192", "3769581755", "3778268302", "3767352457", "3802306065"],
+  "text": "🎬 <b>НОВОЕ ВИДЕО: СКИНЫ И НАКЛЕЙКИ ИЗ МАСТЕРСКОЙ</b>\n\nAWP будто из будущего, прозрачный Скаут и АК из деталей старой техники. А в конце — три наклейки про криптидов.\n\n⚡ <a href=\"https://youtu.be/ksqRs-6pbwc?t=13\">0:13</a> AWP «Impulse | Red»\n🧊 <a href=\"https://youtu.be/ksqRs-6pbwc?t=28\">0:28</a> SSG 08 «Blue Polymer»\n🔧 <a href=\"https://youtu.be/ksqRs-6pbwc?t=45\">0:45</a> AK-47 «HYDRAulics (Retro)»\n👣 <a href=\"https://youtu.be/ksqRs-6pbwc?t=64\">1:04</a> Наклейка «Yeti Footprint»\n🌲 <a href=\"https://youtu.be/ksqRs-6pbwc?t=73\">1:13</a> Наклейка «Who's in the Forest?»\n🌊 <a href=\"https://youtu.be/ksqRs-6pbwc?t=84\">1:24</a> Наклейка «Seal of the Deep»\n\n⏱ Видео меньше двух минут — смотри прямо здесь, а ниже голосуй, что добавить в игру 👇\n\n👍 Лайк и подписка на YouTube — лучшая поддержка канала\n📢 @cs2_me\n#cs2 #скиныcs2 #мастерская",
   "poll": {
-    "question": "Какой сказочный скин добавить в CS2?",
-    "options": ["🗡 AK-47 «Green Knight»", "🐸 P90 «Swamp Princess»", "🌱 AWP «Beanstalk»"]
+    "question": "Что из видео добавить в CS2?",
+    "options": ["⚡ AWP «Impulse | Red»", "🧊 SSG 08 «Blue Polymer»", "🔧 AK-47 «HYDRAulics»", "👣 Наклейки про криптидов", "🙅 Ничего"]
   }
 }
