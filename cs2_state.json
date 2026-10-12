@@ -1259,6 +1259,10 @@
     [
       1791806397,
       869679
+    ],
+    [
+      1791808729,
+      1021471
     ]
   ],
   "online_peaks": {
@@ -1266,12 +1270,9 @@
     "2026-10-09": 1241281,
     "2026-10-10": 1404142,
     "2026-10-11": 1404227,
-    "2026-10-12": 869679
+    "2026-10-12": 1021471
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📢 Подписывайся: {tag}",
-    "👉 Подписывайся на {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔥 {tag} — CS2 без воды",
     "👀 Следи за CS2 вместе с {tag}",
@@ -1768,7 +1769,10 @@
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👉 Подписывайся на {tag}",
     "📡 Не пропусти важное: {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🔥 {tag} — CS2 без воды",
+    "💣 Твой канал про CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2077,7 +2081,8 @@
     "hltvnews45701",
     "hltvnews45702",
     "hltvnews45703",
-    "hltvnews45704"
+    "hltvnews45704",
+    "hltvnews45705"
   ],
   "news_seen_t": [
     1788994268,
@@ -2120,6 +2125,11 @@
     {
       "headline": "TOBIZ возвращается в MOUZ на должность head of talent development",
       "link": "https://www.hltv.org/news/45704/tobiz-returns-to-mouz-as-head-of-talent-development",
+      "score": 6
+    },
+    {
+      "headline": "Гонка за PGL Major Singapore: HLTV ведёт онлайн-обновления",
+      "link": "https://www.hltv.org/news/45705/live-updates-from-the-race-for-pgl-major-singapore",
       "score": 6
     }
   ],
