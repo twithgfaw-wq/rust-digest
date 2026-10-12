@@ -1271,6 +1271,10 @@
     [
       1791810125,
       1067422
+    ],
+    [
+      1791812567,
+      1179407
     ]
   ],
   "online_peaks": {
@@ -1278,12 +1282,9 @@
     "2026-10-09": 1241281,
     "2026-10-10": 1404142,
     "2026-10-11": 1404227,
-    "2026-10-12": 1067422
+    "2026-10-12": 1179407
   },
   "recent_phrases": [
-    "📢 Подписывайся: {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -1780,7 +1781,10 @@
     "📢 Подписывайся: {tag}",
     "📡 Не пропусти важное: {tag}",
     "📌 Сохрани себе {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Больше CS2 — в {tag}",
+    "👉 Подписывайся на {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2090,7 +2094,8 @@
     "hltvnews45702",
     "hltvnews45703",
     "hltvnews45704",
-    "hltvnews45705"
+    "hltvnews45705",
+    "hltvnews45706"
   ],
   "news_seen_t": [
     1788994268,
@@ -2138,6 +2143,11 @@
     {
       "headline": "Гонка за PGL Major Singapore: HLTV ведёт онлайн-обновления",
       "link": "https://www.hltv.org/news/45705/live-updates-from-the-race-for-pgl-major-singapore",
+      "score": 6
+    },
+    {
+      "headline": "Thunderpick World Championship: восемь команд, $1 млн и Мальта",
+      "link": "https://www.hltv.org/news/45706/thunderpick-world-championship-teams-format-schedule-prizes-talent-fantasy",
       "score": 6
     }
   ],
