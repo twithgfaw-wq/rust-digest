@@ -3196,6 +3196,10 @@
     [
       1791795152,
       54259
+    ],
+    [
+      1791796809,
+      55655
     ]
   ],
   "online_peaks": {
@@ -3554,9 +3558,10 @@
     "Young Dragon AR",
     "Cargo Heli Small Backpack",
     "Ice Eye Salvaged Axe",
-    "Heat Seeker Waterpipe Shotgun"
+    "Heat Seeker Waterpipe Shotgun",
+    "Popstar Armored Door"
   ],
-  "rsod_day": "2026-10-11",
+  "rsod_day": "2026-10-12",
   "rduel": {
     "date": "08.10",
     "ts": 1791433343,
