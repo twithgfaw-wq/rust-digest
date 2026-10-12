@@ -297,10 +297,14 @@
     "https://www.wallpaper.com/design-interiors/gustaf-westman-disney-announcement",
     "https://www.creativebloq.com/news/all-streaming-platforms-will-eventually-run-ads-and-heres-why",
     "https://www.creativebloq.com/news/new-sour-patch-kids-billboard-destroys-oreo-literally",
-    "https://www.dezeen.com/2026/10/12/gustaf-westman-mickey-mouse-collection-disney"
+    "https://www.dezeen.com/2026/10/12/gustaf-westman-mickey-mouse-collection-disney",
+    "https://abduzeedo.com/brand-identity-plom-brand-brothers",
+    "https://www.wallpaper.com/tech/cmf-bring-their-playful-minimalism-into-portable-audio-with-speaker-s-and-speaker-m",
+    "https://www.fastcompany.com/91621113/duo-the-owl-next-big-act-is-an-animated-series?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.creativeboom.com/news/this-immersive-art-event-strips-you-of-your-clothes-your-phone-and-your-voice-for-three-and-a-half-hours"
   ],
   "day": "2026-10-12",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -330,6 +334,12 @@
       "t": 1791797349.6858857,
       "title": "Клієнти з ChatGPT перетворюють дизайнерів на «pixel pushers»",
       "link": "https://www.fastcompany.com/91621558/ai-pilled-bosses-and-clients-turning-designers-into-pixel-pushers?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+      "src": "Fast Company"
+    },
+    {
+      "t": 1791812317.0186188,
+      "title": "Duolingo знімає власний мультсеріал: Duo і компанія працюють у супермаркеті",
+      "link": "https://www.fastcompany.com/91621113/duo-the-owl-next-big-act-is-an-animated-series?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
       "src": "Fast Company"
     }
   ],
