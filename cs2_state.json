@@ -1323,6 +1323,10 @@
     [
       1791827742,
       1148830
+    ],
+    [
+      1791828081,
+      1148830
     ]
   ],
   "online_peaks": {
@@ -1333,9 +1337,6 @@
     "2026-10-12": 1248671
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "📢 Подписывайся: {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
@@ -1832,7 +1833,10 @@
     "👉 Подписывайся на {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📌 Сохрани себе {tag}",
-    "📡 Не пропусти важное: {tag}"
+    "📡 Не пропусти важное: {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -1902,7 +1906,8 @@
     "2109275247941746818",
     "2109346074016276562",
     "2109356304263430442",
-    "2109366547332370904"
+    "2109366547332370904",
+    "2109684586502398381"
   ],
   "ws_scores": {
     "3815186169": {
@@ -2198,46 +2203,10 @@
   },
   "cs2_index_day": "2026-10-12",
   "ws_slot": "2026-10-12-16",
-  "comm_slot": "2026-10-12-17",
+  "comm_slot": "2026-10-12-21",
   "hltv_day": "2026-10-12",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "ZywOo взял 34-й MVP в карьере на ESL Pro League S24",
-      "link": "https://www.hltv.org/news/45701/zywoo-claims-34th-career-mvp-at-esl-pro-league-s24",
-      "score": 8
-    },
-    {
-      "headline": "ZywOo: «Я слишком люблю Cache»",
-      "link": "https://www.hltv.org/news/45702/zywoo-i-love-cache-too-much",
-      "score": 6
-    },
-    {
-      "headline": "Wildcard взяли FRAG University и приблизились к Singapore Major",
-      "link": "https://www.hltv.org/news/45703/wildcards-major-chances-soar-with-frag-university-title",
-      "score": 5
-    },
-    {
-      "headline": "TOBIZ возвращается в MOUZ на должность head of talent development",
-      "link": "https://www.hltv.org/news/45704/tobiz-returns-to-mouz-as-head-of-talent-development",
-      "score": 6
-    },
-    {
-      "headline": "Гонка за PGL Major Singapore: HLTV ведёт онлайн-обновления",
-      "link": "https://www.hltv.org/news/45705/live-updates-from-the-race-for-pgl-major-singapore",
-      "score": 6
-    },
-    {
-      "headline": "Thunderpick World Championship: восемь команд, $1 млн и Мальта",
-      "link": "https://www.hltv.org/news/45706/thunderpick-world-championship-teams-format-schedule-prizes-talent-fantasy",
-      "score": 6
-    },
-    {
-      "headline": "Falcons продлили контракт с m0NESY",
-      "link": "https://www.hltv.org/news/45711/falcons-announce-m0nesy-contract-extension",
-      "score": 8
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-12",
   "reddit_posted": [
     "1wzz7z0",
@@ -2246,7 +2215,7 @@
     "1x3g1ou"
   ],
   "online_daily": "2026-10-12",
-  "hltv_digest_day": "2026-10-11",
+  "hltv_digest_day": "2026-10-12",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
