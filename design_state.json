@@ -276,10 +276,14 @@
     "https://www.creativeboom.com/news/britains-oldest-running-team-has-a-combined-age-of-321-and-rankin-shot-their-portraits",
     "https://www.creativebloq.com/news/this-ingenious-packaging-design-went-viral-simply-by-recognising-how-people-were-already-using-it",
     "https://www.wallpaper.com/architecture/residential/clerkenwell-house-mm-studio-interior-uk",
-    "https://www.fastcompany.com/91618503/in-n-out-2-billion-annual-sales-breaks-1-rule?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
+    "https://www.fastcompany.com/91618503/in-n-out-2-billion-annual-sales-breaks-1-rule?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.wallpaper.com/architecture/residential/stahl-house-price-slashed",
+    "https://www.designboom.com/architecture/oma-historic-houston-coffee-plant-music-arts-academy-frank-liu-jr-flama",
+    "https://www.creativebloq.com/news/now-ai-isnt-just-faking-art-its-faking-artists-signatures-as-well",
+    "https://www.fastcompany.com/91621558/ai-pilled-bosses-and-clients-turning-designers-into-pixel-pushers?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
   ],
   "day": "2026-10-12",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -304,6 +308,12 @@
       "title": "У Мексиці банку з-під вершків зробили офіційним контейнером для залишків",
       "link": "https://www.creativebloq.com/news/this-ingenious-packaging-design-went-viral-simply-by-recognising-how-people-were-already-using-it",
       "src": "Creative Bloq"
+    },
+    {
+      "t": 1791797349.6858857,
+      "title": "Клієнти з ChatGPT перетворюють дизайнерів на «pixel pushers»",
+      "link": "https://www.fastcompany.com/91621558/ai-pilled-bosses-and-clients-turning-designers-into-pixel-pushers?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+      "src": "Fast Company"
     }
   ],
   "queue": [],
