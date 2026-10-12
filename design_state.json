@@ -271,10 +271,15 @@
     "https://www.creativeboom.com/work/louise-laborie-draws-the-lonely-cinematic-and-in-between-parts-of-america",
     "https://www.dezeen.com/2026/10/12/not-a-hotel-open-not-a-museum-imperial-plaza-hotel-tokyo",
     "https://www.dezeen.com/2026/10/12/luxurious-antolini-natural-stones-historic-amsterdam-canal-house",
-    "https://www.wallpaper.com/fashion-beauty/kim-jones-launches-eponymous-label"
+    "https://www.wallpaper.com/fashion-beauty/kim-jones-launches-eponymous-label",
+    "https://www.dezeen.com/2026/10/12/gundry-ducker-french-dining-culture-london-cassette",
+    "https://www.creativeboom.com/news/britains-oldest-running-team-has-a-combined-age-of-321-and-rankin-shot-their-portraits",
+    "https://www.creativebloq.com/news/this-ingenious-packaging-design-went-viral-simply-by-recognising-how-people-were-already-using-it",
+    "https://www.wallpaper.com/architecture/residential/clerkenwell-house-mm-studio-interior-uk",
+    "https://www.fastcompany.com/91618503/in-n-out-2-billion-annual-sales-breaks-1-rule?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
   ],
   "day": "2026-10-12",
-  "day_count": 0,
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -292,6 +297,12 @@
       "t": 1791710634.139155,
       "title": "Новий Coke Zero легше сплутати з класичною колою",
       "link": "https://www.creativebloq.com/news/the-coca-cola-rebrand-is-still-causing-confusion-three-months-on",
+      "src": "Creative Bloq"
+    },
+    {
+      "t": 1791793787.9439306,
+      "title": "У Мексиці банку з-під вершків зробили офіційним контейнером для залишків",
+      "link": "https://www.creativebloq.com/news/this-ingenious-packaging-design-went-viral-simply-by-recognising-how-people-were-already-using-it",
       "src": "Creative Bloq"
     }
   ],
