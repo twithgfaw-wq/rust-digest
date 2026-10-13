@@ -340,10 +340,13 @@
     "https://www.designboom.com/technology/fiat-multiplay-concept-family-car-pickup-sliding-rear-module-paris-motor-show-2026",
     "https://www.fastcompany.com/91619904/this-cool-interactive-visual-says-generative-art-began-in-a-cave?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
     "https://www.fastcompany.com/91621640/graphic-design-isnt-dying-its-expanding?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
-    "https://www.fastcompany.com/91616835/theyre-cheap-theyre-kitschy-and-investment-bankers-love-them?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
+    "https://www.fastcompany.com/91616835/theyre-cheap-theyre-kitschy-and-investment-bankers-love-them?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.creativebloq.com/news/everyones-saying-the-same-thing-about-epics-ai-first-disney-game-and-its-not-good",
+    "https://www.creativeboom.com/news/ai-just-cloned-adobes-apps-for-free-is-this-design-softwares-napster-moment",
+    "https://www.dezeen.com/2026/10/13/sable-house-allan-joyce-architects"
   ],
   "day": "2026-10-13",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -386,6 +389,12 @@
       "title": "Почерк Michelangelo став шрифтом: Michelangelus доступний у Microsoft 365",
       "link": "https://www.creativebloq.com/news/how-michelangelos-handwriting-became-its-own-microsoft-font",
       "src": "Creative Bloq"
+    },
+    {
+      "t": 1791890826.0481517,
+      "title": "Розробник клонував застосунки Adobe з AI і роздає їх безкоштовно",
+      "link": "https://www.creativeboom.com/news/ai-just-cloned-adobes-apps-for-free-is-this-design-softwares-napster-moment",
+      "src": "Creative Boom"
     }
   ],
   "queue": [],
