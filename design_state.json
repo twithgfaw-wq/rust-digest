@@ -357,10 +357,13 @@
     "https://abduzeedo.com/supple-studio-unveils-somer-valley-brewing-identity",
     "https://abduzeedo.com/brand-identity-ggn-incorporadora-fall-falci",
     "https://www.dezeen.com/2026/10/13/timber-lane-retreat-wheeler-kearns-architects",
-    "https://www.creativebloq.com/deals/this-tiny-portable-ssd-that-transforms-iphone-videography-has-usd150-off"
+    "https://www.creativebloq.com/deals/this-tiny-portable-ssd-that-transforms-iphone-videography-has-usd150-off",
+    "https://www.wallpaper.com/design-interiors/interior-design/a-captivating-new-book-offers-a-look-inside-the-astonishing-chicago-headquarters-of-ebony-and-jet-magazines",
+    "https://abduzeedo.com/aidb-identity-inside-rafael-cespedes-new-branding",
+    "https://abduzeedo.com/how-two-times-elliott-reimagined-branding-de-beers"
   ],
   "day": "2026-10-13",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -409,6 +412,12 @@
       "title": "Розробник клонував застосунки Adobe з AI і роздає їх безкоштовно",
       "link": "https://www.creativeboom.com/news/ai-just-cloned-adobes-apps-for-free-is-this-design-softwares-napster-moment",
       "src": "Creative Boom"
+    },
+    {
+      "t": 1791923331.330681,
+      "title": "Two Times Elliott показали шлях діаманта De Beers від каменя до огранки",
+      "link": "https://abduzeedo.com/how-two-times-elliott-reimagined-branding-de-beers",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
