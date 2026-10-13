@@ -1535,6 +1535,10 @@
     [
       1791902083,
       1195355
+    ],
+    [
+      1791903702,
+      1163352
     ]
   ],
   "online_peaks": {
@@ -1546,9 +1550,6 @@
     "2026-10-13": 1195355
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "📢 Подписывайся: {tag}",
-    "📡 Не пропусти важное: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
     "💣 Твой канал про CS2 — {tag}",
@@ -2045,7 +2046,10 @@
     "📢 Подписывайся: {tag}",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "💣 Твой канал про CS2 — {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2307,7 +2311,7 @@
     "3818787732"
   ],
   "price_day": "2026-10-13",
-  "invest_day": "2026-10-12",
+  "invest_day": "2026-10-13",
   "invest_days": {
     "2026-10-08": [
       "Paris 2023 Vertigo Souvenir Package",
@@ -2343,6 +2347,13 @@
       "Chroma 2 Case",
       "Paris 2023 Mirage Souvenir Package",
       "Operation Bravo Case"
+    ],
+    "2026-10-13": [
+      "Paris 2023 Anubis Souvenir Package",
+      "Spectrum 2 Case",
+      "Stockholm 2021 Mirage Souvenir Package",
+      "Berlin 2019 Legends Autograph Capsule",
+      "Chroma Case"
     ]
   },
   "sod_seen": [
@@ -2590,10 +2601,40 @@
       "verdict": "watch",
       "price": 49.56,
       "date": "2026-10-12"
+    },
+    {
+      "name": "Paris 2023 Anubis Souvenir Package",
+      "verdict": "buy",
+      "price": 1.7,
+      "date": "2026-10-13"
+    },
+    {
+      "name": "Spectrum 2 Case",
+      "verdict": "buy",
+      "price": 2.61,
+      "date": "2026-10-13"
+    },
+    {
+      "name": "Stockholm 2021 Mirage Souvenir Package",
+      "verdict": "buy",
+      "price": 2.95,
+      "date": "2026-10-13"
+    },
+    {
+      "name": "Berlin 2019 Legends Autograph Capsule",
+      "verdict": "buy",
+      "price": 1.0,
+      "date": "2026-10-13"
+    },
+    {
+      "name": "Chroma Case",
+      "verdict": "buy",
+      "price": 4.25,
+      "date": "2026-10-13"
     }
   ],
-  "cs2_quiz_n": 2,
-  "cs2_quiz_day": "2026-10-11",
+  "cs2_quiz_n": 3,
+  "cs2_quiz_day": "2026-10-13",
   "cs2_index_steam": {
     "2026-10-10": 2,
     "2026-10-11": 7,
