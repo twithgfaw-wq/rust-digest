@@ -323,10 +323,14 @@
     "https://www.creativeboom.com/work/the-experience-of-seeing-the-work-is-pretty-particular-lily-bunney-on-her-detailed-paintings-filled-with-grids-and-pixels",
     "https://www.creativebloq.com/news/i-tried-those-free-ai-coded-adobe-creative-cloud-clones-and-they-have-some-big-problems",
     "https://www.designboom.com/architecture/fifty-oak-trees-stone-paved-clearing-contemporary-italian-piazza-ghisellini-architetti",
-    "https://www.wallpaper.com/art/frieze-sculpture-2026"
+    "https://www.wallpaper.com/art/frieze-sculpture-2026",
+    "https://www.wallpaper.com/watches-jewellery/fernando-jorge-armour-collection-pad-london-2026",
+    "https://www.designboom.com/art/designboom-listens-jacques-monneraud-inspiration-music-silence-interview",
+    "https://www.wallpaper.com/art/exhibitions-shows/cindy-shermans-characters-draped-in-chanel-interrogate-ageing-in-london",
+    "https://www.creativebloq.com/news/how-michelangelos-handwriting-became-its-own-microsoft-font"
   ],
   "day": "2026-10-13",
-  "day_count": 0,
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -363,6 +367,12 @@
       "title": "Duolingo знімає власний мультсеріал: Duo і компанія працюють у супермаркеті",
       "link": "https://www.fastcompany.com/91621113/duo-the-owl-next-big-act-is-an-animated-series?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
       "src": "Fast Company"
+    },
+    {
+      "t": 1791883691.7641804,
+      "title": "Почерк Michelangelo став шрифтом: Michelangelus доступний у Microsoft 365",
+      "link": "https://www.creativebloq.com/news/how-michelangelos-handwriting-became-its-own-microsoft-font",
+      "src": "Creative Bloq"
     }
   ],
   "queue": [],
