@@ -1917,7 +1917,13 @@
     "💥",
     ": ",
     "новые работы недели",
-    "🔔 Больше Rust — в {tag}"
+    "🔔 Больше Rust — в {tag}",
+    "Неплохо, неплохо 😎",
+    "🗞 Новости из X от Facepunch",
+    "🎯 Играешь и в CS2? Новости и скины — в @cs2_me",
+    "Кто, по-вашему, попадёт в игру? 🤔",
+    "🎨 Самые сильные скины недели по оценке Steam",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "store_seen": [
     "10198",
@@ -3640,6 +3646,10 @@
     [
       1791899883,
       90808
+    ],
+    [
+      1791900127,
+      90808
     ]
   ],
   "online_peaks": {
@@ -3652,7 +3662,7 @@
     "2026-10-12": 116014,
     "2026-10-13": 90808
   },
-  "x_last_id": "2109645256731787535",
+  "x_last_id": "2110007811870482900",
   "market_snaps": {
     "2026-10-07": {
       "c64cb7b3-daed-4265-ae38-acb35392aa2b": 316,
@@ -4117,11 +4127,11 @@
       "f468f8cd-8cc2-4dfe-8a3f-7cfe1f532cd3": 97
     }
   },
-  "top_ts": 1791640931,
+  "top_ts": 1791900136,
   "top_last": [
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816299349",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816287673",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3815285296"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818451708",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816577482",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816299349"
   ],
   "elite_last_ts": 1791898148,
   "elite_slot": "2026-10-13-16",
@@ -4216,7 +4226,10 @@
   "top_shown": [
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3816299349",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3816287673",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3815285296"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3815285296",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818451708",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816577482",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816299349"
   ],
   "rust_quiz_n": 2,
   "rust_quiz_day": "2026-10-12",
