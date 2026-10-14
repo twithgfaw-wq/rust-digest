@@ -5,7 +5,8 @@ Rust Digest Bot — автоматическая сводка новостей �
 
 Что делает за один прогон:
   1. Берёт свежие ОФИЦИАЛЬНЫЕ новости Rust из Steam News API.
-  2. Берёт топ "крутых работ" из r/playrust (базы, билды, арт, моменты).
+  2. (выключено 15.10) Топ "крутых работ" из r/playrust — рубрика слабая,
+     убрана из канала; включается флагом REDDIT_WORKS.
   3. Берёт ЛУЧШИЕ видео дня у YouTube-блогеров по Rust (по просмотрам).
   4. Мастерская Steam: работы "мастеров" постит сразу отдельно; плюс
      конкурс — коллаж из 5 скинов РАЗНЫХ авторов с голосованием.
@@ -158,6 +159,7 @@ REDDIT_JSON = ["https://www.reddit.com/r/playrust/top.json?t={t}&limit={n}",
                "https://old.reddit.com/r/playrust/top.json?t={t}&limit={n}",
                "https://api.reddit.com/r/playrust/top?t={t}&limit={n}"]
 REDDIT_RSS = "https://www.reddit.com/r/playrust/top/.rss?t={t}&limit={n}"
+REDDIT_WORKS = False   # рубрика «работы с r/playrust» выключена 15.10
 
 def fetch_top_works_rss(t, limit):
     """Запасной путь, если Reddit не отдаёт JSON: RSS-лента топа (уже
@@ -2313,9 +2315,10 @@ def main():
         except Exception as e:
             print("Пост о принятых скинах не удался:", e)
 
-    # 2) крутые работы
-    works = [w for w in fetch_top_works(period, 15, min_score)
-             if w["id"] not in posted][:works_count]
+    # 2) крутые работы с r/playrust — выключено 15.10 (REDDIT_WORKS)
+    works = ([w for w in fetch_top_works(period, 15, min_score)
+              if w["id"] not in posted][:works_count]
+             if REDDIT_WORKS else [])
     if works:
         for i, w in enumerate(works, 1):
             res = tg.send_photo(w["image"], build_work_caption(w, i))
@@ -2323,7 +2326,7 @@ def main():
                 posted.add(w["id"])
                 sent_any = sent_any or not args.dry_run
             time.sleep(2)
-    else:
+    elif REDDIT_WORKS:
         print("Новых работ по заданным порогам нет.")
 
     # 3) лучшие видео дня у блогеров (только про Rust, не больше 2/день)
