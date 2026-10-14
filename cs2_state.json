@@ -1899,6 +1899,10 @@
     [
       1792014176,
       725702
+    ],
+    [
+      1792016344,
+      638929
     ]
   ],
   "online_peaks": {
@@ -1911,9 +1915,6 @@
     "2026-10-14": 1279765
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📌 Сохрани себе {tag}",
     "📢 Подписывайся: {tag}",
     "👀 Следи за CS2 вместе с {tag}",
@@ -2410,7 +2411,10 @@
     "📌 Сохрани себе {tag}",
     "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "⚡️ Всё самое свежее по CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2859,7 +2863,8 @@
     "hltvnews45718",
     "hltvnews45719",
     "hltvnews45721",
-    "hltvnews45720"
+    "hltvnews45720",
+    "hltvnews45723"
   ],
   "news_seen_t": [
     1788994268,
@@ -2881,13 +2886,18 @@
   "cs2_index_day": "2026-10-14",
   "ws_slot": "2026-10-14-20",
   "comm_slot": "2026-10-14-21",
-  "hltv_day": "2026-10-14",
+  "hltv_day": "2026-10-15",
   "hltv_count": 0,
   "hltv_digest": [
     {
       "headline": "zonic о karrigan: Finn добавляет 5–10% другим игрокам, особенно Maxim",
       "link": "https://www.hltv.org/news/45720/zonic-what-people-dont-see-is-finn-is-bringing-5-10-extra-to-some-of-the-other-players-especially-maxim-when-things-are-going-well",
       "score": 4
+    },
+    {
+      "headline": "FURIA обыграла BETBOOM и закрыла первый день TWC",
+      "link": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-14",
