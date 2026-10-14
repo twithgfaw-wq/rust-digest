@@ -1823,6 +1823,10 @@
     [
       1791994437,
       1093437
+    ],
+    [
+      1791996547,
+      1094559
     ]
   ],
   "online_peaks": {
@@ -1835,9 +1839,6 @@
     "2026-10-14": 1279765
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📢 Подписывайся: {tag}",
     "📌 Сохрани себе {tag}",
     "🔔 Больше CS2 — в {tag}",
     "👉 Подписывайся на {tag}",
@@ -2334,7 +2335,10 @@
     "Danger Zone Case: в плюс выходит примерно одно открытие из 19.",
     "📡 Не пропусти важное: {tag}",
     "🔥 {tag} — CS2 без воды",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2774,7 +2778,8 @@
     "hltvnews45715",
     "hltvnews45717",
     "hltvnews45718",
-    "hltvnews45719"
+    "hltvnews45719",
+    "hltvnews45721"
   ],
   "news_seen_t": [
     1788994268,
@@ -2818,6 +2823,11 @@
       "headline": "9z обыграли Aurora 2-0 на старте TWC 2026",
       "link": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
       "score": 5
+    },
+    {
+      "headline": "Обновлённый Astralis выиграл группу на Stake Pulse Beat",
+      "link": "https://www.hltv.org/news/45721/new-look-astralis-top-group-at-stake-pulse-beat",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-14",
