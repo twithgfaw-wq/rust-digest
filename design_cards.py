@@ -488,6 +488,45 @@ def quiz_card(label, question, out_path, colors=None, font_path=None,
         return False
 
 
+def text_card(label, title, out_path, meta="", chip_items=(), code=None,
+              handle="@Her_Design", tag="#дизайн", note=None):
+    """Картка без фото: мітка, підпис, заголовок, блок тексту (промпт) і
+    чипи — для плагінів, фішок Figma, промптів, фільмів та ігор."""
+    try:
+        img, d = sheet(label)
+        if meta:
+            d.text((p(200), p(226)), meta, font=font("onest", 400, 22),
+                   fill=MUTED, anchor="lm")
+        tf, lines, size = fit_title(d, title, 840, 2 if code else 3)
+        y = 258
+        for line in lines:
+            d.text((p(200), p(y)), line, font=tf, fill=INK)
+            y += size * 1.22
+        bottom = 524 if chip_items else 560
+        if code and bottom - y > 70:
+            y += 10
+            d.rounded_rectangle((p(200), p(y), p(1040), p(bottom - 8)),
+                                radius=p(10), fill=(232, 237, 250),
+                                outline=(201, 214, 245), width=p(2))
+            cf = font("onest", 400, 19)
+            rows = wrap(d, code, cf, 800)
+            room = int((bottom - 8 - y - 20) // 27)
+            for i, ln in enumerate(rows[:room]):
+                if i == room - 1 and len(rows) > room:
+                    ln = ln.rstrip(" ,.") + " …"
+                d.text((p(220), p(y + 14 + i * 27)), ln, font=cf, fill=INK)
+        elif note:
+            tilted_text(img, 196, max(y + 14, 460), note,
+                        font("caveat", 600, 36), PINK, 3)
+        if chip_items:
+            chips(d, 200, 540, chip_items)
+        finish(img, tag, handle, out_path, cur=(1010, 440))
+        return True
+    except Exception as e:
+        print("Текстова картка не намалювалась:", type(e).__name__, e)
+        return False
+
+
 def palette_card(name, colors, out_path, handle="@Her_Design",
                  tag="#палітра"):
     """Палітра дня: назва і 5 кольорів-«свотчів» із HEX і назвою."""
