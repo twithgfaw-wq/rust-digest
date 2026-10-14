@@ -1843,6 +1843,10 @@
     [
       1792000149,
       1125087
+    ],
+    [
+      1792000897,
+      1126796
     ]
   ],
   "online_peaks": {
@@ -1855,9 +1859,6 @@
     "2026-10-14": 1279765
   },
   "recent_phrases": [
-    "📢 Подписывайся: {tag}",
-    "👉 Подписывайся на {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2354,7 +2355,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2823,36 +2827,10 @@
   },
   "cs2_index_day": "2026-10-14",
   "ws_slot": "2026-10-14-20",
-  "comm_slot": "2026-10-14-17",
+  "comm_slot": "2026-10-14-21",
   "hltv_day": "2026-10-14",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "Astralis официально подписали siuhy и cmtry",
-      "link": "https://www.hltv.org/news/45714/official-astralis-sign-siuhy-and-cmtry",
-      "score": 7
-    },
-    {
-      "headline": "brnz4n покидает MIBR после пяти лет в команде",
-      "link": "https://www.hltv.org/news/45715/brnz4n-departs-mibr",
-      "score": 5
-    },
-    {
-      "headline": "sdy возвращается в Monte",
-      "link": "https://www.hltv.org/news/45717/sdy-rejoins-monte",
-      "score": 5
-    },
-    {
-      "headline": "9z обыграли Aurora 2-0 на старте TWC 2026",
-      "link": "https://www.hltv.org/news/45718/9z-beat-aurora-2-0-to-kick-off-twc-2026",
-      "score": 5
-    },
-    {
-      "headline": "Обновлённый Astralis выиграл группу на Stake Pulse Beat",
-      "link": "https://www.hltv.org/news/45721/new-look-astralis-top-group-at-stake-pulse-beat",
-      "score": 6
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-14",
   "reddit_posted": [
     "1wzz7z0",
@@ -2863,7 +2841,7 @@
     "1x5ey5y"
   ],
   "online_daily": "2026-10-14",
-  "hltv_digest_day": "2026-10-13",
+  "hltv_digest_day": "2026-10-14",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
