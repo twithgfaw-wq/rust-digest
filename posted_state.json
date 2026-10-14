@@ -3895,6 +3895,10 @@
     [
       1791966638,
       50128
+    ],
+    [
+      1791968496,
+      48943
     ]
   ],
   "online_peaks": {
@@ -4389,9 +4393,10 @@
     "Ice Eye Salvaged Axe",
     "Heat Seeker Waterpipe Shotgun",
     "Popstar Armored Door",
-    "Popstar SKS"
+    "Popstar SKS",
+    "Salvation SAR"
   ],
-  "rsod_day": "2026-10-13",
+  "rsod_day": "2026-10-14",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
