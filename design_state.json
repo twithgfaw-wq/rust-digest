@@ -429,12 +429,13 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-10-13",
+  "font_day": "2026-10-14",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
     "Carlito",
-    "Golos Text"
+    "Golos Text",
+    "Lora"
   ],
   "quiz_day": "2026-10-13",
   "quiz_fonts": [
