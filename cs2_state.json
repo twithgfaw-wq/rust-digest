@@ -1855,6 +1855,10 @@
     [
       1792001490,
       1126816
+    ],
+    [
+      1792003746,
+      1132449
     ]
   ],
   "online_peaks": {
@@ -1867,9 +1871,6 @@
     "2026-10-14": 1279765
   },
   "recent_phrases": [
-    "📢 Подписывайся: {tag}",
-    "👉 Подписывайся на {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📡 Не пропусти важное: {tag}",
@@ -2366,7 +2367,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔔 Больше CS2 — в {tag}",
     "🔥 {tag} — CS2 без воды",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "💣 Твой канал про CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2814,7 +2818,8 @@
     "hltvnews45717",
     "hltvnews45718",
     "hltvnews45719",
-    "hltvnews45721"
+    "hltvnews45721",
+    "hltvnews45720"
   ],
   "news_seen_t": [
     1788994268,
@@ -2838,7 +2843,13 @@
   "comm_slot": "2026-10-14-21",
   "hltv_day": "2026-10-14",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "zonic о karrigan: Finn добавляет 5–10% другим игрокам, особенно Maxim",
+      "link": "https://www.hltv.org/news/45720/zonic-what-people-dont-see-is-finn-is-bringing-5-10-extra-to-some-of-the-other-players-especially-maxim-when-things-are-going-well",
+      "score": 4
+    }
+  ],
   "reddit_day": "2026-10-14",
   "reddit_posted": [
     "1wzz7z0",
