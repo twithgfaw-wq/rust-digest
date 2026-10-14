@@ -369,10 +369,17 @@
     "https://www.dezeen.com/2026/10/13/oma-convert-houston-coffee-plant-flama",
     "https://www.figma.com/blog/source-material-manon-macasaet",
     "https://www.figma.com/release-notes/?title=gemini-4-argon-is-rolling-out-in-figma-make",
-    "https://www.wallpaper.com/art/exhibitions-shows/artist-to-artist-frieze-london-yinka-shonibare-unathi-mkonto-interview"
+    "https://www.wallpaper.com/art/exhibitions-shows/artist-to-artist-frieze-london-yinka-shonibare-unathi-mkonto-interview",
+    "https://www.designboom.com/design/new-designboom-redesigned-website-features",
+    "https://www.creativeboom.com/work/how-two-simple-dots-gave-pictoplasma-a-face-after-20-years-of-neutral-design",
+    "https://www.creativeboom.com/news/pregnant-then-screwed-makes-clever-use-of-simple-design-to-highlight-a-vital-gender-issue",
+    "https://www.creativebloq.com/news/apples-homeview-advert-is-stressing-people-out",
+    "https://www.dezeen.com/2026/10/14/microbites-plastic-cookies-southern-illinois-university-carbondale",
+    "https://www.designboom.com/art/inflatable-pavilion-pneuhaus-dragonfly-compound-vision-221-camera-obscuras-compound-camera-no-3",
+    "https://www.designboom.com/art/lego-flowers-shanghai-concrete-oil-tank-botanical-landscape-bloom-exhibition"
   ],
   "day": "2026-10-14",
-  "day_count": 0,
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -427,6 +434,12 @@
       "title": "Two Times Elliott показали шлях діаманта De Beers від каменя до огранки",
       "link": "https://abduzeedo.com/how-two-times-elliott-reimagined-branding-de-beers",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1791963805.067899,
+      "title": "Дві крапки замість обличчя: andstudio оновили айдентику Pictoplasma",
+      "link": "https://www.creativeboom.com/work/how-two-simple-dots-gave-pictoplasma-a-face-after-20-years-of-neutral-design",
+      "src": "Creative Boom"
     }
   ],
   "queue": [],
