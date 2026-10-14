@@ -382,10 +382,21 @@
     "https://www.creativebloq.com/reviews/this-digital-calendar-helped-my-chronically-disorganised-family-function-better",
     "https://www.designboom.com/architecture/renewed-1983-bathhouse-japan-tilework-curved-interiors-mabi-architects-shizunoyu-fukushima",
     "https://www.designboom.com/architecture/la-voile-norman-foster-former-waterfront-home-french-riviera-sale",
-    "https://www.designboom.com/design/mediclinics-all-in-one-hand-hygiene-station"
+    "https://www.designboom.com/design/mediclinics-all-in-one-hand-hygiene-station",
+    "https://www.designboom.com/art/alix-urien-photography-artist-paris-impressionists-normandy-videos",
+    "https://www.designboom.com/design/art-everywhere-yinka-ilori-chairman-community-center-london-exhibition-interview",
+    "https://www.dezeen.com/2026/10/14/dulwich-cricket-pavilion-andy-matthews-studio-streatham-marlborough",
+    "https://www.fastcompany.com/91623042/away-resale-site-reclaimed?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.designboom.com/design/orgatec-2026-sihoo-office-chairs",
+    "https://www.creativebloq.com/news/homeview-shows-apple-still-designs-hardware-better-than-anyone",
+    "https://www.wallpaper.com/art/live/frieze-london-2026-live-updates-from-the-wallpaper-team",
+    "https://www.dezeen.com/2026/10/14/riverside-modern-studley-park",
+    "https://www.fastcompany.com/91622300/this-pretty-speaker-is-made-from-old-melted-barbies?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.fastcompany.com/91622922/patagonia-worn-wear-resale-site-redesign?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.dezeen.com/2026/10/14/armadillo-furniture-reused-shingles-friendly-monsters"
   ],
   "day": "2026-10-14",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -446,6 +457,12 @@
       "title": "Дві крапки замість обличчя: andstudio оновили айдентику Pictoplasma",
       "link": "https://www.creativeboom.com/work/how-two-simple-dots-gave-pictoplasma-a-face-after-20-years-of-neutral-design",
       "src": "Creative Boom"
+    },
+    {
+      "t": 1791975547.803346,
+      "title": "HomeView: Apple показала розумний дисплей у стилі Apple Watch",
+      "link": "https://www.creativebloq.com/news/homeview-shows-apple-still-designs-hardware-better-than-anyone",
+      "src": "Creative Bloq"
     }
   ],
   "queue": [],
