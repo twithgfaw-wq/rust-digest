@@ -2080,6 +2080,10 @@
     [
       1792062123,
       703812
+    ],
+    [
+      1792064342,
+      788264
     ]
   ],
   "online_peaks": {
@@ -2090,12 +2094,9 @@
     "2026-10-12": 1248671,
     "2026-10-13": 1195355,
     "2026-10-14": 1279765,
-    "2026-10-15": 703812
+    "2026-10-15": 788264
   },
   "recent_phrases": [
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "💣 Твой канал про CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
     "🔔 Больше CS2 — в {tag}",
@@ -2592,7 +2593,10 @@
     "📢 Подписывайся: {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📌 Сохрани себе {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "👉 Подписывайся на {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [
     {
@@ -3069,7 +3073,8 @@
     "hltvnews45721",
     "hltvnews45720",
     "hltvnews45723",
-    "hltvnews45722"
+    "hltvnews45722",
+    "hltvnews45724"
   ],
   "news_seen_t": [
     1788994268,
@@ -3104,6 +3109,11 @@
       "headline": "FURIA обыграла BETBOOM и закрыла первый день TWC",
       "link": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
       "score": 6
+    },
+    {
+      "headline": "NIP избежали накладки в расписании после раннего вылета с Thunderpick World Championship",
+      "link": "https://www.hltv.org/news/45724/nip-spared-scheduling-headache-after-early-thunderpick-world-championship-exit",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-15",
