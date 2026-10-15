@@ -458,10 +458,13 @@
     "https://www.fastcompany.com/91623604/trumps-new-super-intelligence-website-is-a-rebrand-fail?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
     "https://www.wallpaper.com/design-interiors/furniture/swizz-beatz-cb2-casa-dean-collection",
     "https://www.creativebloq.com/news/people-have-a-lot-of-big-feelings-about-aslans-character-design",
-    "https://www.fastcompany.com/91623589/tin-can-phone-next-product-rolodex-for-gen-alpha?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
+    "https://www.fastcompany.com/91623589/tin-can-phone-next-product-rolodex-for-gen-alpha?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.creativebloq.com/news/the-legend-of-zelda-ocarina-of-time-on-switch-2-10-things-the-hands-on-previews-have-told-us",
+    "https://abduzeedo.com/nescau-display-type-design-plau-design",
+    "https://abduzeedo.com/editorial-design-words-eye-crtomir-just"
   ],
   "day": "2026-10-15",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -534,6 +537,12 @@
       "title": "Figma переносить вайбкодинг на канвас: code layers, Specs і агент",
       "link": "https://www.figma.com/blog/build-by-design",
       "src": "Figma"
+    },
+    {
+      "t": 1792075162.707083,
+      "title": "Plau Design вбудували блискавку Nescau прямо в літери",
+      "link": "https://abduzeedo.com/nescau-display-type-design-plau-design",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
