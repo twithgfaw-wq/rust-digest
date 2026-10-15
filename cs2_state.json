@@ -2124,6 +2124,10 @@
     [
       1792072929,
       1147502
+    ],
+    [
+      1792073830,
+      1162889
     ]
   ],
   "online_peaks": {
@@ -2134,12 +2138,9 @@
     "2026-10-12": 1248671,
     "2026-10-13": 1195355,
     "2026-10-14": 1279765,
-    "2026-10-15": 1154391
+    "2026-10-15": 1162889
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "👀 Следи за CS2 вместе с {tag}",
     "📌 Сохрани себе {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2636,7 +2637,10 @@
     "📡 Не пропусти важное: {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [
     {
@@ -3118,7 +3122,8 @@
     "hltvnews45722",
     "hltvnews45724",
     "hltvnews45725",
-    "hltvnews45726"
+    "hltvnews45726",
+    "hltvnews45727"
   ],
   "news_seen_t": [
     1788994268,
@@ -3158,6 +3163,11 @@
       "headline": "NIP избежали накладки в расписании после раннего вылета с Thunderpick World Championship",
       "link": "https://www.hltv.org/news/45724/nip-spared-scheduling-headache-after-early-thunderpick-world-championship-exit",
       "score": 4
+    },
+    {
+      "headline": "ESIC забанила игроков NOMERCY за договорные матчи",
+      "link": "https://www.hltv.org/news/45727/esic-bans-nomercy-for-match-manipulation",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-15",
