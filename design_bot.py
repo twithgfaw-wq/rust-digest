@@ -738,6 +738,11 @@ def main():
         rub.demo(dump_card, CHANNEL_TAG,
                  random.choice(FOOTERS).format(tag=CHANNEL_TAG), STYLE)
         return
+    import design_rubrics2 as rub2
+    if os.environ.get("DESIGN_DEMO_EVENING") == "1":
+        rub2.demo(dump_card, CHANNEL_TAG,
+                  random.choice(FOOTERS).format(tag=CHANNEL_TAG), STYLE)
+        return
     dry = os.environ.get("DESIGN_DRY") == "1"
     best_now = os.environ.get("DESIGN_BEST_NOW") == "1"
     if not (LIVE or dry or best_now):
@@ -758,6 +763,12 @@ def main():
                  palette_now=os.environ.get("DESIGN_PALETTE_NOW") == "1")
     except Exception as e:
         print("Рубрики не вийшли:", type(e).__name__, e)
+    try:
+        rub2.tick(tg, state, bot.kyiv_time(), CHANNEL_TAG,
+                  random.choice(FOOTERS).format(tag=CHANNEL_TAG), STYLE,
+                  now=os.environ.get("DESIGN_EVENING_NOW", "").strip())
+    except Exception as e:
+        print("Вечірня рубрика не вийшла:", type(e).__name__, e)
     if not dry:
         save_state(state)
 
