@@ -2192,6 +2192,10 @@
     [
       1792087762,
       1064890
+    ],
+    [
+      1792090142,
+      1064309
     ]
   ],
   "online_peaks": {
@@ -2205,9 +2209,6 @@
     "2026-10-15": 1162889
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "👉 Подписывайся на {tag}",
-    "📢 Подписывайся: {tag}",
     "📡 Не пропусти важное: {tag}",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2704,7 +2705,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📢 Подписывайся: {tag}",
     "🔥 {tag} — CS2 без воды",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [
     {
@@ -3176,7 +3180,8 @@
     "hltvnews45725",
     "hltvnews45726",
     "hltvnews45727",
-    "hltvnews45728"
+    "hltvnews45728",
+    "hltvnews45729"
   ],
   "news_seen_t": [
     1788994268,
@@ -3201,7 +3206,13 @@
   "comm_slot": "2026-10-15-21",
   "hltv_day": "2026-10-15",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "BETBOOM выбили PARIVISION с TWC",
+      "link": "https://www.hltv.org/news/45729/betboom-eliminate-parivision-from-twc",
+      "score": 6
+    }
+  ],
   "reddit_day": "2026-10-15",
   "reddit_posted": [
     "1wzz7z0",
