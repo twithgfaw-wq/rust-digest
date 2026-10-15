@@ -2244,6 +2244,10 @@
     [
       1792101959,
       709684
+    ],
+    [
+      1792103963,
+      638386
     ]
   ],
   "online_peaks": {
@@ -2257,9 +2261,6 @@
     "2026-10-15": 1162889
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "📡 Не пропусти важное: {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
@@ -2756,7 +2757,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🎯 Свежий CS2 каждый день — {tag}"
   ],
   "news_recent": [
     {
@@ -3229,7 +3233,8 @@
     "hltvnews45726",
     "hltvnews45727",
     "hltvnews45728",
-    "hltvnews45729"
+    "hltvnews45729",
+    "hltvnews45730"
   ],
   "news_seen_t": [
     1788994268,
@@ -3252,13 +3257,18 @@
   "cs2_index_day": "2026-10-15",
   "ws_slot": "2026-10-15-20",
   "comm_slot": "2026-10-15-21",
-  "hltv_day": "2026-10-15",
+  "hltv_day": "2026-10-16",
   "hltv_count": 0,
   "hltv_digest": [
     {
       "headline": "BETBOOM выбили PARIVISION с TWC",
       "link": "https://www.hltv.org/news/45729/betboom-eliminate-parivision-from-twc",
       "score": 6
+    },
+    {
+      "headline": "FURIA вышли в плей-офф TWC, обыграв Legacy",
+      "link": "https://www.hltv.org/news/45730/furia-make-twc-playoffs-over-legacy",
+      "score": 5
     }
   ],
   "reddit_day": "2026-10-15",
