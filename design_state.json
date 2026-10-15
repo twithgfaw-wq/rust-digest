@@ -463,10 +463,13 @@
     "https://abduzeedo.com/nescau-display-type-design-plau-design",
     "https://abduzeedo.com/editorial-design-words-eye-crtomir-just",
     "https://www.creativebloq.com/features/how-unreal-5s-chaos-physics-was-modified-for-this-indie-game-about-tearing-down-your-hometown-with-a-sledgehammer",
-    "https://www.dezeen.com/2026/10/15/apple-homeview-smart-home-dashboard"
+    "https://www.dezeen.com/2026/10/15/apple-homeview-smart-home-dashboard",
+    "https://www.creativebloq.com/news/cinema-4d-finally-gets-one-of-the-most-requested-features-in-new-2027-release",
+    "https://www.designboom.com/architecture/mycelium-hypha-lume-pavilion-human-movement-light",
+    "https://abduzeedo.com/inside-craft-adc-living-brand-identity-cleverdegfranke"
   ],
   "day": "2026-10-15",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -545,6 +548,12 @@
       "title": "Plau Design вбудували блискавку Nescau прямо в літери",
       "link": "https://abduzeedo.com/nescau-display-type-design-plau-design",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1792082250.8873565,
+      "title": "Cinema 4D 2027.0: нарешті вбудований скатеринг і піна для рідин",
+      "link": "https://www.creativebloq.com/news/cinema-4d-finally-gets-one-of-the-most-requested-features-in-new-2027-release",
+      "src": "Creative Bloq"
     }
   ],
   "queue": [],
