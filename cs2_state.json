@@ -2128,6 +2128,10 @@
     [
       1792073830,
       1162889
+    ],
+    [
+      1792076043,
+      1150061
     ]
   ],
   "online_peaks": {
@@ -2141,9 +2145,6 @@
     "2026-10-15": 1162889
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "🔔 Больше CS2 — в {tag}",
     "📢 Подписывайся: {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2640,7 +2641,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "🔥 {tag} — CS2 без воды",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "📌 Сохрани себе {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "💣 Твой канал про CS2 — {tag}"
   ],
   "news_recent": [
     {
@@ -3123,7 +3127,8 @@
     "hltvnews45724",
     "hltvnews45725",
     "hltvnews45726",
-    "hltvnews45727"
+    "hltvnews45727",
+    "hltvnews45728"
   ],
   "news_seen_t": [
     1788994268,
@@ -3168,6 +3173,11 @@
       "headline": "ESIC забанила игроков NOMERCY за договорные матчи",
       "link": "https://www.hltv.org/news/45727/esic-bans-nomercy-for-match-manipulation",
       "score": 6
+    },
+    {
+      "headline": "Falcons вышли в плей-офф TWC 2026",
+      "link": "https://www.hltv.org/news/45728/falcons-secure-playoff-berth-at-twc-2026",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-15",
