@@ -418,10 +418,22 @@
     "https://abduzeedo.com/inside-robot-foods-packaging-design-postcard",
     "https://abduzeedo.com/editorial-design-fons-hickmann-posters-slanted",
     "https://www.wallpaper.com/architecture/residential/sylvan-rock-was-designed-by-s3-architecture-with-aston-martin-now-the-house-is-for-sale",
-    "https://www.fastcompany.com/91623761/bemotrizinol-bemt-new-sunscreen-ingredient-fda?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
+    "https://www.fastcompany.com/91623761/bemotrizinol-bemt-new-sunscreen-ingredient-fda?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.wallpaper.com/architecture/residential/victorian-home-extension-bolans-architects-london-uk",
+    "https://www.figma.com/blog/figma-deepens-investment-in-india",
+    "https://www.figma.com/blog/build-by-design",
+    "https://www.figma.com/blog/design-together-with-code-layers",
+    "https://www.figma.com/blog/introducing-figma-specs",
+    "https://www.figma.com/blog/websites-with-payload-in-figma",
+    "https://www.wallpaper.com/fashion-beauty/best-accessories-trend-ss-2027-fashion-month",
+    "https://www.designboom.com/design/dual-tone-solid-oak-tupi-lamp-estudio-gris-bird-rest",
+    "https://www.figma.com/release-notes/?title=config-india-2026",
+    "https://www.designboom.com/readers/moyo-shirt-jacket-korean-hanbok-silhouette-east-african-kitenge-textile-jerrybag-hyunah-kim-ili-studio",
+    "https://abduzeedo.com/four-squares-cafe-masterclass-cafe-branding",
+    "https://www.dezeen.com/2026/10/14/design-week-mexico-2026-creative-immersions-casa-ortega"
   ],
-  "day": "2026-10-14",
-  "day_count": 2,
+  "day": "2026-10-15",
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -488,6 +500,12 @@
       "title": "HomeView: Apple показала розумний дисплей у стилі Apple Watch",
       "link": "https://www.creativebloq.com/news/homeview-shows-apple-still-designs-hardware-better-than-anyone",
       "src": "Creative Bloq"
+    },
+    {
+      "t": 1792040654.800332,
+      "title": "Figma переносить вайбкодинг на канвас: code layers, Specs і агент",
+      "link": "https://www.figma.com/blog/build-by-design",
+      "src": "Figma"
     }
   ],
   "queue": [],
