@@ -2148,6 +2148,10 @@
     [
       1792079645,
       1054396
+    ],
+    [
+      1792080088,
+      1046658
     ]
   ],
   "online_peaks": {
@@ -2161,9 +2165,6 @@
     "2026-10-15": 1162889
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "📡 Не пропусти важное: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📢 Подписывайся: {tag}",
@@ -2660,7 +2661,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📢 Подписывайся: {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "👉 Подписывайся на {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [
     {
@@ -3058,26 +3062,13 @@
     "Danger Zone Case"
   ],
   "ev_week": "2026-42",
-  "duel": {
-    "date": "08.10",
-    "ts": 1791430903,
-    "poll_id": 19,
-    "items": [
-      {
-        "name": "M4A1-S | Nightmare (Field-Tested)",
-        "price": 8.9
-      },
-      {
-        "name": "AK-47 | Midnight Laminate (Minimal Wear)",
-        "price": 7.22
-      }
-    ]
-  },
   "duel_used": [
     "M4A1-S | Nightmare",
-    "AK-47 | Midnight Laminate"
+    "AK-47 | Midnight Laminate",
+    "AK-47 | Nouveau Rouge",
+    "M4A4 | Falak"
   ],
-  "duel_week": "2026-41",
+  "duel_week": "2026-42",
   "report_week": "2026-41",
   "hltv_seen": [
     "hltvnews45673",
@@ -3429,5 +3420,20 @@
     "2026-10-13": 10,
     "2026-10-14": 6,
     "2026-10-15": 12
+  },
+  "duel": {
+    "date": "15.10",
+    "ts": 1792080095,
+    "poll_id": 224,
+    "items": [
+      {
+        "name": "AK-47 | Nouveau Rouge (Minimal Wear)",
+        "price": 20.83
+      },
+      {
+        "name": "M4A4 | Falak (Field-Tested)",
+        "price": 24.18
+      }
+    ]
   }
 }
