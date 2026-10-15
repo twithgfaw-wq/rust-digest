@@ -2180,6 +2180,10 @@
     [
       1792085977,
       1053598
+    ],
+    [
+      1792087291,
+      1065503
     ]
   ],
   "online_peaks": {
@@ -2193,9 +2197,6 @@
     "2026-10-15": 1162889
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "📢 Подписывайся: {tag}",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2692,7 +2693,10 @@
     "🔥 {tag} — CS2 без воды",
     "📡 Не пропусти важное: {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [
     {
@@ -3186,36 +3190,10 @@
   },
   "cs2_index_day": "2026-10-15",
   "ws_slot": "2026-10-15-20",
-  "comm_slot": "2026-10-15-17",
+  "comm_slot": "2026-10-15-21",
   "hltv_day": "2026-10-15",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "zonic о karrigan: Finn добавляет 5–10% другим игрокам, особенно Maxim",
-      "link": "https://www.hltv.org/news/45720/zonic-what-people-dont-see-is-finn-is-bringing-5-10-extra-to-some-of-the-other-players-especially-maxim-when-things-are-going-well",
-      "score": 4
-    },
-    {
-      "headline": "FURIA обыграла BETBOOM и закрыла первый день TWC",
-      "link": "https://www.hltv.org/news/45723/furia-fend-off-betboom-to-end-day-one-of-twc",
-      "score": 6
-    },
-    {
-      "headline": "NIP избежали накладки в расписании после раннего вылета с Thunderpick World Championship",
-      "link": "https://www.hltv.org/news/45724/nip-spared-scheduling-headache-after-early-thunderpick-world-championship-exit",
-      "score": 4
-    },
-    {
-      "headline": "ESIC забанила игроков NOMERCY за договорные матчи",
-      "link": "https://www.hltv.org/news/45727/esic-bans-nomercy-for-match-manipulation",
-      "score": 6
-    },
-    {
-      "headline": "Falcons вышли в плей-офф TWC 2026",
-      "link": "https://www.hltv.org/news/45728/falcons-secure-playoff-berth-at-twc-2026",
-      "score": 8
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-15",
   "reddit_posted": [
     "1wzz7z0",
@@ -3227,7 +3205,7 @@
     "1x6686d"
   ],
   "online_daily": "2026-10-15",
-  "hltv_digest_day": "2026-10-14",
+  "hltv_digest_day": "2026-10-15",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
