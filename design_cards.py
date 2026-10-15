@@ -489,7 +489,7 @@ def quiz_card(label, question, out_path, colors=None, font_path=None,
 
 
 def text_card(label, title, out_path, meta="", chip_items=(), code=None,
-              handle="@Her_Design", tag="#дизайн", note=None):
+              handle="@Her_Design", tag="#дизайн", note=None, sub=None):
     """Картка без фото: мітка, підпис, заголовок, блок тексту (промпт) і
     чипи — для плагінів, фішок Figma, промптів, фільмів та ігор."""
     try:
@@ -503,6 +503,16 @@ def text_card(label, title, out_path, meta="", chip_items=(), code=None,
             d.text((p(200), p(y)), line, font=tf, fill=INK)
             y += size * 1.22
         bottom = 524 if chip_items else 560
+        if sub and not code:                    # короткий опис під заголовком
+            sf = font("onest", 400, 25)
+            y += 8
+            rows = wrap(d, sub, sf, 820)
+            room = max(0, int((bottom - 6 - y) // 36))
+            for i, ln in enumerate(rows[:room]):
+                if i == room - 1 and len(rows) > room:
+                    ln = ln.rstrip(" ,.;") + "…"
+                d.text((p(200), p(y)), ln, font=sf, fill=MUTED)
+                y += 36
         if code and bottom - y > 70:
             y += 10
             d.rounded_rectangle((p(200), p(y), p(1040), p(bottom - 8)),
@@ -520,7 +530,7 @@ def text_card(label, title, out_path, meta="", chip_items=(), code=None,
                         font("caveat", 600, 36), PINK, 3)
         if chip_items:
             chips(d, 200, 540, chip_items)
-        finish(img, tag, handle, out_path, cur=(1010, 440))
+        finish(img, tag, handle, out_path, cur=(1046, 470))
         return True
     except Exception as e:
         print("Текстова картка не намалювалась:", type(e).__name__, e)
