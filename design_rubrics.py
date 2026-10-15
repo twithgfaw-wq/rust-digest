@@ -731,7 +731,11 @@ def tick(tg, state, kt, handle, foot, style, font_now=False, quiz_now=False,
                 and state.get(key) != today)
 
     if font_now or due(FONT_HOUR, "font_day"):
-        out = make_font_post(state, rnd, handle, foot, style)
+        out = None
+        if kt.toordinal() % 3 == 0:          # кожен третій день — Fontshare
+            import design_rubrics2 as rub2
+            out = rub2.make_fontshare_post(state, rnd, handle, foot, style)
+        out = out or make_font_post(state, rnd, handle, foot, style)
         if out:
             f, path, text = out
             if tg.send_photo_file(path, text).get("ok"):
