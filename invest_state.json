@@ -1,6 +1,6 @@
 {
-  "last": "2026-10-08-2349",
-  "ts": 1791509443,
+  "last": "2026-10-15-1840",
+  "ts": 1792094203,
   "picks": {
     "2026-10-08-2349": {
       "start": "2026-10-08T23:49:37.043Z",
@@ -100,6 +100,115 @@
           "n10": 2,
           "store": 249,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71001_small.png?977748922"
+        }
+      ]
+    },
+    "2026-10-15-1840": {
+      "start": "2026-10-15T18:40:41.977Z",
+      "items": [
+        {
+          "name": "Sinotype Ladder Hatch",
+          "v": "buy",
+          "net": 0.0648,
+          "n10": 6,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71103_small.png?1003695665"
+        },
+        {
+          "name": "Tomb Of The Octopus TLH",
+          "v": "buy",
+          "net": 0.0556,
+          "n10": 6,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71105_small.png?3697987790"
+        },
+        {
+          "name": "Danger Inside Box",
+          "v": "think",
+          "net": 0.0257,
+          "n10": 5,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71102_small.png?1436423060"
+        },
+        {
+          "name": "Cargo Heli BBQ",
+          "v": "think",
+          "net": 0.0117,
+          "n10": 5,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71104_small.png?3693399692"
+        },
+        {
+          "name": "Gothic Veil Wooden Door",
+          "v": "think",
+          "net": -0.0116,
+          "n10": 5,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71106_small.png?4226396023"
+        },
+        {
+          "name": "Abyss Throne",
+          "v": "think",
+          "net": -0.0153,
+          "n10": 5,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71101_small.png?1875262598"
+        },
+        {
+          "name": "Tartarus SMD",
+          "v": "think",
+          "net": -0.0202,
+          "n10": 5,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71108_small.png?4197518107"
+        },
+        {
+          "name": "Cow Moo Flage Wood Armor Pants",
+          "v": "no",
+          "net": -0.0274,
+          "n10": 4,
+          "store": 149,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71110_small.png?983520299"
+        },
+        {
+          "name": "Golden Veins Garage Door",
+          "v": "no",
+          "net": -0.0593,
+          "n10": 4,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71109_small.png?168725396"
+        },
+        {
+          "name": "Cow Moo Flage Wood Armor Jacket",
+          "v": "no",
+          "net": -0.0733,
+          "n10": 4,
+          "store": 149,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71111_small.png?2017836185"
+        },
+        {
+          "name": "Cow Moo Flage Wood Armor Helmet",
+          "v": "no",
+          "net": -0.0753,
+          "n10": 4,
+          "store": 149,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71112_small.png?2375775159"
+        },
+        {
+          "name": "Atomization AR",
+          "v": "no",
+          "net": -0.1713,
+          "n10": 2,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71100_small.png?2045082835"
+        },
+        {
+          "name": "Junk Riot Furnace",
+          "v": "no",
+          "net": -0.1916,
+          "n10": 2,
+          "store": 149,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71107_small.png?1255083676"
         }
       ]
     }
