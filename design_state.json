@@ -473,10 +473,18 @@
     "https://www.dezeen.com/2026/10/15/florida-southern-college-frank-lloyd-wright-planetarium-restoration",
     "https://abduzeedo.com/how-kind-reimagined-osland-rebrand",
     "https://www.designboom.com/design/we-are-all-marine-animals-we-just-forgot-photographer-enzo-barracco-at-the-oceanclimate-village",
-    "https://www.wallpaper.com/architecture/riba-stirling-prize-2026-winner"
+    "https://www.wallpaper.com/architecture/riba-stirling-prize-2026-winner",
+    "https://www.wallpaper.com/fashion-beauty/margaret-howell-london-workroom-tour",
+    "https://www.wallpaper.com/architecture/residential/sora-bali-villa-colvin-haven-indonesia",
+    "https://www.designboom.com/architecture/thessaloniki-greece-layered-historic-center-expandable-pedestrian-network-armosi-masterplan-apostolopoulos-tasoulis",
+    "https://www.dezeen.com/2026/10/16/tesla-launches-flying-roadster-concept-car",
+    "https://abduzeedo.com/studio-marcus-kraft-unveils-klangwelt-toggenburg-rebrand",
+    "https://www.designboom.com/technology/futurewave-arc-silver-bracelet-jewelry-phone-connected-devices-argentium-silver",
+    "https://www.designboom.com/design/concert-design-art-spaces-mechanics-audience-duckunit",
+    "https://www.dezeen.com/2026/10/15/lion-green-road-riba-stirling-prize-2026"
   ],
-  "day": "2026-10-15",
-  "day_count": 3,
+  "day": "2026-10-16",
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -561,6 +569,12 @@
       "title": "Cinema 4D 2027.0: нарешті вбудований скатеринг і піна для рідин",
       "link": "https://www.creativebloq.com/news/cinema-4d-finally-gets-one-of-the-most-requested-features-in-new-2027-release",
       "src": "Creative Bloq"
+    },
+    {
+      "t": 1792127185.2204993,
+      "title": "Літери, що звучать: Studio Marcus Kraft оновили Klangwelt Toggenburg",
+      "link": "https://abduzeedo.com/studio-marcus-kraft-unveils-klangwelt-toggenburg-rebrand",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
