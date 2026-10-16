@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791477224,
-      1075245
-    ],
-    [
       1791478713,
       1082182
     ],
@@ -2296,6 +2292,10 @@
     [
       1792167177,
       1187635
+    ],
+    [
+      1792169344,
+      1166719
     ]
   ],
   "online_peaks": {
@@ -2310,9 +2310,6 @@
     "2026-10-16": 1296110
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
@@ -2809,7 +2806,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📌 Сохрани себе {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3330,7 +3330,8 @@
     "hltvnews45732",
     "hltvnews45733",
     "hltvnews45734",
-    "hltvnews45735"
+    "hltvnews45735",
+    "hltvnews45736"
   ],
   "news_seen_t": [
     1788994268,
@@ -3379,6 +3380,11 @@
     {
       "headline": "ESIC выдала playN пожизненный бан",
       "link": "https://www.hltv.org/news/45735/esic-imposes-lifetime-ban-on-playn",
+      "score": 6
+    },
+    {
+      "headline": "Aurora обыграла 9z и третий турнир подряд выходит в топ-4",
+      "link": "https://www.hltv.org/news/45736/aurora-beat-9z-to-secure-third-consecutive-top-four-appearance",
       "score": 6
     }
   ],
