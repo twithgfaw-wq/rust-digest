@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791482166,
-      1115615
-    ],
-    [
       1791484273,
       1129835
     ],
@@ -2296,6 +2292,10 @@
     [
       1792172607,
       1171265
+    ],
+    [
+      1792173721,
+      1173459
     ]
   ],
   "online_peaks": {
@@ -2310,9 +2310,6 @@
     "2026-10-16": 1296110
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📌 Сохрани себе {tag}",
-    "📢 Подписывайся: {tag}",
     "Danger Zone Case: в плюс выходит примерно одно открытие из 19.",
     "📡 Не пропусти важное: {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2809,7 +2806,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "📢 Подписывайся: {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3360,41 +3360,10 @@
   },
   "cs2_index_day": "2026-10-16",
   "ws_slot": "2026-10-16-20",
-  "comm_slot": "2026-10-16-17",
+  "comm_slot": "2026-10-16-21",
   "hltv_day": "2026-10-16",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "BETBOOM выбили PARIVISION с TWC",
-      "link": "https://www.hltv.org/news/45729/betboom-eliminate-parivision-from-twc",
-      "score": 6
-    },
-    {
-      "headline": "FURIA вышли в плей-офф TWC, обыграв Legacy",
-      "link": "https://www.hltv.org/news/45730/furia-make-twc-playoffs-over-legacy",
-      "score": 5
-    },
-    {
-      "headline": "Определены стартовые пары PGL Masters Bucharest",
-      "link": "https://www.hltv.org/news/45731/opening-matchups-set-for-pgl-masters-bucharest",
-      "score": 6
-    },
-    {
-      "headline": "BLAST Rivals Season 2: объявлен список участников",
-      "link": "https://www.hltv.org/news/45733/blast-rivals-season-2-team-list-revealed",
-      "score": 6
-    },
-    {
-      "headline": "ESIC выдала playN пожизненный бан",
-      "link": "https://www.hltv.org/news/45735/esic-imposes-lifetime-ban-on-playn",
-      "score": 6
-    },
-    {
-      "headline": "Aurora обыграла 9z и третий турнир подряд выходит в топ-4",
-      "link": "https://www.hltv.org/news/45736/aurora-beat-9z-to-secure-third-consecutive-top-four-appearance",
-      "score": 6
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-16",
   "reddit_posted": [
     "1wzz7z0",
@@ -3406,7 +3375,7 @@
     "1x6686d"
   ],
   "online_daily": "2026-10-16",
-  "hltv_digest_day": "2026-10-15",
+  "hltv_digest_day": "2026-10-16",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
