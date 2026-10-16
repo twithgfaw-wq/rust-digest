@@ -2224,10 +2224,6 @@
   ],
   "online_log": [
     [
-      1791449349,
-      60292
-    ],
-    [
       1791451080,
       62661
     ],
@@ -4322,6 +4318,10 @@
     [
       1792139341,
       59769
+    ],
+    [
+      1792141334,
+      62328
     ]
   ],
   "online_peaks": {
@@ -4952,9 +4952,10 @@
     "Popstar Armored Door",
     "Popstar SKS",
     "Salvation SAR",
-    "Redemption Small Backpack"
+    "Redemption Small Backpack",
+    "Temple Ladder Hatch"
   ],
-  "rsod_day": "2026-10-15",
+  "rsod_day": "2026-10-16",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
