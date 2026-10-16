@@ -2146,7 +2146,10 @@
     "🔥 {tag} — Rust без воды",
     "▶️ Новое видео от {author} — включаем",
     "Отличный повод отвлечься от фарма 😄",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "Какой из трёх взяли бы себе? 🛒",
+    "🥇 Лучшие работы недели в воркшопе Rust",
+    "🔔 Больше Rust — в {tag}"
   ],
   "store_seen": [
     "10198",
@@ -2231,10 +2234,6 @@
     "71105"
   ],
   "online_log": [
-    [
-      1791467315,
-      93156
-    ],
     [
       1791468178,
       97286
@@ -4362,6 +4361,10 @@
     [
       1792157810,
       107625
+    ],
+    [
+      1792159306,
+      109766
     ]
   ],
   "online_peaks": {
@@ -4375,7 +4378,7 @@
     "2026-10-13": 105303,
     "2026-10-14": 98120,
     "2026-10-15": 112570,
-    "2026-10-16": 107625
+    "2026-10-16": 109766
   },
   "x_last_id": "2110732317207486776",
   "market_snaps": {
@@ -4969,11 +4972,11 @@
       "b5166ec3-b454-42dc-9bca-43a11b138594": 137
     }
   },
-  "top_ts": 1791900136,
+  "top_ts": 1792159311,
   "top_last": [
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3818451708",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3816577482",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816299349"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818968079"
   ],
   "elite_last_ts": 1792080102,
   "elite_slot": "2026-10-15-16",
@@ -5063,7 +5066,10 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3815285296",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3818451708",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3816577482",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816299349"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816299349",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818451708",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816577482",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818968079"
   ],
   "rust_quiz_n": 3,
   "rust_quiz_day": "2026-10-14",
