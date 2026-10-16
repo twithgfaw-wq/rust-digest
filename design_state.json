@@ -485,10 +485,16 @@
     "https://www.creativebloq.com/news/the-narnia-the-magicians-nephew-trailer-has-a-tiny-easter-eggs-thats-caused-a-big-controversy",
     "https://www.wallpaper.com/transportation/peugeot-e-208-gti-review",
     "https://www.creativebloq.com/inspiration/quote-of-the-day-by-laikas-nelson-lowry-when-the-challenges-are-that-raw-you-just-make-mistakes-and-you-learn-from-them",
-    "https://www.creativebloq.com/news/disneys-latest-hexed-announcement-is-causing-even-more-controversy"
+    "https://www.creativebloq.com/news/disneys-latest-hexed-announcement-is-causing-even-more-controversy",
+    "https://www.wallpaper.com/transportation/porsche-mission-s-vision-reveal",
+    "https://www.dezeen.com/2026/10/16/stirling-prize-winner-dezeen-weekly",
+    "https://www.creativebloq.com/news/apple-musics-miserable-new-logo-is-giving-mixed-messages",
+    "https://www.wallpaper.com/tech/naim-mu-so-utopia-home-audio-system",
+    "https://www.designboom.com/technology/porsche-mission-s-sports-car-cues-racing-heritage",
+    "https://www.dezeen.com/2026/10/16/objects-with-narratives-collectible-design-pad"
   ],
   "day": "2026-10-16",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -579,6 +585,12 @@
       "title": "Літери, що звучать: Studio Marcus Kraft оновили Klangwelt Toggenburg",
       "link": "https://abduzeedo.com/studio-marcus-kraft-unveils-klangwelt-toggenburg-rebrand",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1792139847.9069858,
+      "title": "Apple Music знебарвили іконку, і не всі фанати в захваті",
+      "link": "https://www.creativebloq.com/news/apple-musics-miserable-new-logo-is-giving-mixed-messages",
+      "src": "Creative Bloq"
     }
   ],
   "queue": [],
