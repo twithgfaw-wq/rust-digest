@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791471485,
-      1205569
-    ],
-    [
       1791473092,
       1140014
     ],
@@ -2292,6 +2288,10 @@
     [
       1792161813,
       1296110
+    ],
+    [
+      1792162922,
+      1284664
     ]
   ],
   "online_peaks": {
@@ -2306,9 +2306,6 @@
     "2026-10-16": 1296110
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "📡 Не пропусти важное: {tag}",
     "🔥 {tag} — CS2 без воды",
     "📌 Сохрани себе {tag}",
@@ -2805,7 +2802,10 @@
     "🔥 {tag} — CS2 без воды",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📌 Сохрани себе {tag}",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "👉 Подписывайся на {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3177,15 +3177,8 @@
     "3820681083"
   ],
   "price_day": "2026-10-16",
-  "invest_day": "2026-10-15",
+  "invest_day": "2026-10-16",
   "invest_days": {
-    "2026-10-09": [
-      "Chroma 3 Case",
-      "Operation Bravo Case",
-      "Stockholm 2021 Challengers Sticker Capsule",
-      "Gamma 2 Case",
-      "Rio 2022 Dust II Souvenir Package"
-    ],
     "2026-10-10": [
       "Spectrum 2 Case",
       "Chroma Case",
@@ -3227,6 +3220,13 @@
       "Operation Bravo Case",
       "Paris 2023 Mirage Souvenir Package",
       "Chroma 2 Case"
+    ],
+    "2026-10-16": [
+      "Paris 2023 Anubis Souvenir Package",
+      "Berlin 2019 Legends Autograph Capsule",
+      "Glove Case",
+      "Stockholm 2021 Challengers Sticker Capsule",
+      "Spectrum 2 Case"
     ]
   },
   "sod_seen": [
@@ -3600,10 +3600,40 @@
       "verdict": "watch",
       "price": 3.21,
       "date": "2026-10-15"
+    },
+    {
+      "name": "Paris 2023 Anubis Souvenir Package",
+      "verdict": "buy",
+      "price": 1.71,
+      "date": "2026-10-16"
+    },
+    {
+      "name": "Berlin 2019 Legends Autograph Capsule",
+      "verdict": "buy",
+      "price": 1.03,
+      "date": "2026-10-16"
+    },
+    {
+      "name": "Glove Case",
+      "verdict": "avoid",
+      "price": 8.75,
+      "date": "2026-10-16"
+    },
+    {
+      "name": "Stockholm 2021 Challengers Sticker Capsule",
+      "verdict": "watch",
+      "price": 1.47,
+      "date": "2026-10-16"
+    },
+    {
+      "name": "Spectrum 2 Case",
+      "verdict": "watch",
+      "price": 2.52,
+      "date": "2026-10-16"
     }
   ],
-  "cs2_quiz_n": 3,
-  "cs2_quiz_day": "2026-10-13",
+  "cs2_quiz_n": 4,
+  "cs2_quiz_day": "2026-10-16",
   "cs2_index_steam": {
     "2026-10-10": 2,
     "2026-10-11": 7,
