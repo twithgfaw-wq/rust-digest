@@ -578,14 +578,15 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-10-15",
+  "font_day": "2026-10-16",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
     "Carlito",
     "Golos Text",
     "Lora",
-    "Pixelify Sans"
+    "Pixelify Sans",
+    "Alpino"
   ],
   "quiz_day": "2026-10-15",
   "quiz_fonts": [
