@@ -2246,10 +2246,6 @@
   ],
   "online_log": [
     [
-      1791535765,
-      64472
-    ],
-    [
       1791537484,
       67629
     ],
@@ -4392,6 +4388,10 @@
     [
       1792225852,
       83735
+    ],
+    [
+      1792227695,
+      87315
     ]
   ],
   "online_peaks": {
@@ -4406,7 +4406,7 @@
     "2026-10-14": 98120,
     "2026-10-15": 112570,
     "2026-10-16": 130616,
-    "2026-10-17": 83735
+    "2026-10-17": 87315
   },
   "x_last_id": "2111132659267117286",
   "market_snaps": {
@@ -5019,9 +5019,10 @@
     "Popstar SKS",
     "Salvation SAR",
     "Redemption Small Backpack",
-    "Temple Ladder Hatch"
+    "Temple Ladder Hatch",
+    "Endgame Armored Door"
   ],
-  "rsod_day": "2026-10-16",
+  "rsod_day": "2026-10-17",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
