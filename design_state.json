@@ -530,10 +530,13 @@
     "https://www.designboom.com/art/laboratory-waste-art-discarded-research-prototypes-sculptural-objects-ruben-moutinho",
     "https://www.dezeen.com/2026/10/17/stirling-prize-winner-this-week",
     "https://www.creativebloq.com/news/ikea-throws-shade-at-tesla-with-safe-and-affordable-flying-car",
-    "https://www.dezeen.com/2026/10/17/converted-power-stations-roundup"
+    "https://www.dezeen.com/2026/10/17/converted-power-stations-roundup",
+    "https://www.creativebloq.com/news/a-fake-mia-goth-selfie-fooled-the-internet-and-ai-slop-is-the-least-of-it",
+    "https://www.wallpaper.com/design-interiors/interior-accessories/virginia-sin-metal-objects-ritual-collection",
+    "https://www.fastcompany.com/91624387/arsenal-rocastle-new-font?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
   ],
   "day": "2026-10-17",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -636,6 +639,12 @@
       "title": "Fieldwork Facility зробили навігацію V&A East Storehouse як софт",
       "link": "https://abduzeedo.com/fieldwork-facility-unveils-va-east-storehouse-wayfinding",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1792236630.4798245,
+      "title": "Arsenal отримав готичний шрифт на честь легенди клубу",
+      "link": "https://www.fastcompany.com/91624387/arsenal-rocastle-new-font?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+      "src": "Fast Company"
     }
   ],
   "queue": [],
