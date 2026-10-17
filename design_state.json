@@ -630,7 +630,7 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-10-16",
+  "font_day": "2026-10-17",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -638,7 +638,8 @@
     "Golos Text",
     "Lora",
     "Pixelify Sans",
-    "Alpino"
+    "Alpino",
+    "Tektur"
   ],
   "quiz_day": "2026-10-16",
   "quiz_fonts": [
