@@ -543,10 +543,12 @@
     "https://abduzeedo.com/google-go-north-editorial-design-underline-studio",
     "https://www.designboom.com/art/projection-mapping-and-performances-make-the-night-come-alive-at-signal-festival",
     "https://www.creativebloq.com/deals/with-over-usd400-off-theres-finally-a-decent-deal-on-the-2026-m5-pro-macbook-pro",
-    "https://abduzeedo.com/production-type-unveils-ciel-typeface"
+    "https://abduzeedo.com/production-type-unveils-ciel-typeface",
+    "https://abduzeedo.com/molnar-peters-poster-design-play-2-win-vol-2",
+    "https://abduzeedo.com/how-span-reimagined-nature-museum-identity"
   ],
   "day": "2026-10-17",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -655,6 +657,12 @@
       "title": "Arsenal отримав готичний шрифт на честь легенди клубу",
       "link": "https://www.fastcompany.com/91624387/arsenal-rocastle-new-font?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
       "src": "Fast Company"
+    },
+    {
+      "t": 1792266988.3511777,
+      "title": "Span виростили айдентику музею природи в Чикаго з прерій",
+      "link": "https://abduzeedo.com/how-span-reimagined-nature-museum-identity",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
