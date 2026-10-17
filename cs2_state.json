@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791568875,
-      1080253
-    ],
-    [
       1791570662,
       1110022
     ],
@@ -2172,6 +2168,10 @@
     [
       1792259949,
       1179021
+    ],
+    [
+      1792260091,
+      1178882
     ]
   ],
   "online_peaks": {
@@ -2187,9 +2187,6 @@
     "2026-10-17": 1356976
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "👉 Подписывайся на {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📢 Подписывайся: {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2686,7 +2683,10 @@
     "🔥 {tag} — CS2 без воды",
     "📡 Не пропусти важное: {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3279,41 +3279,10 @@
   },
   "cs2_index_day": "2026-10-17",
   "ws_slot": "2026-10-17-20",
-  "comm_slot": "2026-10-17-17",
+  "comm_slot": "2026-10-17-21",
   "hltv_day": "2026-10-17",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "BETBOOM вышли в плей-офф TWC, обыграв Legacy",
-      "link": "https://www.hltv.org/news/45739/betboom-qualify-for-twc-playoffs-over-legacy",
-      "score": 6
-    },
-    {
-      "headline": "PGL скорректировала календарь на 2028 год",
-      "link": "https://www.hltv.org/news/45740/pgl-adjusts-2028-calendar",
-      "score": 5
-    },
-    {
-      "headline": "Boombl4: «На этом турнире мы играем лучше, и я чувствую прогресс»",
-      "link": "https://www.hltv.org/news/45741/boombl4-this-tournament-were-playing-better-and-i-feel-the-progress",
-      "score": 4
-    },
-    {
-      "headline": "FISSURE Playground 4 пройдёт в Грузии",
-      "link": "https://www.hltv.org/news/45742/fissure-playground-4-to-take-place-in-georgia",
-      "score": 5
-    },
-    {
-      "headline": "FURIA уверенно обыграли Aurora и вышли в финал TWC",
-      "link": "https://www.hltv.org/news/45743/furia-ease-past-aurora-into-twc-final",
-      "score": 6
-    },
-    {
-      "headline": "yuurih: «Будем очень рады выиграть турнир, особенно если против Falcons»",
-      "link": "https://www.hltv.org/news/45744/yuurih-wed-be-very-happy-to-win-this-event-especially-if-its-against-falcons-were-trying-to-beat-the-best-teams",
-      "score": 4
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-17",
   "reddit_posted": [
     "1wzz7z0",
@@ -3326,7 +3295,7 @@
     "1x7kdsz"
   ],
   "online_daily": "2026-10-17",
-  "hltv_digest_day": "2026-10-16",
+  "hltv_digest_day": "2026-10-17",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
