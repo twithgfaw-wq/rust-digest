@@ -18,14 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791629643,
-      892461
-    ],
-    [
-      1791630109,
-      913931
-    ],
-    [
       1791631560,
       1004707
     ],
@@ -2152,6 +2144,10 @@
     [
       1792319856,
       924199
+    ],
+    [
+      1792321425,
+      970781
     ]
   ],
   "online_peaks": {
@@ -2165,12 +2161,9 @@
     "2026-10-15": 1162889,
     "2026-10-16": 1296110,
     "2026-10-17": 1356976,
-    "2026-10-18": 924199
+    "2026-10-18": 970781
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
@@ -2667,7 +2660,10 @@
     "📢 Подписывайся: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "📌 Сохрани себе {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3250,7 +3246,8 @@
     "hltvnews45744",
     "hltvnews45745",
     "hltvnews45746",
-    "hltvnews45747"
+    "hltvnews45747",
+    "hltvnews45748"
   ],
   "news_seen_t": [
     1788994268,
@@ -3290,9 +3287,14 @@
       "headline": "NIP обыграли MIBR и выиграли Stake Pulse Beat III",
       "link": "https://www.hltv.org/news/45747/nip-beat-mibr-to-win-stake-pulse-beat-iii",
       "score": 4
+    },
+    {
+      "headline": "NEXVOID обыграли FlyQuest и выиграли DFRAG Logitech G Pro Series",
+      "link": "https://www.hltv.org/news/45748/nexvoid-upset-flyquest-to-win-dfrag-logitech-g-pro-series",
+      "score": 4
     }
   ],
-  "reddit_day": "2026-10-17",
+  "reddit_day": "2026-10-18",
   "reddit_posted": [
     "1wzz7z0",
     "1x1ey6g",
@@ -3301,7 +3303,8 @@
     "1x4qntc",
     "1x5ey5y",
     "1x6686d",
-    "1x7kdsz"
+    "1x7kdsz",
+    "1x8jbam"
   ],
   "online_daily": "2026-10-17",
   "hltv_digest_day": "2026-10-17",
