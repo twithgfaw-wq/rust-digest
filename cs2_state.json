@@ -18,14 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791644604,
-      1393450
-    ],
-    [
-      1791645996,
-      1340027
-    ],
-    [
       1791647645,
       1297148
     ],
@@ -2144,6 +2136,10 @@
     [
       1792335782,
       1291371
+    ],
+    [
+      1792337795,
+      1219900
     ]
   ],
   "online_peaks": {
@@ -2160,9 +2156,6 @@
     "2026-10-18": 1344264
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📢 Подписывайся: {tag}",
-    "💣 Твой канал про CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📡 Не пропусти важное: {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2659,7 +2652,10 @@
     "👉 Подписывайся на {tag}",
     "🔥 {tag} — CS2 без воды",
     "💣 Твой канал про CS2 — {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3294,7 +3290,8 @@
     "hltvnews45746",
     "hltvnews45747",
     "hltvnews45748",
-    "hltvnews45749"
+    "hltvnews45749",
+    "hltvnews45750"
   ],
   "news_seen_t": [
     1788994268,
@@ -3339,6 +3336,11 @@
       "headline": "NEXVOID обыграли FlyQuest и выиграли DFRAG Logitech G Pro Series",
       "link": "https://www.hltv.org/news/45748/nexvoid-upset-flyquest-to-win-dfrag-logitech-g-pro-series",
       "score": 4
+    },
+    {
+      "headline": "Aurora обошли Falcons в VRS после победы в матче за третье место на TWC",
+      "link": "https://www.hltv.org/news/45750/aurora-pass-falcons-in-the-vrs-after-third-place-decider-victory-at-twc",
+      "score": 7
     }
   ],
   "reddit_day": "2026-10-18",
