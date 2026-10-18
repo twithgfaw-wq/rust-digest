@@ -4372,6 +4372,10 @@
     [
       1792313985,
       86455
+    ],
+    [
+      1792314097,
+      86455
     ]
   ],
   "online_peaks": {
@@ -4996,9 +5000,10 @@
     "Salvation SAR",
     "Redemption Small Backpack",
     "Temple Ladder Hatch",
-    "Endgame Armored Door"
+    "Endgame Armored Door",
+    "Salvation Assault Rifle"
   ],
-  "rsod_day": "2026-10-17",
+  "rsod_day": "2026-10-18",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
