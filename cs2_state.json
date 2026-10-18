@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791669246,
-      978419
-    ],
-    [
       1791671183,
       880431
     ],
@@ -2148,6 +2144,10 @@
     [
       1792359382,
       774422
+    ],
+    [
+      1792360908,
+      707457
     ]
   ],
   "online_peaks": {
@@ -2164,9 +2164,6 @@
     "2026-10-18": 1344264
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "📢 Подписывайся: {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🎯 Свежий CS2 каждый день — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
@@ -2663,7 +2660,10 @@
     "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📌 Сохрани себе {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "👉 Подписывайся на {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3313,7 +3313,8 @@
     "hltvnews45748",
     "hltvnews45749",
     "hltvnews45750",
-    "hltvnews45752"
+    "hltvnews45752",
+    "hltvnews45753"
   ],
   "news_seen_t": [
     1788994268,
@@ -3342,6 +3343,11 @@
     {
       "headline": "FURIA второй раз подряд выиграла Thunderpick World Championship",
       "link": "https://www.hltv.org/news/45752/furia-go-back-to-back-at-thunderpick-world-championship-to-secure-first-title-of-2026",
+      "score": 6
+    },
+    {
+      "headline": "KSCERATO — MVP Thunderpick World Championship 2026",
+      "link": "https://www.hltv.org/news/45753/kscerato-crowned-thunderpick-world-championship-2026-mvp",
       "score": 6
     }
   ],
