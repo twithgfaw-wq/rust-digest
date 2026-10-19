@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791741242,
-      1172230
-    ],
-    [
       1791743429,
       1186702
     ],
@@ -2164,6 +2160,10 @@
     [
       1792431607,
       1078279
+    ],
+    [
+      1792432889,
+      1086898
     ]
   ],
   "online_peaks": {
@@ -2181,9 +2181,6 @@
     "2026-10-19": 1177374
   },
   "recent_phrases": [
-    "👀 Следи за CS2 вместе с {tag}",
-    "📡 Не пропусти важное: {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🔔 Больше CS2 — в {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "💣 Твой канал про CS2 — {tag}",
@@ -2680,7 +2677,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "📌 Сохрани себе {tag}",
+    "📢 Подписывайся: {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2763,7 +2763,8 @@
     "2111553424961757421",
     "2111766742225531391",
     "2111882549337399743",
-    "2112134330273366190"
+    "2112134330273366190",
+    "2112168585158381756"
   ],
   "ws_scores": {
     "3815186169": {
@@ -3382,46 +3383,10 @@
   },
   "cs2_index_day": "2026-10-19",
   "ws_slot": "2026-10-19-20",
-  "comm_slot": "2026-10-19-17",
+  "comm_slot": "2026-10-19-21",
   "hltv_day": "2026-10-19",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "FURIA второй раз подряд выиграла Thunderpick World Championship",
-      "link": "https://www.hltv.org/news/45752/furia-go-back-to-back-at-thunderpick-world-championship-to-secure-first-title-of-2026",
-      "score": 6
-    },
-    {
-      "headline": "KSCERATO — MVP Thunderpick World Championship 2026",
-      "link": "https://www.hltv.org/news/45753/kscerato-crowned-thunderpick-world-championship-2026-mvp",
-      "score": 6
-    },
-    {
-      "headline": "KSCERATO после напряжённого финала: «Гол есть гол, даже если некрасивый»",
-      "link": "https://www.hltv.org/news/45754/kscerato-on-close-final-a-goal-is-a-goal-even-if-its-ugly",
-      "score": 4
-    },
-    {
-      "headline": "HLTV назвал EVP и All-Stars ESL Pro League S24: вся тройка лидеров — из Vitality",
-      "link": "https://www.hltv.org/news/45751/the-evps-and-all-stars-of-esl-pro-league-s24",
-      "score": 7
-    },
-    {
-      "headline": "HLTV обновил систему Attributes: 29 новых метрик",
-      "link": "https://www.hltv.org/news/45755/hltv-attributes-receive-an-overhaul-with-29-new-metrics",
-      "score": 4
-    },
-    {
-      "headline": "kRaSnaL покинул ENCE и стал свободным агентом",
-      "link": "https://www.hltv.org/news/45756/krasnal-enters-free-agency",
-      "score": 4
-    },
-    {
-      "headline": "Come Here с Mischief: проблемы VRS и скандал Sashi и BC.Game",
-      "link": "https://www.hltv.org/news/45757/vrs-fans-come-here-ft-mischief",
-      "score": 4
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-19",
   "reddit_posted": [
     "1wzz7z0",
@@ -3436,7 +3401,7 @@
     "1x92hkc"
   ],
   "online_daily": "2026-10-19",
-  "hltv_digest_day": "2026-10-18",
+  "hltv_digest_day": "2026-10-19",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
