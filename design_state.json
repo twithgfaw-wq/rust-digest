@@ -598,10 +598,11 @@
     "https://www.creativebloq.com/news/wicker-parodies-saucy-book-covers-in-new-film-poster",
     "https://www.creativebloq.com/reviews/cmf-speaker-s-review-this-little-milk-carton-sounds-better-than-it-has-any-right-to",
     "https://www.wallpaper.com/art/comme-des-garcons-dover-street-market-installation",
-    "https://www.creativebloq.com/reviews/tested-the-googlebook-tries-to-put-android-on-the-desktop-but-is-it-successful"
+    "https://www.creativebloq.com/reviews/tested-the-googlebook-tries-to-put-android-on-the-desktop-but-is-it-successful",
+    "https://abduzeedo.com/brand-identity-globe-trotter-ragged-edge"
   ],
   "day": "2026-10-19",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -728,6 +729,12 @@
       "title": "Maxon об'єднала свої інструменти соту за сотою",
       "link": "https://www.designboom.com/readers/honeycomb-geometry-maxon-one-brand-identity-motion-design-casey-gu",
       "src": "designboom"
+    },
+    {
+      "t": 1792418491.7144535,
+      "title": "Globe-Trotter повернули зірку North Star з архіву 1897 року",
+      "link": "https://abduzeedo.com/brand-identity-globe-trotter-ragged-edge",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
