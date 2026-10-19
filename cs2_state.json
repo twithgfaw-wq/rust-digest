@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791710898,
-      935138
-    ],
-    [
       1791712497,
       940631
     ],
@@ -2148,6 +2144,10 @@
     [
       1792401388,
       612687
+    ],
+    [
+      1792403611,
+      639419
     ]
   ],
   "online_peaks": {
@@ -2162,12 +2162,9 @@
     "2026-10-16": 1296110,
     "2026-10-17": 1356976,
     "2026-10-18": 1344264,
-    "2026-10-19": 612687
+    "2026-10-19": 639419
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "📡 Не пропусти важное: {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📌 Сохрани себе {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2664,7 +2661,10 @@
     "📡 Не пропусти важное: {tag}",
     "📌 Сохрани себе {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "📢 Подписывайся: {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3335,7 +3335,8 @@
     "hltvnews45749",
     "hltvnews45750",
     "hltvnews45752",
-    "hltvnews45753"
+    "hltvnews45753",
+    "hltvnews45754"
   ],
   "news_seen_t": [
     1788994268,
@@ -3370,6 +3371,11 @@
       "headline": "KSCERATO — MVP Thunderpick World Championship 2026",
       "link": "https://www.hltv.org/news/45753/kscerato-crowned-thunderpick-world-championship-2026-mvp",
       "score": 6
+    },
+    {
+      "headline": "KSCERATO после напряжённого финала: «Гол есть гол, даже если некрасивый»",
+      "link": "https://www.hltv.org/news/45754/kscerato-on-close-final-a-goal-is-a-goal-even-if-its-ugly",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-18",
