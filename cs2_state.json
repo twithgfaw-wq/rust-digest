@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791739611,
-      1162755
-    ],
-    [
       1791741242,
       1172230
     ],
@@ -2160,6 +2156,10 @@
     [
       1792429292,
       1048416
+    ],
+    [
+      1792431509,
+      1073887
     ]
   ],
   "online_peaks": {
@@ -2177,9 +2177,6 @@
     "2026-10-19": 1177374
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
@@ -2676,7 +2673,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
     "👉 Подписывайся на {tag}",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🎯 Свежий CS2 каждый день — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3355,7 +3355,8 @@
     "hltvnews45754",
     "hltvnews45751",
     "hltvnews45755",
-    "hltvnews45756"
+    "hltvnews45756",
+    "hltvnews45757"
   ],
   "news_seen_t": [
     1788994268,
@@ -3409,6 +3410,11 @@
     {
       "headline": "kRaSnaL покинул ENCE и стал свободным агентом",
       "link": "https://www.hltv.org/news/45756/krasnal-enters-free-agency",
+      "score": 4
+    },
+    {
+      "headline": "Come Here с Mischief: проблемы VRS и скандал Sashi и BC.Game",
+      "link": "https://www.hltv.org/news/45757/vrs-fans-come-here-ft-mischief",
       "score": 4
     }
   ],
