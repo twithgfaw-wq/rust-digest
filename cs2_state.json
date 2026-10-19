@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791722004,
-      1204633
-    ],
-    [
       1791723550,
       1278419
     ],
@@ -2156,6 +2152,10 @@
     [
       1792411291,
       856678
+    ],
+    [
+      1792413513,
+      968118
     ]
   ],
   "online_peaks": {
@@ -2170,12 +2170,9 @@
     "2026-10-16": 1296110,
     "2026-10-17": 1356976,
     "2026-10-18": 1344264,
-    "2026-10-19": 856678
+    "2026-10-19": 968118
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "📢 Подписывайся: {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "👉 Подписывайся на {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2672,7 +2669,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🔥 {tag} — CS2 без воды",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "👉 Подписывайся на {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3346,7 +3346,8 @@
     "hltvnews45752",
     "hltvnews45753",
     "hltvnews45754",
-    "hltvnews45751"
+    "hltvnews45751",
+    "hltvnews45755"
   ],
   "news_seen_t": [
     1788994268,
@@ -3391,6 +3392,11 @@
       "headline": "HLTV назвал EVP и All-Stars ESL Pro League S24: вся тройка лидеров — из Vitality",
       "link": "https://www.hltv.org/news/45751/the-evps-and-all-stars-of-esl-pro-league-s24",
       "score": 7
+    },
+    {
+      "headline": "HLTV обновил систему Attributes: 29 новых метрик",
+      "link": "https://www.hltv.org/news/45755/hltv-attributes-receive-an-overhaul-with-29-new-metrics",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-19",
