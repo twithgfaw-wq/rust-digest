@@ -600,10 +600,11 @@
     "https://www.wallpaper.com/art/comme-des-garcons-dover-street-market-installation",
     "https://www.creativebloq.com/reviews/tested-the-googlebook-tries-to-put-android-on-the-desktop-but-is-it-successful",
     "https://abduzeedo.com/brand-identity-globe-trotter-ragged-edge",
-    "https://www.creativeboom.com/booms-shakes/booms-shakes-october"
+    "https://www.creativeboom.com/booms-shakes/booms-shakes-october",
+    "https://abduzeedo.com/ps1-your-place-masterclass-brand-design-porto-rocha"
   ],
   "day": "2026-10-19",
-  "day_count": 3,
+  "day_count": 4,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -735,6 +736,12 @@
       "t": 1792418491.7144535,
       "title": "Globe-Trotter повернули зірку North Star з архіву 1897 року",
       "link": "https://abduzeedo.com/brand-identity-globe-trotter-ragged-edge",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1792422932.4547586,
+      "title": "Porto Rocha перетворили 50-річчя MoMA PS1 на вуличну афішу",
+      "link": "https://abduzeedo.com/ps1-your-place-masterclass-brand-design-porto-rocha",
       "src": "Abduzeedo"
     }
   ],
