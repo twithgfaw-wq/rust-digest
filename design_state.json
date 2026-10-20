@@ -666,10 +666,13 @@
     "https://abduzeedo.com/address-338-architecture-studio-branding-and-visual-system",
     "https://www.designboom.com/technology/pieni-iii-kenko-tiny-digital-camera-without-screen",
     "https://www.dezeen.com/2026/10/20/forbo-flooring-custom-flooring",
-    "https://www.figma.com/blog/source-material-ben-ganz"
+    "https://www.figma.com/blog/source-material-ben-ganz",
+    "https://www.designboom.com/design/jean-baptiste-fastrez-boat-fitting-mirrors-look-looked-at-interview",
+    "https://abduzeedo.com/how-everland-reimagined-urban-kind-branding",
+    "https://abduzeedo.com/inside-collinss-branding-crane-stationery"
   ],
   "day": "2026-10-20",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -825,6 +828,12 @@
       "t": 1792507098.9797502,
       "title": "Tereza Bettinardi зібрала річник TDC із внутрішніх просторів літер",
       "link": "https://abduzeedo.com/tdc-43rd-annual-editorial-design-tereza-bettinardi",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1792528574.2363799,
+      "title": "COLLINS витягли папір Crane із шухляди на журнальний столик",
+      "link": "https://abduzeedo.com/inside-collinss-branding-crane-stationery",
       "src": "Abduzeedo"
     }
   ],
