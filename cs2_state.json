@@ -18,14 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791838910,
-      887802
-    ],
-    [
-      1791840479,
-      795709
-    ],
-    [
       1791842130,
       704428
     ],
@@ -2188,6 +2180,10 @@
     [
       1792530090,
       796703
+    ],
+    [
+      1792532312,
+      730383
     ]
   ],
   "online_peaks": {
@@ -2206,9 +2202,6 @@
     "2026-10-20": 1203644
   },
   "recent_phrases": [
-    "📢 Подписывайся: {tag}",
-    "📌 Сохрани себе {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
     "👀 Следи за CS2 вместе с {tag}",
@@ -2705,7 +2698,10 @@
     "📡 Не пропусти важное: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "👉 Подписывайся на {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3459,7 +3455,8 @@
     "hltvnews45760",
     "hltvnews45761",
     "hltvnews45762",
-    "hltvnews45763"
+    "hltvnews45763",
+    "hltvnews45764"
   ],
   "news_seen_t": [
     1788994268,
@@ -3488,6 +3485,11 @@
     {
       "headline": "1win Private Club S2, день второй: BIG спасаются, Alliance теряют шансы, Liquid вылетели",
       "link": "https://www.hltv.org/news/45763/big-get-a-lifeline-alliances-major-odds-crater-and-liquid-exit-after-day-two-of-1win-private-club-s2",
+      "score": 6
+    },
+    {
+      "headline": "DraculaN Season 7: FaZe продолжает путь к мейджору, шансы Luminosity тают",
+      "link": "https://www.hltv.org/news/45764/fazes-grind-continues-and-luminositys-major-chances-fade-as-draculan-playoffs-begin",
       "score": 6
     }
   ],
