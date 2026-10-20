@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791808729,
-      1021471
-    ],
-    [
       1791809472,
       1038726
     ],
@@ -2184,6 +2180,10 @@
     [
       1792498336,
       909195
+    ],
+    [
+      1792500510,
+      998336
     ]
   ],
   "online_peaks": {
@@ -2199,12 +2199,9 @@
     "2026-10-17": 1356976,
     "2026-10-18": 1344264,
     "2026-10-19": 1177374,
-    "2026-10-20": 909195
+    "2026-10-20": 998336
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📢 Подписывайся: {tag}",
     "👉 Подписывайся на {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2701,7 +2698,10 @@
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🎯 Свежий CS2 каждый день — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "👉 Подписывайся на {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3411,7 +3411,8 @@
     "hltvnews45756",
     "hltvnews45757",
     "hltvnews45758",
-    "hltvnews45759"
+    "hltvnews45759",
+    "hltvnews45760"
   ],
   "news_seen_t": [
     1788994268,
@@ -3445,6 +3446,11 @@
     {
       "headline": "IEM Beijing: определены группы и стартовые пары, NAVI сыграют с Falcons",
       "link": "https://www.hltv.org/news/45759/iem-beijing-groups-and-opening-matchups-set",
+      "score": 8
+    },
+    {
+      "headline": "Vitality и Falcons откроют BLAST Rivals",
+      "link": "https://www.hltv.org/news/45760/vitality-to-meet-falcons-in-blast-rivals-opener",
       "score": 8
     }
   ],
