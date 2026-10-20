@@ -1,6 +1,6 @@
 {
  "rust_news_Pro": {
-  "updated": "2026-10-19T21:10:27.349197+00:00",
+  "updated": "2026-10-20T21:12:40.669484+00:00",
   "posts": [
    {
     "id": 1,
@@ -1946,7 +1946,7 @@
    {
     "id": 252,
     "date": "2026-10-12T11:18:41+00:00",
-    "views": 12,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -1957,7 +1957,7 @@
    {
     "id": 253,
     "date": "2026-10-12T11:19:11+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -1968,7 +1968,7 @@
    {
     "id": 254,
     "date": "2026-10-12T13:02:22+00:00",
-    "views": 26,
+    "views": 27,
     "reactions": {
      "🔥": 1
     },
@@ -1981,7 +1981,7 @@
    {
     "id": 256,
     "date": "2026-10-12T14:09:05+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -1992,7 +1992,7 @@
    {
     "id": 257,
     "date": "2026-10-12T15:04:36+00:00",
-    "views": 15,
+    "views": 16,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2003,7 +2003,7 @@
    {
     "id": 258,
     "date": "2026-10-12T16:49:08+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2014,7 +2014,7 @@
    {
     "id": 259,
     "date": "2026-10-12T17:01:29+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2025,7 +2025,7 @@
    {
     "id": 260,
     "date": "2026-10-12T17:01:53+00:00",
-    "views": 15,
+    "views": 16,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -2036,7 +2036,7 @@
    {
     "id": 261,
     "date": "2026-10-12T18:01:40+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2047,7 +2047,7 @@
    {
     "id": 265,
     "date": "2026-10-13T03:17:31+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2058,7 +2058,7 @@
    {
     "id": 266,
     "date": "2026-10-13T06:24:11+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2069,7 +2069,7 @@
    {
     "id": 267,
     "date": "2026-10-13T07:01:43+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2080,7 +2080,7 @@
    {
     "id": 268,
     "date": "2026-10-13T08:02:00+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2091,7 +2091,7 @@
    {
     "id": 271,
     "date": "2026-10-13T08:51:10+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2102,7 +2102,7 @@
    {
     "id": 272,
     "date": "2026-10-13T09:02:24+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2113,7 +2113,7 @@
    {
     "id": 273,
     "date": "2026-10-13T10:19:09+00:00",
-    "views": 12,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2124,7 +2124,7 @@
    {
     "id": 274,
     "date": "2026-10-13T11:18:20+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2135,7 +2135,7 @@
    {
     "id": 275,
     "date": "2026-10-13T11:49:57+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2146,7 +2146,7 @@
    {
     "id": 276,
     "date": "2026-10-13T12:58:33+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2157,7 +2157,7 @@
    {
     "id": 277,
     "date": "2026-10-13T13:29:19+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2168,7 +2168,7 @@
    {
     "id": 280,
     "date": "2026-10-13T14:02:10+00:00",
-    "views": 12,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -2179,7 +2179,7 @@
    {
     "id": 281,
     "date": "2026-10-13T14:02:16+00:00",
-    "views": 24,
+    "views": 25,
     "reactions": {
      "👍": 1
     },
@@ -2192,7 +2192,7 @@
    {
     "id": 282,
     "date": "2026-10-13T16:01:35+00:00",
-    "views": 12,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2203,7 +2203,7 @@
    {
     "id": 283,
     "date": "2026-10-13T16:02:16+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2214,7 +2214,7 @@
    {
     "id": 284,
     "date": "2026-10-13T16:02:17+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "poll",
@@ -2225,7 +2225,7 @@
    {
     "id": 285,
     "date": "2026-10-13T17:17:29+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2236,7 +2236,7 @@
    {
     "id": 286,
     "date": "2026-10-13T18:01:55+00:00",
-    "views": 17,
+    "views": 18,
     "reactions": {
      "❤": 1
     },
@@ -2249,7 +2249,7 @@
    {
     "id": 291,
     "date": "2026-10-14T06:02:01+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2260,7 +2260,7 @@
    {
     "id": 292,
     "date": "2026-10-14T07:01:54+00:00",
-    "views": 12,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2271,7 +2271,7 @@
    {
     "id": 293,
     "date": "2026-10-14T08:01:40+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2282,7 +2282,7 @@
    {
     "id": 297,
     "date": "2026-10-14T09:02:09+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2293,7 +2293,7 @@
    {
     "id": 298,
     "date": "2026-10-14T10:01:44+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2304,7 +2304,7 @@
    {
     "id": 299,
     "date": "2026-10-14T10:44:11+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2315,7 +2315,7 @@
    {
     "id": 300,
     "date": "2026-10-14T11:02:32+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2326,7 +2326,7 @@
    {
     "id": 301,
     "date": "2026-10-14T13:02:14+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2337,7 +2337,7 @@
    {
     "id": 305,
     "date": "2026-10-14T14:01:44+00:00",
-    "views": 15,
+    "views": 16,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -2348,7 +2348,7 @@
    {
     "id": 306,
     "date": "2026-10-14T15:02:27+00:00",
-    "views": 16,
+    "views": 17,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2359,7 +2359,7 @@
    {
     "id": 307,
     "date": "2026-10-14T17:01:39+00:00",
-    "views": 15,
+    "views": 16,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2370,7 +2370,7 @@
    {
     "id": 308,
     "date": "2026-10-14T18:01:59+00:00",
-    "views": 16,
+    "views": 17,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2381,7 +2381,7 @@
    {
     "id": 314,
     "date": "2026-10-15T06:02:17+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2392,7 +2392,7 @@
    {
     "id": 315,
     "date": "2026-10-15T07:01:58+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2403,7 +2403,7 @@
    {
     "id": 316,
     "date": "2026-10-15T08:01:54+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2414,7 +2414,7 @@
    {
     "id": 319,
     "date": "2026-10-15T08:02:34+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2425,7 +2425,7 @@
    {
     "id": 322,
     "date": "2026-10-15T09:01:48+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2436,7 +2436,7 @@
    {
     "id": 323,
     "date": "2026-10-15T09:02:28+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2447,7 +2447,7 @@
    {
     "id": 324,
     "date": "2026-10-15T10:02:24+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2458,7 +2458,7 @@
    {
     "id": 325,
     "date": "2026-10-15T11:01:51+00:00",
-    "views": 15,
+    "views": 16,
     "reactions": {
      "❤": 2
     },
@@ -2471,7 +2471,7 @@
    {
     "id": 326,
     "date": "2026-10-15T14:01:52+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2482,7 +2482,7 @@
    {
     "id": 327,
     "date": "2026-10-15T15:01:53+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2493,7 +2493,7 @@
    {
     "id": 328,
     "date": "2026-10-15T16:01:52+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2504,7 +2504,7 @@
    {
     "id": 329,
     "date": "2026-10-15T17:02:24+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2515,7 +2515,7 @@
    {
     "id": 330,
     "date": "2026-10-15T18:39:27+00:00",
-    "views": 25,
+    "views": 26,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2526,7 +2526,7 @@
    {
     "id": 331,
     "date": "2026-10-15T18:54:15+00:00",
-    "views": 25,
+    "views": 26,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2537,7 +2537,7 @@
    {
     "id": 332,
     "date": "2026-10-15T20:05:18+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2548,7 +2548,7 @@
    {
     "id": 333,
     "date": "2026-10-16T07:02:15+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2559,7 +2559,7 @@
    {
     "id": 334,
     "date": "2026-10-16T07:02:45+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2570,7 +2570,7 @@
    {
     "id": 335,
     "date": "2026-10-16T09:02:48+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2581,7 +2581,7 @@
    {
     "id": 336,
     "date": "2026-10-16T10:01:47+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2592,7 +2592,7 @@
    {
     "id": 337,
     "date": "2026-10-16T11:39:11+00:00",
-    "views": 9,
+    "views": 10,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2603,7 +2603,7 @@
    {
     "id": 338,
     "date": "2026-10-16T14:01:51+00:00",
-    "views": 23,
+    "views": 24,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2614,7 +2614,7 @@
    {
     "id": 339,
     "date": "2026-10-16T16:31:34+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -2625,7 +2625,7 @@
    {
     "id": 340,
     "date": "2026-10-16T17:01:49+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2636,7 +2636,7 @@
    {
     "id": 341,
     "date": "2026-10-16T17:02:14+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2647,7 +2647,7 @@
    {
     "id": 342,
     "date": "2026-10-17T07:01:40+00:00",
-    "views": 9,
+    "views": 10,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2658,7 +2658,7 @@
    {
     "id": 343,
     "date": "2026-10-17T07:02:12+00:00",
-    "views": 9,
+    "views": 10,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2669,7 +2669,7 @@
    {
     "id": 344,
     "date": "2026-10-17T09:02:09+00:00",
-    "views": 9,
+    "views": 10,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2680,7 +2680,7 @@
    {
     "id": 345,
     "date": "2026-10-17T10:01:53+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2691,7 +2691,7 @@
    {
     "id": 346,
     "date": "2026-10-17T11:22:04+00:00",
-    "views": 9,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2702,7 +2702,7 @@
    {
     "id": 347,
     "date": "2026-10-17T14:02:58+00:00",
-    "views": 12,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2713,7 +2713,7 @@
    {
     "id": 348,
     "date": "2026-10-17T15:02:13+00:00",
-    "views": 11,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2724,7 +2724,7 @@
    {
     "id": 349,
     "date": "2026-10-17T17:01:51+00:00",
-    "views": 11,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2735,7 +2735,7 @@
    {
     "id": 350,
     "date": "2026-10-18T06:01:49+00:00",
-    "views": 11,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2746,7 +2746,7 @@
    {
     "id": 351,
     "date": "2026-10-18T07:01:37+00:00",
-    "views": 12,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2757,7 +2757,7 @@
    {
     "id": 352,
     "date": "2026-10-18T07:02:07+00:00",
-    "views": 11,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2768,7 +2768,7 @@
    {
     "id": 353,
     "date": "2026-10-18T09:02:13+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2779,7 +2779,7 @@
    {
     "id": 354,
     "date": "2026-10-18T10:01:44+00:00",
-    "views": 14,
+    "views": 15,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2790,7 +2790,7 @@
    {
     "id": 355,
     "date": "2026-10-18T11:23:36+00:00",
-    "views": 12,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2801,7 +2801,7 @@
    {
     "id": 356,
     "date": "2026-10-18T16:01:58+00:00",
-    "views": 12,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -2812,7 +2812,7 @@
    {
     "id": 357,
     "date": "2026-10-18T17:01:37+00:00",
-    "views": 12,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2823,7 +2823,7 @@
    {
     "id": 358,
     "date": "2026-10-19T07:01:42+00:00",
-    "views": 12,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2834,7 +2834,7 @@
    {
     "id": 359,
     "date": "2026-10-19T07:02:12+00:00",
-    "views": 11,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2845,7 +2845,7 @@
    {
     "id": 360,
     "date": "2026-10-19T09:02:10+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2856,7 +2856,7 @@
    {
     "id": 361,
     "date": "2026-10-19T10:01:49+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2867,7 +2867,7 @@
    {
     "id": 363,
     "date": "2026-10-19T14:02:03+00:00",
-    "views": 7,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2878,7 +2878,7 @@
    {
     "id": 364,
     "date": "2026-10-19T14:02:45+00:00",
-    "views": 7,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -2889,7 +2889,7 @@
    {
     "id": 366,
     "date": "2026-10-19T14:13:14+00:00",
-    "views": 8,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -2900,7 +2900,7 @@
    {
     "id": 367,
     "date": "2026-10-19T15:02:23+00:00",
-    "views": 6,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -2911,18 +2911,150 @@
    {
     "id": 368,
     "date": "2026-10-19T17:01:45+00:00",
-    "views": 5,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "text",
     "voters": null,
     "rubric": "👥 Онлайн",
     "head": "⚡️ Rust сегодня: сколько игроков в сети"
+   },
+   {
+    "id": 369,
+    "date": "2026-10-20T07:01:38+00:00",
+    "views": 11,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎬 Видео",
+    "head": "🎬 Время для просмотра: новинка от Hedge"
+   },
+   {
+    "id": 370,
+    "date": "2026-10-20T07:02:09+00:00",
+    "views": 10,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#индекс",
+    "head": "📈 ИНДЕКС РЫНКА RUST: 29 — ХОЛОДНО"
+   },
+   {
+    "id": 371,
+    "date": "2026-10-20T09:02:11+00:00",
+    "views": 10,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Скин дня",
+    "head": "🎨 СКИН ДНЯ"
+   },
+   {
+    "id": 372,
+    "date": "2026-10-20T09:07:09+00:00",
+    "views": 10,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Скин дня",
+    "head": "🎨 СКИН ДНЯ"
+   },
+   {
+    "id": 373,
+    "date": "2026-10-20T10:01:49+00:00",
+    "views": 11,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "📊 Маркет",
+    "head": "💰 Что творится с ценами на скины Rust"
+   },
+   {
+    "id": 374,
+    "date": "2026-10-20T11:38:37+00:00",
+    "views": 11,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎬 Видео",
+    "head": "📺 Свежее видео от Hedge уже на YouTube"
+   },
+   {
+    "id": 375,
+    "date": "2026-10-20T14:01:55+00:00",
+    "views": 11,
+    "reactions": {},
+    "react_total": 0,
+    "media": "video",
+    "voters": null,
+    "rubric": "📰 Новости",
+    "head": "⚡️ Rust в X: новости от разработчиков"
+   },
+   {
+    "id": 376,
+    "date": "2026-10-20T16:01:44+00:00",
+    "views": 10,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🗳 Угадай цену",
+    "head": "🗳 УГАДАЙ ЦЕНУ · ИТОГ"
+   },
+   {
+    "id": 377,
+    "date": "2026-10-20T17:01:38+00:00",
+    "views": 10,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "👥 Онлайн",
+    "head": "👥 Сколько людей сейчас на островах Rust"
+   },
+   {
+    "id": 378,
+    "date": "2026-10-20T17:02:00+00:00",
+    "views": 10,
+    "reactions": {},
+    "react_total": 0,
+    "media": "video",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО RUST"
+   },
+   {
+    "id": 379,
+    "date": "2026-10-20T17:11:31+00:00",
+    "views": 10,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "👥 Онлайн",
+    "head": "👥 Сколько людей сейчас на островах Rust"
+   },
+   {
+    "id": 380,
+    "date": "2026-10-20T17:11:56+00:00",
+    "views": 10,
+    "reactions": {},
+    "react_total": 0,
+    "media": "video",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО RUST"
    }
   ]
  },
  "cs2_me": {
-  "updated": "2026-10-19T21:10:54.256366+00:00",
+  "updated": "2026-10-20T21:13:11.429106+00:00",
   "posts": [
    {
     "id": 1,
@@ -4297,7 +4429,7 @@
    {
     "id": 231,
     "date": "2026-10-16T07:07:31+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4308,7 +4440,7 @@
    {
     "id": 232,
     "date": "2026-10-16T08:02:15+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4319,7 +4451,7 @@
    {
     "id": 233,
     "date": "2026-10-16T09:02:45+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4704,7 +4836,7 @@
    {
     "id": 305,
     "date": "2026-10-19T07:30:10+00:00",
-    "views": 6,
+    "views": 7,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4715,7 +4847,7 @@
    {
     "id": 306,
     "date": "2026-10-19T08:01:44+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4726,7 +4858,7 @@
    {
     "id": 307,
     "date": "2026-10-19T09:02:05+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4737,7 +4869,7 @@
    {
     "id": 311,
     "date": "2026-10-19T10:01:54+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4748,7 +4880,7 @@
    {
     "id": 312,
     "date": "2026-10-19T11:01:44+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -4759,7 +4891,7 @@
    {
     "id": 313,
     "date": "2026-10-19T13:01:59+00:00",
-    "views": 4,
+    "views": 5,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4770,7 +4902,7 @@
    {
     "id": 314,
     "date": "2026-10-19T13:02:05+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4781,7 +4913,7 @@
    {
     "id": 318,
     "date": "2026-10-19T14:01:55+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4792,7 +4924,7 @@
    {
     "id": 319,
     "date": "2026-10-19T15:02:55+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4803,7 +4935,7 @@
    {
     "id": 325,
     "date": "2026-10-19T17:01:33+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -4814,7 +4946,7 @@
    {
     "id": 326,
     "date": "2026-10-19T17:01:37+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4825,7 +4957,7 @@
    {
     "id": 330,
     "date": "2026-10-19T18:01:52+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4836,13 +4968,167 @@
    {
     "id": 331,
     "date": "2026-10-19T18:01:53+00:00",
-    "views": 4,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "text",
     "voters": null,
     "rubric": "#киберспорт",
     "head": "🎮 КИБЕРСПОРТ ЗА ДЕНЬ · 19.10"
+   },
+   {
+    "id": 332,
+    "date": "2026-10-20T07:42:45+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#индекс",
+    "head": "📈 ИНДЕКС РЫНКА CS2: 9 — МОРОЗ"
+   },
+   {
+    "id": 333,
+    "date": "2026-10-20T08:01:42+00:00",
+    "views": 6,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Скин дня",
+    "head": "✨ СКИН ДНЯ"
+   },
+   {
+    "id": 334,
+    "date": "2026-10-20T09:02:08+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 338,
+    "date": "2026-10-20T10:01:53+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО CS2"
+   },
+   {
+    "id": 339,
+    "date": "2026-10-20T11:01:43+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "#reddit",
+    "head": "📣 ЛУЧШЕЕ С REDDIT"
+   },
+   {
+    "id": 340,
+    "date": "2026-10-20T13:01:49+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "📊 Маркет",
+    "head": "💹 МАРКЕТ CS2 · ЗА НЕДЕЛЮ"
+   },
+   {
+    "id": 341,
+    "date": "2026-10-20T13:02:24+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 345,
+    "date": "2026-10-20T14:01:52+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО CS2"
+   },
+   {
+    "id": 346,
+    "date": "2026-10-20T15:02:54+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💼 Инвест",
+    "head": "💼 ИНВЕСТИЦИИ CS2 · ТОП-5 ДНЯ"
+   },
+   {
+    "id": 352,
+    "date": "2026-10-20T15:03:01+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "без рубрики",
+    "head": ""
+   },
+   {
+    "id": 353,
+    "date": "2026-10-20T17:01:31+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "👥 Онлайн",
+    "head": "🔢 Онлайн Counter-Strike 2: свежие цифры"
+   },
+   {
+    "id": 354,
+    "date": "2026-10-20T17:01:53+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 358,
+    "date": "2026-10-20T18:01:54+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО CS2"
+   },
+   {
+    "id": 359,
+    "date": "2026-10-20T18:01:54+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "#киберспорт",
+    "head": "🎮 КИБЕРСПОРТ ЗА ДЕНЬ · 20.10"
    }
   ]
  }
