@@ -18,14 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791827742,
-      1148830
-    ],
-    [
-      1791828081,
-      1148830
-    ],
-    [
       1791830031,
       1185281
     ],
@@ -2184,6 +2176,10 @@
     [
       1792518810,
       1062823
+    ],
+    [
+      1792519291,
+      1062823
     ]
   ],
   "online_peaks": {
@@ -2202,9 +2198,6 @@
     "2026-10-20": 1203644
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "📡 Не пропусти важное: {tag}",
     "👉 Подписывайся на {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2701,7 +2694,10 @@
     "📡 Не пропусти важное: {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "👉 Подписывайся на {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2787,7 +2783,8 @@
     "2112134330273366190",
     "2112168585158381756",
     "2112165648419672274",
-    "2112234914263580782"
+    "2112234914263580782",
+    "2112582218900209944"
   ],
   "ws_scores": {
     "3815186169": {
@@ -3475,31 +3472,10 @@
   },
   "cs2_index_day": "2026-10-20",
   "ws_slot": "2026-10-20-20",
-  "comm_slot": "2026-10-20-17",
+  "comm_slot": "2026-10-20-21",
   "hltv_day": "2026-10-20",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "Magnojez продлил контракт с BETBOOM",
-      "link": "https://www.hltv.org/news/45758/magnojez-extends-betboom-contract",
-      "score": 4
-    },
-    {
-      "headline": "IEM Beijing: определены группы и стартовые пары, NAVI сыграют с Falcons",
-      "link": "https://www.hltv.org/news/45759/iem-beijing-groups-and-opening-matchups-set",
-      "score": 8
-    },
-    {
-      "headline": "Vitality и Falcons откроют BLAST Rivals",
-      "link": "https://www.hltv.org/news/45760/vitality-to-meet-falcons-in-blast-rivals-opener",
-      "score": 8
-    },
-    {
-      "headline": "BBL и Betlic квалифицировались на PGL Bucharest 2027",
-      "link": "https://www.hltv.org/news/45762/bbl-and-betlic-qualify-for-pgl-bucharest-2027",
-      "score": 4
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-20",
   "reddit_posted": [
     "1wzz7z0",
@@ -3515,7 +3491,7 @@
     "1xa5r38"
   ],
   "online_daily": "2026-10-20",
-  "hltv_digest_day": "2026-10-19",
+  "hltv_digest_day": "2026-10-20",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
