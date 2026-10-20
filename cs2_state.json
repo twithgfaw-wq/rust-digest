@@ -2188,6 +2188,10 @@
     [
       1792508011,
       1173192
+    ],
+    [
+      1792508489,
+      1162977
     ]
   ],
   "online_peaks": {
@@ -2206,9 +2210,6 @@
     "2026-10-20": 1203644
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👉 Подписывайся на {tag}",
     "📡 Не пропусти важное: {tag}",
     "📢 Подписывайся: {tag}",
@@ -2705,7 +2706,10 @@
     "📡 Не пропусти важное: {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🔔 Больше CS2 — в {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "💣 Твой канал про CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3264,15 +3268,8 @@
     "3823395198"
   ],
   "price_day": "2026-10-20",
-  "invest_day": "2026-10-19",
+  "invest_day": "2026-10-20",
   "invest_days": {
-    "2026-10-13": [
-      "Paris 2023 Anubis Souvenir Package",
-      "Spectrum 2 Case",
-      "Stockholm 2021 Mirage Souvenir Package",
-      "Berlin 2019 Legends Autograph Capsule",
-      "Chroma Case"
-    ],
     "2026-10-14": [
       "Horizon Case",
       "Paris 2023 Vertigo Souvenir Package",
@@ -3314,6 +3311,13 @@
       "Berlin 2019 Legends Autograph Capsule",
       "Chroma 2 Case",
       "Stockholm 2021 Challengers Sticker Capsule"
+    ],
+    "2026-10-20": [
+      "Paris 2023 Vertigo Souvenir Package",
+      "Anubis Collection Package",
+      "CS:GO Weapon Case",
+      "Winter Offensive Weapon Case",
+      "Horizon Case"
     ]
   },
   "sod_seen": [
@@ -3831,10 +3835,40 @@
       "verdict": "watch",
       "price": 1.47,
       "date": "2026-10-19"
+    },
+    {
+      "name": "Paris 2023 Vertigo Souvenir Package",
+      "verdict": "watch",
+      "price": 2.11,
+      "date": "2026-10-20"
+    },
+    {
+      "name": "Anubis Collection Package",
+      "verdict": "watch",
+      "price": 1.62,
+      "date": "2026-10-20"
+    },
+    {
+      "name": "CS:GO Weapon Case",
+      "verdict": "buy",
+      "price": 97.45,
+      "date": "2026-10-20"
+    },
+    {
+      "name": "Winter Offensive Weapon Case",
+      "verdict": "watch",
+      "price": 8.35,
+      "date": "2026-10-20"
+    },
+    {
+      "name": "Horizon Case",
+      "verdict": "watch",
+      "price": 1.3,
+      "date": "2026-10-20"
     }
   ],
-  "cs2_quiz_n": 5,
-  "cs2_quiz_day": "2026-10-18",
+  "cs2_quiz_n": 6,
+  "cs2_quiz_day": "2026-10-20",
   "cs2_index_steam": {
     "2026-10-10": 2,
     "2026-10-11": 7,
