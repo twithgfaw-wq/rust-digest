@@ -2222,10 +2222,6 @@
   ],
   "online_log": [
     [
-      1791795152,
-      54259
-    ],
-    [
       1791796809,
       55655
     ],
@@ -4356,6 +4352,10 @@
     [
       1792485817,
       53327
+    ],
+    [
+      1792487197,
+      54445
     ]
   ],
   "online_peaks": {
@@ -4974,9 +4974,10 @@
     "Temple Ladder Hatch",
     "Endgame Armored Door",
     "Salvation Assault Rifle",
-    "Neon Storage Small Berries"
+    "Neon Storage Small Berries",
+    "Aristocrat Hide Poncho"
   ],
-  "rsod_day": "2026-10-19",
+  "rsod_day": "2026-10-20",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
