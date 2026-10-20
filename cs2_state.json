@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791838715,
-      872569
-    ],
-    [
       1791838910,
       887802
     ],
@@ -2188,6 +2184,10 @@
     [
       1792528955,
       821541
+    ],
+    [
+      1792530090,
+      796703
     ]
   ],
   "online_peaks": {
@@ -2206,9 +2206,6 @@
     "2026-10-20": 1203644
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "👀 Следи за CS2 вместе с {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📢 Подписывайся: {tag}",
     "📌 Сохрани себе {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2705,7 +2702,10 @@
     "📢 Подписывайся: {tag}",
     "🔥 {tag} — CS2 без воды",
     "🔔 Больше CS2 — в {tag}",
-    "📡 Не пропусти важное: {tag}"
+    "📡 Не пропусти важное: {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3458,7 +3458,8 @@
     "hltvnews45759",
     "hltvnews45760",
     "hltvnews45761",
-    "hltvnews45762"
+    "hltvnews45762",
+    "hltvnews45763"
   ],
   "news_seen_t": [
     1788994268,
@@ -3481,9 +3482,15 @@
   "cs2_index_day": "2026-10-20",
   "ws_slot": "2026-10-20-20",
   "comm_slot": "2026-10-20-21",
-  "hltv_day": "2026-10-20",
+  "hltv_day": "2026-10-21",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "1win Private Club S2, день второй: BIG спасаются, Alliance теряют шансы, Liquid вылетели",
+      "link": "https://www.hltv.org/news/45763/big-get-a-lifeline-alliances-major-odds-crater-and-liquid-exit-after-day-two-of-1win-private-club-s2",
+      "score": 6
+    }
+  ],
   "reddit_day": "2026-10-20",
   "reddit_posted": [
     "1wzz7z0",
