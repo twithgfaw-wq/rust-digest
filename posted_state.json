@@ -2224,14 +2224,6 @@
   ],
   "online_log": [
     [
-      1791820260,
-      108968
-    ],
-    [
-      1791820899,
-      110549
-    ],
-    [
       1791821895,
       111522
     ],
@@ -4374,6 +4366,10 @@
     [
       1792511347,
       99026
+    ],
+    [
+      1792512101,
+      99655
     ]
   ],
   "online_peaks": {
@@ -4391,7 +4387,7 @@
     "2026-10-17": 132828,
     "2026-10-18": 123050,
     "2026-10-19": 108950,
-    "2026-10-20": 99026
+    "2026-10-20": 99655
   },
   "x_last_id": "2112544493731742040",
   "market_snaps": {
@@ -4997,7 +4993,7 @@
     "Endgame Metal Double Door",
     "Redemption Large Backpack"
   ],
-  "rduel_week": "2026-42",
+  "rduel_week": "2026-43",
   "rust_index": {
     "2026-10-08": 33,
     "2026-10-09": 26,
@@ -5078,22 +5074,5 @@
   ],
   "rust_quiz_n": 5,
   "rust_quiz_day": "2026-10-19",
-  "last_lb_week": "2026-42",
-  "rduel": {
-    "date": "13.10",
-    "ts": 1791907337,
-    "poll_id": 284,
-    "items": [
-      {
-        "name": "Endgame Metal Double Door",
-        "price": 371,
-        "icon": "https://files.facepunch.com/rust/icons/inventory/rust/70401_small.png?3345126986"
-      },
-      {
-        "name": "Redemption Large Backpack",
-        "price": 335,
-        "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Re5WLCfCk4nReh8DEiv5dYP6o2pLc0RP-59BY4XIE"
-      }
-    ]
-  }
+  "last_lb_week": "2026-42"
 }
