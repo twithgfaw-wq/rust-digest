@@ -2180,6 +2180,10 @@
     [
       1792515690,
       1034623
+    ],
+    [
+      1792516601,
+      1037478
     ]
   ],
   "online_peaks": {
@@ -2198,9 +2202,6 @@
     "2026-10-20": 1203644
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📡 Не пропусти важное: {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👀 Следи за CS2 вместе с {tag}",
     "🔥 {tag} — CS2 без воды",
     "📢 Подписывайся: {tag}",
@@ -2697,7 +2698,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🎯 Свежий CS2 каждый день — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "👉 Подписывайся на {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3448,7 +3452,8 @@
     "hltvnews45758",
     "hltvnews45759",
     "hltvnews45760",
-    "hltvnews45761"
+    "hltvnews45761",
+    "hltvnews45762"
   ],
   "news_seen_t": [
     1788994268,
@@ -3488,6 +3493,11 @@
       "headline": "Vitality и Falcons откроют BLAST Rivals",
       "link": "https://www.hltv.org/news/45760/vitality-to-meet-falcons-in-blast-rivals-opener",
       "score": 8
+    },
+    {
+      "headline": "BBL и Betlic квалифицировались на PGL Bucharest 2027",
+      "link": "https://www.hltv.org/news/45762/bbl-and-betlic-qualify-for-pgl-bucharest-2027",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-20",
