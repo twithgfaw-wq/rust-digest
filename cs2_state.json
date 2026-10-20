@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791842130,
-      704428
-    ],
-    [
       1791844124,
       661382
     ],
@@ -2188,6 +2184,10 @@
     [
       1792532449,
       713349
+    ],
+    [
+      1792534332,
+      686450
     ]
   ],
   "online_peaks": {
@@ -2206,9 +2206,6 @@
     "2026-10-20": 1203644
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Больше CS2 — в {tag}",
     "📡 Не пропусти важное: {tag}",
     "📢 Подписывайся: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2705,7 +2702,10 @@
     "🔥 {tag} — CS2 без воды",
     "📢 Подписывайся: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3460,7 +3460,8 @@
     "hltvnews45761",
     "hltvnews45762",
     "hltvnews45763",
-    "hltvnews45764"
+    "hltvnews45764",
+    "hltvnews45765"
   ],
   "news_seen_t": [
     1788994268,
@@ -3495,6 +3496,11 @@
       "headline": "DraculaN Season 7: FaZe продолжает путь к мейджору, шансы Luminosity тают",
       "link": "https://www.hltv.org/news/45764/fazes-grind-continues-and-luminositys-major-chances-fade-as-draculan-playoffs-begin",
       "score": 6
+    },
+    {
+      "headline": "NAVI заявились на HyperX Retake Season 13, несмотря на PGL Masters Bucharest и IEM Beijing",
+      "link": "https://www.hltv.org/news/45765/navi-sign-up-for-hyperx-retake-season-13-despite-pgl-masters-bucharest-and-iem-beijing-conflicts",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-20",
