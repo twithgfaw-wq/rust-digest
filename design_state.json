@@ -618,10 +618,12 @@
     "https://www.creativebloq.com/news/sketchbook-special-issue-272-of-imaginefx-clone",
     "https://abduzeedo.com/ambijus-inside-olssonbarbieri-packaging-design",
     "https://www.creativebloq.com/reviews/stupid-never-dies-review-smashes-anime-pop-art-and-punk-into-one-fine-mess",
-    "https://www.creativebloq.com/reviews/apple-studio-display-xdr-review"
+    "https://www.creativebloq.com/reviews/apple-studio-display-xdr-review",
+    "https://www.creativeboom.com/work/casey-roarty-digs-through-facebook-marketplace-listings-and-transforms-his-findings-into-art",
+    "https://www.creativeboom.com/work/fulham-fcs-new-identity-is-built-on-lettering-found-at-londons-oldest-stadium"
   ],
   "day": "2026-10-20",
-  "day_count": 0,
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -766,6 +768,12 @@
       "title": "Stefan Sagmeister перетворив кросівок і черевик на інфографіку",
       "link": "https://www.fastcompany.com/91623596/stefan-sagmeisters-new-shoe-designs-are-actually-walking-infographics?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
       "src": "Fast Company"
+    },
+    {
+      "t": 1792478858.051463,
+      "title": "Fulham FC знайшли новий шрифт на власному стадіоні",
+      "link": "https://www.creativeboom.com/work/fulham-fcs-new-identity-is-built-on-lettering-found-at-londons-oldest-stadium",
+      "src": "Creative Boom"
     }
   ],
   "queue": [],
