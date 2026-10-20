@@ -652,10 +652,13 @@
     "https://www.creativeboom.com/news/oslos-grumpiest-resident-returns-new-halfdan-winter-campaign-generates-5m-views",
     "https://www.creativebloq.com/reviews/final-fantasy-resonance-switch-2-review-modern-retro-at-its-finest",
     "https://www.dezeen.com/2026/10/19/thai-lanterns-blue-gold-bangkok-cafe",
-    "https://www.creativebloq.com/reviews/cricut-stickerpix-print-cut-review-a-playful-and-purposeful-printer-with-a-costly-catch"
+    "https://www.creativebloq.com/reviews/cricut-stickerpix-print-cut-review-a-playful-and-purposeful-printer-with-a-costly-catch",
+    "https://www.wallpaper.com/travel/bars/what-makes-a-good-bar",
+    "https://abduzeedo.com/tdc-43rd-annual-editorial-design-tereza-bettinardi",
+    "https://www.dezeen.com/2026/10/19/traditional-thai-lanterns-blue-gold-bangkok-cafe"
   ],
   "day": "2026-10-20",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -806,6 +809,12 @@
       "title": "Fulham FC знайшли новий шрифт на власному стадіоні",
       "link": "https://www.creativeboom.com/work/fulham-fcs-new-identity-is-built-on-lettering-found-at-londons-oldest-stadium",
       "src": "Creative Boom"
+    },
+    {
+      "t": 1792507098.9797502,
+      "title": "Tereza Bettinardi зібрала річник TDC із внутрішніх просторів літер",
+      "link": "https://abduzeedo.com/tdc-43rd-annual-editorial-design-tereza-bettinardi",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
