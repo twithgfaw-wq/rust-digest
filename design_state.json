@@ -710,10 +710,13 @@
     "https://abduzeedo.com/graphic-design-sipf-foreign-policy-design",
     "https://www.creativebloq.com/deals/the-massive-creality-halloween-sale-slashes-3d-printer-prices-by-up-to-42-percent-with-options-for-beginners-and-pros",
     "https://www.creativebloq.com/news/how-netflixs-new-cat-in-the-hat-animated-movie-was-made-in-just-two-years",
-    "https://www.wallpaper.com/art/music/apple-musics-new-visual-identity-turns-sound-into-liquid-with-help-from-fred-again"
+    "https://www.wallpaper.com/art/music/apple-musics-new-visual-identity-turns-sound-into-liquid-with-help-from-fred-again",
+    "https://www.creativebloq.com/news/this-pac-man-snow-blower-makes-me-want-a-robot-i-dont-need",
+    "https://www.wallpaper.com/travel/hotel-du-cap-eden-roc-monopoly",
+    "https://abduzeedo.com/studio-sonda-unveils-living-wine-label-piquentum"
   ],
   "day": "2026-10-21",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -882,6 +885,12 @@
       "title": "Apple Music зробили айдентику зі звуку, олії та Fred Again..",
       "link": "https://www.wallpaper.com/art/music/apple-musics-new-visual-identity-turns-sound-into-liquid-with-help-from-fred-again",
       "src": "Wallpaper*"
+    },
+    {
+      "t": 1792599101.2164326,
+      "title": "Studio Sonda зробили живу винну етикетку, на якій у погребі росте пліснява",
+      "link": "https://abduzeedo.com/studio-sonda-unveils-living-wine-label-piquentum",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
