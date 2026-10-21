@@ -18,14 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791907164,
-      1073501
-    ],
-    [
-      1791907278,
-      1055316
-    ],
-    [
       1791909156,
       1038596
     ],
@@ -2192,6 +2184,10 @@
     [
       1792598014,
       1116893
+    ],
+    [
+      1792598493,
+      1116893
     ]
   ],
   "online_peaks": {
@@ -2211,10 +2207,6 @@
     "2026-10-21": 1265137
   },
   "recent_phrases": [
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "💣 Твой канал про CS2 — {tag}",
-    "👉 Подписывайся на {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2710,7 +2702,11 @@
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📢 Подписывайся: {tag}",
     "🔥 {tag} — CS2 без воды",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "Operation Breakout Weapon Case: в плюс выходит примерно одно открытие из 24.",
+    "👉 Подписывайся на {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3404,9 +3400,10 @@
   "sod_day": "2026-10-21",
   "ev_seen": [
     "Dreams & Nightmares Case",
-    "Danger Zone Case"
+    "Danger Zone Case",
+    "Operation Breakout Weapon Case"
   ],
-  "ev_week": "2026-42",
+  "ev_week": "2026-43",
   "duel_used": [
     "M4A1-S | Nightmare",
     "AK-47 | Midnight Laminate",
@@ -3520,7 +3517,8 @@
     "hltvnews45765",
     "hltvnews45766",
     "hltvnews45768",
-    "hltvnews45769"
+    "hltvnews45769",
+    "hltvnews45770"
   ],
   "news_seen_t": [
     1788994268,
@@ -3574,6 +3572,11 @@
     {
       "headline": "JiJieHao отправили FaZe в нижнюю сетку DraculaN",
       "link": "https://www.hltv.org/news/45769/jijiehao-send-faze-to-lower-bracket-at-draculan",
+      "score": 7
+    },
+    {
+      "headline": "GamerLegion подписали shalfey",
+      "link": "https://www.hltv.org/news/45770/gamerlegion-sign-shalfey",
       "score": 7
     }
   ],
