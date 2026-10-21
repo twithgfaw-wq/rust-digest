@@ -2192,6 +2192,10 @@
     [
       1792594414,
       1237746
+    ],
+    [
+      1792594890,
+      1218953
     ]
   ],
   "online_peaks": {
@@ -2211,9 +2215,6 @@
     "2026-10-21": 1265137
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📢 Подписывайся: {tag}",
@@ -2710,7 +2711,10 @@
     "🔥 {tag} — CS2 без воды",
     "📡 Не пропусти важное: {tag}",
     "👉 Подписывайся на {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "📌 Сохрани себе {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3333,15 +3337,8 @@
     "3821582707"
   ],
   "price_day": "2026-10-21",
-  "invest_day": "2026-10-20",
+  "invest_day": "2026-10-21",
   "invest_days": {
-    "2026-10-14": [
-      "Horizon Case",
-      "Paris 2023 Vertigo Souvenir Package",
-      "Anubis Collection Package",
-      "Winter Offensive Weapon Case",
-      "CS:GO Weapon Case"
-    ],
     "2026-10-15": [
       "Rio 2022 Dust II Souvenir Package",
       "Chroma 3 Case",
@@ -3383,6 +3380,13 @@
       "CS:GO Weapon Case",
       "Winter Offensive Weapon Case",
       "Horizon Case"
+    ],
+    "2026-10-21": [
+      "Rio 2022 Dust II Souvenir Package",
+      "Paris 2023 Mirage Souvenir Package",
+      "Operation Bravo Case",
+      "Chroma 3 Case",
+      "Gamma 2 Case"
     ]
   },
   "sod_seen": [
@@ -3519,7 +3523,8 @@
     "hltvnews45764",
     "hltvnews45765",
     "hltvnews45766",
-    "hltvnews45768"
+    "hltvnews45768",
+    "hltvnews45769"
   ],
   "news_seen_t": [
     1788994268,
@@ -3569,6 +3574,11 @@
       "headline": "Snax покидает активный состав GamerLegion",
       "link": "https://www.hltv.org/news/45768/snax-moves-off-gamerlegions-active-roster",
       "score": 6
+    },
+    {
+      "headline": "JiJieHao отправили FaZe в нижнюю сетку DraculaN",
+      "link": "https://www.hltv.org/news/45769/jijiehao-send-faze-to-lower-bracket-at-draculan",
+      "score": 7
     }
   ],
   "reddit_day": "2026-10-21",
@@ -3948,6 +3958,36 @@
       "verdict": "watch",
       "price": 1.3,
       "date": "2026-10-20"
+    },
+    {
+      "name": "Rio 2022 Dust II Souvenir Package",
+      "verdict": "watch",
+      "price": 2.67,
+      "date": "2026-10-21"
+    },
+    {
+      "name": "Paris 2023 Mirage Souvenir Package",
+      "verdict": "buy",
+      "price": 2.4,
+      "date": "2026-10-21"
+    },
+    {
+      "name": "Operation Bravo Case",
+      "verdict": "watch",
+      "price": 49.84,
+      "date": "2026-10-21"
+    },
+    {
+      "name": "Chroma 3 Case",
+      "verdict": "watch",
+      "price": 2.91,
+      "date": "2026-10-21"
+    },
+    {
+      "name": "Gamma 2 Case",
+      "verdict": "watch",
+      "price": 2.54,
+      "date": "2026-10-21"
     }
   ],
   "cs2_quiz_n": 6,
