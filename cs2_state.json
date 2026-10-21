@@ -18,14 +18,6 @@
   "x_last_id": "2112977859761594430",
   "online_log": [
     [
-      1791923033,
-      927871
-    ],
-    [
-      1791924223,
-      854534
-    ],
-    [
       1791925323,
       834557
     ],
@@ -2216,6 +2208,10 @@
     [
       1792613491,
       995788
+    ],
+    [
+      1792615745,
+      891026
     ]
   ],
   "online_peaks": {
@@ -2235,9 +2231,6 @@
     "2026-10-21": 1265137
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "📢 Подписывайся: {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "🔥 {tag} — CS2 без воды",
     "🔔 Больше CS2 — в {tag}",
     "📡 Не пропусти важное: {tag}",
@@ -2734,7 +2727,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📡 Не пропусти важное: {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3572,7 +3568,8 @@
     "hltvnews45768",
     "hltvnews45769",
     "hltvnews45770",
-    "hltvnews45771"
+    "hltvnews45771",
+    "hltvnews45772"
   ],
   "news_seen_t": [
     1788994268,
@@ -3597,7 +3594,13 @@
   "comm_slot": "2026-10-21-21",
   "hltv_day": "2026-10-21",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "PARIVISION вышли в финал 1win Private Club S2, fnatic и magic вылетели",
+      "link": "https://www.hltv.org/news/45772/parivision-qualify-for-1win-private-club-s2-final-fnatic-and-magic-eliminated",
+      "score": 5
+    }
+  ],
   "reddit_day": "2026-10-21",
   "reddit_posted": [
     "1wzz7z0",
