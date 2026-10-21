@@ -18,10 +18,6 @@
   "x_last_id": "2110515267705139314",
   "online_log": [
     [
-      1791914215,
-      1072984
-    ],
-    [
       1791914499,
       1078485
     ],
@@ -2192,6 +2188,10 @@
     [
       1792605211,
       1106219
+    ],
+    [
+      1792605692,
+      1113427
     ]
   ],
   "online_peaks": {
@@ -2211,9 +2211,6 @@
     "2026-10-21": 1265137
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "🔥 {tag} — CS2 без воды",
-    "🔔 Больше CS2 — в {tag}",
     "👉 Подписывайся на {tag}",
     "📢 Подписывайся: {tag}",
     "📡 Не пропусти важное: {tag}",
@@ -2710,7 +2707,10 @@
     "🔔 Больше CS2 — в {tag}",
     "📡 Не пропусти важное: {tag}",
     "📌 Сохрани себе {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "💣 Твой канал про CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3570,51 +3570,10 @@
   },
   "cs2_index_day": "2026-10-21",
   "ws_slot": "2026-10-21-20",
-  "comm_slot": "2026-10-21-17",
+  "comm_slot": "2026-10-21-21",
   "hltv_day": "2026-10-21",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "1win Private Club S2, день второй: BIG спасаются, Alliance теряют шансы, Liquid вылетели",
-      "link": "https://www.hltv.org/news/45763/big-get-a-lifeline-alliances-major-odds-crater-and-liquid-exit-after-day-two-of-1win-private-club-s2",
-      "score": 6
-    },
-    {
-      "headline": "DraculaN Season 7: FaZe продолжает путь к мейджору, шансы Luminosity тают",
-      "link": "https://www.hltv.org/news/45764/fazes-grind-continues-and-luminositys-major-chances-fade-as-draculan-playoffs-begin",
-      "score": 6
-    },
-    {
-      "headline": "NAVI заявились на HyperX Retake Season 13, несмотря на PGL Masters Bucharest и IEM Beijing",
-      "link": "https://www.hltv.org/news/45765/navi-sign-up-for-hyperx-retake-season-13-despite-pgl-masters-bucharest-and-iem-beijing-conflicts",
-      "score": 8
-    },
-    {
-      "headline": "Evil Geniuses прекращает существование",
-      "link": "https://www.hltv.org/news/45766/evil-geniuses-to-cease-operations",
-      "score": 6
-    },
-    {
-      "headline": "Snax покидает активный состав GamerLegion",
-      "link": "https://www.hltv.org/news/45768/snax-moves-off-gamerlegions-active-roster",
-      "score": 6
-    },
-    {
-      "headline": "JiJieHao отправили FaZe в нижнюю сетку DraculaN",
-      "link": "https://www.hltv.org/news/45769/jijiehao-send-faze-to-lower-bracket-at-draculan",
-      "score": 7
-    },
-    {
-      "headline": "GamerLegion подписали shalfey",
-      "link": "https://www.hltv.org/news/45770/gamerlegion-sign-shalfey",
-      "score": 7
-    },
-    {
-      "headline": "Qikert завершил игровую карьеру и стал тренером Spirit Academy",
-      "link": "https://www.hltv.org/news/45771/qikert-pivots-to-coaching-joins-spirit-academy",
-      "score": 7
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-21",
   "reddit_posted": [
     "1wzz7z0",
@@ -3631,7 +3590,7 @@
     "1xb1a1n"
   ],
   "online_daily": "2026-10-21",
-  "hltv_digest_day": "2026-10-20",
+  "hltv_digest_day": "2026-10-21",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
