@@ -4392,6 +4392,10 @@
     [
       1792658958,
       49570
+    ],
+    [
+      1792659682,
+      50670
     ]
   ],
   "online_peaks": {
@@ -5004,9 +5008,10 @@
     "Salvation Assault Rifle",
     "Neon Storage Small Berries",
     "Aristocrat Hide Poncho",
-    "Modern Military Wood Jacket"
+    "Modern Military Wood Jacket",
+    "Antique Salvaged Axe"
   ],
-  "rsod_day": "2026-10-21",
+  "rsod_day": "2026-10-22",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
