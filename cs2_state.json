@@ -18,10 +18,6 @@
   "x_last_id": "2113030263852978453",
   "online_log": [
     [
-      1791981546,
-      1057016
-    ],
-    [
       1791982191,
       1079883
     ],
@@ -2228,6 +2224,10 @@
     [
       1792671209,
       917978
+    ],
+    [
+      1792673347,
+      1042219
     ]
   ],
   "online_peaks": {
@@ -2245,12 +2245,9 @@
     "2026-10-19": 1177374,
     "2026-10-20": 1203644,
     "2026-10-21": 1265137,
-    "2026-10-22": 917978
+    "2026-10-22": 1042219
   },
   "recent_phrases": [
-    "👀 Следи за CS2 вместе с {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📡 Не пропусти важное: {tag}",
     "📢 Подписывайся: {tag}",
     "👉 Подписывайся на {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2747,7 +2744,10 @@
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👉 Подписывайся на {tag}",
     "📡 Не пропусти важное: {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "💣 Твой канал про CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3615,7 +3615,8 @@
     "hltvnews45771",
     "hltvnews45772",
     "hltvnews45773",
-    "hltvnews45774"
+    "hltvnews45774",
+    "hltvnews45767"
   ],
   "news_seen_t": [
     1788994268,
@@ -3650,6 +3651,11 @@
       "headline": "PGL Masters Bucharest: команды, формат, расписание, призовые и таланты",
       "link": "https://www.hltv.org/news/45774/pgl-masters-bucharest-teams-format-schedule-prizes-talent-fantasy",
       "score": 6
+    },
+    {
+      "headline": "Magnojez — EVP Thunderpick World Championship 2026, объявлены All-Stars",
+      "link": "https://www.hltv.org/news/45767/the-evp-and-all-stars-of-thunderpick-world-championship-2026",
+      "score": 5
     }
   ],
   "reddit_day": "2026-10-22",
