@@ -1,6 +1,6 @@
 {
-  "last": "2026-10-15-1840",
-  "ts": 1792094203,
+  "last": "2026-10-22-1734",
+  "ts": 1792694398,
   "picks": {
     "2026-10-08-2349": {
       "start": "2026-10-08T23:49:37.043Z",
@@ -209,6 +209,291 @@
           "n10": 2,
           "store": 149,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71107_small.png?1255083676"
+        }
+      ]
+    },
+    "2026-10-22-1734": {
+      "start": "2026-10-22T17:34:00.040Z",
+      "items": [
+        {
+          "name": "Witch Boots",
+          "v": "buy",
+          "net": 0.1706,
+          "n10": 6,
+          "store": 149,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71210_small.png?2793734768"
+        },
+        {
+          "name": "Ghost Rug",
+          "v": "think",
+          "net": 0.0404,
+          "n10": 5,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71204_small.png?1834953093"
+        },
+        {
+          "name": "Witch Tactical Gloves",
+          "v": "no",
+          "net": 0.027,
+          "n10": 4,
+          "store": 149,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71211_small.png?203727831"
+        },
+        {
+          "name": "Monster Water Purifier",
+          "v": "no",
+          "net": -0.0275,
+          "n10": 2,
+          "store": 149,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71206_small.png?1770502839"
+        },
+        {
+          "name": "Trapped Soul Garage Door",
+          "v": "no",
+          "net": -0.0486,
+          "n10": 4,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71203_small.png?2178985059"
+        },
+        {
+          "name": "The Watcher ATLH",
+          "v": "no",
+          "net": -0.0716,
+          "n10": 2,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71202_small.png?4211049802"
+        },
+        {
+          "name": "Evil Pumpkin Auto Turret",
+          "v": "no",
+          "net": -0.0725,
+          "n10": 2,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71205_small.png?2123657081"
+        },
+        {
+          "name": "Goblin's Cage Backpack",
+          "v": "no",
+          "net": -0.0895,
+          "n10": 2,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71209_small.png?226355418"
+        },
+        {
+          "name": "Lich's Staff",
+          "v": "no",
+          "net": -0.0896,
+          "n10": 3,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71201_small.png?1108055498"
+        },
+        {
+          "name": "Mummy Wraps",
+          "v": "no",
+          "net": -0.1084,
+          "n10": 6,
+          "store": 599,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WrEfCk4nReh8DEiv5dYMag3rLY0QPy5HrNI8Gw"
+        },
+        {
+          "name": "Cultist Deer Torch",
+          "v": "no",
+          "net": -0.1117,
+          "n10": 6,
+          "store": 299,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5mPGfCk4nReh8DEiv5dYP6A7pbM1Rvu71o57MVg"
+        },
+        {
+          "name": "Baseball Bat",
+          "v": "no",
+          "net": -0.1165,
+          "n10": 5,
+          "store": 299,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5mPBfCk4nReh8DEiv5ddOKg_q7IxRPu3ZZJTLtQ"
+        },
+        {
+          "name": "Cursed Cauldron",
+          "v": "no",
+          "net": -0.1225,
+          "n10": 6,
+          "store": 499,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WfBfCk4nReh8DEiv5dYP6k-qr0xSfB6ID4sew"
+        },
+        {
+          "name": "Large Candle Set",
+          "v": "no",
+          "net": -0.1243,
+          "n10": 6,
+          "store": 399,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WTMfCk4nReh8DEiv5dePaA7rbUwSfncqGRfLw"
+        },
+        {
+          "name": "Rest in Wraps Sleeping Bag",
+          "v": "no",
+          "net": -0.1271,
+          "n10": 2,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71208_small.png?37126062"
+        },
+        {
+          "name": "Skull Spikes",
+          "v": "no",
+          "net": -0.1285,
+          "n10": 5,
+          "store": 299,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WrGfCk4nReh8DEiv5dcPK08r701Q7n6RzF3"
+        },
+        {
+          "name": "Skull Fire Pit",
+          "v": "no",
+          "net": -0.1302,
+          "n10": 5,
+          "store": 499,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WbDfCk4nReh8DEiv5dYPKo5qLIwQvG-yrkjWiY"
+        },
+        {
+          "name": "Hayman Burlap Headwrap",
+          "v": "no",
+          "net": -0.1466,
+          "n10": 2,
+          "store": 99,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71214_small.png?715436652"
+        },
+        {
+          "name": "Hockey Mask",
+          "v": "no",
+          "net": -0.1474,
+          "n10": 5,
+          "store": 399,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5mPHfCk4nReh8DEiv5dYO6g5pL0wSP-8t1qVa3w"
+        },
+        {
+          "name": "Skull",
+          "v": "no",
+          "net": -0.1496,
+          "n10": 5,
+          "store": 399,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WvCfCk4nReh8DEiv5dbOqA4pbM-Rf2_NBX0XgQ"
+        },
+        {
+          "name": "Carvable Pumpkin",
+          "v": "no",
+          "net": -0.1523,
+          "n10": 5,
+          "store": 399,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WvDfCk4nReh8DEiv5ddOKg4qLYyRv65C7TWs4I"
+        },
+        {
+          "name": "Hayman Burlap Shirt",
+          "v": "no",
+          "net": -0.1531,
+          "n10": 2,
+          "store": 99,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71213_small.png?1455416957"
+        },
+        {
+          "name": "Hayman Burlap Pants",
+          "v": "no",
+          "net": -0.1537,
+          "n10": 2,
+          "store": 99,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71212_small.png?2538413465"
+        },
+        {
+          "name": "Strobe Light",
+          "v": "no",
+          "net": -0.1546,
+          "n10": 5,
+          "store": 399,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WfAfCk4nReh8DEiv5dYO6k4pLI-Rvi-bf36aQg"
+        },
+        {
+          "name": "Fogger-3000",
+          "v": "no",
+          "net": -0.1546,
+          "n10": 5,
+          "store": 599,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WfGfCk4nReh8DEiv5dcMas7rrcyQvrqG_RVBg"
+        },
+        {
+          "name": "Skull Trophy",
+          "v": "no",
+          "net": -0.1561,
+          "n10": 5,
+          "store": 499,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5WrHfCk4nReh8DEiv5dYO6o-qL0ySP68ial2Fmk"
+        },
+        {
+          "name": "Dracula Mask",
+          "v": "no",
+          "net": -0.1567,
+          "n10": 5,
+          "store": 399,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5mDCfCk4nReh8DEiv5daP682rrMzRfu98VNhZyE"
+        },
+        {
+          "name": "Skull Wall Lamp",
+          "v": "no",
+          "net": -0.16,
+          "n10": 0,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/10519_small.png?1682066224"
+        },
+        {
+          "name": "Manor",
+          "v": "no",
+          "net": -0.16,
+          "n10": 0,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/10568_small.png?244477520"
+        },
+        {
+          "name": "Dracula Cape",
+          "v": "no",
+          "net": -0.1651,
+          "n10": 4,
+          "store": 599,
+          "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Je5mTMfCk4nReh8DEiv5dfOqk5pL0_QPl-wIdsUw"
+        },
+        {
+          "name": "Bone Crusher SKS",
+          "v": "no",
+          "net": -0.1654,
+          "n10": 1,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71200_small.png?2711986781"
+        },
+        {
+          "name": "Alien Costume",
+          "v": "no",
+          "net": -0.1666,
+          "n10": 0,
+          "store": 999,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/10345_small.png?2292233662"
+        },
+        {
+          "name": "Cultist Tile",
+          "v": "no",
+          "net": -0.1862,
+          "n10": 0,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/10567_small.png?88788340"
+        },
+        {
+          "name": "Furnace of souls",
+          "v": "no",
+          "net": -0.2031,
+          "n10": 1,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71207_small.png?3312757934"
+        },
+        {
+          "name": "Derelict Wood",
+          "v": "no",
+          "net": -0.2078,
+          "n10": 0,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/10569_small.png?843702246"
         }
       ]
     }
