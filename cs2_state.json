@@ -2212,6 +2212,10 @@
     [
       1792688528,
       1076559
+    ],
+    [
+      1792689147,
+      1080977
     ]
   ],
   "online_peaks": {
@@ -2232,9 +2236,6 @@
     "2026-10-22": 1213537
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "📌 Сохрани себе {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📢 Подписывайся: {tag}",
@@ -2731,7 +2732,10 @@
     "📢 Подписывайся: {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📌 Сохрани себе {tag}",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3647,7 +3651,8 @@
     "hltvnews45772",
     "hltvnews45773",
     "hltvnews45774",
-    "hltvnews45767"
+    "hltvnews45767",
+    "hltvnews45776"
   ],
   "news_seen_t": [
     1788994268,
@@ -3687,6 +3692,11 @@
       "headline": "Magnojez — EVP Thunderpick World Championship 2026, объявлены All-Stars",
       "link": "https://www.hltv.org/news/45767/the-evp-and-all-stars-of-thunderpick-world-championship-2026",
       "score": 5
+    },
+    {
+      "headline": "FaZe, HEROIC и Envy вылетели с DraculaN Season 7, определилась четвёрка",
+      "link": "https://www.hltv.org/news/45776/faze-heroic-and-envy-eliminated-as-draculan-season-7-reaches-final-four",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-22",
