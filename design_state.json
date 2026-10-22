@@ -773,10 +773,14 @@
     "https://www.dezeen.com/2026/10/22/tuesday-labs-voxel-series-1",
     "https://www.figma.com/release-notes/?title=new-controls-enterprise-admins",
     "https://www.creativebloq.com/deals/theres-suddenly-usd1-000-off-this-absolute-beast-of-a-creative-laptop-cut-out-for-heavy-video-editing-and-3d-rendering",
-    "https://www.designboom.com/technology/bandit9-red-limited-edition-hand-brushed-aluminum-motorcycle-red800"
+    "https://www.designboom.com/technology/bandit9-red-limited-edition-hand-brushed-aluminum-motorcycle-red800",
+    "https://www.dezeen.com/2026/10/22/autex-acoustics-panels-sound-manchesters-bar-shrimp",
+    "https://www.dezeen.com/2026/10/22/jonathan-corral-arquitectos-uad-alamedas-durango",
+    "https://abduzeedo.com/studiogusto-unveils-michelangelus-typeface",
+    "https://abduzeedo.com/inside-matus-hnats-book-design-peter-esterhazy"
   ],
   "day": "2026-10-22",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -956,6 +960,12 @@
       "t": 1792645851.1046991,
       "title": "Kurppa Hosk зібрали бренд для сталі: літера A, як гнута стрічка",
       "link": "https://abduzeedo.com/alleima-inside-kurppa-hosks-visual-identity",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1792699331.465462,
+      "title": "Ватикан замовив шрифт за почерком Мікеланджело, і він буде в Microsoft 365",
+      "link": "https://abduzeedo.com/studiogusto-unveils-michelangelus-typeface",
       "src": "Abduzeedo"
     }
   ],
