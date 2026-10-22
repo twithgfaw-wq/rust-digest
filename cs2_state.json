@@ -18,10 +18,6 @@
   "x_last_id": "2113030263852978453",
   "online_log": [
     [
-      1792008765,
-      944048
-    ],
-    [
       1792010944,
       866425
     ],
@@ -2212,6 +2208,10 @@
     [
       1792699326,
       1018115
+    ],
+    [
+      1792700002,
+      983216
     ]
   ],
   "online_peaks": {
@@ -2232,9 +2232,6 @@
     "2026-10-22": 1213537
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "👉 Подписывайся на {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "🔔 Больше CS2 — в {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2731,7 +2728,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📢 Подписывайся: {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3651,7 +3651,8 @@
     "hltvnews45767",
     "hltvnews45776",
     "hltvnews45777",
-    "hltvnews45778"
+    "hltvnews45778",
+    "hltvnews45779"
   ],
   "news_seen_t": [
     1788994268,
@@ -3681,6 +3682,11 @@
       "headline": "The MongolZ разгромили PARIVISION в финале 1win Private Club Season 2",
       "link": "https://www.hltv.org/news/45777/the-mongolz-outclass-parivision-to-lift-1win-private-club-season-2-trophy-on-debut-with-nin9",
       "score": 7
+    },
+    {
+      "headline": "nin9: «Я был уверен, что могу стать тем, кого не хватало The MongolZ»",
+      "link": "https://www.hltv.org/news/45779/nin9-i-had-that-confidence-in-me-that-i-could-be-the-piece-they-needed-to-win-games",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-22",
