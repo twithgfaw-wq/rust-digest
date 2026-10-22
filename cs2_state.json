@@ -2224,6 +2224,10 @@
     [
       1792664166,
       673601
+    ],
+    [
+      1792666448,
+      727710
     ]
   ],
   "online_peaks": {
@@ -2241,12 +2245,9 @@
     "2026-10-19": 1177374,
     "2026-10-20": 1203644,
     "2026-10-21": 1265137,
-    "2026-10-22": 673601
+    "2026-10-22": 727710
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "🔥 {tag} — CS2 без воды",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
     "🔔 Больше CS2 — в {tag}",
@@ -2743,7 +2744,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📢 Подписывайся: {tag}",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3610,7 +3614,8 @@
     "hltvnews45770",
     "hltvnews45771",
     "hltvnews45772",
-    "hltvnews45773"
+    "hltvnews45773",
+    "hltvnews45774"
   ],
   "news_seen_t": [
     1788994268,
@@ -3640,6 +3645,11 @@
       "headline": "PARIVISION вышли в финал 1win Private Club S2, fnatic и magic вылетели",
       "link": "https://www.hltv.org/news/45772/parivision-qualify-for-1win-private-club-s2-final-fnatic-and-magic-eliminated",
       "score": 5
+    },
+    {
+      "headline": "PGL Masters Bucharest: команды, формат, расписание, призовые и таланты",
+      "link": "https://www.hltv.org/news/45774/pgl-masters-bucharest-teams-format-schedule-prizes-talent-fantasy",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-21",
