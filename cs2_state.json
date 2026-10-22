@@ -2212,6 +2212,10 @@
     [
       1792691352,
       1094004
+    ],
+    [
+      1792692075,
+      1094246
     ]
   ],
   "online_peaks": {
@@ -2232,9 +2236,6 @@
     "2026-10-22": 1213537
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👀 Следи за CS2 вместе с {tag}",
     "📌 Сохрани себе {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2731,7 +2732,10 @@
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👀 Следи за CS2 вместе с {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "📢 Подписывайся: {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2820,7 +2824,8 @@
     "2112234914263580782",
     "2112582218900209944",
     "2112954591126143146",
-    "2112940161420173318"
+    "2112940161420173318",
+    "2113326271824564342"
   ],
   "ws_scores": {
     "3815186169": {
@@ -3670,31 +3675,10 @@
   },
   "cs2_index_day": "2026-10-22",
   "ws_slot": "2026-10-22-20",
-  "comm_slot": "2026-10-22-17",
+  "comm_slot": "2026-10-22-21",
   "hltv_day": "2026-10-22",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "PARIVISION вышли в финал 1win Private Club S2, fnatic и magic вылетели",
-      "link": "https://www.hltv.org/news/45772/parivision-qualify-for-1win-private-club-s2-final-fnatic-and-magic-eliminated",
-      "score": 5
-    },
-    {
-      "headline": "PGL Masters Bucharest: команды, формат, расписание, призовые и таланты",
-      "link": "https://www.hltv.org/news/45774/pgl-masters-bucharest-teams-format-schedule-prizes-talent-fantasy",
-      "score": 6
-    },
-    {
-      "headline": "Magnojez — EVP Thunderpick World Championship 2026, объявлены All-Stars",
-      "link": "https://www.hltv.org/news/45767/the-evp-and-all-stars-of-thunderpick-world-championship-2026",
-      "score": 5
-    },
-    {
-      "headline": "FaZe, HEROIC и Envy вылетели с DraculaN Season 7, определилась четвёрка",
-      "link": "https://www.hltv.org/news/45776/faze-heroic-and-envy-eliminated-as-draculan-season-7-reaches-final-four",
-      "score": 6
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-22",
   "reddit_posted": [
     "1wzz7z0",
@@ -3712,7 +3696,7 @@
     "1xc1012"
   ],
   "online_daily": "2026-10-22",
-  "hltv_digest_day": "2026-10-21",
+  "hltv_digest_day": "2026-10-22",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
