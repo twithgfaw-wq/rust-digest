@@ -18,10 +18,6 @@
   "x_last_id": "2113030263852978453",
   "online_log": [
     [
-      1792001490,
-      1126816
-    ],
-    [
       1792003746,
       1132449
     ],
@@ -2216,6 +2212,10 @@
     [
       1792692497,
       1094246
+    ],
+    [
+      1792694654,
+      1087791
     ]
   ],
   "online_peaks": {
@@ -2236,9 +2236,6 @@
     "2026-10-22": 1213537
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "👉 Подписывайся на {tag}",
-    "🔥 {tag} — CS2 без воды",
     "👀 Следи за CS2 вместе с {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "💣 Твой канал про CS2 — {tag}",
@@ -2735,7 +2732,10 @@
     "🔔 Больше CS2 — в {tag}",
     "👉 Подписывайся на {tag}",
     "📌 Сохрани себе {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "💣 Твой канал про CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3653,7 +3653,8 @@
     "hltvnews45773",
     "hltvnews45774",
     "hltvnews45767",
-    "hltvnews45776"
+    "hltvnews45776",
+    "hltvnews45777"
   ],
   "news_seen_t": [
     1788994268,
@@ -3678,7 +3679,13 @@
   "comm_slot": "2026-10-22-21",
   "hltv_day": "2026-10-22",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "The MongolZ разгромили PARIVISION в финале 1win Private Club Season 2",
+      "link": "https://www.hltv.org/news/45777/the-mongolz-outclass-parivision-to-lift-1win-private-club-season-2-trophy-on-debut-with-nin9",
+      "score": 7
+    }
+  ],
   "reddit_day": "2026-10-22",
   "reddit_posted": [
     "1wzz7z0",
