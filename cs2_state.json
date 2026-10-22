@@ -2212,6 +2212,10 @@
     [
       1792684452,
       1093250
+    ],
+    [
+      1792684930,
+      1079231
     ]
   ],
   "online_peaks": {
@@ -2232,9 +2236,6 @@
     "2026-10-22": 1213537
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "📌 Сохрани себе {tag}",
     "👉 Подписывайся на {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2731,7 +2732,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📌 Сохрани себе {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3505,9 +3509,11 @@
     "M4A1-S | Nightmare",
     "AK-47 | Midnight Laminate",
     "AK-47 | Nouveau Rouge",
-    "M4A4 | Falak"
+    "M4A4 | Falak",
+    "★ Hand Wraps | Duct Tape",
+    "AWP | Printstream"
   ],
-  "duel_week": "2026-42",
+  "duel_week": "2026-43",
   "report_week": "2026-42",
   "hltv_seen": [
     "hltvnews45673",
@@ -4120,17 +4126,17 @@
     "2026-10-22": 5
   },
   "duel": {
-    "date": "15.10",
-    "ts": 1792080095,
-    "poll_id": 224,
+    "date": "22.10",
+    "ts": 1792684938,
+    "poll_id": 416,
     "items": [
       {
-        "name": "AK-47 | Nouveau Rouge (Minimal Wear)",
-        "price": 20.83
+        "name": "★ Hand Wraps | Duct Tape (Field-Tested)",
+        "price": 46.82
       },
       {
-        "name": "M4A4 | Falak (Field-Tested)",
-        "price": 24.18
+        "name": "AWP | Printstream (Field-Tested)",
+        "price": 41.24
       }
     ]
   }
