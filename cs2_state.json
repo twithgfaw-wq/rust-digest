@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792087291,
-      1065503
-    ],
-    [
       1792087341,
       1065503
     ],
@@ -2169,6 +2165,10 @@
     [
       1792777179,
       1148041
+    ],
+    [
+      1792778528,
+      1155296
     ]
   ],
   "online_peaks": {
@@ -2190,9 +2190,6 @@
     "2026-10-23": 1274983
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👉 Подписывайся на {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "📌 Сохрани себе {tag}",
@@ -2689,7 +2686,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📌 Сохрани себе {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📢 Подписывайся: {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2779,7 +2779,8 @@
     "2112582218900209944",
     "2112954591126143146",
     "2112940161420173318",
-    "2113326271824564342"
+    "2113326271824564342",
+    "2113406600639852749"
   ],
   "ws_scores": {
     "3815186169": {
@@ -3714,36 +3715,10 @@
   },
   "cs2_index_day": "2026-10-23",
   "ws_slot": "2026-10-23-20",
-  "comm_slot": "2026-10-23-17",
+  "comm_slot": "2026-10-23-21",
   "hltv_day": "2026-10-23",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "The MongolZ разгромили PARIVISION в финале 1win Private Club Season 2",
-      "link": "https://www.hltv.org/news/45777/the-mongolz-outclass-parivision-to-lift-1win-private-club-season-2-trophy-on-debut-with-nin9",
-      "score": 7
-    },
-    {
-      "headline": "nin9: «Я был уверен, что могу стать тем, кого не хватало The MongolZ»",
-      "link": "https://www.hltv.org/news/45779/nin9-i-had-that-confidence-in-me-that-i-could-be-the-piece-they-needed-to-win-games",
-      "score": 6
-    },
-    {
-      "headline": "BELCHONOKK остаётся в 1win на постоянной основе",
-      "link": "https://www.hltv.org/news/45781/belchonokk-joins-1win-permanently",
-      "score": 4
-    },
-    {
-      "headline": "electroNic о срыве на ICY: «Мои амбиции были слишком высокими»",
-      "link": "https://www.hltv.org/news/45780/electronic-on-vp-my-ambitions-were-too-high-which-is-why-i-probably-behaved-that-way",
-      "score": 4
-    },
-    {
-      "headline": "Sashi расстались с TjP и Hatz",
-      "link": "https://www.hltv.org/news/45783/sashi-part-ways-with-tjp-and-hatz",
-      "score": 4
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-23",
   "reddit_posted": [
     "1wzz7z0",
@@ -3762,7 +3737,7 @@
     "1xcj2uv"
   ],
   "online_daily": "2026-10-23",
-  "hltv_digest_day": "2026-10-22",
+  "hltv_digest_day": "2026-10-23",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
