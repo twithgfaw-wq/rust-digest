@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792105404,
-      583125
-    ],
-    [
       1792107315,
       545463
     ],
@@ -2161,6 +2157,10 @@
     [
       1792795381,
       786422
+    ],
+    [
+      1792797554,
+      683388
     ]
   ],
   "online_peaks": {
@@ -2182,9 +2182,6 @@
     "2026-10-23": 1274983
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "📌 Сохрани себе {tag}",
-    "Valve, мы следим 👀",
     "🐦 Counter-Strike написали в X",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2681,7 +2678,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "👉 Подписывайся на {tag}",
+    "📢 Подписывайся: {tag}",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3685,7 +3685,8 @@
     "hltvnews45780",
     "hltvnews45782",
     "hltvnews45783",
-    "hltvnews45784"
+    "hltvnews45784",
+    "hltvnews45785"
   ],
   "news_seen_t": [
     1788994268,
@@ -3716,6 +3717,11 @@
       "headline": "Virtus.pro выиграли WINLINE MPKBK CIS LAN, обыграв Nemesis в финале",
       "link": "https://www.hltv.org/news/45784/virtuspro-secure-winline-mpkbk-cis-lan-title-over-nemesis",
       "score": 7
+    },
+    {
+      "headline": "Eternal Fire выиграли DraculaN S7 и сохранили шансы на Singapore Major",
+      "link": "https://www.hltv.org/news/45785/eternal-fire-keep-singapore-major-dream-alive-with-draculan-s7-victory",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-23",
