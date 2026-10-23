@@ -19,14 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792083732,
-      1026580
-    ],
-    [
-      1792085947,
-      1050781
-    ],
-    [
       1792085977,
       1053598
     ],
@@ -2173,6 +2165,10 @@
     [
       1792774927,
       1147608
+    ],
+    [
+      1792777149,
+      1146659
     ]
   ],
   "online_peaks": {
@@ -2194,9 +2190,6 @@
     "2026-10-23": 1274983
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "👉 Подписывайся на {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
@@ -2693,7 +2686,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "👀 Следи за CS2 вместе с {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3694,7 +3690,8 @@
     "hltvnews45775",
     "hltvnews45781",
     "hltvnews45780",
-    "hltvnews45782"
+    "hltvnews45782",
+    "hltvnews45783"
   ],
   "news_seen_t": [
     1788994268,
@@ -3739,6 +3736,11 @@
     {
       "headline": "electroNic о срыве на ICY: «Мои амбиции были слишком высокими»",
       "link": "https://www.hltv.org/news/45780/electronic-on-vp-my-ambitions-were-too-high-which-is-why-i-probably-behaved-that-way",
+      "score": 4
+    },
+    {
+      "headline": "Sashi расстались с TjP и Hatz",
+      "link": "https://www.hltv.org/news/45783/sashi-part-ways-with-tjp-and-hatz",
       "score": 4
     }
   ],
