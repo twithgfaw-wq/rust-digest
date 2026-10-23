@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792068544,
-      984158
-    ],
-    [
       1792069272,
       984158
     ],
@@ -2181,6 +2177,10 @@
     [
       1792759149,
       1049629
+    ],
+    [
+      1792759750,
+      1079885
     ]
   ],
   "online_peaks": {
@@ -2199,12 +2199,9 @@
     "2026-10-20": 1203644,
     "2026-10-21": 1265137,
     "2026-10-22": 1213537,
-    "2026-10-23": 1049629
+    "2026-10-23": 1079885
   },
   "recent_phrases": [
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "💣 Твой канал про CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды",
     "🔔 Больше CS2 — в {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👉 Подписывайся на {tag}",
@@ -2701,7 +2698,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3649,7 +3649,8 @@
     "hltvnews45777",
     "hltvnews45778",
     "hltvnews45779",
-    "hltvnews45775"
+    "hltvnews45775",
+    "hltvnews45781"
   ],
   "news_seen_t": [
     1788994268,
@@ -3685,6 +3686,11 @@
       "headline": "nin9: «Я был уверен, что могу стать тем, кого не хватало The MongolZ»",
       "link": "https://www.hltv.org/news/45779/nin9-i-had-that-confidence-in-me-that-i-could-be-the-piece-they-needed-to-win-games",
       "score": 6
+    },
+    {
+      "headline": "BELCHONOKK остаётся в 1win на постоянной основе",
+      "link": "https://www.hltv.org/news/45781/belchonokk-joins-1win-permanently",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-23",
