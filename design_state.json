@@ -979,7 +979,7 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-10-22",
+  "font_day": "2026-10-23",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -993,7 +993,8 @@
     "Array",
     "Tinos",
     "Alumni Sans SC",
-    "Clash Grotesk"
+    "Clash Grotesk",
+    "Onest"
   ],
   "quiz_day": "2026-10-22",
   "quiz_fonts": [
