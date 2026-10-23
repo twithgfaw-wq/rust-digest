@@ -19,14 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792072929,
-      1147502
-    ],
-    [
-      1792073830,
-      1162889
-    ],
-    [
       1792076043,
       1150061
     ],
@@ -2185,6 +2177,10 @@
     [
       1792764127,
       1250385
+    ],
+    [
+      1792766347,
+      1274983
     ]
   ],
   "online_peaks": {
@@ -2203,12 +2199,9 @@
     "2026-10-20": 1203644,
     "2026-10-21": 1265137,
     "2026-10-22": 1213537,
-    "2026-10-23": 1250385
+    "2026-10-23": 1274983
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "🔥 {tag} — CS2 без воды",
-    "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📢 Подписывайся: {tag}",
@@ -2705,7 +2698,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "📢 Подписывайся: {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3679,7 +3675,8 @@
     "hltvnews45778",
     "hltvnews45779",
     "hltvnews45775",
-    "hltvnews45781"
+    "hltvnews45781",
+    "hltvnews45780"
   ],
   "news_seen_t": [
     1788994268,
@@ -3719,6 +3716,11 @@
     {
       "headline": "BELCHONOKK остаётся в 1win на постоянной основе",
       "link": "https://www.hltv.org/news/45781/belchonokk-joins-1win-permanently",
+      "score": 4
+    },
+    {
+      "headline": "electroNic о срыве на ICY: «Мои амбиции были слишком высокими»",
+      "link": "https://www.hltv.org/news/45780/electronic-on-vp-my-ambitions-were-too-high-which-is-why-i-probably-behaved-that-way",
       "score": 4
     }
   ],
