@@ -818,10 +818,13 @@
     "https://www.creativebloq.com/features/6-steam-next-fest-demos-to-play-if-you-love-the-art-direction-of-silver-pines",
     "https://www.designboom.com/architecture/jean-prouve-1944-demountable-house-japanese-tea-pavilion-design-miami-paris-2026-galerie-patrick-seguin",
     "https://www.dezeen.com/2026/10/23/adrian-smith-gordon-gill-lilli-skyscraper-miami",
-    "https://www.wallpaper.com/fashion-beauty/fashion-beauty-events/polo-fest-tokyo-japan-ralph-lauren-collectors"
+    "https://www.wallpaper.com/fashion-beauty/fashion-beauty-events/polo-fest-tokyo-japan-ralph-lauren-collectors",
+    "https://www.creativebloq.com/news/gamemaker-will-let-indie-developers-sell-their-games-for-free-from-2027",
+    "https://abduzeedo.com/how-base-design-reimagined-kanal-centre-pompidou-identity",
+    "https://www.figma.com/release-notes/?title=iphone-duo-and-iphone-18-frame-presets-now-available-wherever-you-design-and-prototype"
   ],
   "day": "2026-10-23",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1014,6 +1017,12 @@
       "title": "EA Sports FC: трикутник-курсор перетворився на вільну форму",
       "link": "https://www.creativebloq.com/news/the-ambitious-ea-sports-rebrand-looks-great-from-every-angle",
       "src": "Creative Bloq"
+    },
+    {
+      "t": 1792771328.516213,
+      "title": "Base Design змусили шрифт KANAL Centre Pompidou переливатися через край",
+      "link": "https://abduzeedo.com/how-base-design-reimagined-kanal-centre-pompidou-identity",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
