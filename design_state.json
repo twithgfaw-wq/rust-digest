@@ -786,10 +786,12 @@
     "https://www.designboom.com/art/metal-pipe-grid-personal-rituals-control-participatory-playground-won-ji-lim-shifting-center",
     "https://abduzeedo.com/web-design-museum-department-contemporary-archive",
     "https://abduzeedo.com/inside-puustelli-miinus-brand-identity-bond",
-    "https://www.designboom.com/technology/tune-x3-headphones-pressec-vintage-studio-equipment"
+    "https://www.designboom.com/technology/tune-x3-headphones-pressec-vintage-studio-equipment",
+    "https://www.creativebloq.com/news/the-ambitious-ea-sports-rebrand-looks-great-from-every-angle",
+    "https://www.creativebloq.com/how-to/how-humour-can-enhance-the-storytelling-in-your-art"
   ],
   "day": "2026-10-23",
-  "day_count": 0,
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -976,6 +978,12 @@
       "title": "Ватикан замовив шрифт за почерком Мікеланджело, і він буде в Microsoft 365",
       "link": "https://abduzeedo.com/studiogusto-unveils-michelangelus-typeface",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1792735644.5601983,
+      "title": "EA Sports FC: трикутник-курсор перетворився на вільну форму",
+      "link": "https://www.creativebloq.com/news/the-ambitious-ea-sports-rebrand-looks-great-from-every-angle",
+      "src": "Creative Bloq"
     }
   ],
   "queue": [],
