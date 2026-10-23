@@ -2284,10 +2284,6 @@
   ],
   "online_log": [
     [
-      1792054983,
-      49254
-    ],
-    [
       1792055263,
       49254
     ],
@@ -4490,6 +4486,10 @@
     [
       1792746133,
       67939
+    ],
+    [
+      1792746394,
+      67390
     ]
   ],
   "online_peaks": {
@@ -5099,9 +5099,10 @@
     "Neon Storage Small Berries",
     "Aristocrat Hide Poncho",
     "Modern Military Wood Jacket",
-    "Antique Salvaged Axe"
+    "Antique Salvaged Axe",
+    "No Mercy Wood Gloves"
   ],
-  "rsod_day": "2026-10-22",
+  "rsod_day": "2026-10-23",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
