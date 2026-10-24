@@ -2294,10 +2294,6 @@
   ],
   "online_log": [
     [
-      1792141334,
-      62328
-    ],
-    [
       1792141594,
       63668
     ],
@@ -4444,6 +4440,10 @@
     [
       1792830746,
       82066
+    ],
+    [
+      1792832534,
+      85915
     ]
   ],
   "online_peaks": {
@@ -4465,7 +4465,7 @@
     "2026-10-21": 95990,
     "2026-10-22": 112101,
     "2026-10-23": 133471,
-    "2026-10-24": 82066
+    "2026-10-24": 85915
   },
   "x_last_id": "2113730116073214366",
   "market_snaps": {
@@ -5048,9 +5048,10 @@
     "Aristocrat Hide Poncho",
     "Modern Military Wood Jacket",
     "Antique Salvaged Axe",
-    "No Mercy Wood Gloves"
+    "No Mercy Wood Gloves",
+    "UAP Bearskin Rug"
   ],
-  "rsod_day": "2026-10-23",
+  "rsod_day": "2026-10-24",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
