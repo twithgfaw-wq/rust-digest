@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792172607,
-      1171265
-    ],
-    [
       1792173721,
       1173459
     ],
@@ -2137,6 +2133,10 @@
     [
       1792863637,
       1166312
+    ],
+    [
+      1792864906,
+      1163144
     ]
   ],
   "online_peaks": {
@@ -2159,9 +2159,6 @@
     "2026-10-24": 1334393
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📢 Подписывайся: {tag}",
-    "👉 Подписывайся на {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔥 {tag} — CS2 без воды",
     "📡 Не пропусти важное: {tag}",
@@ -2658,7 +2655,10 @@
     "🔔 Больше CS2 — в {tag}",
     "📢 Подписывайся: {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "📌 Сохрани себе {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "⚡️ Всё самое свежее по CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3766,56 +3766,10 @@
   },
   "cs2_index_day": "2026-10-24",
   "ws_slot": "2026-10-24-20",
-  "comm_slot": "2026-10-24-17",
+  "comm_slot": "2026-10-24-21",
   "hltv_day": "2026-10-24",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "Virtus.pro выиграли WINLINE MPKBK CIS LAN, обыграв Nemesis в финале",
-      "link": "https://www.hltv.org/news/45784/virtuspro-secure-winline-mpkbk-cis-lan-title-over-nemesis",
-      "score": 7
-    },
-    {
-      "headline": "Eternal Fire выиграли DraculaN S7 и сохранили шансы на Singapore Major",
-      "link": "https://www.hltv.org/news/45785/eternal-fire-keep-singapore-major-dream-alive-with-draculan-s7-victory",
-      "score": 4
-    },
-    {
-      "headline": "FUT начали PGL Bucharest с победы 2-0 над TYLOO",
-      "link": "https://www.hltv.org/news/45461/fut-open-pgl-bucharest-with-2-0-win-over-tyloo",
-      "score": 5
-    },
-    {
-      "headline": "The MongolZ обыграли Aurora на PGL Bucharest",
-      "link": "https://www.hltv.org/news/45788/the-mongolz-stun-aurora-at-pgl-bucharest",
-      "score": 8
-    },
-    {
-      "headline": "coolio: «Я был в шоке, что G2 посадили SunPayus в запас»",
-      "link": "https://www.hltv.org/news/45787/coolio-i-was-shocked-g2-benched-sunpayus-because-i-feel-like-hes-still-such-a-good-player",
-      "score": 4
-    },
-    {
-      "headline": "Liquid обыграли MOUZ на старте PGL Bucharest",
-      "link": "https://www.hltv.org/news/45789/liquid-edge-out-mouz-in-pgl-bucharest-opener",
-      "score": 6
-    },
-    {
-      "headline": "BETBOOM обыграли Spirit на PGL Masters Bucharest",
-      "link": "https://www.hltv.org/news/45791/upsets-continue-at-pgl-masters-bucharest-as-betboom-defeat-spirit",
-      "score": 8
-    },
-    {
-      "headline": "EliGE после победы над MOUZ: «Этот уровень должен стать нашим минимумом»",
-      "link": "https://www.hltv.org/news/45790/elige-after-beating-mouz-we-have-to-make-this-level-our-floor",
-      "score": 4
-    },
-    {
-      "headline": "Nemiga прошли Legacy в Bucharest",
-      "link": "https://www.hltv.org/news/45792/nemiga-move-past-legacy-in-bucharest",
-      "score": 5
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-24",
   "reddit_posted": [
     "1wzz7z0",
@@ -3835,7 +3789,7 @@
     "1xdjodf"
   ],
   "online_daily": "2026-10-24",
-  "hltv_digest_day": "2026-10-23",
+  "hltv_digest_day": "2026-10-24",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
