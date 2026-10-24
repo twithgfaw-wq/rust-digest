@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792155725,
-      1116289
-    ],
-    [
       1792157945,
       1214085
     ],
@@ -2145,6 +2141,10 @@
     [
       1792846905,
       1210831
+    ],
+    [
+      1792849080,
+      1253265
     ]
   ],
   "online_peaks": {
@@ -2164,12 +2164,9 @@
     "2026-10-21": 1265137,
     "2026-10-22": 1213537,
     "2026-10-23": 1274983,
-    "2026-10-24": 1210831
+    "2026-10-24": 1253265
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "📢 Подписывайся: {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "💣 Твой канал про CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2666,7 +2663,10 @@
     "🔥 {tag} — CS2 без воды",
     "📡 Не пропусти важное: {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3721,7 +3721,8 @@
     "hltvnews45786",
     "hltvnews45461",
     "hltvnews45788",
-    "hltvnews45787"
+    "hltvnews45787",
+    "hltvnews45789"
   ],
   "news_seen_t": [
     1788994268,
@@ -3772,6 +3773,11 @@
       "headline": "coolio: «Я был в шоке, что G2 посадили SunPayus в запас»",
       "link": "https://www.hltv.org/news/45787/coolio-i-was-shocked-g2-benched-sunpayus-because-i-feel-like-hes-still-such-a-good-player",
       "score": 4
+    },
+    {
+      "headline": "Liquid обыграли MOUZ на старте PGL Bucharest",
+      "link": "https://www.hltv.org/news/45789/liquid-edge-out-mouz-in-pgl-bucharest-opener",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-24",
