@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792187041,
-      879061
-    ],
-    [
       1792189407,
       739627
     ],
@@ -2141,6 +2137,10 @@
     [
       1792877869,
       968275
+    ],
+    [
+      1792879509,
+      901960
     ]
   ],
   "online_peaks": {
@@ -2163,9 +2163,6 @@
     "2026-10-24": 1334393
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
     "💣 Твой канал про CS2 — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
@@ -2662,7 +2659,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔔 Больше CS2 — в {tag}",
     "👀 Следи за CS2 вместе с {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "👉 Подписывайся на {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3749,7 +3749,8 @@
     "hltvnews45790",
     "hltvnews45792",
     "hltvnews45793",
-    "hltvnews45794"
+    "hltvnews45794",
+    "hltvnews45795"
   ],
   "news_seen_t": [
     1788994268,
@@ -3773,7 +3774,7 @@
   "cs2_index_day": "2026-10-24",
   "ws_slot": "2026-10-24-20",
   "comm_slot": "2026-10-24-21",
-  "hltv_day": "2026-10-24",
+  "hltv_day": "2026-10-25",
   "hltv_count": 0,
   "hltv_digest": [
     {
@@ -3785,6 +3786,11 @@
       "headline": "FURIA vs NAVI и Aurora vs G2 — главные матчи второго дня PGL Masters Bucharest",
       "link": "https://www.hltv.org/news/45794/furia-vs-navi-aurora-vs-g2-headline-pgl-masters-bucharest-day-2",
       "score": 7
+    },
+    {
+      "headline": "iM: «Хотим выйти в плей-офф, чтобы облегчить себе жизнь перед Major»",
+      "link": "https://www.hltv.org/news/45795/im-we-are-trying-to-make-playoffs-here-to-make-our-lives-easier-for-the-major",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-24",
