@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792141323,
-      645261
-    ],
-    [
       1792143540,
       664687
     ],
@@ -2153,6 +2149,10 @@
     [
       1792832505,
       813842
+    ],
+    [
+      1792834725,
+      841495
     ]
   ],
   "online_peaks": {
@@ -2172,12 +2172,9 @@
     "2026-10-21": 1265137,
     "2026-10-22": 1213537,
     "2026-10-23": 1274983,
-    "2026-10-24": 813842
+    "2026-10-24": 841495
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "📌 Сохрани себе {tag}",
     "🔔 Больше CS2 — в {tag}",
     "👀 Следи за CS2 вместе с {tag}",
@@ -2674,7 +2671,10 @@
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3706,7 +3706,8 @@
     "hltvnews45783",
     "hltvnews45784",
     "hltvnews45785",
-    "hltvnews45786"
+    "hltvnews45786",
+    "hltvnews45461"
   ],
   "news_seen_t": [
     1788994268,
@@ -3742,6 +3743,11 @@
       "headline": "Eternal Fire выиграли DraculaN S7 и сохранили шансы на Singapore Major",
       "link": "https://www.hltv.org/news/45785/eternal-fire-keep-singapore-major-dream-alive-with-draculan-s7-victory",
       "score": 4
+    },
+    {
+      "headline": "FUT начали PGL Bucharest с победы 2-0 над TYLOO",
+      "link": "https://www.hltv.org/news/45461/fut-open-pgl-bucharest-with-2-0-win-over-tyloo",
+      "score": 5
     }
   ],
   "reddit_day": "2026-10-23",
