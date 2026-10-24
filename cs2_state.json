@@ -19,14 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792148044,
-      745172
-    ],
-    [
-      1792148482,
-      762693
-    ],
-    [
       1792148524,
       773430
     ],
@@ -2149,6 +2141,10 @@
     [
       1792838475,
       876632
+    ],
+    [
+      1792839704,
+      908155
     ]
   ],
   "online_peaks": {
@@ -2168,12 +2164,9 @@
     "2026-10-21": 1265137,
     "2026-10-22": 1213537,
     "2026-10-23": 1274983,
-    "2026-10-24": 876632
+    "2026-10-24": 908155
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
     "🔔 Больше CS2 — в {tag}",
@@ -2670,7 +2663,10 @@
     "📡 Не пропусти важное: {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "👉 Подписывайся на {tag}",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3704,7 +3700,8 @@
     "hltvnews45784",
     "hltvnews45785",
     "hltvnews45786",
-    "hltvnews45461"
+    "hltvnews45461",
+    "hltvnews45788"
   ],
   "news_seen_t": [
     1788994268,
@@ -3745,9 +3742,14 @@
       "headline": "FUT начали PGL Bucharest с победы 2-0 над TYLOO",
       "link": "https://www.hltv.org/news/45461/fut-open-pgl-bucharest-with-2-0-win-over-tyloo",
       "score": 5
+    },
+    {
+      "headline": "The MongolZ обыграли Aurora на PGL Bucharest",
+      "link": "https://www.hltv.org/news/45788/the-mongolz-stun-aurora-at-pgl-bucharest",
+      "score": 8
     }
   ],
-  "reddit_day": "2026-10-23",
+  "reddit_day": "2026-10-24",
   "reddit_posted": [
     "1wzz7z0",
     "1x1ey6g",
@@ -3762,7 +3764,8 @@
     "1xa5r38",
     "1xb1a1n",
     "1xc1012",
-    "1xcj2uv"
+    "1xcj2uv",
+    "1xdjodf"
   ],
   "online_daily": "2026-10-23",
   "hltv_digest_day": "2026-10-23",
