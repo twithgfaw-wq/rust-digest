@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792167177,
-      1187635
-    ],
-    [
       1792169344,
       1166719
     ],
@@ -2137,6 +2133,10 @@
     [
       1792858088,
       1239032
+    ],
+    [
+      1792860059,
+      1183583
     ]
   ],
   "online_peaks": {
@@ -2159,9 +2159,6 @@
     "2026-10-24": 1334393
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🔔 Больше CS2 — в {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "📡 Не пропусти важное: {tag}",
     "📢 Подписывайся: {tag}",
@@ -2658,7 +2655,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
     "🔥 {tag} — CS2 без воды",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3717,7 +3717,8 @@
     "hltvnews45787",
     "hltvnews45789",
     "hltvnews45791",
-    "hltvnews45790"
+    "hltvnews45790",
+    "hltvnews45792"
   ],
   "news_seen_t": [
     1788994268,
@@ -3783,6 +3784,11 @@
       "headline": "EliGE после победы над MOUZ: «Этот уровень должен стать нашим минимумом»",
       "link": "https://www.hltv.org/news/45790/elige-after-beating-mouz-we-have-to-make-this-level-our-floor",
       "score": 4
+    },
+    {
+      "headline": "Nemiga прошли Legacy в Bucharest",
+      "link": "https://www.hltv.org/news/45792/nemiga-move-past-legacy-in-bucharest",
+      "score": 5
     }
   ],
   "reddit_day": "2026-10-24",
