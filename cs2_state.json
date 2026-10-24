@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792159348,
-      1255109
-    ],
-    [
       1792161543,
       1296110
     ],
@@ -2137,6 +2133,10 @@
     [
       1792850507,
       1304330
+    ],
+    [
+      1792850755,
+      1317901
     ]
   ],
   "online_peaks": {
@@ -2156,12 +2156,9 @@
     "2026-10-21": 1265137,
     "2026-10-22": 1213537,
     "2026-10-23": 1274983,
-    "2026-10-24": 1304330
+    "2026-10-24": 1317901
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "👉 Подписывайся на {tag}",
     "📢 Подписывайся: {tag}",
     "📌 Сохрани себе {tag}",
     "👀 Следи за CS2 вместе с {tag}",
@@ -2658,7 +2655,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3715,7 +3715,8 @@
     "hltvnews45461",
     "hltvnews45788",
     "hltvnews45787",
-    "hltvnews45789"
+    "hltvnews45789",
+    "hltvnews45791"
   ],
   "news_seen_t": [
     1788994268,
@@ -3771,6 +3772,11 @@
       "headline": "Liquid обыграли MOUZ на старте PGL Bucharest",
       "link": "https://www.hltv.org/news/45789/liquid-edge-out-mouz-in-pgl-bucharest-opener",
       "score": 6
+    },
+    {
+      "headline": "BETBOOM обыграли Spirit на PGL Masters Bucharest",
+      "link": "https://www.hltv.org/news/45791/upsets-continue-at-pgl-masters-bucharest-as-betboom-defeat-spirit",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-24",
