@@ -2133,6 +2133,10 @@
     [
       1792928308,
       1008958
+    ],
+    [
+      1792929705,
+      1079893
     ]
   ],
   "online_peaks": {
@@ -2153,12 +2157,9 @@
     "2026-10-22": 1213537,
     "2026-10-23": 1274983,
     "2026-10-24": 1334393,
-    "2026-10-25": 1008958
+    "2026-10-25": 1079893
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
     "📢 Подписывайся: {tag}",
@@ -2655,7 +2656,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "📡 Не пропусти важное: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3771,7 +3775,8 @@
     "hltvnews45794",
     "hltvnews45795",
     "hltvnews45796",
-    "hltvnews45798"
+    "hltvnews45798",
+    "hltvnews45797"
   ],
   "news_seen_t": [
     1788994268,
@@ -3822,9 +3827,14 @@
       "headline": "FUT обыграли Liquid и вышли на 2-0 в Bucharest",
       "link": "https://www.hltv.org/news/45798/fut-beat-liquid-to-move-to-2-0-in-bucharest",
       "score": 6
+    },
+    {
+      "headline": "Vitality обыграли The MongolZ и вышли в пул 2-0 на PGL Masters Bucharest",
+      "link": "https://www.hltv.org/news/45797/vitality-ease-past-the-mongolz-into-pgl-masters-bucharest-2-0-pool",
+      "score": 8
     }
   ],
-  "reddit_day": "2026-10-24",
+  "reddit_day": "2026-10-25",
   "reddit_posted": [
     "1wzz7z0",
     "1x1ey6g",
