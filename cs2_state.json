@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792263689,
-      1185918
-    ],
-    [
       1792263991,
       1185918
     ],
@@ -2133,6 +2129,10 @@
     [
       1792953685,
       1163743
+    ],
+    [
+      1792954905,
+      1155865
     ]
   ],
   "online_peaks": {
@@ -2156,9 +2156,6 @@
     "2026-10-25": 1328680
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📢 Подписывайся: {tag}",
     "📡 Не пропусти важное: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "👉 Подписывайся на {tag}",
@@ -2655,7 +2652,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "👉 Подписывайся на {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "📌 Сохрани себе {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3847,76 +3847,10 @@
   },
   "cs2_index_day": "2026-10-25",
   "ws_slot": "2026-10-25-20",
-  "comm_slot": "2026-10-25-17",
+  "comm_slot": "2026-10-25-21",
   "hltv_day": "2026-10-25",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "NAVI вырвали победу у G2 и получили крупный прирост в VRS",
-      "link": "https://www.hltv.org/news/45793/navi-scrape-narrow-win-over-g2-to-secure-massive-vrs-payout",
-      "score": 8
-    },
-    {
-      "headline": "FURIA vs NAVI и Aurora vs G2 — главные матчи второго дня PGL Masters Bucharest",
-      "link": "https://www.hltv.org/news/45794/furia-vs-navi-aurora-vs-g2-headline-pgl-masters-bucharest-day-2",
-      "score": 7
-    },
-    {
-      "headline": "iM: «Хотим выйти в плей-офф, чтобы облегчить себе жизнь перед Major»",
-      "link": "https://www.hltv.org/news/45795/im-we-are-trying-to-make-playoffs-here-to-make-our-lives-easier-for-the-major",
-      "score": 4
-    },
-    {
-      "headline": "Spirit уверенно обыграли TYLOO на PGL Masters Bucharest",
-      "link": "https://www.hltv.org/news/45796/spirit-bounce-back-in-bucharest-with-dominant-victory-over-tyloo",
-      "score": 7
-    },
-    {
-      "headline": "FUT обыграли Liquid и вышли на 2-0 в Bucharest",
-      "link": "https://www.hltv.org/news/45798/fut-beat-liquid-to-move-to-2-0-in-bucharest",
-      "score": 6
-    },
-    {
-      "headline": "Vitality обыграли The MongolZ и вышли в пул 2-0 на PGL Masters Bucharest",
-      "link": "https://www.hltv.org/news/45797/vitality-ease-past-the-mongolz-into-pgl-masters-bucharest-2-0-pool",
-      "score": 8
-    },
-    {
-      "headline": "BETBOOM обыграли Nemiga и вышли на 2-0 в Bucharest",
-      "link": "https://www.hltv.org/news/45799/betboom-overcome-nemiga-to-go-2-0-in-bucharest",
-      "score": 4
-    },
-    {
-      "headline": "mezii о роли капитана: «Работы гораздо больше, чем я помнил»",
-      "link": "https://www.hltv.org/news/45800/mezii-on-igling-its-a-lot-more-work-than-i-remember-maybe-i-didnt-do-it-right-the-first-time",
-      "score": 4
-    },
-    {
-      "headline": "MOUZ взяли первую победу в Bucharest, обыграв 9z",
-      "link": "https://www.hltv.org/news/45803/mouz-pick-up-first-win-in-bucharest-over-9z",
-      "score": 6
-    },
-    {
-      "headline": "G2 снова проиграли: Aurora обыграла команду на Inferno",
-      "link": "https://www.hltv.org/news/45802/g2-spiral-continues-after-loss-to-aurora",
-      "score": 8
-    },
-    {
-      "headline": "Boombl4: «Сейчас каждый игрок индивидуально увереннее»",
-      "link": "https://www.hltv.org/news/45801/boombl4-every-player-right-now-is-more-confident-individually",
-      "score": 4
-    },
-    {
-      "headline": "NAVI поднялись ещё на девять мест в VRS после победы над FURIA",
-      "link": "https://www.hltv.org/news/45805/navi-rise-another-nine-places-on-the-vrs-after-taking-out-furia",
-      "score": 9
-    },
-    {
-      "headline": "Spirit сыграют с FURIA в третий день турнира в Bucharest",
-      "link": "https://www.hltv.org/news/45807/spirit-to-meet-furia-on-day-3-in-bucharest",
-      "score": 8
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-25",
   "reddit_posted": [
     "1wzz7z0",
@@ -3936,7 +3870,7 @@
     "1xdjodf"
   ],
   "online_daily": "2026-10-25",
-  "hltv_digest_day": "2026-10-24",
+  "hltv_digest_day": "2026-10-25",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
