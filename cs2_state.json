@@ -19,14 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792240710,
-      1180140
-    ],
-    [
-      1792241003,
-      1195058
-    ],
-    [
       1792242091,
       1255436
     ],
@@ -2137,6 +2129,10 @@
     [
       1792929941,
       1079893
+    ],
+    [
+      1792932226,
+      1187124
     ]
   ],
   "online_peaks": {
@@ -2157,12 +2153,9 @@
     "2026-10-22": 1213537,
     "2026-10-23": 1274983,
     "2026-10-24": 1334393,
-    "2026-10-25": 1079893
+    "2026-10-25": 1187124
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "🔥 {tag} — CS2 без воды",
-    "📡 Не пропусти важное: {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "💣 Твой канал про CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2659,7 +2652,10 @@
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
     "👀 Следи за CS2 вместе с {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "👉 Подписывайся на {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "💣 Твой канал про CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3776,7 +3772,8 @@
     "hltvnews45795",
     "hltvnews45796",
     "hltvnews45798",
-    "hltvnews45797"
+    "hltvnews45797",
+    "hltvnews45799"
   ],
   "news_seen_t": [
     1788994268,
@@ -3832,6 +3829,11 @@
       "headline": "Vitality обыграли The MongolZ и вышли в пул 2-0 на PGL Masters Bucharest",
       "link": "https://www.hltv.org/news/45797/vitality-ease-past-the-mongolz-into-pgl-masters-bucharest-2-0-pool",
       "score": 8
+    },
+    {
+      "headline": "BETBOOM обыграли Nemiga и вышли на 2-0 в Bucharest",
+      "link": "https://www.hltv.org/news/45799/betboom-overcome-nemiga-to-go-2-0-in-bucharest",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-25",
