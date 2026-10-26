@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792341497,
-      1146471
-    ],
-    [
       1792342891,
       1146685
     ],
@@ -2125,6 +2121,10 @@
     [
       1793030975,
       988459
+    ],
+    [
+      1793033329,
+      980335
     ]
   ],
   "online_peaks": {
@@ -2149,9 +2149,6 @@
     "2026-10-26": 1057072
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "👉 Подписывайся на {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📡 Не пропусти важное: {tag}",
@@ -2648,7 +2645,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "📌 Сохрани себе {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3879,7 +3879,8 @@
     "hltvnews45812",
     "hltvnews45813",
     "hltvnews45814",
-    "hltvnews45815"
+    "hltvnews45815",
+    "hltvnews45816"
   ],
   "news_seen_t": [
     1788994268,
@@ -3940,6 +3941,11 @@
       "headline": "ENCE подают на банкротство",
       "link": "https://www.hltv.org/news/45814/ence-file-for-bankruptcy",
       "score": 7
+    },
+    {
+      "headline": "Liquid обыграли Legacy и вышли на 2-1 в Бухаресте",
+      "link": "https://www.hltv.org/news/45816/liquid-beat-legacy-to-make-2-1-pool-in-bucharest",
+      "score": 5
     }
   ],
   "reddit_day": "2026-10-26",
