@@ -873,10 +873,16 @@
     "https://www.creativebloq.com/news/the-iphone-duo-complaints-have-begun",
     "https://www.creativebloq.com/deals/these-beautiful-buds-bring-audiophile-sound-quality-to-wireless-inner-ear-headphones",
     "https://www.designboom.com/architecture/thinking-with-animals-in-the-sicilian-village-of-santo-pietro-explores-the-human-animal-divide",
-    "https://www.designboom.com/architecture/stepped-timber-platforms-operable-textiles-circular-dusseldorf-home-urselmann-interior"
+    "https://www.designboom.com/architecture/stepped-timber-platforms-operable-textiles-circular-dusseldorf-home-urselmann-interior",
+    "https://www.dezeen.com/2026/10/26/think-architecture-hillside-house-lake-zurich",
+    "https://www.dezeen.com/2026/10/26/roca-innovative-avant-toilet",
+    "https://abduzeedo.com/inside-senhor-paulinhos-brand-identity-arado-2026",
+    "https://abduzeedo.com/brand-identity-rothfield-studio-julius",
+    "https://abduzeedo.com/typography-exemplar-letters-sweden",
+    "https://www.creativebloq.com/reviews/phantom-blade-zero-review-dark-wuxia-martial-arts-masters-with-an-apprentices-execution"
   ],
-  "day": "2026-10-25",
-  "day_count": 0,
+  "day": "2026-10-26",
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1074,6 +1080,12 @@
       "t": 1792771328.516213,
       "title": "Base Design змусили шрифт KANAL Centre Pompidou переливатися через край",
       "link": "https://abduzeedo.com/how-base-design-reimagined-kanal-centre-pompidou-identity",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1792994507.959575,
+      "title": "Exemplar від Letters from Sweden: шрифт, який робили 30 років",
+      "link": "https://abduzeedo.com/typography-exemplar-letters-sweden",
       "src": "Abduzeedo"
     }
   ],
