@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792357288,
-      889764
-    ],
-    [
       1792357355,
       889764
     ],
@@ -2125,6 +2121,10 @@
     [
       1793047366,
       875264
+    ],
+    [
+      1793048506,
+      860733
     ]
   ],
   "online_peaks": {
@@ -2149,9 +2149,6 @@
     "2026-10-26": 1057072
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📌 Сохрани себе {tag}",
-    "👉 Подписывайся на {tag}",
     "📡 Не пропусти важное: {tag}",
     "🔥 {tag} — CS2 без воды",
     "👀 Следи за CS2 вместе с {tag}",
@@ -2648,7 +2645,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📌 Сохрани себе {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "👉 Подписывайся на {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3910,7 +3910,8 @@
     "hltvnews45817",
     "hltvnews45818",
     "hltvnews45820",
-    "hltvnews45822"
+    "hltvnews45822",
+    "hltvnews45819"
   ],
   "news_seen_t": [
     1788994268,
@@ -3951,6 +3952,11 @@
       "headline": "PGL Masters Bucharest: в четвёртом раунде Spirit сыграет с MOUZ, Vitality — с NAVI",
       "link": "https://www.hltv.org/news/45822/pgl-masters-bucharest-round-4-matchups-set",
       "score": 8
+    },
+    {
+      "headline": "Aleksib: «Мы ничего не праздновали насчёт Major — каждый из нас рассчитывает туда попасть»",
+      "link": "https://www.hltv.org/news/45819/aleksib-we-were-not-celebrating-anything-that-revolves-around-the-major-every-one-of-us-expects-to-play-the-major",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-26",
