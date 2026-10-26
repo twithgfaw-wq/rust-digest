@@ -4505,6 +4505,10 @@
     [
       1793030391,
       111104
+    ],
+    [
+      1793030486,
+      110352
     ]
   ],
   "online_peaks": {
@@ -5199,7 +5203,7 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3816577482",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3818651870"
   ],
-  "rust_quiz_n": 7,
-  "rust_quiz_day": "2026-10-24",
+  "rust_quiz_n": 8,
+  "rust_quiz_day": "2026-10-26",
   "last_lb_week": "2026-43"
 }
