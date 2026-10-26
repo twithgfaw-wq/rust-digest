@@ -19,14 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792353567,
-      1031466
-    ],
-    [
-      1792353689,
-      1055635
-    ],
-    [
       1792355803,
       970852
     ],
@@ -2125,6 +2117,10 @@
     [
       1793044063,
       965685
+    ],
+    [
+      1793044908,
+      952350
     ]
   ],
   "online_peaks": {
@@ -2149,9 +2145,6 @@
     "2026-10-26": 1057072
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "💣 Твой канал про CS2 — {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📢 Подписывайся: {tag}",
     "📡 Не пропусти важное: {tag}",
@@ -2648,7 +2641,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "📢 Подписывайся: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3908,7 +3904,8 @@
     "hltvnews45815",
     "hltvnews45816",
     "hltvnews45817",
-    "hltvnews45818"
+    "hltvnews45818",
+    "hltvnews45820"
   ],
   "news_seen_t": [
     1788994268,
@@ -3938,6 +3935,11 @@
     {
       "headline": "BETBOOM обыграли NAVI и вышли в плей-офф",
       "link": "https://www.hltv.org/news/45818/betboom-romp-past-navi-to-make-playoffs",
+      "score": 8
+    },
+    {
+      "headline": "DENDELE выбили G2 с PGL Masters Bucharest",
+      "link": "https://www.hltv.org/news/45820/dendele-eliminate-lackluster-g2-from-pgl-masters-bucharest",
       "score": 8
     }
   ],
