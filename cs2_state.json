@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792350090,
-      1147049
-    ],
-    [
       1792350385,
       1122959
     ],
@@ -2125,6 +2121,10 @@
     [
       1793040864,
       975891
+    ],
+    [
+      1793041304,
+      976911
     ]
   ],
   "online_peaks": {
@@ -2149,9 +2149,6 @@
     "2026-10-26": 1057072
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "📢 Подписывайся: {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2648,7 +2645,10 @@
     "📡 Не пропусти важное: {tag}",
     "🔥 {tag} — CS2 без воды",
     "💣 Твой канал про CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2743,7 +2743,8 @@
     "2113760172803813810",
     "2113948627454591460",
     "2114461991062687829",
-    "2114723728927924368"
+    "2114723728927924368",
+    "2114627494792102193"
   ],
   "ws_scores": {
     "3815186169": {
@@ -3929,56 +3930,10 @@
   },
   "cs2_index_day": "2026-10-26",
   "ws_slot": "2026-10-26-20",
-  "comm_slot": "2026-10-26-17",
+  "comm_slot": "2026-10-26-21",
   "hltv_day": "2026-10-26",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "sAw о G2: «Сейчас мы стагнируем, а может, даже сделали пару шагов назад»",
-      "link": "https://www.hltv.org/news/45804/saw-right-now-its-like-were-stagnating-or-maybe-even-took-a-couple-of-steps-backward",
-      "score": 4
-    },
-    {
-      "headline": "Jee пропустит остаток PGL Masters Bucharest из-за ветрянки",
-      "link": "https://www.hltv.org/news/45808/jee-ruled-out-for-rest-of-pgl-masters-bucharest-with-chickenpox",
-      "score": 4
-    },
-    {
-      "headline": "Imperial выиграли Circuit X Curitiba",
-      "link": "https://www.hltv.org/news/45809/imperial-win-circuit-x-curitiba",
-      "score": 4
-    },
-    {
-      "headline": "MOUZ обыграли The MongolZ и вышли в пул 2-1",
-      "link": "https://www.hltv.org/news/45810/mouz-beat-the-mongolz-to-move-into-2-1-pool",
-      "score": 8
-    },
-    {
-      "headline": "FUT выбили Vitality и вышли в плей-офф PGL Masters",
-      "link": "https://www.hltv.org/news/45812/fut-sail-into-pgl-masters-playoffs-over-vitality",
-      "score": 8
-    },
-    {
-      "headline": "TYLOO без Jee выбили 9z в Bucharest",
-      "link": "https://www.hltv.org/news/45813/jee-less-tyloo-send-9z-packing-in-bucharest",
-      "score": 4
-    },
-    {
-      "headline": "ENCE подают на банкротство",
-      "link": "https://www.hltv.org/news/45814/ence-file-for-bankruptcy",
-      "score": 7
-    },
-    {
-      "headline": "Liquid обыграли Legacy и вышли на 2-1 в Бухаресте",
-      "link": "https://www.hltv.org/news/45816/liquid-beat-legacy-to-make-2-1-pool-in-bucharest",
-      "score": 5
-    },
-    {
-      "headline": "Spirit дожали FURIA и вышли на 2-1 в Bucharest",
-      "link": "https://www.hltv.org/news/45817/spirit-outlast-furia-to-reach-2-1-pool-in-bucharest",
-      "score": 8
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-26",
   "reddit_posted": [
     "1wzz7z0",
@@ -3998,7 +3953,7 @@
     "1xdjodf"
   ],
   "online_daily": "2026-10-26",
-  "hltv_digest_day": "2026-10-25",
+  "hltv_digest_day": "2026-10-26",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
