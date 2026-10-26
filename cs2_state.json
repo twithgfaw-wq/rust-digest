@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792330646,
-      1305265
-    ],
-    [
       1792332087,
       1332014
     ],
@@ -2129,6 +2125,10 @@
     [
       1793019708,
       969642
+    ],
+    [
+      1793021928,
+      1033692
     ]
   ],
   "online_peaks": {
@@ -2150,12 +2150,9 @@
     "2026-10-23": 1274983,
     "2026-10-24": 1334393,
     "2026-10-25": 1328680,
-    "2026-10-26": 969642
+    "2026-10-26": 1033692
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "💣 Твой канал про CS2 — {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📡 Не пропусти важное: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📌 Сохрани себе {tag}",
@@ -2652,7 +2649,10 @@
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📡 Не пропусти важное: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3853,7 +3853,8 @@
     "hltvnews45808",
     "hltvnews45809",
     "hltvnews45811",
-    "hltvnews45810"
+    "hltvnews45810",
+    "hltvnews45812"
   ],
   "news_seen_t": [
     1788994268,
@@ -3898,6 +3899,11 @@
     {
       "headline": "MOUZ обыграли The MongolZ и вышли в пул 2-1",
       "link": "https://www.hltv.org/news/45810/mouz-beat-the-mongolz-to-move-into-2-1-pool",
+      "score": 8
+    },
+    {
+      "headline": "FUT выбили Vitality и вышли в плей-офф PGL Masters",
+      "link": "https://www.hltv.org/news/45812/fut-sail-into-pgl-masters-playoffs-over-vitality",
       "score": 8
     }
   ],
