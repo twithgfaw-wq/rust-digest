@@ -1782,9 +1782,6 @@
     "ws_3818839436"
   ],
   "recent_phrases": [
-    "качество на уровне",
-    "🔔 Больше Rust — в {tag}",
-    "🎢 Качели маркета Rust: итоги",
     "Инвестиции в скины — дело тонкое 💼",
     "📢 Подписывайся: {tag}",
     "📺 Свежее видео от {author} уже на YouTube",
@@ -2281,7 +2278,10 @@
     "🔥 {tag} — Rust без воды",
     "Посмотрим, что из этого выйдет 😏",
     "📢 Свежее из официального X Rust",
-    "🎯 Играешь и в CS2? Новости и скины — в @cs2_me"
+    "🎯 Играешь и в CS2? Новости и скины — в @cs2_me",
+    "Кто, по-вашему, попадёт в игру? 🤔",
+    "📊 Рейтинг мастерской: топ-3 недели",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "store_seen": [
     "10198",
@@ -2402,10 +2402,6 @@
     "71211"
   ],
   "online_log": [
-    [
-      1792339315,
-      123050
-    ],
     [
       1792339360,
       123050
@@ -4509,6 +4505,10 @@
     [
       1793030486,
       110352
+    ],
+    [
+      1793030555,
+      111104
     ]
   ],
   "online_peaks": {
@@ -5078,11 +5078,11 @@
       "373ddb3f-7cff-4d2b-aed3-e488f9c72011": 262
     }
   },
-  "top_ts": 1792778518,
+  "top_ts": 1793030560,
   "top_last": [
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818451708",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816577482",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818651870"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3825132389",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3825130677",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3827537224"
   ],
   "elite_last_ts": 1793023309,
   "elite_slot": "2026-10-26-16",
@@ -5201,7 +5201,10 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3818968079",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3818451708",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3816577482",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818651870"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818651870",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3825132389",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3825130677",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3827537224"
   ],
   "rust_quiz_n": 8,
   "rust_quiz_day": "2026-10-26",
