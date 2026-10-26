@@ -894,10 +894,14 @@
     "https://www.dezeen.com/2026/10/26/dezeen-awards-public-vote-winner-architecture-2026",
     "https://www.wallpaper.com/design-interiors/furniture/marfa-stance-furniture-stephen-kenn-studio-gees-bend",
     "https://www.wallpaper.com/fashion-beauty/celine-silk-scarves-michael-rider",
-    "https://www.fastcompany.com/91627575/this-gadget-uses-ai-to-listen-to-plants-and-translate-what-they-say?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
+    "https://www.fastcompany.com/91627575/this-gadget-uses-ai-to-listen-to-plants-and-translate-what-they-say?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.designboom.com/design/stefan-sagmeisters-la-gaite-lyrique",
+    "https://www.designboom.com/architecture/ryue-nishizawa-vivid-orange-peak-turquoise-landfill-japan-setouchi-art-industry-2026-sanaa-kazuyo-sejima",
+    "https://www.fastcompany.com/91628418/trump-is-playing-real-estate-developer-with-national-treasures-this-group-is-fighting-back?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.fastcompany.com/91627484/uc-berkeley-ai-research-gateway-building-weiss-manfredi?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
   ],
   "day": "2026-10-26",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1108,6 +1112,12 @@
       "title": "Apple Music отримав логотип, який буквально зробив звук",
       "link": "https://www.dezeen.com/2026/10/26/apple-music-logo-physically-made-by-sound",
       "src": "Dezeen"
+    },
+    {
+      "t": 1793012505.0637763,
+      "title": "Stefan Sagmeister перетворив світову статистику на добрі новини",
+      "link": "https://www.designboom.com/design/stefan-sagmeisters-la-gaite-lyrique",
+      "src": "designboom"
     }
   ],
   "queue": [],
@@ -1187,7 +1197,8 @@
     "Січнева ожеледь у Києві",
     "Гуцульський ліжник",
     "Березневий бузок і лід",
-    "Борщ на бабусиній кухні"
+    "Борщ на бабусиній кухні",
+    "Опішнянська кераміка"
   ],
-  "palette_day": "2026-10-25"
+  "palette_day": "2026-10-26"
 }
