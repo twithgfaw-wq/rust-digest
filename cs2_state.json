@@ -19,14 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792424999,
-      1079660
-    ],
-    [
-      1792425690,
-      1043715
-    ],
-    [
       1792427910,
       1039126
     ],
@@ -2105,6 +2097,10 @@
     [
       1793114839,
       1044360
+    ],
+    [
+      1793117008,
+      983736
     ]
   ],
   "online_peaks": {
@@ -2130,9 +2126,6 @@
     "2026-10-27": 1135191
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📡 Не пропусти важное: {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "🔥 {tag} — CS2 без воды",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📢 Подписывайся: {tag}",
@@ -2629,7 +2622,10 @@
     "📡 Не пропусти важное: {tag}",
     "📌 Сохрани себе {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3676,15 +3672,8 @@
     "3828166266"
   ],
   "price_day": "2026-10-27",
-  "invest_day": "2026-10-26",
+  "invest_day": "2026-10-27",
   "invest_days": {
-    "2026-10-20": [
-      "Paris 2023 Vertigo Souvenir Package",
-      "Anubis Collection Package",
-      "CS:GO Weapon Case",
-      "Winter Offensive Weapon Case",
-      "Horizon Case"
-    ],
     "2026-10-21": [
       "Rio 2022 Dust II Souvenir Package",
       "Paris 2023 Mirage Souvenir Package",
@@ -3726,6 +3715,13 @@
       "Winter Offensive Weapon Case",
       "Paris 2023 Vertigo Souvenir Package",
       "Horizon Case"
+    ],
+    "2026-10-27": [
+      "Rio 2022 Dust II Souvenir Package",
+      "Operation Bravo Case",
+      "Paris 2023 Mirage Souvenir Package",
+      "Shadow Case",
+      "Chroma 3 Case"
     ]
   },
   "sod_seen": [
@@ -3931,7 +3927,9 @@
     "hltvnews45823",
     "hltvnews45824",
     "hltvnews45827",
-    "hltvnews45826"
+    "hltvnews45826",
+    "hltvnews45828",
+    "hltvnews45829"
   ],
   "news_seen_t": [
     1788994268,
@@ -3996,6 +3994,16 @@
     {
       "headline": "Aurora дожали Liquid и вышли в плей-офф Bucharest",
       "link": "https://www.hltv.org/news/45826/aurora-eke-out-a-win-over-liquid-to-qualify-for-bucharest-playoffs",
+      "score": 7
+    },
+    {
+      "headline": "Aleksib осуждён за налоговое мошенничество в крупном размере",
+      "link": "https://www.hltv.org/news/45828/aleksib-convicted-of-aggravated-tax-fraud",
+      "score": 9
+    },
+    {
+      "headline": "FaZe выиграли группу на RLG Tesla Cup и почти обеспечили себе Major",
+      "link": "https://www.hltv.org/news/45829/faze-take-significant-step-toward-major-after-topping-rlg-tesla-cup-group",
       "score": 7
     }
   ],
@@ -4560,10 +4568,40 @@
       "verdict": "watch",
       "price": 1.29,
       "date": "2026-10-26"
+    },
+    {
+      "name": "Rio 2022 Dust II Souvenir Package",
+      "verdict": "watch",
+      "price": 2.63,
+      "date": "2026-10-27"
+    },
+    {
+      "name": "Operation Bravo Case",
+      "verdict": "watch",
+      "price": 50.61,
+      "date": "2026-10-27"
+    },
+    {
+      "name": "Paris 2023 Mirage Souvenir Package",
+      "verdict": "buy",
+      "price": 2.38,
+      "date": "2026-10-27"
+    },
+    {
+      "name": "Shadow Case",
+      "verdict": "watch",
+      "price": 1.38,
+      "date": "2026-10-27"
+    },
+    {
+      "name": "Chroma 3 Case",
+      "verdict": "watch",
+      "price": 2.94,
+      "date": "2026-10-27"
     }
   ],
-  "cs2_quiz_n": 8,
-  "cs2_quiz_day": "2026-10-25",
+  "cs2_quiz_n": 9,
+  "cs2_quiz_day": "2026-10-27",
   "cs2_index_steam": {
     "2026-10-10": 2,
     "2026-10-11": 7,
