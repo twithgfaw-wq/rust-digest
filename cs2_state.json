@@ -19,14 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792435711,
-      1105119
-    ],
-    [
-      1792436109,
-      1105119
-    ],
-    [
       1792436491,
       1096265
     ],
@@ -2089,6 +2081,10 @@
     [
       1793125199,
       1028991
+    ],
+    [
+      1793127538,
+      1040756
     ]
   ],
   "online_peaks": {
@@ -2114,9 +2110,6 @@
     "2026-10-27": 1135191
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "👉 Подписывайся на {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
@@ -2613,7 +2606,10 @@
     "🔥 {tag} — CS2 без воды",
     "👉 Подписывайся на {tag}",
     "📡 Не пропусти важное: {tag}",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3926,7 +3922,8 @@
     "hltvnews45828",
     "hltvnews45829",
     "hltvnews45830",
-    "hltvnews45831"
+    "hltvnews45831",
+    "hltvnews45825"
   ],
   "news_seen_t": [
     1788994268,
@@ -4012,6 +4009,11 @@
       "headline": "FURIA разгромили TYLOO и остались в борьбе в Bucharest",
       "link": "https://www.hltv.org/news/45831/furia-stomp-tyloo-to-survive-in-bucharest",
       "score": 5
+    },
+    {
+      "headline": "KaiR0N- о выходе на Major: «Я слишком много раз проваливался, чтобы не наслаждаться»",
+      "link": "https://www.hltv.org/news/45825/kair0n-on-making-the-major-i-failed-way-too-many-times-to-not-just-enjoy-it",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-27",
