@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792443691,
-      853556
-    ],
-    [
       1792444256,
       810169
     ],
@@ -2081,6 +2077,10 @@
     [
       1793134436,
       918770
+    ],
+    [
+      1793134911,
+      918770
     ]
   ],
   "online_peaks": {
@@ -2106,9 +2106,6 @@
     "2026-10-27": 1135191
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "👀 Следи за CS2 вместе с {tag}",
-    "📢 Подписывайся: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📌 Сохрани себе {tag}",
@@ -2605,7 +2602,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📢 Подписывайся: {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🔥 {tag} — CS2 без воды",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3921,7 +3921,8 @@
     "hltvnews45831",
     "hltvnews45825",
     "hltvnews45834",
-    "hltvnews45833"
+    "hltvnews45833",
+    "hltvnews45836"
   ],
   "news_seen_t": [
     1788994268,
@@ -3957,6 +3958,11 @@
       "headline": "Spirit и NAVI сыграют главный матч пятого дня PGL Masters",
       "link": "https://www.hltv.org/news/45833/spirit-navi-to-headline-pgl-masters-day-five",
       "score": 8
+    },
+    {
+      "headline": "jabbi возвращается в Astralis на Stake Ranked ради инвайта на Major",
+      "link": "https://www.hltv.org/news/45836/jabbi-returns-to-astralis-for-stake-ranked-to-help-salvage-major-invite",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-27",
