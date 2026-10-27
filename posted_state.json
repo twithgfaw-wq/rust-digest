@@ -2441,10 +2441,6 @@
   ],
   "online_log": [
     [
-      1792404099,
-      58524
-    ],
-    [
       1792404493,
       58063
     ],
@@ -4543,6 +4539,10 @@
     [
       1793094542,
       70322
+    ],
+    [
+      1793095321,
+      71477
     ]
   ],
   "online_peaks": {
@@ -4567,7 +4567,7 @@
     "2026-10-24": 131872,
     "2026-10-25": 126600,
     "2026-10-26": 113807,
-    "2026-10-27": 70322
+    "2026-10-27": 71477
   },
   "x_last_id": "2114733741947912220",
   "market_snaps": {
@@ -5142,9 +5142,10 @@
     "No Mercy Wood Gloves",
     "UAP Bearskin Rug",
     "Moo-Moo Sheet Metal Door",
-    "Amethyst Geode Rock"
+    "Amethyst Geode Rock",
+    "No Mercy Small Backpack"
   ],
-  "rsod_day": "2026-10-26",
+  "rsod_day": "2026-10-27",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
