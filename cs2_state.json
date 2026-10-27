@@ -19,14 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792448611,
-      611225
-    ],
-    [
-      1792449526,
-      585986
-    ],
-    [
       1792451260,
       549013
     ],
@@ -2085,6 +2077,10 @@
     [
       1793139294,
       579623
+    ],
+    [
+      1793141633,
+      575675
     ]
   ],
   "online_peaks": {
@@ -2110,9 +2106,6 @@
     "2026-10-27": 1135191
   },
   "recent_phrases": [
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "💣 Твой канал про CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "👉 Подписывайся на {tag}",
     "📡 Не пропусти важное: {tag}",
@@ -2609,7 +2602,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔥 {tag} — CS2 без воды",
     "📌 Сохрани себе {tag}",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "💣 Твой канал про CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3927,7 +3923,8 @@
     "hltvnews45834",
     "hltvnews45833",
     "hltvnews45836",
-    "hltvnews45832"
+    "hltvnews45832",
+    "hltvnews45837"
   ],
   "news_seen_t": [
     1788994268,
@@ -3951,7 +3948,7 @@
   "cs2_index_day": "2026-10-27",
   "ws_slot": "2026-10-27-20",
   "comm_slot": "2026-10-27-21",
-  "hltv_day": "2026-10-27",
+  "hltv_day": "2026-10-28",
   "hltv_count": 0,
   "hltv_digest": [
     {
@@ -3972,6 +3969,11 @@
     {
       "headline": "torzsi о победе над Spirit: «Перед последней картой они немного трэштокали»",
       "link": "https://www.hltv.org/news/45832/torzsi-on-beating-spirit-they-trash-talked-us-a-little-before-the-last-map-so-it-was-a-nice-statement-to-win",
+      "score": 4
+    },
+    {
+      "headline": "Twistzz: «Хочу приносить в FaZe хорошее настроение»",
+      "link": "https://www.hltv.org/news/45837/twistzz-sometimes-im-the-one-dampening-the-good-mood-these-young-players-dont-deserve-that-so-now-ill-just-bring-in-the-good-vibes",
       "score": 4
     }
   ],
