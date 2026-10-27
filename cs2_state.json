@@ -19,18 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792438713,
-      1063392
-    ],
-    [
-      1792438943,
-      1047686
-    ],
-    [
-      1792440091,
-      1018930
-    ],
-    [
       1792442311,
       911273
     ],
@@ -2089,6 +2077,10 @@
     [
       1793129172,
       1045738
+    ],
+    [
+      1793131313,
+      1014975
     ]
   ],
   "online_peaks": {
@@ -2114,9 +2106,6 @@
     "2026-10-27": 1135191
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🔔 Больше CS2 — в {tag}",
@@ -2613,7 +2602,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📡 Не пропусти важное: {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3927,7 +3919,9 @@
     "hltvnews45829",
     "hltvnews45830",
     "hltvnews45831",
-    "hltvnews45825"
+    "hltvnews45825",
+    "hltvnews45834",
+    "hltvnews45833"
   ],
   "news_seen_t": [
     1788994268,
@@ -3953,7 +3947,18 @@
   "comm_slot": "2026-10-27-21",
   "hltv_day": "2026-10-27",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "Vitality разгромили NAVI и вышли в плей-офф в Бухаресте",
+      "link": "https://www.hltv.org/news/45834/vitality-crush-navi-to-make-bucharest-playoffs",
+      "score": 9
+    },
+    {
+      "headline": "Spirit и NAVI сыграют главный матч пятого дня PGL Masters",
+      "link": "https://www.hltv.org/news/45833/spirit-navi-to-headline-pgl-masters-day-five",
+      "score": 8
+    }
+  ],
   "reddit_day": "2026-10-27",
   "reddit_posted": [
     "1wzz7z0",
