@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792436491,
-      1096265
-    ],
-    [
       1792438713,
       1063392
     ],
@@ -2085,6 +2081,10 @@
     [
       1793127538,
       1040756
+    ],
+    [
+      1793127713,
+      1040756
     ]
   ],
   "online_peaks": {
@@ -2110,9 +2110,6 @@
     "2026-10-27": 1135191
   },
   "recent_phrases": [
-    "👀 Следи за CS2 вместе с {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "📌 Сохрани себе {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
     "📢 Подписывайся: {tag}",
@@ -2609,7 +2606,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "📌 Сохрани себе {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3946,76 +3946,10 @@
   },
   "cs2_index_day": "2026-10-27",
   "ws_slot": "2026-10-27-20",
-  "comm_slot": "2026-10-27-17",
+  "comm_slot": "2026-10-27-21",
   "hltv_day": "2026-10-27",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "BETBOOM обыграли NAVI и вышли в плей-офф",
-      "link": "https://www.hltv.org/news/45818/betboom-romp-past-navi-to-make-playoffs",
-      "score": 8
-    },
-    {
-      "headline": "DENDELE выбили G2 с PGL Masters Bucharest",
-      "link": "https://www.hltv.org/news/45820/dendele-eliminate-lackluster-g2-from-pgl-masters-bucharest",
-      "score": 8
-    },
-    {
-      "headline": "PGL Masters Bucharest: в четвёртом раунде Spirit сыграет с MOUZ, Vitality — с NAVI",
-      "link": "https://www.hltv.org/news/45822/pgl-masters-bucharest-round-4-matchups-set",
-      "score": 8
-    },
-    {
-      "headline": "Aleksib: «Мы ничего не праздновали насчёт Major — каждый из нас рассчитывает туда попасть»",
-      "link": "https://www.hltv.org/news/45819/aleksib-we-were-not-celebrating-anything-that-revolves-around-the-major-every-one-of-us-expects-to-play-the-major",
-      "score": 4
-    },
-    {
-      "headline": "shalfey о первом интернациональном проекте: «Это момент камбэка»",
-      "link": "https://www.hltv.org/news/45821/shalfey-i-was-just-excited-by-the-feeling-that-this-moment-had-come-the-comeback-moment",
-      "score": 4
-    },
-    {
-      "headline": "FL4MUS пропустит стартовый матч на RLG Tesla Cup",
-      "link": "https://www.hltv.org/news/45823/fl4mus-to-miss-rlg-tesla-cup-opener",
-      "score": 4
-    },
-    {
-      "headline": "The MongolZ выбили Legacy из турнира в Bucharest",
-      "link": "https://www.hltv.org/news/45827/the-mongolz-eliminate-legacy-from-bucharest",
-      "score": 8
-    },
-    {
-      "headline": "Aurora дожали Liquid и вышли в плей-офф Bucharest",
-      "link": "https://www.hltv.org/news/45826/aurora-eke-out-a-win-over-liquid-to-qualify-for-bucharest-playoffs",
-      "score": 7
-    },
-    {
-      "headline": "Aleksib осуждён за налоговое мошенничество в крупном размере",
-      "link": "https://www.hltv.org/news/45828/aleksib-convicted-of-aggravated-tax-fraud",
-      "score": 9
-    },
-    {
-      "headline": "FaZe выиграли группу на RLG Tesla Cup и почти обеспечили себе Major",
-      "link": "https://www.hltv.org/news/45829/faze-take-significant-step-toward-major-after-topping-rlg-tesla-cup-group",
-      "score": 7
-    },
-    {
-      "headline": "MOUZ обыграли Spirit вопреки masterclass от donk и вышли в плей-офф PGL Masters",
-      "link": "https://www.hltv.org/news/45830/mouz-overcome-donk-masterclass-to-make-pgl-masters-playoffs",
-      "score": 8
-    },
-    {
-      "headline": "FURIA разгромили TYLOO и остались в борьбе в Bucharest",
-      "link": "https://www.hltv.org/news/45831/furia-stomp-tyloo-to-survive-in-bucharest",
-      "score": 5
-    },
-    {
-      "headline": "KaiR0N- о выходе на Major: «Я слишком много раз проваливался, чтобы не наслаждаться»",
-      "link": "https://www.hltv.org/news/45825/kair0n-on-making-the-major-i-failed-way-too-many-times-to-not-just-enjoy-it",
-      "score": 4
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-27",
   "reddit_posted": [
     "1wzz7z0",
@@ -4036,7 +3970,7 @@
     "1xfuz6z"
   ],
   "online_daily": "2026-10-27",
-  "hltv_digest_day": "2026-10-26",
+  "hltv_digest_day": "2026-10-27",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
