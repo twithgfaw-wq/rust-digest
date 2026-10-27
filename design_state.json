@@ -928,10 +928,12 @@
     "https://www.creativebloq.com/news/xppens-new-magic-pro-13-is-an-android-drawing-tablet-that-turns-into-a-pen-display",
     "https://abduzeedo.com/franki-branding-inside-kotos-new-identity",
     "https://www.designboom.com/architecture/mold-terracotta-greek-island-m-residence-courtyards",
-    "https://abduzeedo.com/wa3rm-inside-lundgrenlindqvist-packaging-design"
+    "https://abduzeedo.com/wa3rm-inside-lundgrenlindqvist-packaging-design",
+    "https://www.creativeboom.com/work/this-rebrand-ditches-every-law-firm-cliche-as-white-case-loses-the-navy-blue",
+    "https://www.creativeboom.com/books/take-a-trip-back-to-perths-rave-scene-in-simon-wrights-design-retrospective"
   ],
   "day": "2026-10-27",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1166,6 +1168,12 @@
       "title": "Тепло картонної фабрики стало томатами, а її картон — коробкою для них",
       "link": "https://abduzeedo.com/wa3rm-inside-lundgrenlindqvist-packaging-design",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1793084333.8590174,
+      "title": "White & Case прощається з темно-синім: Uncommon ламає кліше юрфірм",
+      "link": "https://www.creativeboom.com/work/this-rebrand-ditches-every-law-firm-cliche-as-white-case-loses-the-navy-blue",
+      "src": "Creative Boom"
     }
   ],
   "queue": [],
