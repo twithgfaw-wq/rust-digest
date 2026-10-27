@@ -932,10 +932,13 @@
     "https://www.creativeboom.com/work/this-rebrand-ditches-every-law-firm-cliche-as-white-case-loses-the-navy-blue",
     "https://www.creativeboom.com/books/take-a-trip-back-to-perths-rave-scene-in-simon-wrights-design-retrospective",
     "https://www.creativeboom.com/work/cesar-cid-turns-famous-artists-into-letters-in-his-playful-alphabet-series",
-    "https://www.creativeboom.com/books/socialist-hotels-relive-the-concrete-dreams-of-the-soviet-era-with-this-beautiful-photobook"
+    "https://www.creativeboom.com/books/socialist-hotels-relive-the-concrete-dreams-of-the-soviet-era-with-this-beautiful-photobook",
+    "https://www.dezeen.com/2026/10/27/other-worlds-es-devlin-exhibition-retrospective-design-museum-london-interview-video",
+    "https://www.designboom.com/design/fictional-beverage-warning-fake-news-dysturb-source-s-campaign",
+    "https://www.creativeboom.com/type-drop/the-best-new-typefaces-for-october-2026"
   ],
   "day": "2026-10-27",
-  "day_count": 3,
+  "day_count": 4,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1176,6 +1179,12 @@
       "title": "White & Case прощається з темно-синім: Uncommon ламає кліше юрфірм",
       "link": "https://www.creativeboom.com/work/this-rebrand-ditches-every-law-firm-cliche-as-white-case-loses-the-navy-blue",
       "src": "Creative Boom"
+    },
+    {
+      "t": 1793088111.3954036,
+      "title": "Es Devlin у Design Museum: від простого жесту до монументальних світів",
+      "link": "https://www.dezeen.com/2026/10/27/other-worlds-es-devlin-exhibition-retrospective-design-museum-london-interview-video",
+      "src": "Dezeen"
     }
   ],
   "queue": [],
