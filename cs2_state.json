@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792446321,
-      716583
-    ],
-    [
       1792448611,
       611225
     ],
@@ -2081,6 +2077,10 @@
     [
       1793135734,
       894548
+    ],
+    [
+      1793138033,
+      788185
     ]
   ],
   "online_peaks": {
@@ -2106,9 +2106,6 @@
     "2026-10-27": 1135191
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "📡 Не пропусти важное: {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📢 Подписывайся: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
@@ -2605,7 +2602,10 @@
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3922,7 +3922,8 @@
     "hltvnews45825",
     "hltvnews45834",
     "hltvnews45833",
-    "hltvnews45836"
+    "hltvnews45836",
+    "hltvnews45832"
   ],
   "news_seen_t": [
     1788994268,
@@ -3963,6 +3964,11 @@
       "headline": "jabbi возвращается в Astralis на Stake Ranked ради инвайта на Major",
       "link": "https://www.hltv.org/news/45836/jabbi-returns-to-astralis-for-stake-ranked-to-help-salvage-major-invite",
       "score": 6
+    },
+    {
+      "headline": "torzsi о победе над Spirit: «Перед последней картой они немного трэштокали»",
+      "link": "https://www.hltv.org/news/45832/torzsi-on-beating-spirit-they-trash-talked-us-a-little-before-the-last-map-so-it-was-a-nice-statement-to-win",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-27",
