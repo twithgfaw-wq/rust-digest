@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792515690,
-      1034623
-    ],
-    [
       1792516601,
       1037478
     ],
@@ -2081,6 +2077,10 @@
     [
       1793206628,
       1057484
+    ],
+    [
+      1793206916,
+      1063867
     ]
   ],
   "online_peaks": {
@@ -2107,10 +2107,6 @@
     "2026-10-28": 1267867
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "👉 Подписывайся на {tag}",
-    "📢 Подписывайся: {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "🔥 {tag} — CS2 без воды",
     "💣 Твой канал про CS2 — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2606,7 +2602,11 @@
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "Spectrum 2 Case: в плюс выходит примерно одно открытие из 18.",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3790,9 +3790,10 @@
   "ev_seen": [
     "Dreams & Nightmares Case",
     "Danger Zone Case",
-    "Operation Breakout Weapon Case"
+    "Operation Breakout Weapon Case",
+    "Spectrum 2 Case"
   ],
-  "ev_week": "2026-43",
+  "ev_week": "2026-44",
   "duel_used": [
     "M4A1-S | Nightmare",
     "AK-47 | Midnight Laminate",
