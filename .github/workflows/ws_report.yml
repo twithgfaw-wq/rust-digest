@@ -1,0 +1,33 @@
+name: WS Report
+
+# Разовый отчёт по мастерской CS для сюжета (28.10.2026): соавторы принятых
+# работ и их активность. Только ручной запуск, ничего не публикует.
+# Временный — удалить после сбора.
+on:
+  workflow_dispatch:
+    inputs:
+      recheck:
+        description: "SteamID для повторной проверки (через запятую)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Отчёт
+        env:
+          RECHECK: ${{ inputs.recheck }}
+        run: python ws_report.py ${{ matrix.shard }} 8
