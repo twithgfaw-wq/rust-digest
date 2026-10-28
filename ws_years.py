@@ -21,19 +21,27 @@ SKIN_TAGS = {"Weapon Finish", "Sticker", "Charm", "Gloves", "Knife", "Agent",
 CS2 = datetime(2023, 9, 27, tzinfo=timezone.utc).timestamp()   # релиз CS2
 
 
+ERRORS = Counter()
+
+
 def call(method, params):
     url = API + method + "/v1/?" + urllib.parse.urlencode(dict(params, key=KEY))
-    for k in range(5):
+    for k in range(3):
         try:
             with urllib.request.urlopen(url, timeout=40) as r:
                 return json.loads(r.read().decode("utf-8", "replace")).get(
                     "response", {})
         except urllib.error.HTTPError as e:
-            print("  HTTP", e.code, method, flush=True)
-            time.sleep(20 * (k + 1))
+            ERRORS[(method, e.code)] += 1
+            if ERRORS[(method, e.code)] <= 3:
+                print("  HTTP", e.code, method,
+                      e.read().decode("utf-8", "replace")[:200], flush=True)
+            if e.code not in (429, 500, 502, 503):
+                return None              # ошибка запроса — не повторяем
+            time.sleep(10 * (k + 1))
         except Exception as e:
             print("  ", type(e).__name__, method, flush=True)
-            time.sleep(10)
+            time.sleep(5)
     return None
 
 
@@ -72,7 +80,7 @@ def user_files(sid):
         for it in res:
             tags = {t.get("tag") for t in it.get("tags") or []}
             out.append((it.get("time_created", 0), bool(tags & SKIN_TAGS)))
-        if not res or len(out) >= int(r.get("total", 0) or 0):
+        if not res or len(out) >= int(r.get("total", 0) or 0) or page >= 20:
             return out
         page += 1
         time.sleep(0.3)
@@ -82,17 +90,32 @@ def main():
     if not KEY:
         print("Нет STEAM_API_KEY")
         return
-    acc = accepted()
     by_author = defaultdict(list)
-    for creator, created in acc.values():
-        if creator:
-            by_author[creator].append(created)
-    print(f"принятых работ (API): {len(acc)}; авторов: {len(by_author)}",
-          flush=True)
-    vet = {a for a, c in by_author.items() if any(t < CS2 for t in c)}
+    listed = [s for s in os.environ.get("AUTHORS", "").split(",") if s]
+    if listed:      # полный список авторов (API отдаёт только принятые под CS2)
+        for sid in listed:
+            by_author[sid] = []
+        vet = {s for s in os.environ.get("VETERANS", "").split(",") if s}
+        print(f"авторов из списка: {len(by_author)}, ветеранов: {len(vet)}",
+              flush=True)
+    else:
+        acc = accepted()
+        for creator, created in acc.values():
+            if creator:
+                by_author[creator].append(created)
+        print(f"принятых работ (API): {len(acc)}; авторов: {len(by_author)}",
+              flush=True)
+        vet = {a for a, c in by_author.items() if any(t < CS2 for t in c)}
     files, missing = {}, []
+    start = time.time()
     for n, sid in enumerate(sorted(by_author), 1):
+        if time.time() - start > 50 * 60:
+            print("лимит времени — печатаю то, что собрано", flush=True)
+            break
         f = user_files(sid)
+        if n == 1:
+            print("первый автор:", sid, "работ:", None if f is None else len(f),
+                  flush=True)
         if f is None:
             missing.append(sid)
         else:
@@ -100,6 +123,7 @@ def main():
         if n % 50 == 0:
             print(f"авторы {n}/{len(by_author)}", flush=True)
         time.sleep(0.3)
+    print("ошибки API:", dict(ERRORS))
     print(f"собрано авторов: {len(files)}, не ответило: {len(missing)}; "
           f"всего их работ в мастерской CS: {sum(len(f) for f in files.values())}"
           f" (скины/стикеры/брелоки: "
@@ -119,15 +143,20 @@ def main():
     now = datetime(2026, 10, 28, tzinfo=timezone.utc).timestamp()
     b = Counter()
     for a, f in files.items():
-        last = max([t for t, s in f if s] + by_author[a])
+        last = max([t for t, s in f if s] + by_author[a] + [0])
+        if not last:
+            b["нет работ в профиле"] += 1
+            continue
         d = (now - last) / 86400
         b["≤3 мес" if d <= 92 else "3–12 мес" if d <= 365 else "1–2 года"
           if d <= 730 else "2–4 года" if d <= 1461 else ">4 лет"] += 1
     print({k: b[k] for k in ["≤3 мес", "3–12 мес", "1–2 года", "2–4 года",
-                             ">4 лет"]})
+                             ">4 лет", "нет работ в профиле"]})
     vb = Counter()
     for a in vet & set(files):
-        last = max([t for t, s in files[a] if s] + by_author[a])
+        last = max([t for t, s in files[a] if s] + by_author[a] + [0])
+        if not last:
+            continue
         vb["загружали после выхода CS2" if last >= CS2 else
            "ничего после выхода CS2"] += 1
     print("ветераны CS:GO:", dict(vb), "из", len(vet & set(files)))
