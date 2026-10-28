@@ -5,6 +5,15 @@ name: WS Years
 # публикует. Временный — удалить после сбора.
 on:
   workflow_dispatch:
+    inputs:
+      authors:
+        description: "SteamID авторов с принятыми работами (через запятую)"
+        required: false
+        default: ""
+      veterans:
+        description: "SteamID ветеранов CS:GO (через запятую)"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -12,7 +21,7 @@ permissions:
 jobs:
   report:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,4 +30,6 @@ jobs:
       - name: Отчёт
         env:
           STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+          AUTHORS: ${{ inputs.authors }}
+          VETERANS: ${{ inputs.veterans }}
         run: python ws_years.py
