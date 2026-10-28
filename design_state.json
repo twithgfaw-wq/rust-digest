@@ -980,10 +980,13 @@
     "https://abduzeedo.com/ballet-national-de-marseille-kinetic-web-design-css-type",
     "https://www.creativeboom.com/books/tom-hegen-explores-the-landscapes-that-are-paying-an-invisible-price-for-clean-energy",
     "https://www.creativeboom.com/work/spans-identity-for-illinois-department-of-human-rights-turns-a-common-piece-of-punctuation-into-a-rallying-cry",
-    "https://www.wallpaper.com/design-interiors/robert-wilson-memoir-the-space-behind-the-face"
+    "https://www.wallpaper.com/design-interiors/robert-wilson-memoir-the-space-behind-the-face",
+    "https://www.creativeboom.com/news/royal-portrait-painter-swaps-palaces-for-a-barnsley-chippy-a-catford-corner-shop-and-a-pub-run-by-slugger",
+    "https://www.creativeboom.com/work/how-mother-design-turned-a-seance-into-a-new-identity-for-purple-garden",
+    "https://www.designboom.com/art/edible-sculptures-snap-button-metal-armatures-philip-johnson-wolfhouse-ny-studio-no-29"
   ],
   "day": "2026-10-28",
-  "day_count": 0,
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1236,10 +1239,16 @@
       "title": "COLLINS дали голос Muse Group — компанії за Audacity і MuseScore",
       "link": "https://abduzeedo.com/how-collins-reimagined-branding-muse-group",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1793170913.5160606,
+      "title": "Mother Design почали ребрендинг Purple Garden зі спіритичного сеансу",
+      "link": "https://www.creativeboom.com/work/how-mother-design-turned-a-seance-into-a-new-identity-for-purple-garden",
+      "src": "Creative Boom"
     }
   ],
   "queue": [],
-  "font_day": "2026-10-27",
+  "font_day": "2026-10-28",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -1258,7 +1267,8 @@
     "Press Start 2P",
     "Striper",
     "Wix Madefor Text",
-    "Play"
+    "Play",
+    "General Sans"
   ],
   "quiz_day": "2026-10-27",
   "quiz_fonts": [
