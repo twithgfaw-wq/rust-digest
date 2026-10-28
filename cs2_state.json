@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792509306,
-      1123548
-    ],
-    [
       1792511613,
       1069673
     ],
@@ -2077,6 +2073,10 @@
     [
       1793199713,
       1219477
+    ],
+    [
+      1793201933,
+      1108824
     ]
   ],
   "online_peaks": {
@@ -2103,9 +2103,6 @@
     "2026-10-28": 1267867
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "💣 Твой канал про CS2 — {tag}",
@@ -2602,7 +2599,10 @@
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📡 Не пропусти важное: {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3976,7 +3976,8 @@
     "hltvnews45837",
     "hltvnews45835",
     "hltvnews45838",
-    "hltvnews45839"
+    "hltvnews45839",
+    "hltvnews45840"
   ],
   "news_seen_t": [
     1788994268,
@@ -4042,6 +4043,11 @@
       "headline": "Nemiga прошла в плей-офф PGL Masters Bucharest, выбив The MongolZ",
       "link": "https://www.hltv.org/news/45839/nemiga-through-to-pgl-masters-bucharest-playoffs-over-the-mongolz",
       "score": 8
+    },
+    {
+      "headline": "FURIA обыграли Liquid и вышли в четвертьфинал PGL Masters",
+      "link": "https://www.hltv.org/news/45840/furia-go-to-pgl-masters-quarters-over-liquid",
+      "score": 7
     }
   ],
   "reddit_day": "2026-10-28",
