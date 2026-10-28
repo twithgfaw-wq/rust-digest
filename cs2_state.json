@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792496470,
-      819305
-    ],
-    [
       1792497692,
       872038
     ],
@@ -2077,6 +2073,10 @@
     [
       1793187531,
       892292
+    ],
+    [
+      1793188245,
+      930915
     ]
   ],
   "online_peaks": {
@@ -2100,12 +2100,9 @@
     "2026-10-25": 1328680,
     "2026-10-26": 1057072,
     "2026-10-27": 1135191,
-    "2026-10-28": 892292
+    "2026-10-28": 930915
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📡 Не пропусти важное: {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📢 Подписывайся: {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2602,7 +2599,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👉 Подписывайся на {tag}",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3948,7 +3948,8 @@
     "hltvnews45836",
     "hltvnews45832",
     "hltvnews45837",
-    "hltvnews45835"
+    "hltvnews45835",
+    "hltvnews45838"
   ],
   "news_seen_t": [
     1788994268,
@@ -4004,6 +4005,11 @@
       "headline": "jL: Vitality — лучшая команда мира, потому что умеет закрывать слабые места игроков",
       "link": "https://www.hltv.org/news/45835/jl-this-is-why-vitality-is-the-best-team-in-the-world-they-have-the-ability-to-cover-for-players",
       "score": 4
+    },
+    {
+      "headline": "Legacy меняют n1ssim на ksloks",
+      "link": "https://www.hltv.org/news/45838/media-ksloks-replaces-n1ssim-on-legacy",
+      "score": 5
     }
   ],
   "reddit_day": "2026-10-27",
