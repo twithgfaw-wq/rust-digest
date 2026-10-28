@@ -19,14 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792522113,
-      1057127
-    ],
-    [
-      1792522236,
-      1057127
-    ],
-    [
       1792522891,
       1036222
     ],
@@ -2081,6 +2073,10 @@
     [
       1793212736,
       1102062
+    ],
+    [
+      1793213780,
+      1104823
     ]
   ],
   "online_peaks": {
@@ -2107,9 +2103,6 @@
     "2026-10-28": 1267867
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👀 Следи за CS2 вместе с {tag}",
     "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
@@ -2606,7 +2599,10 @@
     "📢 Подписывайся: {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3997,7 +3993,8 @@
     "hltvnews45839",
     "hltvnews45840",
     "hltvnews45841",
-    "hltvnews45842"
+    "hltvnews45842",
+    "hltvnews45843"
   ],
   "news_seen_t": [
     1788994268,
@@ -4073,6 +4070,11 @@
       "headline": "YEKINDAR: «Мы точно играем лучше, до Thunderpick мы играли намного хуже»",
       "link": "https://www.hltv.org/news/45842/yekindar-were-definitely-playing-better-before-thunderpick-we-played-a-lot-worse",
       "score": 4
+    },
+    {
+      "headline": "NAVI обыграли Spirit и забрали последнюю путёвку в плей-офф в Bucharest",
+      "link": "https://www.hltv.org/news/45843/navi-embarrass-spirit-for-last-playoff-berth",
+      "score": 9
     }
   ],
   "reddit_day": "2026-10-28",
