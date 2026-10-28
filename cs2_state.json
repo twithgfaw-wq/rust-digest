@@ -2077,6 +2077,10 @@
     [
       1793203052,
       1098507
+    ],
+    [
+      1793203310,
+      1071370
     ]
   ],
   "online_peaks": {
@@ -2103,9 +2107,6 @@
     "2026-10-28": 1267867
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📡 Не пропусти важное: {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "📢 Подписывайся: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2602,7 +2603,10 @@
     "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3707,15 +3711,8 @@
     "3828765754"
   ],
   "price_day": "2026-10-28",
-  "invest_day": "2026-10-27",
+  "invest_day": "2026-10-28",
   "invest_days": {
-    "2026-10-21": [
-      "Rio 2022 Dust II Souvenir Package",
-      "Paris 2023 Mirage Souvenir Package",
-      "Operation Bravo Case",
-      "Chroma 3 Case",
-      "Gamma 2 Case"
-    ],
     "2026-10-22": [
       "Paris 2023 Anubis Souvenir Package",
       "Glove Case",
@@ -3757,6 +3754,13 @@
       "Paris 2023 Mirage Souvenir Package",
       "Shadow Case",
       "Chroma 3 Case"
+    ],
+    "2026-10-28": [
+      "Glove Case",
+      "Stockholm 2021 Dust II Souvenir Package",
+      "Paris 2023 Anubis Souvenir Package",
+      "Paris 2023 Ancient Souvenir Package",
+      "Chroma 2 Case"
     ]
   },
   "sod_seen": [
@@ -4642,6 +4646,36 @@
       "verdict": "watch",
       "price": 2.94,
       "date": "2026-10-27"
+    },
+    {
+      "name": "Glove Case",
+      "verdict": "avoid",
+      "price": 8.65,
+      "date": "2026-10-28"
+    },
+    {
+      "name": "Stockholm 2021 Dust II Souvenir Package",
+      "verdict": "buy",
+      "price": 3.62,
+      "date": "2026-10-28"
+    },
+    {
+      "name": "Paris 2023 Anubis Souvenir Package",
+      "verdict": "buy",
+      "price": 1.73,
+      "date": "2026-10-28"
+    },
+    {
+      "name": "Paris 2023 Ancient Souvenir Package",
+      "verdict": "watch",
+      "price": 2.6,
+      "date": "2026-10-28"
+    },
+    {
+      "name": "Chroma 2 Case",
+      "verdict": "buy",
+      "price": 3.27,
+      "date": "2026-10-28"
     }
   ],
   "cs2_quiz_n": 9,
