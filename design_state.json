@@ -1004,10 +1004,12 @@
     "https://www.dezeen.com/2026/10/28/flokk-design-forward-seating-task-chairs-modular-dezeen-showroom",
     "https://www.fastcompany.com/91630955/the-internets-new-punching-bag-is-a-golden-orb-with-uncannily-human-teeth?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
     "https://www.creativebloq.com/reviews/joe-and-mac-retro-collection-switch-2-review-i-came-for-the-cavemen-but-the-sequels-are-the-real-draw",
-    "https://www.wallpaper.com/travel/bars/nm3-brings-its-signature-metalwork-to-an-intimate-roman-wine-bar"
+    "https://www.wallpaper.com/travel/bars/nm3-brings-its-signature-metalwork-to-an-intimate-roman-wine-bar",
+    "https://www.designboom.com/design/norman-foster-first-watch-lebond-good-design-scale-interview",
+    "https://www.dezeen.com/2026/10/28/norman-foster-first-watch-lebond"
   ],
   "day": "2026-10-28",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1266,6 +1268,12 @@
       "title": "Mother Design почали ребрендинг Purple Garden зі спіритичного сеансу",
       "link": "https://www.creativeboom.com/work/how-mother-design-turned-a-seance-into-a-new-identity-for-purple-garden",
       "src": "Creative Boom"
+    },
+    {
+      "t": 1793199713.6711621,
+      "title": "Norman Foster представив перший наручний годинник: корпус і ремінець без межі",
+      "link": "https://www.designboom.com/design/norman-foster-first-watch-lebond-good-design-scale-interview",
+      "src": "designboom"
     }
   ],
   "queue": [],
