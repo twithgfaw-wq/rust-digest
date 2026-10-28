@@ -19,10 +19,6 @@
   "x_last_id": "2113406055892033783",
   "online_log": [
     [
-      1792522891,
-      1036222
-    ],
-    [
       1792525110,
       975795
     ],
@@ -2077,6 +2073,10 @@
     [
       1793213780,
       1104823
+    ],
+    [
+      1793214110,
+      1107340
     ]
   ],
   "online_peaks": {
@@ -2103,9 +2103,6 @@
     "2026-10-28": 1267867
   },
   "recent_phrases": [
-    "👀 Следи за CS2 вместе с {tag}",
-    "👉 Подписывайся на {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2602,7 +2599,10 @@
     "📌 Сохрани себе {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "📢 Подписывайся: {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2700,7 +2700,8 @@
     "2114723728927924368",
     "2114627494792102193",
     "2115068513056690665",
-    "2115210550674436457"
+    "2115210550674436457",
+    "2115512702915285238"
   ],
   "ws_scores": {
     "3815186169": {
@@ -4017,66 +4018,10 @@
   },
   "cs2_index_day": "2026-10-28",
   "ws_slot": "2026-10-28-20",
-  "comm_slot": "2026-10-28-17",
+  "comm_slot": "2026-10-28-21",
   "hltv_day": "2026-10-28",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "Vitality разгромили NAVI и вышли в плей-офф в Бухаресте",
-      "link": "https://www.hltv.org/news/45834/vitality-crush-navi-to-make-bucharest-playoffs",
-      "score": 9
-    },
-    {
-      "headline": "Spirit и NAVI сыграют главный матч пятого дня PGL Masters",
-      "link": "https://www.hltv.org/news/45833/spirit-navi-to-headline-pgl-masters-day-five",
-      "score": 8
-    },
-    {
-      "headline": "jabbi возвращается в Astralis на Stake Ranked ради инвайта на Major",
-      "link": "https://www.hltv.org/news/45836/jabbi-returns-to-astralis-for-stake-ranked-to-help-salvage-major-invite",
-      "score": 6
-    },
-    {
-      "headline": "torzsi о победе над Spirit: «Перед последней картой они немного трэштокали»",
-      "link": "https://www.hltv.org/news/45832/torzsi-on-beating-spirit-they-trash-talked-us-a-little-before-the-last-map-so-it-was-a-nice-statement-to-win",
-      "score": 4
-    },
-    {
-      "headline": "Twistzz: «Хочу приносить в FaZe хорошее настроение»",
-      "link": "https://www.hltv.org/news/45837/twistzz-sometimes-im-the-one-dampening-the-good-mood-these-young-players-dont-deserve-that-so-now-ill-just-bring-in-the-good-vibes",
-      "score": 4
-    },
-    {
-      "headline": "jL: Vitality — лучшая команда мира, потому что умеет закрывать слабые места игроков",
-      "link": "https://www.hltv.org/news/45835/jl-this-is-why-vitality-is-the-best-team-in-the-world-they-have-the-ability-to-cover-for-players",
-      "score": 4
-    },
-    {
-      "headline": "Legacy меняют n1ssim на ksloks",
-      "link": "https://www.hltv.org/news/45838/media-ksloks-replaces-n1ssim-on-legacy",
-      "score": 5
-    },
-    {
-      "headline": "Nemiga прошла в плей-офф PGL Masters Bucharest, выбив The MongolZ",
-      "link": "https://www.hltv.org/news/45839/nemiga-through-to-pgl-masters-bucharest-playoffs-over-the-mongolz",
-      "score": 8
-    },
-    {
-      "headline": "FURIA обыграли Liquid и вышли в четвертьфинал PGL Masters",
-      "link": "https://www.hltv.org/news/45840/furia-go-to-pgl-masters-quarters-over-liquid",
-      "score": 7
-    },
-    {
-      "headline": "YEKINDAR: «Мы точно играем лучше, до Thunderpick мы играли намного хуже»",
-      "link": "https://www.hltv.org/news/45842/yekindar-were-definitely-playing-better-before-thunderpick-we-played-a-lot-worse",
-      "score": 4
-    },
-    {
-      "headline": "NAVI обыграли Spirit и забрали последнюю путёвку в плей-офф в Bucharest",
-      "link": "https://www.hltv.org/news/45843/navi-embarrass-spirit-for-last-playoff-berth",
-      "score": 9
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-28",
   "reddit_posted": [
     "1wzz7z0",
@@ -4098,7 +4043,7 @@
     "1xgrarj"
   ],
   "online_daily": "2026-10-28",
-  "hltv_digest_day": "2026-10-27",
+  "hltv_digest_day": "2026-10-28",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
