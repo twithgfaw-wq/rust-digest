@@ -1050,10 +1050,13 @@
     "https://www.creativebloq.com/reviews/croc-2-kingdom-of-the-gobbos-switch-review-this-awkward-90s-platformer-is-finally-fixed",
     "https://abduzeedo.com/ismael-branco-crafts-relentlessly-brand-identity",
     "https://abduzeedo.com/web-design-assembly-coffee-london",
-    "https://abduzeedo.com/oslo-tennisklubb-brand-identity-garcy-studio"
+    "https://abduzeedo.com/oslo-tennisklubb-brand-identity-garcy-studio",
+    "https://www.creativebloq.com/news/mass-effect-5-art-director-says-its-truly-heartbreaking-well-never-play-his-teams-game",
+    "https://www.fastcompany.com/91631436/purple-is-everywhere-in-fintech-nu-bank-redesign?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.figma.com/release-notes/?title=connect-google-drive-to-the-figma-agent-available-on-all-plans"
   ],
   "day": "2026-10-29",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1330,6 +1333,12 @@
       "title": "Brent David Freaney, дизайнер «BRAT»: колір — тільки з реальних речей",
       "link": "https://www.figma.com/blog/source-material-brent-david-freaney",
       "src": "Figma"
+    },
+    {
+      "t": 1793288937.104381,
+      "title": "Nubank вийшов у США з новою айдентикою, але фіолетовий не віддав",
+      "link": "https://www.fastcompany.com/91631436/purple-is-everywhere-in-fintech-nu-bank-redesign?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+      "src": "Fast Company"
     }
   ],
   "queue": [],
