@@ -2426,10 +2426,6 @@
   ],
   "online_log": [
     [
-      1792576911,
-      55373
-    ],
-    [
       1792577078,
       56184
     ],
@@ -4520,6 +4516,10 @@
     [
       1793267108,
       64962
+    ],
+    [
+      1793268128,
+      66732
     ]
   ],
   "online_peaks": {
@@ -4546,7 +4546,7 @@
     "2026-10-26": 113807,
     "2026-10-27": 110669,
     "2026-10-28": 103505,
-    "2026-10-29": 64962
+    "2026-10-29": 66732
   },
   "x_last_id": "2115458517767193058",
   "market_snaps": {
@@ -5119,9 +5119,10 @@
     "Moo-Moo Sheet Metal Door",
     "Amethyst Geode Rock",
     "No Mercy Small Backpack",
-    "Pirate Small Backpack"
+    "Pirate Small Backpack",
+    "Hazma Wooden Door"
   ],
-  "rsod_day": "2026-10-28",
+  "rsod_day": "2026-10-29",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
