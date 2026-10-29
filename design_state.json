@@ -1015,9 +1015,16 @@
     "https://www.wallpaper.com/design-interiors/furniture/fernand-mastrangelo-territories-furniture",
     "https://www.wallpaper.com/tech/new-remote-working-gadgets",
     "https://www.designboom.com/architecture/hotel-westminster-paris-restoration-british-heritage-haussmannian-architecture",
-    "https://abduzeedo.com/driessen-architectuur-minimalist-web-design-grid-craft"
+    "https://abduzeedo.com/driessen-architectuur-minimalist-web-design-grid-craft",
+    "https://www.dezeen.com/2026/10/29/simone-book-services-copenhagen",
+    "https://www.dezeen.com/2026/10/29/c-next-designers-emea-almeria-cosentino",
+    "https://www.wallpaper.com/architecture/architecture-events/zaha-hadid-foundation-new-space-and-events",
+    "https://www.designboom.com/architecture/nomada-desert-playgola-childrens-playground-el-paso",
+    "https://abduzeedo.com/aira-inside-kurppa-hosks-clean-energy-visual-identity",
+    "https://www.designboom.com/design/rotulo-em-branco-prego-oversized-nails-steel-furniture",
+    "https://www.figma.com/blog/source-material-brent-david-freaney"
   ],
-  "day": "2026-10-28",
+  "day": "2026-10-29",
   "day_count": 2,
   "posted": [
     {
@@ -1283,6 +1290,18 @@
       "title": "Norman Foster представив перший наручний годинник: корпус і ремінець без межі",
       "link": "https://www.designboom.com/design/norman-foster-first-watch-lebond-good-design-scale-interview",
       "src": "designboom"
+    },
+    {
+      "t": 1793253715.340101,
+      "title": "Kurppa Hosk показали теплові насоси Aira без естетики холодної сантехніки",
+      "link": "https://abduzeedo.com/aira-inside-kurppa-hosks-clean-energy-visual-identity",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1793253715.340101,
+      "title": "Brent David Freaney, дизайнер «BRAT»: колір — тільки з реальних речей",
+      "link": "https://www.figma.com/blog/source-material-brent-david-freaney",
+      "src": "Figma"
     }
   ],
   "queue": [],
