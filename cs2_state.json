@@ -20,26 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792620306,
-      688112
-    ],
-    [
-      1792620544,
-      688112
-    ],
-    [
-      1792620767,
-      677119
-    ],
-    [
-      1792620792,
-      674748
-    ],
-    [
-      1792621023,
-      677119
-    ],
-    [
       1792623244,
       587958
     ],
@@ -2078,6 +2058,10 @@
     [
       1793310599,
       820072
+    ],
+    [
+      1793312936,
+      713378
     ]
   ],
   "online_peaks": {
@@ -2105,9 +2089,6 @@
     "2026-10-29": 1199882
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
     "💣 Твой канал про CS2 — {tag}",
@@ -2604,7 +2585,10 @@
     "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👉 Подписывайся на {tag}",
-    "📡 Не пропусти важное: {tag}"
+    "📡 Не пропусти важное: {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4060,7 +4044,8 @@
     "hltvnews45853",
     "hltvnews45855",
     "hltvnews45857",
-    "hltvnews45856"
+    "hltvnews45856",
+    "hltvnews45858"
   ],
   "news_seen_t": [
     1788994268,
@@ -4085,7 +4070,7 @@
   "cs2_index_day": "2026-10-29",
   "ws_slot": "2026-10-29-20",
   "comm_slot": "2026-10-29-21",
-  "hltv_day": "2026-10-29",
+  "hltv_day": "2026-10-30",
   "hltv_count": 0,
   "hltv_digest": [
     {
@@ -4096,6 +4081,11 @@
     {
       "headline": "FalleN похвалил Boombl4 после победы над BetBoom в четвертьфинале PGL Masters Bucharest",
       "link": "https://www.hltv.org/news/45856/fallen-i-like-the-way-boombl4-thinks-about-the-game",
+      "score": 4
+    },
+    {
+      "headline": "n0rb3r7: «Мы перестали думать о том, что можем попасть на Major»",
+      "link": "https://www.hltv.org/news/45858/n0rb3r7-we-kind-of-let-go-of-the-idea-that-we-could-make-the-major",
       "score": 4
     }
   ],
