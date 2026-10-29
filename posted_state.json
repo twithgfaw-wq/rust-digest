@@ -1811,12 +1811,6 @@
     "ws_3818839436"
   ],
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "🧱 Когда в Rust есть фантазия и время",
-    "🔥 {tag} — Rust без воды",
-    "Выбирай номер и подтверждай 👇 Угадавших покажем в конце недели 🥇",
-    "🥇 КОНКУРС: угадай скин, который примут в игру",
-    "Свежие работы из мастерской — выбирай фаворита",
     "🎯 Играешь и в CS2? Новости и скины — в @cs2_me",
     "Достоин магазина? Ставь 🔥",
     "Новинки от {n} {a_gen} — {k} {works}",
@@ -2310,7 +2304,13 @@
     "🤩",
     ": ",
     "тройка новинок",
-    "⚡️ Всё самое свежее по Rust — {tag}"
+    "⚡️ Всё самое свежее по Rust — {tag}",
+    "Неплохо, неплохо 😎",
+    "📡 Rust пишет в X — переводим",
+    "🟥 {tag} — всё о Rust",
+    "Достойный подиум? 👀",
+    "👑 Кто правит воркшопом на этой неделе",
+    "📡 Не пропусти важное: {tag}"
   ],
   "store_seen": [
     "10198",
@@ -4514,6 +4514,10 @@
     [
       1793285480,
       99555
+    ],
+    [
+      1793286075,
+      102673
     ]
   ],
   "online_peaks": {
@@ -4540,9 +4544,9 @@
     "2026-10-26": 113807,
     "2026-10-27": 110669,
     "2026-10-28": 103505,
-    "2026-10-29": 99555
+    "2026-10-29": 102673
   },
-  "x_last_id": "2115458517767193058",
+  "x_last_id": "2115820950360826132",
   "market_snaps": {
     "2026-10-21": {
       "c19648a0-637f-4ef0-abda-cf998acdb697": 293,
@@ -5080,10 +5084,10 @@
       "373ddb3f-7cff-4d2b-aed3-e488f9c72011": 231
     }
   },
-  "top_ts": 1793030560,
+  "top_ts": 1793286084,
   "top_last": [
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3825132389",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3825130677",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3828060349",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3827537224"
   ],
   "elite_last_ts": 1793282522,
@@ -5213,6 +5217,9 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3818651870",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3825132389",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3825130677",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3827537224",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3825132389",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3828060349",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3827537224"
   ],
   "rust_quiz_n": 9,
