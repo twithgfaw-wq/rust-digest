@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792595626,
-      1190129
-    ],
-    [
       1792598014,
       1116893
     ],
@@ -2094,6 +2090,10 @@
     [
       1793286325,
       1171153
+    ],
+    [
+      1793288639,
+      1082992
     ]
   ],
   "online_peaks": {
@@ -2121,9 +2121,6 @@
     "2026-10-29": 1199882
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "💣 Твой канал про CS2 — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "👉 Подписывайся на {tag}",
@@ -2620,7 +2617,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "📌 Сохрани себе {tag}",
     "📢 Подписывайся: {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "👉 Подписывайся на {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}"
   ],
   "news_recent": [
     {
@@ -4066,7 +4066,8 @@
     "hltvnews45848",
     "hltvnews45850",
     "hltvnews45849",
-    "hltvnews45852"
+    "hltvnews45852",
+    "hltvnews45854"
   ],
   "news_seen_t": [
     1788994268,
@@ -4118,6 +4119,11 @@
       "headline": "Vitality выбили NAVI и вышли в полуфинал PGL Masters Bucharest",
       "link": "https://www.hltv.org/news/45852/vitality-march-into-pgl-masters-bucharest-semis-over-navi",
       "score": 9
+    },
+    {
+      "headline": "MOUZ разгромили Aurora и вышли в полуфинал в Bucharest",
+      "link": "https://www.hltv.org/news/45854/mouz-overrun-aurora-to-book-semi-final-spot-in-bucharest",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-29",
