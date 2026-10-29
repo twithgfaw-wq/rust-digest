@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792601609,
-      1090661
-    ],
-    [
       1792602870,
       1084710
     ],
@@ -2094,6 +2090,10 @@
     [
       1793291938,
       1035065
+    ],
+    [
+      1793293137,
+      1040134
     ]
   ],
   "online_peaks": {
@@ -2121,9 +2121,6 @@
     "2026-10-29": 1199882
   },
   "recent_phrases": [
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "💣 Твой канал про CS2 — {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
@@ -2620,7 +2617,10 @@
     "👉 Подписывайся на {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📢 Подписывайся: {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [
     {
@@ -4067,7 +4067,8 @@
     "hltvnews45850",
     "hltvnews45849",
     "hltvnews45852",
-    "hltvnews45854"
+    "hltvnews45854",
+    "hltvnews45853"
   ],
   "news_seen_t": [
     1788994268,
@@ -4124,6 +4125,11 @@
       "headline": "MOUZ разгромили Aurora и вышли в полуфинал в Bucharest",
       "link": "https://www.hltv.org/news/45854/mouz-overrun-aurora-to-book-semi-final-spot-in-bucharest",
       "score": 8
+    },
+    {
+      "headline": "B1ad3 о прогрессе NAVI: «Trust the process»",
+      "link": "https://www.hltv.org/news/45853/b1ad3-trust-the-process",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-29",
