@@ -20,14 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792615745,
-      891026
-    ],
-    [
-      1792615775,
-      891026
-    ],
-    [
       1792616523,
       823943
     ],
@@ -2082,6 +2074,10 @@
     [
       1793306336,
       970983
+    ],
+    [
+      1793307118,
+      940435
     ]
   ],
   "online_peaks": {
@@ -2109,9 +2105,6 @@
     "2026-10-29": 1199882
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
     "👉 Подписывайся на {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🔥 {tag} — CS2 без воды",
@@ -2608,7 +2601,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "📡 Не пропусти важное: {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "👉 Подписывайся на {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
   ],
   "news_recent": [
     {
@@ -4068,7 +4064,8 @@
     "hltvnews45854",
     "hltvnews45853",
     "hltvnews45855",
-    "hltvnews45857"
+    "hltvnews45857",
+    "hltvnews45856"
   ],
   "news_seen_t": [
     1788994268,
@@ -4099,6 +4096,11 @@
     {
       "headline": "HOTU выиграли Tesla Cup и резко повысили шансы попасть на Major",
       "link": "https://www.hltv.org/news/45857/hotus-major-chances-soar-after-tesla-cup-win",
+      "score": 4
+    },
+    {
+      "headline": "FalleN похвалил Boombl4 после победы над BetBoom в четвертьфинале PGL Masters Bucharest",
+      "link": "https://www.hltv.org/news/45856/fallen-i-like-the-way-boombl4-thinks-about-the-game",
       "score": 4
     }
   ],
