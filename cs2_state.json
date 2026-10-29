@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792605211,
-      1106219
-    ],
-    [
       1792605692,
       1113427
     ],
@@ -2098,6 +2094,10 @@
     [
       1793295538,
       1057415
+    ],
+    [
+      1793296483,
+      1057415
     ]
   ],
   "online_peaks": {
@@ -2125,9 +2125,6 @@
     "2026-10-29": 1199882
   },
   "recent_phrases": [
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "📢 Подписывайся: {tag}",
-    "💣 Твой канал про CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👉 Подписывайся на {tag}",
     "📌 Сохрани себе {tag}",
@@ -2624,7 +2621,10 @@
     "📢 Подписывайся: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [
     {
@@ -4074,7 +4074,8 @@
     "hltvnews45849",
     "hltvnews45852",
     "hltvnews45854",
-    "hltvnews45853"
+    "hltvnews45853",
+    "hltvnews45855"
   ],
   "news_seen_t": [
     1788994268,
@@ -4136,6 +4137,11 @@
       "headline": "B1ad3 о прогрессе NAVI: «Trust the process»",
       "link": "https://www.hltv.org/news/45853/b1ad3-trust-the-process",
       "score": 6
+    },
+    {
+      "headline": "FURIA обыграли BETBOOM и вышли в полуфинал PGL Masters Bucharest",
+      "link": "https://www.hltv.org/news/45855/furia-beat-betboom-to-advance-to-pgl-masters-bucharest-semis",
+      "score": 7
     }
   ],
   "reddit_day": "2026-10-29",
