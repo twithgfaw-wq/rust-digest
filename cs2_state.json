@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792609291,
-      1104187
-    ],
-    [
       1792611510,
       1042556
     ],
@@ -2082,6 +2078,10 @@
     [
       1793300250,
       1073278
+    ],
+    [
+      1793300514,
+      1078800
     ]
   ],
   "online_peaks": {
@@ -2109,9 +2109,6 @@
     "2026-10-29": 1199882
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📌 Сохрани себе {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2608,7 +2605,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [
     {
@@ -2714,7 +2714,8 @@
     "2115210550674436457",
     "2115512702915285238",
     "2115573608051339651",
-    "2115571477030539567"
+    "2115571477030539567",
+    "2115572582355542220"
   ],
   "ws_scores": {
     "3815186169": {
@@ -4090,51 +4091,10 @@
   },
   "cs2_index_day": "2026-10-29",
   "ws_slot": "2026-10-29-20",
-  "comm_slot": "2026-10-29-17",
+  "comm_slot": "2026-10-29-21",
   "hltv_day": "2026-10-29",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "PGL Masters Bucharest: сетка плей-офф определена",
-      "link": "https://www.hltv.org/news/45844/pgl-masters-bucharest-bracket-set",
-      "score": 7
-    },
-    {
-      "headline": "PGL Masters Bucharest: live-обновления четвертьфиналов",
-      "link": "https://www.hltv.org/news/45847/live-updates-from-pgl-masters-bucharest-quarter-finals",
-      "score": 6
-    },
-    {
-      "headline": "Nemiga обыграла FUT 2-0 и вышла в полуфинал в Bucharest",
-      "link": "https://www.hltv.org/news/45848/nemiga-beat-fut-2-0-to-reach-semis-in-bucharest",
-      "score": 5
-    },
-    {
-      "headline": "cmtry, вероятно, пропустит Singapore Major в составе Astralis",
-      "link": "https://www.hltv.org/news/45850/cmtry-expected-to-miss-singapore-major-for-astralis-after-futs-quarter-final-exit-in-bucharest",
-      "score": 7
-    },
-    {
-      "headline": "Vitality выбили NAVI и вышли в полуфинал PGL Masters Bucharest",
-      "link": "https://www.hltv.org/news/45852/vitality-march-into-pgl-masters-bucharest-semis-over-navi",
-      "score": 9
-    },
-    {
-      "headline": "MOUZ разгромили Aurora и вышли в полуфинал в Bucharest",
-      "link": "https://www.hltv.org/news/45854/mouz-overrun-aurora-to-book-semi-final-spot-in-bucharest",
-      "score": 8
-    },
-    {
-      "headline": "B1ad3 о прогрессе NAVI: «Trust the process»",
-      "link": "https://www.hltv.org/news/45853/b1ad3-trust-the-process",
-      "score": 6
-    },
-    {
-      "headline": "FURIA обыграли BETBOOM и вышли в полуфинал PGL Masters Bucharest",
-      "link": "https://www.hltv.org/news/45855/furia-beat-betboom-to-advance-to-pgl-masters-bucharest-semis",
-      "score": 7
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-10-29",
   "reddit_posted": [
     "1wzz7z0",
@@ -4157,7 +4117,7 @@
     "1xi3jg9"
   ],
   "online_daily": "2026-10-29",
-  "hltv_digest_day": "2026-10-28",
+  "hltv_digest_day": "2026-10-29",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
