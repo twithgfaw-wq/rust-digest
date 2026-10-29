@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792598493,
-      1116893
-    ],
-    [
       1792599286,
       1089489
     ],
@@ -2094,6 +2090,10 @@
     [
       1793289579,
       1060102
+    ],
+    [
+      1793289716,
+      1060102
     ]
   ],
   "online_peaks": {
@@ -2121,9 +2121,6 @@
     "2026-10-29": 1199882
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "📢 Подписывайся: {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2620,7 +2617,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "👀 Следи за CS2 вместе с {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "📌 Сохрани себе {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [
     {
@@ -3784,15 +3784,8 @@
     "3829112838"
   ],
   "price_day": "2026-10-29",
-  "invest_day": "2026-10-28",
+  "invest_day": "2026-10-29",
   "invest_days": {
-    "2026-10-22": [
-      "Paris 2023 Anubis Souvenir Package",
-      "Glove Case",
-      "Stockholm 2021 Dust II Souvenir Package",
-      "Chroma 2 Case",
-      "Falchion Case"
-    ],
     "2026-10-23": [
       "Anubis Collection Package",
       "Paris 2023 Vertigo Souvenir Package",
@@ -3834,6 +3827,13 @@
       "Paris 2023 Anubis Souvenir Package",
       "Paris 2023 Ancient Souvenir Package",
       "Chroma 2 Case"
+    ],
+    "2026-10-29": [
+      "Winter Offensive Weapon Case",
+      "CS:GO Weapon Case",
+      "Paris 2023 Vertigo Souvenir Package",
+      "Anubis Collection Package",
+      "Horizon Case"
     ]
   },
   "sod_seen": [
@@ -4749,6 +4749,36 @@
       "verdict": "buy",
       "price": 3.27,
       "date": "2026-10-28"
+    },
+    {
+      "name": "Winter Offensive Weapon Case",
+      "verdict": "watch",
+      "price": 8.6,
+      "date": "2026-10-29"
+    },
+    {
+      "name": "CS:GO Weapon Case",
+      "verdict": "buy",
+      "price": 97.17,
+      "date": "2026-10-29"
+    },
+    {
+      "name": "Paris 2023 Vertigo Souvenir Package",
+      "verdict": "watch",
+      "price": 2.12,
+      "date": "2026-10-29"
+    },
+    {
+      "name": "Anubis Collection Package",
+      "verdict": "watch",
+      "price": 1.61,
+      "date": "2026-10-29"
+    },
+    {
+      "name": "Horizon Case",
+      "verdict": "watch",
+      "price": 1.28,
+      "date": "2026-10-29"
     }
   ],
   "cs2_quiz_n": 9,
