@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792678638,
-      1213537
-    ],
-    [
       1792680849,
       1190340
     ],
@@ -2050,6 +2046,10 @@
     [
       1793369149,
       1200528
+    ],
+    [
+      1793371436,
+      1245206
     ]
   ],
   "online_peaks": {
@@ -2075,12 +2075,9 @@
     "2026-10-27": 1135191,
     "2026-10-28": 1267867,
     "2026-10-29": 1199882,
-    "2026-10-30": 1200528
+    "2026-10-30": 1245206
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📌 Сохрани себе {tag}",
-    "🔥 {tag} — CS2 без воды",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📢 Подписывайся: {tag}",
     "💣 Твой канал про CS2 — {tag}",
@@ -2577,7 +2574,10 @@
     "🔥 {tag} — CS2 без воды",
     "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4082,7 +4082,8 @@
     "hltvnews45856",
     "hltvnews45858",
     "hltvnews45851",
-    "hltvnews45859"
+    "hltvnews45859",
+    "hltvnews45861"
   ],
   "news_seen_t": [
     1788994268,
@@ -4129,6 +4130,11 @@
       "headline": "PGL Masters Bucharest: live-обновления с полуфиналов",
       "link": "https://www.hltv.org/news/45859/live-updates-from-pgl-masters-bucharest-semi-finals",
       "score": 6
+    },
+    {
+      "headline": "Nemiga обыграли Vitality 2-0 и вышли в финал PGL Masters Bucharest",
+      "link": "https://www.hltv.org/news/45861/nemiga-stun-vitality-2-0-to-reach-pgl-masters-bucharest-final",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-30",
