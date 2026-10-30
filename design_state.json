@@ -1070,10 +1070,17 @@
     "https://www.dezeen.com/2026/10/29/foster-partners-manica-generali-stadium",
     "https://www.wallpaper.com/tech/these-seven-accessories-for-the-new-apple-iphone-duo-make-the-most-of-the-folding-form",
     "https://www.dezeen.com/2026/10/29/henry-holland-wallpaper-fabric-collection-ceramics",
-    "https://www.designboom.com/art/alvaro-urbano-helen-casa-cueva-museo-jumex"
+    "https://www.designboom.com/art/alvaro-urbano-helen-casa-cueva-museo-jumex",
+    "https://www.dezeen.com/2026/10/30/al-jawad-pike-aesop-store-harrods-terracotta-counter",
+    "https://www.dezeen.com/2026/10/30/lighting-design-strategic-economic-signifys-sameer-sodhi",
+    "https://www.designboom.com/readers/sculptural-brass-petals-silk-embroideries-isabel-mayfair-restaurant-abu-dhabi-dbm",
+    "https://abduzeedo.com/web-design-gleb-kuznetsovs-portfolio",
+    "https://www.wallpaper.com/architecture/public-buildings/eames-institute-of-infinite-curiosity",
+    "https://abduzeedo.com/inside-omlet-brand-identity-ragged-edge",
+    "https://www.figma.com/blog/making-something-human-4-things-we-took-away-from-config-india"
   ],
-  "day": "2026-10-29",
-  "day_count": 5,
+  "day": "2026-10-30",
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1368,6 +1375,12 @@
       "title": "Apple вперше зробила MacBook Pro із сенсорним екраном",
       "link": "https://www.designboom.com/technology/apple-first-touchscreen-macbook-pro-proled-xdr-display",
       "src": "designboom"
+    },
+    {
+      "t": 1793340115.2941937,
+      "title": "Herzog & de Meuron зроблять музей Eames зі старого складу Birkenstock",
+      "link": "https://www.wallpaper.com/architecture/public-buildings/eames-institute-of-infinite-curiosity",
+      "src": "Wallpaper*"
     }
   ],
   "queue": [],
