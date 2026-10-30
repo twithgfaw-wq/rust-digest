@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792669746,
-      876952
-    ],
-    [
       1792670525,
       876952
     ],
@@ -2050,6 +2046,10 @@
     [
       1793360899,
       869714
+    ],
+    [
+      1793361714,
+      925869
     ]
   ],
   "online_peaks": {
@@ -2075,12 +2075,9 @@
     "2026-10-27": 1135191,
     "2026-10-28": 1267867,
     "2026-10-29": 1199882,
-    "2026-10-30": 869714
+    "2026-10-30": 925869
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📢 Подписывайся: {tag}",
     "📡 Не пропусти важное: {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2577,7 +2574,10 @@
     "📡 Не пропусти важное: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "👉 Подписывайся на {tag}",
+    "📢 Подписывайся: {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4062,7 +4062,8 @@
     "hltvnews45857",
     "hltvnews45856",
     "hltvnews45858",
-    "hltvnews45851"
+    "hltvnews45851",
+    "hltvnews45859"
   ],
   "news_seen_t": [
     1788994268,
@@ -4104,9 +4105,14 @@
       "headline": "n0rb3r7: «Мы перестали думать о том, что можем попасть на Major»",
       "link": "https://www.hltv.org/news/45858/n0rb3r7-we-kind-of-let-go-of-the-idea-that-we-could-make-the-major",
       "score": 4
+    },
+    {
+      "headline": "PGL Masters Bucharest: live-обновления с полуфиналов",
+      "link": "https://www.hltv.org/news/45859/live-updates-from-pgl-masters-bucharest-semi-finals",
+      "score": 6
     }
   ],
-  "reddit_day": "2026-10-29",
+  "reddit_day": "2026-10-30",
   "reddit_posted": [
     "1wzz7z0",
     "1x1ey6g",
