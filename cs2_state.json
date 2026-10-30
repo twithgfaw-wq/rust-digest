@@ -2050,6 +2050,10 @@
     [
       1793375776,
       1145778
+    ],
+    [
+      1793376117,
+      1138502
     ]
   ],
   "online_peaks": {
@@ -2078,9 +2082,6 @@
     "2026-10-30": 1245206
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "👉 Подписывайся на {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "📢 Подписывайся: {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
@@ -2577,7 +2578,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
     "💣 Твой канал про CS2 — {tag}",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3790,15 +3794,8 @@
     "3829828552"
   ],
   "price_day": "2026-10-30",
-  "invest_day": "2026-10-29",
+  "invest_day": "2026-10-30",
   "invest_days": {
-    "2026-10-23": [
-      "Anubis Collection Package",
-      "Paris 2023 Vertigo Souvenir Package",
-      "CS:GO Weapon Case",
-      "Winter Offensive Weapon Case",
-      "Horizon Case"
-    ],
     "2026-10-24": [
       "Rio 2022 Dust II Souvenir Package",
       "Paris 2023 Mirage Souvenir Package",
@@ -3840,6 +3837,13 @@
       "Paris 2023 Vertigo Souvenir Package",
       "Anubis Collection Package",
       "Horizon Case"
+    ],
+    "2026-10-30": [
+      "Rio 2022 Dust II Souvenir Package",
+      "Operation Bravo Case",
+      "Paris 2023 Mirage Souvenir Package",
+      "Shadow Case",
+      "Chroma 3 Case"
     ]
   },
   "sod_seen": [
@@ -4791,10 +4795,40 @@
       "verdict": "watch",
       "price": 1.28,
       "date": "2026-10-29"
+    },
+    {
+      "name": "Rio 2022 Dust II Souvenir Package",
+      "verdict": "buy",
+      "price": 2.58,
+      "date": "2026-10-30"
+    },
+    {
+      "name": "Operation Bravo Case",
+      "verdict": "watch",
+      "price": 50.67,
+      "date": "2026-10-30"
+    },
+    {
+      "name": "Paris 2023 Mirage Souvenir Package",
+      "verdict": "buy",
+      "price": 2.37,
+      "date": "2026-10-30"
+    },
+    {
+      "name": "Shadow Case",
+      "verdict": "watch",
+      "price": 1.37,
+      "date": "2026-10-30"
+    },
+    {
+      "name": "Chroma 3 Case",
+      "verdict": "watch",
+      "price": 2.91,
+      "date": "2026-10-30"
     }
   ],
-  "cs2_quiz_n": 9,
-  "cs2_quiz_day": "2026-10-27",
+  "cs2_quiz_n": 10,
+  "cs2_quiz_day": "2026-10-30",
   "cs2_index_steam": {
     "2026-10-10": 2,
     "2026-10-11": 7,
