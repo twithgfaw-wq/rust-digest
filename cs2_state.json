@@ -2038,6 +2038,10 @@
     [
       1793396335,
       968991
+    ],
+    [
+      1793396698,
+      968991
     ]
   ],
   "online_peaks": {
@@ -2066,9 +2070,6 @@
     "2026-10-30": 1245206
   },
   "recent_phrases": [
-    "👀 Следи за CS2 вместе с {tag}",
-    "📡 Не пропусти важное: {tag}",
-    "👉 Подписывайся на {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2565,7 +2566,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "👉 Подписывайся на {tag}",
     "🔥 {tag} — CS2 без воды",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4078,7 +4082,8 @@
     "hltvnews45862",
     "hltvnews45863",
     "hltvnews45864",
-    "hltvnews45865"
+    "hltvnews45865",
+    "hltvnews45866"
   ],
   "news_seen_t": [
     1788994268,
@@ -4115,6 +4120,11 @@
       "headline": "Eternal Fire выиграли Stake Ranked и почти гарантировали себе слот на мейджор",
       "link": "https://www.hltv.org/news/45865/eternal-fire-inch-closer-to-shock-major-qualification-with-stake-ranked-trophy",
       "score": 6
+    },
+    {
+      "headline": "imd: Snax не будет капитаном GamerLegion в следующем сезоне",
+      "link": "https://www.hltv.org/news/45866/imd-there-are-no-plans-for-snax-to-be-igling-for-gamerlegion-next-season",
+      "score": 5
     }
   ],
   "reddit_day": "2026-10-30",
