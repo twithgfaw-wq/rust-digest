@@ -1102,10 +1102,11 @@
     "https://www.wallpaper.com/design-interiors/lighting/sabine-marcelis-bubblegum-pink-lava-lamp-for-mathmos",
     "https://abduzeedo.com/packaging-design-kocktail-reusable-glass-dieline",
     "https://www.creativebloq.com/news/gta-6s-latest-gameplay-reveal-is-filthy-and-south-park-is-helping-rockstar-sell-it",
-    "https://www.figma.com/release-notes/?title=internal-publishing-weave-tools"
+    "https://www.figma.com/release-notes/?title=internal-publishing-weave-tools",
+    "https://www.fastcompany.com/91632291/prada-ad-luxury-brands-all-in-on-handmade-ads?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
   ],
   "day": "2026-10-30",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1412,6 +1413,12 @@
       "title": "Sabine Marcelis збудувала у Цюриху простори зі світла й кольору",
       "link": "https://www.designboom.com/design/sabine-marcelis-light-color-exhibition-museum-gestaltung-zurich",
       "src": "designboom"
+    },
+    {
+      "t": 1793371737.3825908,
+      "title": "Prada випустила рекламу з ручною 2D-анімацією на тлі потоку AI-контенту",
+      "link": "https://www.fastcompany.com/91632291/prada-ad-luxury-brands-all-in-on-handmade-ads?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+      "src": "Fast Company"
     }
   ],
   "queue": [],
