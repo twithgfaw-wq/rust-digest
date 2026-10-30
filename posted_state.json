@@ -2490,10 +2490,6 @@
   ],
   "online_log": [
     [
-      1792662555,
-      54007
-    ],
-    [
       1792663334,
       55551
     ],
@@ -4576,6 +4572,10 @@
     [
       1793353589,
       72983
+    ],
+    [
+      1793354524,
+      75744
     ]
   ],
   "online_peaks": {
@@ -4603,7 +4603,7 @@
     "2026-10-27": 110669,
     "2026-10-28": 103505,
     "2026-10-29": 118792,
-    "2026-10-30": 75033
+    "2026-10-30": 75744
   },
   "x_last_id": "2115820950360826132",
   "market_snaps": {
@@ -5175,9 +5175,10 @@
     "Amethyst Geode Rock",
     "No Mercy Small Backpack",
     "Pirate Small Backpack",
-    "Hazma Wooden Door"
+    "Hazma Wooden Door",
+    "Shark Attack Small Backpack"
   ],
-  "rsod_day": "2026-10-29",
+  "rsod_day": "2026-10-30",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
