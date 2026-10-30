@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792702152,
-      894021
-    ],
-    [
       1792702935,
       843438
     ],
@@ -2042,6 +2038,10 @@
     [
       1793393289,
       1037195
+    ],
+    [
+      1793394117,
+      1035699
     ]
   ],
   "online_peaks": {
@@ -2070,9 +2070,6 @@
     "2026-10-30": 1245206
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "📢 Подписывайся: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2569,7 +2566,10 @@
     "🔥 {tag} — CS2 без воды",
     "🔔 Больше CS2 — в {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "📌 Сохрани себе {tag}",
+    "📢 Подписывайся: {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4081,7 +4081,8 @@
     "hltvnews45861",
     "hltvnews45862",
     "hltvnews45863",
-    "hltvnews45864"
+    "hltvnews45864",
+    "hltvnews45865"
   ],
   "news_seen_t": [
     1788994268,
@@ -4113,6 +4114,11 @@
       "headline": "KSCERATO: «Мы стараемся играть на ощущениях»",
       "link": "https://www.hltv.org/news/45864/kscerato-were-trying-to-play-on-feeling",
       "score": 4
+    },
+    {
+      "headline": "Eternal Fire выиграли Stake Ranked и почти гарантировали себе слот на мейджор",
+      "link": "https://www.hltv.org/news/45865/eternal-fire-inch-closer-to-shock-major-qualification-with-stake-ranked-trophy",
+      "score": 6
     }
   ],
   "reddit_day": "2026-10-30",
