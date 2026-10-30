@@ -20,14 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792692126,
-      1084013
-    ],
-    [
-      1792692497,
-      1094246
-    ],
-    [
       1792694654,
       1087791
     ],
@@ -2050,6 +2042,10 @@
     [
       1793383317,
       1092735
+    ],
+    [
+      1793385541,
+      1102429
     ]
   ],
   "online_peaks": {
@@ -2078,9 +2074,6 @@
     "2026-10-30": 1245206
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "📌 Сохрани себе {tag}",
-    "📢 Подписывайся: {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "📡 Не пропусти важное: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
@@ -2577,7 +2570,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "📌 Сохрани себе {tag}",
     "👀 Следи за CS2 вместе с {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4086,7 +4082,8 @@
     "hltvnews45851",
     "hltvnews45859",
     "hltvnews45861",
-    "hltvnews45862"
+    "hltvnews45862",
+    "hltvnews45863"
   ],
   "news_seen_t": [
     1788994268,
@@ -4143,6 +4140,11 @@
       "headline": "BLAST Open 2027 S3 пройдёт в USA с обновлённым форматом",
       "link": "https://www.hltv.org/news/45862/blast-open-2027-s3-to-be-held-in-usa-with-updated-format",
       "score": 5
+    },
+    {
+      "headline": "FURIA обыграли MOUZ и вышли в финал турнира в Bucharest",
+      "link": "https://www.hltv.org/news/45863/furia-beat-mouz-en-route-to-bucharest-final",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-30",
