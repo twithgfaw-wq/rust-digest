@@ -20,14 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792688528,
-      1076559
-    ],
-    [
-      1792689147,
-      1080977
-    ],
-    [
       1792691352,
       1094004
     ],
@@ -2054,6 +2046,10 @@
     [
       1793379717,
       1096146
+    ],
+    [
+      1793381937,
+      1089781
     ]
   ],
   "online_peaks": {
@@ -2082,9 +2078,6 @@
     "2026-10-30": 1245206
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🔥 {tag} — CS2 без воды",
-    "📢 Подписывайся: {tag}",
     "👉 Подписывайся на {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🔔 Больше CS2 — в {tag}",
@@ -2581,7 +2574,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "👉 Подписывайся на {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4088,7 +4084,8 @@
     "hltvnews45858",
     "hltvnews45851",
     "hltvnews45859",
-    "hltvnews45861"
+    "hltvnews45861",
+    "hltvnews45862"
   ],
   "news_seen_t": [
     1788994268,
@@ -4140,6 +4137,11 @@
       "headline": "Nemiga обыграли Vitality 2-0 и вышли в финал PGL Masters Bucharest",
       "link": "https://www.hltv.org/news/45861/nemiga-stun-vitality-2-0-to-reach-pgl-masters-bucharest-final",
       "score": 8
+    },
+    {
+      "headline": "BLAST Open 2027 S3 пройдёт в USA с обновлённым форматом",
+      "link": "https://www.hltv.org/news/45862/blast-open-2027-s3-to-be-held-in-usa-with-updated-format",
+      "score": 5
     }
   ],
   "reddit_day": "2026-10-30",
