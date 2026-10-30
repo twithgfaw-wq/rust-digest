@@ -1078,10 +1078,11 @@
     "https://www.wallpaper.com/architecture/public-buildings/eames-institute-of-infinite-curiosity",
     "https://abduzeedo.com/inside-omlet-brand-identity-ragged-edge",
     "https://www.figma.com/blog/making-something-human-4-things-we-took-away-from-config-india",
-    "https://www.creativebloq.com/news/the-dunu-vitruvian-promises-davincis-jm-1-warmth-trading-low-end-for-top-end-sparkle"
+    "https://www.creativebloq.com/news/the-dunu-vitruvian-promises-davincis-jm-1-warmth-trading-low-end-for-top-end-sparkle",
+    "https://www.designboom.com/design/sabine-marcelis-light-color-exhibition-museum-gestaltung-zurich"
   ],
   "day": "2026-10-30",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1382,6 +1383,12 @@
       "title": "Herzog & de Meuron зроблять музей Eames зі старого складу Birkenstock",
       "link": "https://www.wallpaper.com/architecture/public-buildings/eames-institute-of-infinite-curiosity",
       "src": "Wallpaper*"
+    },
+    {
+      "t": 1793346539.9348743,
+      "title": "Sabine Marcelis збудувала у Цюриху простори зі світла й кольору",
+      "link": "https://www.designboom.com/design/sabine-marcelis-light-color-exhibition-museum-gestaltung-zurich",
+      "src": "designboom"
     }
   ],
   "queue": [],
