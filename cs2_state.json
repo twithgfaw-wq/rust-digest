@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792746128,
-      656246
-    ],
-    [
       1792748349,
       685718
     ],
@@ -2018,6 +2014,10 @@
     [
       1793437316,
       758924
+    ],
+    [
+      1793439535,
+      778262
     ]
   ],
   "online_peaks": {
@@ -2044,12 +2044,9 @@
     "2026-10-28": 1267867,
     "2026-10-29": 1199882,
     "2026-10-30": 1245206,
-    "2026-10-31": 758924
+    "2026-10-31": 778262
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👉 Подписывайся на {tag}",
     "📢 Подписывайся: {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2546,7 +2543,10 @@
     "📌 Сохрани себе {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "👉 Подписывайся на {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "📡 Не пропусти важное: {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4061,7 +4061,8 @@
     "hltvnews45863",
     "hltvnews45864",
     "hltvnews45865",
-    "hltvnews45866"
+    "hltvnews45866",
+    "hltvnews45867"
   ],
   "news_seen_t": [
     1788994268,
@@ -4086,7 +4087,7 @@
   "cs2_index_day": "2026-10-31",
   "ws_slot": "2026-10-30-20",
   "comm_slot": "2026-10-30-21",
-  "hltv_day": "2026-10-30",
+  "hltv_day": "2026-10-31",
   "hltv_count": 0,
   "hltv_digest": [
     {
@@ -4103,6 +4104,11 @@
       "headline": "imd: Snax не будет капитаном GamerLegion в следующем сезоне",
       "link": "https://www.hltv.org/news/45866/imd-there-are-no-plans-for-snax-to-be-igling-for-gamerlegion-next-season",
       "score": 5
+    },
+    {
+      "headline": "TYLOO, скорее всего, пропустит Singapore после снятия с HyperX Retake",
+      "link": "https://www.hltv.org/news/45867/tyloo-likely-to-miss-out-on-singapore-following-hyperx-retake-withdrawal",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-30",
