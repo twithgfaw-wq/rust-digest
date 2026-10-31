@@ -1441,7 +1441,7 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-10-30",
+  "font_day": "2026-10-31",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -1463,7 +1463,8 @@
     "Play",
     "General Sans",
     "Bona Nova SC",
-    "News Cycle"
+    "News Cycle",
+    "Nippo"
   ],
   "quiz_day": "2026-10-30",
   "quiz_fonts": [
