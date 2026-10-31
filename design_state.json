@@ -1139,10 +1139,12 @@
     "https://www.designboom.com/design/wololow-2-0-1960s-space-age-architecture-elliptical-bedside-light-arthur-koshatahyan-kostya-trunov",
     "https://abduzeedo.com/pentagram-unveils-lenlen-branding",
     "https://www.wallpaper.com/design-interiors/design-events/sabine-marcelis-light-and-color-zurich-museum-fur-gestaltung-exhibition-review",
-    "https://www.dezeen.com/2026/10/31/libreria-valladolid-mexico-city-bar-em-estudio"
+    "https://www.dezeen.com/2026/10/31/libreria-valladolid-mexico-city-bar-em-estudio",
+    "https://abduzeedo.com/branding-sundance-film-festival-identity-porto-rocha",
+    "https://abduzeedo.com/1-filmfestival-radolfzell-fyouture-poster-design"
   ],
   "day": "2026-10-31",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1460,6 +1462,12 @@
       "t": 1793464764.8000998,
       "title": "Pentagram зібрала айдентику тайського закладу з чотирьох шрифтів",
       "link": "https://abduzeedo.com/pentagram-unveils-lenlen-branding",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1793474288.3395834,
+      "title": "Porto Rocha вписала Sundance у кінокадр",
+      "link": "https://abduzeedo.com/branding-sundance-film-festival-identity-porto-rocha",
       "src": "Abduzeedo"
     }
   ],
