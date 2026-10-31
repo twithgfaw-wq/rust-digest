@@ -20,14 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792777149,
-      1146659
-    ],
-    [
-      1792777179,
-      1148041
-    ],
-    [
       1792778528,
       1155296
     ],
@@ -2010,6 +2002,10 @@
     [
       1793466782,
       1125341
+    ],
+    [
+      1793468937,
+      1115948
     ]
   ],
   "online_peaks": {
@@ -2039,9 +2035,6 @@
     "2026-10-31": 1269995
   },
   "recent_phrases": [
-    "👀 Следи за CS2 вместе с {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📌 Сохрани себе {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2538,7 +2531,10 @@
     "📢 Подписывайся: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "👉 Подписывайся на {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4103,7 +4099,8 @@
     "hltvnews45868",
     "hltvnews45869",
     "hltvnews45870",
-    "hltvnews45871"
+    "hltvnews45871",
+    "hltvnews45872"
   ],
   "news_seen_t": [
     1788994268,
@@ -4170,6 +4167,11 @@
       "headline": "YEKINDAR впервые в карьере взял MVP — на PGL Masters",
       "link": "https://www.hltv.org/news/45871/yekindar-wins-career-first-mvp-at-pgl-masters",
       "score": 7
+    },
+    {
+      "headline": "YEKINDAR о первом HLTV MVP: «Важно было найти силы преодолеть все сомнения»",
+      "link": "https://www.hltv.org/news/45872/yekindar-finding-strength-to-overcome-all-the-doubts-was-something-very-important-for-me",
+      "score": 4
     }
   ],
   "reddit_day": "2026-10-31",
