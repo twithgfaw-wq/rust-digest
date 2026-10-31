@@ -4481,6 +4481,10 @@
     [
       1793461444,
       123946
+    ],
+    [
+      1793462522,
+      124399
     ]
   ],
   "online_peaks": {
@@ -4509,7 +4513,7 @@
     "2026-10-28": 103505,
     "2026-10-29": 118792,
     "2026-10-30": 127174,
-    "2026-10-31": 123946
+    "2026-10-31": 124399
   },
   "x_last_id": "2116545760523092204",
   "market_snaps": {
@@ -5219,7 +5223,7 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3828060349",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3827537224"
   ],
-  "rust_quiz_n": 9,
-  "rust_quiz_day": "2026-10-28",
+  "rust_quiz_n": 10,
+  "rust_quiz_day": "2026-10-31",
   "last_lb_week": "2026-43"
 }
