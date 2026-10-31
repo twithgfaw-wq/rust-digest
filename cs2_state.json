@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792770305,
-      1206736
-    ],
-    [
       1792771331,
       1172716
     ],
@@ -2010,6 +2006,10 @@
     [
       1793461284,
       1190964
+    ],
+    [
+      1793462517,
+      1175034
     ]
   ],
   "online_peaks": {
@@ -2039,9 +2039,6 @@
     "2026-10-31": 1269995
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "👀 Следи за CS2 вместе с {tag}",
-    "📌 Сохрани себе {tag}",
     "📢 Подписывайся: {tag}",
     "👉 Подписывайся на {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2538,7 +2535,10 @@
     "📡 Не пропусти важное: {tag}",
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3798,15 +3798,8 @@
     "3830336811"
   ],
   "price_day": "2026-10-31",
-  "invest_day": "2026-10-30",
+  "invest_day": "2026-10-31",
   "invest_days": {
-    "2026-10-24": [
-      "Rio 2022 Dust II Souvenir Package",
-      "Paris 2023 Mirage Souvenir Package",
-      "Operation Bravo Case",
-      "Chroma 3 Case",
-      "Shadow Case"
-    ],
     "2026-10-25": [
       "Paris 2023 Ancient Souvenir Package",
       "Glove Case",
@@ -3848,6 +3841,13 @@
       "Paris 2023 Mirage Souvenir Package",
       "Shadow Case",
       "Chroma 3 Case"
+    ],
+    "2026-10-31": [
+      "Glove Case",
+      "Stockholm 2021 Dust II Souvenir Package",
+      "Paris 2023 Anubis Souvenir Package",
+      "Paris 2023 Ancient Souvenir Package",
+      "Operation Vanguard Weapon Case"
     ]
   },
   "sod_seen": [
@@ -4101,7 +4101,8 @@
     "hltvnews45866",
     "hltvnews45867",
     "hltvnews45868",
-    "hltvnews45869"
+    "hltvnews45869",
+    "hltvnews45870"
   ],
   "news_seen_t": [
     1788994268,
@@ -4158,6 +4159,11 @@
       "headline": "MOUZ обыграли Vitality 2-0 и забрали третье место в Румынии",
       "link": "https://www.hltv.org/news/45869/mouz-claim-third-place-in-romania-over-vitality",
       "score": 7
+    },
+    {
+      "headline": "FURIA выиграли PGL Masters Bucharest и взяли второй трофей подряд",
+      "link": "https://www.hltv.org/news/45870/furia-secure-second-consecutive-trophy-with-pgl-masters-bucharest-victory",
+      "score": 8
     }
   ],
   "reddit_day": "2026-10-31",
@@ -4844,6 +4850,36 @@
       "verdict": "watch",
       "price": 2.91,
       "date": "2026-10-30"
+    },
+    {
+      "name": "Glove Case",
+      "verdict": "avoid",
+      "price": 8.51,
+      "date": "2026-10-31"
+    },
+    {
+      "name": "Stockholm 2021 Dust II Souvenir Package",
+      "verdict": "buy",
+      "price": 3.62,
+      "date": "2026-10-31"
+    },
+    {
+      "name": "Paris 2023 Anubis Souvenir Package",
+      "verdict": "buy",
+      "price": 1.69,
+      "date": "2026-10-31"
+    },
+    {
+      "name": "Paris 2023 Ancient Souvenir Package",
+      "verdict": "watch",
+      "price": 2.57,
+      "date": "2026-10-31"
+    },
+    {
+      "name": "Operation Vanguard Weapon Case",
+      "verdict": "watch",
+      "price": 3.93,
+      "date": "2026-10-31"
     }
   ],
   "cs2_quiz_n": 10,
