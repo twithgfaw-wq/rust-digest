@@ -1986,6 +1986,10 @@
     [
       1793558905,
       1103155
+    ],
+    [
+      1793559685,
+      1104977
     ]
   ],
   "online_peaks": {
@@ -2016,9 +2020,6 @@
     "2026-11-01": 1287939
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📢 Подписывайся: {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📡 Не пропусти важное: {tag}",
     "💣 Твой канал про CS2 — {tag}",
@@ -2515,7 +2516,10 @@
     "🔔 Больше CS2 — в {tag}",
     "👉 Подписывайся на {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📌 Сохрани себе {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4146,31 +4150,10 @@
   },
   "cs2_index_day": "2026-11-01",
   "ws_slot": "2026-11-01-20",
-  "comm_slot": "2026-11-01-17",
+  "comm_slot": "2026-11-01-21",
   "hltv_day": "2026-11-01",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "zhokiNg: «У нас не было выбора, кроме как играть в том Retake-турнире»",
-      "link": "https://www.hltv.org/news/45874/zhoking-we-had-no-choice-but-to-play-in-that-retake-event",
-      "score": 4
-    },
-    {
-      "headline": "1win выиграли Moscow Cyber Games, у HOTU проблемы с путёвкой на Major",
-      "link": "https://www.hltv.org/news/45877/1win-take-moscow-cyber-games-title-in-huge-blow-to-hotus-major-hopes",
-      "score": 5
-    },
-    {
-      "headline": "JBOEN: «На мейджор ехать спокойнее — за очки больше не переживаем, но побеждать надо»",
-      "link": "https://www.hltv.org/news/45875/jboen-going-to-the-major-is-definitely-more-relaxing-now-we-dont-have-to-stress-about-the-points-anymore-but-we-still-need-to-win",
-      "score": 5
-    },
-    {
-      "headline": "Jee возвращается в состав TYLOO на IEM Beijing",
-      "link": "https://www.hltv.org/news/45878/jee-returns-to-tyloo-lineup-for-iem-beijing",
-      "score": 4
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-11-01",
   "reddit_posted": [
     "1wzz7z0",
@@ -4195,7 +4178,7 @@
     "1xkf3b4"
   ],
   "online_daily": "2026-11-01",
-  "hltv_digest_day": "2026-10-31",
+  "hltv_digest_day": "2026-11-01",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
