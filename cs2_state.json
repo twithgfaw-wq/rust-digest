@@ -20,14 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792854107,
-      1326033
-    ],
-    [
-      1792854415,
-      1308249
-    ],
-    [
       1792856360,
       1265011
     ],
@@ -1990,6 +1982,10 @@
     [
       1793545103,
       1248778
+    ],
+    [
+      1793546095,
+      1211637
     ]
   ],
   "online_peaks": {
@@ -2020,9 +2016,6 @@
     "2026-11-01": 1287939
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2519,7 +2512,10 @@
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "👉 Подписывайся на {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4122,7 +4118,8 @@
     "hltvnews45870",
     "hltvnews45871",
     "hltvnews45872",
-    "hltvnews45874"
+    "hltvnews45874",
+    "hltvnews45877"
   ],
   "news_seen_t": [
     1788994268,
@@ -4146,7 +4143,7 @@
   },
   "cs2_index_day": "2026-11-01",
   "ws_slot": "2026-11-01-16",
-  "comm_slot": "2026-11-01-13",
+  "comm_slot": "2026-11-01-17",
   "hltv_day": "2026-11-01",
   "hltv_count": 0,
   "hltv_digest": [
@@ -4154,6 +4151,11 @@
       "headline": "zhokiNg: «У нас не было выбора, кроме как играть в том Retake-турнире»",
       "link": "https://www.hltv.org/news/45874/zhoking-we-had-no-choice-but-to-play-in-that-retake-event",
       "score": 4
+    },
+    {
+      "headline": "1win выиграли Moscow Cyber Games, у HOTU проблемы с путёвкой на Major",
+      "link": "https://www.hltv.org/news/45877/1win-take-moscow-cyber-games-title-in-huge-blow-to-hotus-major-hopes",
+      "score": 5
     }
   ],
   "reddit_day": "2026-11-01",
