@@ -20,14 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792868505,
-      1154757
-    ],
-    [
-      1792869102,
-      1147547
-    ],
-    [
       1792870862,
       1134681
     ],
@@ -1990,6 +1982,10 @@
     [
       1793559685,
       1104977
+    ],
+    [
+      1793560918,
+      1094067
     ]
   ],
   "online_peaks": {
@@ -2020,9 +2016,6 @@
     "2026-11-01": 1287939
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📡 Не пропусти важное: {tag}",
-    "💣 Твой канал про CS2 — {tag}",
     "📌 Сохрани себе {tag}",
     "👉 Подписывайся на {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2519,7 +2512,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "📌 Сохрани себе {tag}",
     "🔥 {tag} — CS2 без воды",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4126,7 +4122,8 @@
     "hltvnews45874",
     "hltvnews45877",
     "hltvnews45875",
-    "hltvnews45878"
+    "hltvnews45878",
+    "hltvnews45873"
   ],
   "news_seen_t": [
     1788994268,
@@ -4153,7 +4150,13 @@
   "comm_slot": "2026-11-01-21",
   "hltv_day": "2026-11-01",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "m0NESY о kyousuke: «Иногда он слишком много думает»",
+      "link": "https://www.hltv.org/news/45873/m0nesy-maybe-sometimes-kyousuke-overthinks-and-he-thinks-that-hes-forced-to-say-something-to-always-do-something",
+      "score": 5
+    }
+  ],
   "reddit_day": "2026-11-01",
   "reddit_posted": [
     "1wzz7z0",
