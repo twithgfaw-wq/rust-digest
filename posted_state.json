@@ -2478,10 +2478,6 @@
   ],
   "online_log": [
     [
-      1792835907,
-      94296
-    ],
-    [
       1792837742,
       101451
     ],
@@ -4476,6 +4472,10 @@
     [
       1793525938,
       81810
+    ],
+    [
+      1793527292,
+      86253
     ]
   ],
   "online_peaks": {
@@ -4505,7 +4505,7 @@
     "2026-10-29": 118792,
     "2026-10-30": 127174,
     "2026-10-31": 128247,
-    "2026-11-01": 81831
+    "2026-11-01": 86253
   },
   "x_last_id": "2116545760523092204",
   "market_snaps": {
@@ -5105,9 +5105,10 @@
     "Pirate Small Backpack",
     "Hazma Wooden Door",
     "Shark Attack Small Backpack",
-    "Heat Seeker DBS"
+    "Heat Seeker DBS",
+    "Cartoon SAP"
   ],
-  "rsod_day": "2026-10-31",
+  "rsod_day": "2026-11-01",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
