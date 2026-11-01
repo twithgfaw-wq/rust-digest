@@ -1,6 +1,6 @@
 {
  "rust_news_Pro": {
-  "updated": "2026-10-31T21:16:02.631448+00:00",
+  "updated": "2026-11-01T21:17:04.339531+00:00",
   "posts": [
    {
     "id": 1,
@@ -4136,7 +4136,7 @@
    {
     "id": 524,
     "date": "2026-10-29T07:02:24+00:00",
-    "views": 6,
+    "views": 7,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4235,7 +4235,7 @@
    {
     "id": 541,
     "date": "2026-10-29T18:02:05+00:00",
-    "views": 9,
+    "views": 10,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -4246,7 +4246,7 @@
    {
     "id": 542,
     "date": "2026-10-29T19:02:12+00:00",
-    "views": 8,
+    "views": 9,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4257,7 +4257,7 @@
    {
     "id": 545,
     "date": "2026-10-29T20:14:23+00:00",
-    "views": 19,
+    "views": 20,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -4268,7 +4268,7 @@
    {
     "id": 546,
     "date": "2026-10-29T20:16:01+00:00",
-    "views": 9,
+    "views": 10,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -4334,7 +4334,7 @@
    {
     "id": 559,
     "date": "2026-10-30T11:02:19+00:00",
-    "views": 9,
+    "views": 10,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4367,7 +4367,7 @@
    {
     "id": 562,
     "date": "2026-10-30T14:02:10+00:00",
-    "views": 12,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4378,7 +4378,7 @@
    {
     "id": 563,
     "date": "2026-10-30T18:02:07+00:00",
-    "views": 12,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -4389,7 +4389,7 @@
    {
     "id": 564,
     "date": "2026-10-30T18:59:03+00:00",
-    "views": 13,
+    "views": 14,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4400,7 +4400,7 @@
    {
     "id": 565,
     "date": "2026-10-30T19:02:08+00:00",
-    "views": 12,
+    "views": 13,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4411,7 +4411,7 @@
    {
     "id": 566,
     "date": "2026-10-31T07:02:01+00:00",
-    "views": 11,
+    "views": 12,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4422,7 +4422,7 @@
    {
     "id": 567,
     "date": "2026-10-31T08:02:29+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4477,7 +4477,7 @@
    {
     "id": 572,
     "date": "2026-10-31T15:01:10+00:00",
-    "views": 7,
+    "views": 8,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -4488,7 +4488,7 @@
    {
     "id": 573,
     "date": "2026-10-31T16:02:40+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -4499,7 +4499,7 @@
    {
     "id": 574,
     "date": "2026-10-31T18:00:17+00:00",
-    "views": 6,
+    "views": 7,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -4510,7 +4510,7 @@
    {
     "id": 575,
     "date": "2026-10-31T18:02:03+00:00",
-    "views": 6,
+    "views": 7,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -4521,18 +4521,172 @@
    {
     "id": 576,
     "date": "2026-10-31T20:29:14+00:00",
-    "views": 4,
+    "views": 8,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
     "voters": null,
     "rubric": "🎨 Мастерская",
     "head": "👀 ЛУЧШЕЕ ИЗ ВОРКШОПА — просто посмотрите на это"
+   },
+   {
+    "id": 577,
+    "date": "2026-11-01T07:01:30+00:00",
+    "views": 6,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎬 Видео",
+    "head": "🍿 Есть что посмотреть вечером: новое видео от Hedge"
+   },
+   {
+    "id": 578,
+    "date": "2026-11-01T07:01:48+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "🏆 Конкурс",
+    "head": "🏆 ИТОГИ НЕДЕЛИ · КТО УГАДАЛ"
+   },
+   {
+    "id": 579,
+    "date": "2026-11-01T07:32:44+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎬 Видео",
+    "head": "🔥 ЛУЧШЕЕ ВИДЕО ДНЯ — ОТ Hedge"
+   },
+   {
+    "id": 580,
+    "date": "2026-11-01T07:33:01+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "🏆 Конкурс",
+    "head": "🏆 ИТОГИ НЕДЕЛИ · КТО УГАДАЛ"
+   },
+   {
+    "id": 581,
+    "date": "2026-11-01T08:01:55+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#индекс",
+    "head": "📈 ИНДЕКС РЫНКА RUST: 38 — ХОЛОДНО"
+   },
+   {
+    "id": 582,
+    "date": "2026-11-01T09:01:34+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "💥 ЛУЧШЕЕ ИЗ ВОРКШОПА: свежая работа"
+   },
+   {
+    "id": 583,
+    "date": "2026-11-01T10:02:07+00:00",
+    "views": 6,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Скин дня",
+    "head": "🎨 СКИН ДНЯ"
+   },
+   {
+    "id": 584,
+    "date": "2026-11-01T11:01:38+00:00",
+    "views": 7,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "📊 Маркет",
+    "head": "🎢 Качели маркета Rust: итоги"
+   },
+   {
+    "id": 585,
+    "date": "2026-11-01T12:01:31+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎬 Видео",
+    "head": "🎬 У Hedge новый ролик — и он того стоит"
+   },
+   {
+    "id": 586,
+    "date": "2026-11-01T14:01:40+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🏆 ЛУЧШЕЕ ИЗ ВОРКШОПА — сразу три автора"
+   },
+   {
+    "id": 590,
+    "date": "2026-11-01T15:00:39+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "📰 Новости",
+    "head": "📢 Свежее из официального X Rust"
+   },
+   {
+    "id": 591,
+    "date": "2026-11-01T15:00:48+00:00",
+    "views": 21,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🥇 Лучшие работы недели в воркшопе Rust"
+   },
+   {
+    "id": 592,
+    "date": "2026-11-01T18:00:02+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "👥 Онлайн",
+    "head": "📊 ОНЛАЙН RUST ПРЯМО СЕЙЧАС"
+   },
+   {
+    "id": 593,
+    "date": "2026-11-01T19:01:36+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "😮 ЛУЧШЕЕ ИЗ ВОРКШОПА: свежий улов из мастерской"
    }
   ]
  },
  "cs2_me": {
-  "updated": "2026-10-31T21:16:59.132215+00:00",
+  "updated": "2026-11-01T21:18:06.834467+00:00",
   "posts": [
    {
     "id": 1,
@@ -8140,7 +8294,7 @@
    {
     "id": 652,
     "date": "2026-10-31T10:02:30+00:00",
-    "views": 22,
+    "views": 24,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -8173,7 +8327,7 @@
    {
     "id": 658,
     "date": "2026-10-31T14:02:21+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -8184,7 +8338,7 @@
    {
     "id": 659,
     "date": "2026-10-31T14:02:52+00:00",
-    "views": 5,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -8206,7 +8360,7 @@
    {
     "id": 669,
     "date": "2026-10-31T18:01:56+00:00",
-    "views": 4,
+    "views": 5,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -8217,7 +8371,7 @@
    {
     "id": 670,
     "date": "2026-10-31T18:02:18+00:00",
-    "views": 5,
+    "views": 7,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -8228,7 +8382,7 @@
    {
     "id": 674,
     "date": "2026-10-31T19:02:20+00:00",
-    "views": 2,
+    "views": 6,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -8239,13 +8393,156 @@
    {
     "id": 675,
     "date": "2026-10-31T19:02:21+00:00",
-    "views": 2,
+    "views": 3,
     "reactions": {},
     "react_total": 0,
     "media": "text",
     "voters": null,
     "rubric": "#киберспорт",
     "head": "🎮 КИБЕРСПОРТ ЗА ДЕНЬ · 31.10"
+   },
+   {
+    "id": 676,
+    "date": "2026-11-01T09:01:35+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Скин дня",
+    "head": "✨ СКИН ДНЯ"
+   },
+   {
+    "id": 677,
+    "date": "2026-11-01T09:07:52+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#индекс",
+    "head": "📈 ИНДЕКС РЫНКА CS2: 15 — МОРОЗ"
+   },
+   {
+    "id": 678,
+    "date": "2026-11-01T10:01:47+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 682,
+    "date": "2026-11-01T11:01:42+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💬 Сообщество",
+    "head": "💬 СООБЩЕСТВО CS2"
+   },
+   {
+    "id": 683,
+    "date": "2026-11-01T12:01:39+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "#reddit",
+    "head": "📣 ЛУЧШЕЕ С REDDIT"
+   },
+   {
+    "id": 684,
+    "date": "2026-11-01T13:01:35+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#отчёт",
+    "head": "📒 МЫ СОВЕТОВАЛИ — ЧТО ВЫШЛО"
+   },
+   {
+    "id": 685,
+    "date": "2026-11-01T14:01:39+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "📊 Маркет",
+    "head": "💹 МАРКЕТ CS2 · ЗА НЕДЕЛЮ"
+   },
+   {
+    "id": 686,
+    "date": "2026-11-01T14:01:43+00:00",
+    "views": 5,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 690,
+    "date": "2026-11-01T16:02:47+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💼 Инвест",
+    "head": "💼 ИНВЕСТИЦИИ CS2 · ТОП-5 ДНЯ"
+   },
+   {
+    "id": 696,
+    "date": "2026-11-01T16:02:54+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "без рубрики",
+    "head": ""
+   },
+   {
+    "id": 697,
+    "date": "2026-11-01T18:01:23+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "👥 Онлайн",
+    "head": "🛰 Мониторинг онлайна CS2"
+   },
+   {
+    "id": 698,
+    "date": "2026-11-01T18:01:28+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 702,
+    "date": "2026-11-01T19:01:43+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "#киберспорт",
+    "head": "🎮 КИБЕРСПОРТ ЗА ДЕНЬ · 01.11"
    }
   ]
  }
