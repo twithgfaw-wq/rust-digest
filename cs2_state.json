@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792881410,
-      819001
-    ],
-    [
       1792882996,
       741130
     ],
@@ -1986,6 +1982,10 @@
     [
       1793571273,
       745616
+    ],
+    [
+      1793573606,
+      679270
     ]
   ],
   "online_peaks": {
@@ -2016,9 +2016,6 @@
     "2026-11-01": 1287939
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "👀 Следи за CS2 вместе с {tag}",
-    "📢 Подписывайся: {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
     "👉 Подписывайся на {tag}",
@@ -2515,7 +2512,10 @@
     "📡 Не пропусти важное: {tag}",
     "📌 Сохрани себе {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4123,7 +4123,8 @@
     "hltvnews45877",
     "hltvnews45875",
     "hltvnews45878",
-    "hltvnews45873"
+    "hltvnews45873",
+    "hltvnews45880"
   ],
   "news_seen_t": [
     1788994268,
@@ -4148,13 +4149,18 @@
   "cs2_index_day": "2026-11-01",
   "ws_slot": "2026-11-01-20",
   "comm_slot": "2026-11-01-21",
-  "hltv_day": "2026-11-01",
+  "hltv_day": "2026-11-02",
   "hltv_count": 0,
   "hltv_digest": [
     {
       "headline": "m0NESY о kyousuke: «Иногда он слишком много думает»",
       "link": "https://www.hltv.org/news/45873/m0nesy-maybe-sometimes-kyousuke-overthinks-and-he-thinks-that-hes-forced-to-say-something-to-always-do-something",
       "score": 5
+    },
+    {
+      "headline": "100 Thieves выиграли FiRe Last Chance и забрали последний слот на Singapore Major",
+      "link": "https://www.hltv.org/news/45880/100-thieves-win-fire-last-chance-to-book-last-singapore-major-spot",
+      "score": 6
     }
   ],
   "reddit_day": "2026-11-01",
