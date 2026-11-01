@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792860059,
-      1183583
-    ],
-    [
       1792861305,
       1171057
     ],
@@ -1986,6 +1982,10 @@
     [
       1793549709,
       1109500
+    ],
+    [
+      1793552005,
+      1100907
     ]
   ],
   "online_peaks": {
@@ -2016,9 +2016,6 @@
     "2026-11-01": 1287939
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👀 Следи за CS2 вместе с {tag}",
     "📌 Сохрани себе {tag}",
@@ -2515,7 +2512,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "💣 Твой канал про CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4120,7 +4120,8 @@
     "hltvnews45872",
     "hltvnews45874",
     "hltvnews45877",
-    "hltvnews45875"
+    "hltvnews45875",
+    "hltvnews45878"
   ],
   "news_seen_t": [
     1788994268,
@@ -4162,6 +4163,11 @@
       "headline": "JBOEN: «На мейджор ехать спокойнее — за очки больше не переживаем, но побеждать надо»",
       "link": "https://www.hltv.org/news/45875/jboen-going-to-the-major-is-definitely-more-relaxing-now-we-dont-have-to-stress-about-the-points-anymore-but-we-still-need-to-win",
       "score": 5
+    },
+    {
+      "headline": "Jee возвращается в состав TYLOO на IEM Beijing",
+      "link": "https://www.hltv.org/news/45878/jee-returns-to-tyloo-lineup-for-iem-beijing",
+      "score": 4
     }
   ],
   "reddit_day": "2026-11-01",
