@@ -1141,10 +1141,14 @@
     "https://www.wallpaper.com/design-interiors/design-events/sabine-marcelis-light-and-color-zurich-museum-fur-gestaltung-exhibition-review",
     "https://www.dezeen.com/2026/10/31/libreria-valladolid-mexico-city-bar-em-estudio",
     "https://abduzeedo.com/branding-sundance-film-festival-identity-porto-rocha",
-    "https://abduzeedo.com/1-filmfestival-radolfzell-fyouture-poster-design"
+    "https://abduzeedo.com/1-filmfestival-radolfzell-fyouture-poster-design",
+    "https://www.creativebloq.com/how-to/how-to-animate-your-drawings-in-procreate-the-easy-way",
+    "https://www.creativebloq.com/how-to/how-to-make-these-easy-halloween-crafts-with-cricut",
+    "https://abduzeedo.com/inside-fritz-kola-global-branding-robot-food",
+    "https://www.designboom.com/architecture/chromatic-pavilions-modular-play-structures-historic-istanbul-rami-library-milimetrik-architects"
   ],
-  "day": "2026-10-31",
-  "day_count": 2,
+  "day": "2026-11-01",
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1468,6 +1472,12 @@
       "t": 1793474288.3395834,
       "title": "Porto Rocha вписала Sundance у кінокадр",
       "link": "https://abduzeedo.com/branding-sundance-film-festival-identity-porto-rocha",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1793512881.8802238,
+      "title": "Robot Food вивели Fritz-Kola на рівень Європи без втрати характеру",
+      "link": "https://abduzeedo.com/inside-fritz-kola-global-branding-robot-food",
       "src": "Abduzeedo"
     }
   ],
