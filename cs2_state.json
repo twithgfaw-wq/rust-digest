@@ -20,34 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792913925,
-      747692
-    ],
-    [
-      1792914192,
-      754721
-    ],
-    [
-      1792915304,
-      775902
-    ],
-    [
-      1792917525,
-      796922
-    ],
-    [
-      1792917608,
-      802151
-    ],
-    [
-      1792918902,
-      826779
-    ],
-    [
-      1792919430,
-      826779
-    ],
-    [
       1792921499,
       851758
     ],
@@ -1986,6 +1958,10 @@
     [
       1793605103,
       491658
+    ],
+    [
+      1793612310,
+      601933
     ]
   ],
   "online_peaks": {
@@ -2014,12 +1990,9 @@
     "2026-10-30": 1245206,
     "2026-10-31": 1269995,
     "2026-11-01": 1287939,
-    "2026-11-02": 535992
+    "2026-11-02": 601933
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "💣 Твой канал про CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📢 Подписывайся: {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2516,7 +2489,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3889,9 +3865,10 @@
     "AK-47 | Head Shot",
     "Desert Eagle | Crimson Web",
     "M4A1-S | Decimator",
-    "FAMAS | Bad Trip"
+    "FAMAS | Bad Trip",
+    "Desert Eagle | Mulberry"
   ],
-  "sod_day": "2026-11-01",
+  "sod_day": "2026-11-02",
   "ev_seen": [
     "Dreams & Nightmares Case",
     "Danger Zone Case",
@@ -4130,7 +4107,8 @@
     "hltvnews45876",
     "hltvnews45881",
     "hltvnews45883",
-    "hltvnews45882"
+    "hltvnews45882",
+    "hltvnews45884"
   ],
   "news_seen_t": [
     1788994268,
@@ -4152,7 +4130,7 @@
     "2026-10-08": 39,
     "2026-10-09": 0
   },
-  "cs2_index_day": "2026-11-01",
+  "cs2_index_day": "2026-11-02",
   "ws_slot": "2026-11-01-20",
   "comm_slot": "2026-11-01-21",
   "hltv_day": "2026-11-02",
@@ -4186,6 +4164,11 @@
     {
       "headline": "Techno из The MongolZ: «Ощущение, будто у нас два IGL»",
       "link": "https://www.hltv.org/news/45882/techno-it-almost-feels-like-we-are-playing-with-two-igls",
+      "score": 4
+    },
+    {
+      "headline": "flashie: JT видит игру так же, как я — раньше такого не было",
+      "link": "https://www.hltv.org/news/45884/flashie-jt-sees-the-game-very-similarly-to-me-so-that-guidance-is-now-there-it-wasnt-really-possible-to-get-to-that-point-before",
       "score": 4
     }
   ],
@@ -4961,7 +4944,8 @@
     "2026-10-29": 12,
     "2026-10-30": 14,
     "2026-10-31": 5,
-    "2026-11-01": 15
+    "2026-11-01": 15,
+    "2026-11-02": 21
   },
   "duel": {
     "date": "29.10",
