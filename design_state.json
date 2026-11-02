@@ -1171,7 +1171,8 @@
     "https://www.creativeboom.com/news/london-and-la-studio-howhow-launches-a-new-name-visual-identity-and-website",
     "https://www.creativeboom.com/work/wildwood-is-a-great-leap-forward-for-animation-heres-why-you-need-to-see-it-on-a-big-screen",
     "https://www.creativeboom.com/work/swiss-typefaces-crafts-a-warmer-friendlier-custom-font-for-swiss-post",
-    "https://www.creativebloq.com/news/will-your-digital-work-still-exist-in-2046-heres-why-the-answer-might-be-no"
+    "https://www.creativebloq.com/news/will-your-digital-work-still-exist-in-2046-heres-why-the-answer-might-be-no",
+    "https://www.designboom.com/art/carpet-diem-1000-vases-textile-ceramic-glass-art-espace-commines-paris"
   ],
   "day": "2026-11-02",
   "day_count": 1,
@@ -1514,7 +1515,7 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-11-01",
+  "font_day": "2026-11-02",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -1538,7 +1539,8 @@
     "Bona Nova SC",
     "News Cycle",
     "Nippo",
-    "Roboto Mono"
+    "Roboto Mono",
+    "Source Code Pro"
   ],
   "quiz_day": "2026-11-01",
   "quiz_fonts": [
