@@ -1946,6 +1946,10 @@
     [
       1793645003,
       1037261
+    ],
+    [
+      1793646010,
+      1039537
     ]
   ],
   "online_peaks": {
@@ -1977,9 +1981,6 @@
     "2026-11-02": 1089723
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "👉 Подписывайся на {tag}",
-    "💣 Твой канал про CS2 — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🔥 {tag} — CS2 без воды",
     "📡 Не пропусти важное: {tag}",
@@ -2476,7 +2477,10 @@
     "📢 Подписывайся: {tag}",
     "📡 Не пропусти важное: {tag}",
     "🔥 {tag} — CS2 без воды",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔔 Больше CS2 — в {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2586,7 +2590,8 @@
     "2116564858020020322",
     "2116559493299650861",
     "2117035088072544646",
-    "2117052478432911782"
+    "2117052478432911782",
+    "2117317793594970455"
   ],
   "ws_scores": {
     "3815186169": {
@@ -4155,56 +4160,10 @@
   },
   "cs2_index_day": "2026-11-02",
   "ws_slot": "2026-11-02-16",
-  "comm_slot": "2026-11-02-17",
+  "comm_slot": "2026-11-02-21",
   "hltv_day": "2026-11-02",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "m0NESY о kyousuke: «Иногда он слишком много думает»",
-      "link": "https://www.hltv.org/news/45873/m0nesy-maybe-sometimes-kyousuke-overthinks-and-he-thinks-that-hes-forced-to-say-something-to-always-do-something",
-      "score": 5
-    },
-    {
-      "headline": "100 Thieves выиграли FiRe Last Chance и забрали последний слот на Singapore Major",
-      "link": "https://www.hltv.org/news/45880/100-thieves-win-fire-last-chance-to-book-last-singapore-major-spot",
-      "score": 6
-    },
-    {
-      "headline": "Определены все 32 участника PGL Major Singapore",
-      "link": "https://www.hltv.org/news/45879/pgl-major-singapore-invites-set",
-      "score": 7
-    },
-    {
-      "headline": "woxic: «Со временем трофей уже не кажется таким далёким»",
-      "link": "https://www.hltv.org/news/45876/woxic-after-some-time-the-trophy-is-not-looking-so-far-away",
-      "score": 4
-    },
-    {
-      "headline": "Liquid уверенно обыграли Aurora на старте IEM Beijing",
-      "link": "https://www.hltv.org/news/45883/liquid-crush-aurora-in-iem-beijing-opener",
-      "score": 6
-    },
-    {
-      "headline": "Techno из The MongolZ: «Ощущение, будто у нас два IGL»",
-      "link": "https://www.hltv.org/news/45882/techno-it-almost-feels-like-we-are-playing-with-two-igls",
-      "score": 4
-    },
-    {
-      "headline": "flashie: JT видит игру так же, как я — раньше такого не было",
-      "link": "https://www.hltv.org/news/45884/flashie-jt-sees-the-game-very-similarly-to-me-so-that-guidance-is-now-there-it-wasnt-really-possible-to-get-to-that-point-before",
-      "score": 4
-    },
-    {
-      "headline": "NAVI отправили Falcons в нижнюю сетку по итогам первого дня IEM Beijing",
-      "link": "https://www.hltv.org/news/45889/navi-send-falcons-to-lower-bracket-as-first-day-of-iem-beijing-comes-to-a-close",
-      "score": 8
-    },
-    {
-      "headline": "Valve выпустила ноябрьское обновление VRS, которое определит участников Singapore Major",
-      "link": "https://www.hltv.org/news/45890/valve-release-major-deciding-november-vrs-update",
-      "score": 7
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-11-02",
   "reddit_posted": [
     "1wzz7z0",
@@ -4229,7 +4188,7 @@
     "1xkf3b4"
   ],
   "online_daily": "2026-11-02",
-  "hltv_digest_day": "2026-11-01",
+  "hltv_digest_day": "2026-11-02",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
