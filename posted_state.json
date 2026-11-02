@@ -4458,6 +4458,10 @@
     [
       1793613384,
       62499
+    ],
+    [
+      1793613696,
+      63112
     ]
   ],
   "online_peaks": {
@@ -5104,9 +5108,10 @@
     "Hazma Wooden Door",
     "Shark Attack Small Backpack",
     "Heat Seeker DBS",
-    "Cartoon SAP"
+    "Cartoon SAP",
+    "No Mercy Wood Jacket"
   ],
-  "rsod_day": "2026-11-01",
+  "rsod_day": "2026-11-02",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
