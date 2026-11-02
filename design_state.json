@@ -1193,10 +1193,13 @@
     "https://www.wallpaper.com/transportation/the-ktm-x-bow-gt-xa-is-a-hardcore-road-car-built-around-true-racing-pedigree",
     "https://www.creativebloq.com/news/affinity-for-ipad-just-made-the-free-adobe-alternative-even-more-complete",
     "https://www.creativebloq.com/news/how-helldivers-2-uses-blender-to-build-its-gritty-sci-fi-hardware",
-    "https://www.creativebloq.com/inspiration/this-black-horse-optical-illusion-is-even-more-baffling-than-the-colour-changing-dress"
+    "https://www.creativebloq.com/inspiration/this-black-horse-optical-illusion-is-even-more-baffling-than-the-colour-changing-dress",
+    "https://abduzeedo.com/typography-3d-embossed-terrazzo-john-kappa",
+    "https://www.fastcompany.com/91633137/fanatics-nhl-hometown-remix-jersey-design?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://abduzeedo.com/brand-identity-waabi-autonomous-trucking-manual"
   ],
   "day": "2026-11-02",
-  "day_count": 3,
+  "day_count": 4,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1545,6 +1548,12 @@
       "title": "Affinity вийшла на iPad: скетч, вектор, фото і верстка в одному файлі",
       "link": "https://www.creativeboom.com/tools/behold-affinity-for-ipad-the-app-that-wants-to-retire-your-four-other-apps",
       "src": "Creative Boom"
+    },
+    {
+      "t": 1793633405.1532729,
+      "title": "Manual зробили бренд автономних вантажівок Waabi без sci-fi",
+      "link": "https://abduzeedo.com/brand-identity-waabi-autonomous-trucking-manual",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
