@@ -1186,10 +1186,11 @@
     "https://www.fastcompany.com/91630762/going-to-the-gym-just-got-easier-for-residents-at-this-paris-homeless-shelter?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
     "https://www.fastcompany.com/91633346/inside-kfc-big-plan-to-win-the-chicken-wars?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
     "https://www.dezeen.com/2026/11/02/the-pay-100-architect-salaries-survey",
-    "https://www.designboom.com/architecture/aditya-mandlik-water-worms-bees-reshape-architecture-guest-essay"
+    "https://www.designboom.com/architecture/aditya-mandlik-water-worms-bees-reshape-architecture-guest-essay",
+    "https://www.creativebloq.com/news/the-real-star-of-the-new-macbook-pro-is-the-apple-logo"
   ],
   "day": "2026-11-02",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1526,6 +1527,12 @@
       "title": "Swiss Typefaces зробили для швейцарської пошти шрифт, якого не помітять",
       "link": "https://www.creativeboom.com/work/swiss-typefaces-crafts-a-warmer-friendlier-custom-font-for-swiss-post",
       "src": "Creative Boom"
+    },
+    {
+      "t": 1793623706.6417468,
+      "title": "Apple повернула світне яблуко на кришку MacBook Pro",
+      "link": "https://www.creativebloq.com/news/the-real-star-of-the-new-macbook-pro-is-the-apple-logo",
+      "src": "Creative Bloq"
     }
   ],
   "queue": [],
