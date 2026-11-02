@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792942765,
-      1211064
-    ],
-    [
       1792944105,
       1175810
     ],
@@ -1950,6 +1946,10 @@
     [
       1793633907,
       1009895
+    ],
+    [
+      1793635282,
+      977272
     ]
   ],
   "online_peaks": {
@@ -1981,9 +1981,6 @@
     "2026-11-02": 1089723
   },
   "recent_phrases": [
-    "👀 Следи за CS2 вместе с {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "👉 Подписывайся на {tag}",
     "🔥 {tag} — CS2 без воды",
     "📢 Подписывайся: {tag}",
     "💣 Твой канал про CS2 — {tag}",
@@ -2480,7 +2477,10 @@
     "🔔 Больше CS2 — в {tag}",
     "📢 Подписывайся: {tag}",
     "👉 Подписывайся на {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📌 Сохрани себе {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3810,15 +3810,8 @@
     "3831794651"
   ],
   "price_day": "2026-11-02",
-  "invest_day": "2026-11-01",
+  "invest_day": "2026-11-02",
   "invest_days": {
-    "2026-10-26": [
-      "Anubis Collection Package",
-      "CS:GO Weapon Case",
-      "Winter Offensive Weapon Case",
-      "Paris 2023 Vertigo Souvenir Package",
-      "Horizon Case"
-    ],
     "2026-10-27": [
       "Rio 2022 Dust II Souvenir Package",
       "Operation Bravo Case",
@@ -3860,6 +3853,13 @@
       "Anubis Collection Package",
       "Horizon Case",
       "Paris 2023 Vertigo Souvenir Package"
+    ],
+    "2026-11-02": [
+      "Rio 2022 Dust II Souvenir Package",
+      "Operation Bravo Case",
+      "Paris 2023 Mirage Souvenir Package",
+      "Shadow Case",
+      "Spectrum Case"
     ]
   },
   "sod_seen": [
@@ -4948,6 +4948,36 @@
       "verdict": "watch",
       "price": 2.13,
       "date": "2026-11-01"
+    },
+    {
+      "name": "Rio 2022 Dust II Souvenir Package",
+      "verdict": "buy",
+      "price": 2.56,
+      "date": "2026-11-02"
+    },
+    {
+      "name": "Operation Bravo Case",
+      "verdict": "watch",
+      "price": 50.37,
+      "date": "2026-11-02"
+    },
+    {
+      "name": "Paris 2023 Mirage Souvenir Package",
+      "verdict": "buy",
+      "price": 2.36,
+      "date": "2026-11-02"
+    },
+    {
+      "name": "Shadow Case",
+      "verdict": "watch",
+      "price": 1.35,
+      "date": "2026-11-02"
+    },
+    {
+      "name": "Spectrum Case",
+      "verdict": "buy",
+      "price": 3.07,
+      "date": "2026-11-02"
     }
   ],
   "cs2_quiz_n": 11,
