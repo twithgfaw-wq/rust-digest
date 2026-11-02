@@ -1167,10 +1167,14 @@
     "https://abduzeedo.com/andstudio-unveils-werf-rotterdam-identity",
     "https://www.designboom.com/architecture/how-ecologicstudio-uses-living-organisms-to-build-better-spaces-for-living",
     "https://www.creativeboom.com/work/isobels-financial-services-ad-shows-what-a-difference-it-makes-when-you-dont-use-cgi",
-    "https://www.dezeen.com/2026/11/02/lacaton-vassal-le-prix-charlotte-perriand-2027"
+    "https://www.dezeen.com/2026/11/02/lacaton-vassal-le-prix-charlotte-perriand-2027",
+    "https://www.creativeboom.com/news/london-and-la-studio-howhow-launches-a-new-name-visual-identity-and-website",
+    "https://www.creativeboom.com/work/wildwood-is-a-great-leap-forward-for-animation-heres-why-you-need-to-see-it-on-a-big-screen",
+    "https://www.creativeboom.com/work/swiss-typefaces-crafts-a-warmer-friendlier-custom-font-for-swiss-post",
+    "https://www.creativebloq.com/news/will-your-digital-work-still-exist-in-2046-heres-why-the-answer-might-be-no"
   ],
   "day": "2026-11-02",
-  "day_count": 0,
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1501,6 +1505,12 @@
       "title": "Robot Food вивели Fritz-Kola на рівень Європи без втрати характеру",
       "link": "https://abduzeedo.com/inside-fritz-kola-global-branding-robot-food",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1793602105.0142229,
+      "title": "Swiss Typefaces зробили для швейцарської пошти шрифт, якого не помітять",
+      "link": "https://www.creativeboom.com/work/swiss-typefaces-crafts-a-warmer-friendlier-custom-font-for-swiss-post",
+      "src": "Creative Boom"
     }
   ],
   "queue": [],
