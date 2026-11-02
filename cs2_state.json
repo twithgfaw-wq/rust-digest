@@ -20,18 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792936903,
-      1328680
-    ],
-    [
-      1792937192,
-      1328680
-    ],
-    [
-      1792939084,
-      1305356
-    ],
-    [
       1792940503,
       1282057
     ],
@@ -1954,6 +1942,10 @@
     [
       1793628086,
       1044269
+    ],
+    [
+      1793630309,
+      1089723
     ]
   ],
   "online_peaks": {
@@ -1982,12 +1974,9 @@
     "2026-10-30": 1245206,
     "2026-10-31": 1269995,
     "2026-11-01": 1287939,
-    "2026-11-02": 1044269
+    "2026-11-02": 1089723
   },
   "recent_phrases": [
-    "👥 Сколько людей сейчас в CS2",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "📌 Сохрани себе {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2484,7 +2473,10 @@
     "📌 Сохрани себе {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🔥 {tag} — CS2 без воды",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "👉 Подписывайся на {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4136,7 +4128,8 @@
     "hltvnews45884",
     "hltvnews45887",
     "hltvnews45886",
-    "hltvnews45885"
+    "hltvnews45885",
+    "hltvnews45889"
   ],
   "news_seen_t": [
     1788994268,
@@ -4198,6 +4191,11 @@
       "headline": "flashie: JT видит игру так же, как я — раньше такого не было",
       "link": "https://www.hltv.org/news/45884/flashie-jt-sees-the-game-very-similarly-to-me-so-that-guidance-is-now-there-it-wasnt-really-possible-to-get-to-that-point-before",
       "score": 4
+    },
+    {
+      "headline": "NAVI отправили Falcons в нижнюю сетку по итогам первого дня IEM Beijing",
+      "link": "https://www.hltv.org/news/45889/navi-send-falcons-to-lower-bracket-as-first-day-of-iem-beijing-comes-to-a-close",
+      "score": 8
     }
   ],
   "reddit_day": "2026-11-02",
