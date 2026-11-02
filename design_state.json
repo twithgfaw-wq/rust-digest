@@ -1187,10 +1187,13 @@
     "https://www.fastcompany.com/91633346/inside-kfc-big-plan-to-win-the-chicken-wars?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
     "https://www.dezeen.com/2026/11/02/the-pay-100-architect-salaries-survey",
     "https://www.designboom.com/architecture/aditya-mandlik-water-worms-bees-reshape-architecture-guest-essay",
-    "https://www.creativebloq.com/news/the-real-star-of-the-new-macbook-pro-is-the-apple-logo"
+    "https://www.creativebloq.com/news/the-real-star-of-the-new-macbook-pro-is-the-apple-logo",
+    "https://www.figma.com/blog/hello-kitty-and-friends-in-figma",
+    "https://www.creativeboom.com/tools/behold-affinity-for-ipad-the-app-that-wants-to-retire-your-four-other-apps",
+    "https://www.wallpaper.com/transportation/the-ktm-x-bow-gt-xa-is-a-hardcore-road-car-built-around-true-racing-pedigree"
   ],
   "day": "2026-11-02",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1533,6 +1536,12 @@
       "title": "Apple повернула світне яблуко на кришку MacBook Pro",
       "link": "https://www.creativebloq.com/news/the-real-star-of-the-new-macbook-pro-is-the-apple-logo",
       "src": "Creative Bloq"
+    },
+    {
+      "t": 1793628090.9728048,
+      "title": "Affinity вийшла на iPad: скетч, вектор, фото і верстка в одному файлі",
+      "link": "https://www.creativeboom.com/tools/behold-affinity-for-ipad-the-app-that-wants-to-retire-your-four-other-apps",
+      "src": "Creative Boom"
     }
   ],
   "queue": [],
