@@ -1950,6 +1950,10 @@
     [
       1793641707,
       1006694
+    ],
+    [
+      1793642483,
+      1015246
     ]
   ],
   "online_peaks": {
@@ -1981,12 +1985,6 @@
     "2026-11-02": 1089723
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "💣 Твой канал про CS2 — {tag}",
     "👉 Подписывайся на {tag}",
     "📢 Подписывайся: {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
@@ -2480,7 +2478,13 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📡 Не пропусти важное: {tag}",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "Самое время зайти в матч 😏",
+    "📊 ОНЛАЙН CS2 ПРЯМО СЕЙЧАС",
+    "🔔 Больше CS2 — в {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "⚡️ Всё самое свежее по CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4134,7 +4138,8 @@
     "hltvnews45887",
     "hltvnews45886",
     "hltvnews45885",
-    "hltvnews45889"
+    "hltvnews45889",
+    "hltvnews45890"
   ],
   "news_seen_t": [
     1788994268,
@@ -4201,6 +4206,11 @@
       "headline": "NAVI отправили Falcons в нижнюю сетку по итогам первого дня IEM Beijing",
       "link": "https://www.hltv.org/news/45889/navi-send-falcons-to-lower-bracket-as-first-day-of-iem-beijing-comes-to-a-close",
       "score": 8
+    },
+    {
+      "headline": "Valve выпустила ноябрьское обновление VRS, которое определит участников Singapore Major",
+      "link": "https://www.hltv.org/news/45890/valve-release-major-deciding-november-vrs-update",
+      "score": 7
     }
   ],
   "reddit_day": "2026-11-02",
@@ -4226,7 +4236,7 @@
     "1xjlfl4",
     "1xkf3b4"
   ],
-  "online_daily": "2026-11-01",
+  "online_daily": "2026-11-02",
   "hltv_digest_day": "2026-11-01",
   "invest_log": [
     {
