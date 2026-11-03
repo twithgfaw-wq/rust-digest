@@ -1211,10 +1211,18 @@
     "https://www.designboom.com/architecture/matteo-thun-72-apartments-milan-iconic-brutalist-torre-velasca-interior-residences",
     "https://www.creativebloq.com/news/nintendos-zelda-ocarina-of-time-remake-was-almost-very-different",
     "https://www.wallpaper.com/art/exhibitions-shows/ellis-king-spilt-milk-london",
-    "https://abduzeedo.com/alianza-rebrand-masterclass-brand-identity-mucho"
+    "https://abduzeedo.com/alianza-rebrand-masterclass-brand-identity-mucho",
+    "https://www.dezeen.com/2026/11/03/pratts-courses-shift-creative-practice",
+    "https://abduzeedo.com/web-design-grids-season-03-obys-agency",
+    "https://www.designboom.com/architecture/ultramarine-drapes-restored-1950s-marble-cinemazero-redesign-alberto-caiola",
+    "https://www.designboom.com/art/ceramic-sponge-textile-accents-scilla-cariddi-hand-crafted-mirrors-marlisa-marasco",
+    "https://abduzeedo.com/momotaro-coffee-small-batch-packaging-design-system",
+    "https://www.designboom.com/technology/mtpeak-three-wheeled-sports-car-eicma-2026",
+    "https://abduzeedo.com/product-design-collectible-nyc-opens-week-uptown",
+    "https://abduzeedo.com/packaging-design-lenose-fine-fragrance-hand-soap-identity"
   ],
-  "day": "2026-11-02",
-  "day_count": 5,
+  "day": "2026-11-03",
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1574,6 +1582,12 @@
       "t": 1793638891.4009316,
       "title": "White & Case прибрали navy і зробили юрфірму електричною",
       "link": "https://abduzeedo.com/branding-white-case-rebrand-uncommon",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1793685682.981109,
+      "title": "Obys Agency перетворили сітку на живий механізм у Grids Season 03",
+      "link": "https://abduzeedo.com/web-design-grids-season-03-obys-agency",
       "src": "Abduzeedo"
     }
   ],
