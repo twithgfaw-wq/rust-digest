@@ -1246,10 +1246,14 @@
     "https://www.fastcompany.com/91632355/major-league-baseballs-new-look-pays-homage-to-the-sports-history?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
     "https://www.wallpaper.com/fashion-beauty/accessories/best-satin-accessories-trend-bags-shoes",
     "https://www.wallpaper.com/design-interiors/ola-znad-designer-profile-design-doha-2026",
-    "https://www.dezeen.com/2026/11/03/workshop-house-tatsuno-akio-isshiki"
+    "https://www.dezeen.com/2026/11/03/workshop-house-tatsuno-akio-isshiki",
+    "https://www.wallpaper.com/architecture/residential/best-residential-architecture-october-2026",
+    "https://www.wallpaper.com/lei-wine-bar-apartment-new-york",
+    "https://www.creativeboom.com/insight/is-it-a-problem-that-all-electric-car-brands-all-look-the-same",
+    "https://www.designboom.com/design/designboom-listens-yont-studio-music-spaces-art-mood-interview"
   ],
   "day": "2026-11-03",
-  "day_count": 3,
+  "day_count": 4,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1628,6 +1632,12 @@
       "title": "MLB оновила айдентику: п'ять шрифтів із бейсбольної історії",
       "link": "https://www.fastcompany.com/91632355/major-league-baseballs-new-look-pays-homage-to-the-sports-history?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
       "src": "Fast Company"
+    },
+    {
+      "t": 1793710881.7885225,
+      "title": "Koto: електромобілі стали однаковими, і брендам це шкодить",
+      "link": "https://www.creativeboom.com/insight/is-it-a-problem-that-all-electric-car-brands-all-look-the-same",
+      "src": "Creative Boom"
     }
   ],
   "queue": [],
@@ -1659,7 +1669,7 @@
     "Source Code Pro",
     "Chubbo"
   ],
-  "quiz_day": "2026-11-02",
+  "quiz_day": "2026-11-03",
   "quiz_fonts": [
     "Saira Condensed"
   ],
@@ -1687,7 +1697,8 @@
     "Snapchat",
     "Mastercard",
     "Slack",
-    "Netflix"
+    "Netflix",
+    "TikTok"
   ],
   "cases_posted": [
     "https://abduzeedo.com/polestar-4-lundgrenlindqvist-poster-design/",
