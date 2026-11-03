@@ -1254,10 +1254,11 @@
     "https://www.creativebloq.com/buying-guides/10-top-email-newsletter-tools-to-build-your-subscriber-list",
     "https://www.creativebloq.com/advice/wacom-movinkpad-pro-14-vs-xppen-magic-pro-13-which-is-the-best-android-drawing-tablet",
     "https://www.wallpaper.com/tech/new-earbuds-rethink-fit-finishes-and-features",
-    "https://www.creativebloq.com/news/im-blown-away-by-the-new-bambu-lab-h3c-is-this-the-best-3d-printer-of-all-time"
+    "https://www.creativebloq.com/news/im-blown-away-by-the-new-bambu-lab-h3c-is-this-the-best-3d-printer-of-all-time",
+    "https://abduzeedo.com/book-design-1000-marks-monograph-pentagram"
   ],
   "day": "2026-11-03",
-  "day_count": 4,
+  "day_count": 5,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1642,6 +1643,12 @@
       "title": "Koto: електромобілі стали однаковими, і брендам це шкодить",
       "link": "https://www.creativeboom.com/insight/is-it-a-problem-that-all-electric-car-brands-all-look-the-same",
       "src": "Creative Boom"
+    },
+    {
+      "t": 1793718098.7269292,
+      "title": "Pentagram зібрали 1000 своїх логотипів в одну книжку-цеглину",
+      "link": "https://abduzeedo.com/book-design-1000-marks-monograph-pentagram",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
