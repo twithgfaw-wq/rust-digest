@@ -4523,6 +4523,10 @@
     [
       1793724597,
       100407
+    ],
+    [
+      1793725293,
+      100885
     ]
   ],
   "online_peaks": {
@@ -4554,7 +4558,7 @@
     "2026-10-31": 128247,
     "2026-11-01": 120241,
     "2026-11-02": 109606,
-    "2026-11-03": 100407
+    "2026-11-03": 100885
   },
   "x_last_id": "2117633077820240298",
   "market_snaps": {
@@ -5209,9 +5213,11 @@
     "Valkyrie SAP",
     "Babylon Armored Double Door",
     "Endgame Metal Double Door",
-    "Redemption Large Backpack"
+    "Redemption Large Backpack",
+    "Super Star MP5",
+    "Pirate Small Backpack"
   ],
-  "rduel_week": "2026-44",
+  "rduel_week": "2026-45",
   "rust_index": {
     "2026-10-08": 33,
     "2026-10-09": 26,
@@ -5321,5 +5327,22 @@
   ],
   "rust_quiz_n": 11,
   "rust_quiz_day": "2026-11-02",
-  "last_lb_week": "2026-44"
+  "last_lb_week": "2026-44",
+  "rduel": {
+    "date": "03.11",
+    "ts": 1793725322,
+    "poll_id": 639,
+    "items": [
+      {
+        "name": "Super Star MP5",
+        "price": 99.0,
+        "icon": "https://files.facepunch.com/rust/icons/inventory/rust/70616_small.png?642778811"
+      },
+      {
+        "name": "Pirate Small Backpack",
+        "price": 157,
+        "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Re5mLCfCk4nReh8DEiv5dYMKk2r7A2Q_62L6cdI4A"
+      }
+    ]
+  }
 }
