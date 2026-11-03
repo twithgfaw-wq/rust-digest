@@ -1926,6 +1926,10 @@
     [
       1793725327,
       974321
+    ],
+    [
+      1793727509,
+      997846
     ]
   ],
   "online_peaks": {
@@ -1958,9 +1962,6 @@
     "2026-11-03": 1120529
   },
   "recent_phrases": [
-    "💣 Твой канал про CS2 — {tag}",
-    "📌 Сохрани себе {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔥 {tag} — CS2 без воды",
     "👀 Следи за CS2 вместе с {tag}",
@@ -2457,7 +2458,10 @@
     "👉 Подписывайся на {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4190,7 +4194,8 @@
     "hltvnews45900",
     "hltvnews45902",
     "hltvnews45901",
-    "hltvnews45903"
+    "hltvnews45903",
+    "hltvnews45895"
   ],
   "news_seen_t": [
     1788994268,
@@ -4262,6 +4267,11 @@
       "headline": "IEM Beijing: определены пары последнего дня группового этапа",
       "link": "https://www.hltv.org/news/45901/matchups-set-for-last-day-of-iem-beijing-groups",
       "score": 5
+    },
+    {
+      "headline": "xertioN: «Это лучший MOUZ, который мы когда-либо видели»",
+      "link": "https://www.hltv.org/news/45895/xertion-i-think-this-is-the-best-mouz-we-have-ever-seen",
+      "score": 4
     }
   ],
   "reddit_day": "2026-11-03",
