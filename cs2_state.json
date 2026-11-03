@@ -20,14 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1792996723,
-      471792
-    ],
-    [
-      1792997663,
-      480700
-    ],
-    [
       1792998106,
       491098
     ],
@@ -1954,6 +1946,10 @@
     [
       1793687904,
       432863
+    ],
+    [
+      1793689287,
+      445497
     ]
   ],
   "online_peaks": {
@@ -1986,9 +1982,6 @@
     "2026-11-03": 481940
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🔥 {tag} — CS2 без воды",
     "👀 Следи за CS2 вместе с {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
@@ -2485,7 +2478,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "👉 Подписывайся на {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4155,7 +4151,8 @@
     "hltvnews45885",
     "hltvnews45889",
     "hltvnews45890",
-    "hltvnews45891"
+    "hltvnews45891",
+    "hltvnews45892"
   ],
   "news_seen_t": [
     1788994268,
@@ -4187,6 +4184,11 @@
       "headline": "PARIVISION обыграли Liquid и вышли в плей-офф Beijing",
       "link": "https://www.hltv.org/news/45891/parivision-beat-liquid-to-make-beijing-playoffs",
       "score": 7
+    },
+    {
+      "headline": "Aurora выбили G2 из IEM Beijing",
+      "link": "https://www.hltv.org/news/45892/aurora-eliminate-g2-from-iem-beijing",
+      "score": 8
     }
   ],
   "reddit_day": "2026-11-02",
