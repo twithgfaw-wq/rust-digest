@@ -1926,6 +1926,10 @@
     [
       1793732336,
       1016754
+    ],
+    [
+      1793732484,
+      1015058
     ]
   ],
   "online_peaks": {
@@ -1958,9 +1962,6 @@
     "2026-11-03": 1120529
   },
   "recent_phrases": [
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📌 Сохрани себе {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "🔥 {tag} — CS2 без воды",
@@ -2457,7 +2458,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📌 Сохрани себе {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2570,7 +2574,8 @@
     "2117052478432911782",
     "2117317793594970455",
     "2117395802847158762",
-    "2117389617267974406"
+    "2117389617267974406",
+    "2117384631595200547"
   ],
   "ws_scores": {
     "3815186169": {
@@ -4240,61 +4245,10 @@
   },
   "cs2_index_day": "2026-11-03",
   "ws_slot": "2026-11-03-20",
-  "comm_slot": "2026-11-03-17",
+  "comm_slot": "2026-11-03-21",
   "hltv_day": "2026-11-03",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "PARIVISION обыграли Liquid и вышли в плей-офф Beijing",
-      "link": "https://www.hltv.org/news/45891/parivision-beat-liquid-to-make-beijing-playoffs",
-      "score": 7
-    },
-    {
-      "headline": "Aurora выбили G2 из IEM Beijing",
-      "link": "https://www.hltv.org/news/45892/aurora-eliminate-g2-from-iem-beijing",
-      "score": 8
-    },
-    {
-      "headline": "MOUZ обыграли BB и вышли в плей-офф турнира в Beijing",
-      "link": "https://www.hltv.org/news/45894/mouz-best-bb-to-qualify-for-playoffs-in-beijing",
-      "score": 8
-    },
-    {
-      "headline": "FaZe вылетели из турнира в Beijing с последнего места после поражения от Falcons",
-      "link": "https://www.hltv.org/news/45896/falcons-condemn-faze-to-last-place-exit-in-beijing",
-      "score": 8
-    },
-    {
-      "headline": "The MongolZ обыграли HEROIC и вышли в плей-офф Beijing",
-      "link": "https://www.hltv.org/news/45897/the-mongolz-beat-heroic-for-beijing-playoffs",
-      "score": 8
-    },
-    {
-      "headline": "karrigan: «В последнее время не можем выиграть собственный пик карты»",
-      "link": "https://www.hltv.org/news/45898/karrigan-we-cant-win-our-own-map-pick-lately",
-      "score": 5
-    },
-    {
-      "headline": "FURIA обыграли NAVI и вышли в плей-офф IEM в Beijing",
-      "link": "https://www.hltv.org/news/45900/furia-outlast-navi-for-beijing-playoffs",
-      "score": 8
-    },
-    {
-      "headline": "Legacy вылетели с IEM Beijing после поражения от B8",
-      "link": "https://www.hltv.org/news/45902/legacy-crash-out-of-iem-beijing-after-loss-to-b8",
-      "score": 6
-    },
-    {
-      "headline": "IEM Beijing: определены пары последнего дня группового этапа",
-      "link": "https://www.hltv.org/news/45901/matchups-set-for-last-day-of-iem-beijing-groups",
-      "score": 5
-    },
-    {
-      "headline": "xertioN: «Это лучший MOUZ, который мы когда-либо видели»",
-      "link": "https://www.hltv.org/news/45895/xertion-i-think-this-is-the-best-mouz-we-have-ever-seen",
-      "score": 4
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-11-03",
   "reddit_posted": [
     "1wzz7z0",
@@ -4319,7 +4273,7 @@
     "1xkf3b4"
   ],
   "online_daily": "2026-11-03",
-  "hltv_digest_day": "2026-11-02",
+  "hltv_digest_day": "2026-11-03",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
