@@ -1264,10 +1264,11 @@
     "https://www.creativeboom.com/inspiration/inspired-by-strangers-dreams-moho-builds-glittering-slightly-unsettling-worlds",
     "https://www.creativeboom.com/inspiration/how-elie-nguessan-makes-everyday-london-look-like-a-movie",
     "https://www.creativeboom.com/inspiration/swiss-typefaces-crafts-a-warmer-friendlier-custom-font-for-swiss-post",
-    "https://www.creativeboom.com/inspiration/isobels-financial-services-ad-shows-what-a-difference-it-makes-when-you-dont-use-cgi"
+    "https://www.creativeboom.com/inspiration/isobels-financial-services-ad-shows-what-a-difference-it-makes-when-you-dont-use-cgi",
+    "https://abduzeedo.com/wolff-olins-unveils-bmg-brand-identity"
   ],
   "day": "2026-11-03",
-  "day_count": 5,
+  "day_count": 6,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1657,6 +1658,12 @@
       "t": 1793718098.7269292,
       "title": "Pentagram зібрали 1000 своїх логотипів в одну книжку-цеглину",
       "link": "https://abduzeedo.com/book-design-1000-marks-monograph-pentagram",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1793725064.0197124,
+      "title": "Wolff Olins дали BMG гранчастий символ play і кислотний лайм",
+      "link": "https://abduzeedo.com/wolff-olins-unveils-bmg-brand-identity",
       "src": "Abduzeedo"
     }
   ],
