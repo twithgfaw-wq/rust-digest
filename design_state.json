@@ -1228,10 +1228,16 @@
     "https://www.designboom.com/technology/six-sided-transparent-cube-led-matrix-screenless-ai-companion-adam-miklosi-glyph-1",
     "https://www.creativebloq.com/how-to/how-to-use-simulations-in-a-3d-scene-in-blender",
     "https://www.creativeboom.com/news/behold-affinity-for-ipad-the-app-that-wants-to-retire-your-four-other-apps",
-    "https://www.dezeen.com/2026/11/03/john-tree-sculptural-hoop-lamp-pine-vaarni"
+    "https://www.dezeen.com/2026/11/03/john-tree-sculptural-hoop-lamp-pine-vaarni",
+    "https://www.designboom.com/design/designboom-listens-yont-studio-music-spaces-art-mood",
+    "https://www.wallpaper.com/watches-jewellery/first-look-louis-vuitton-tambour-convergence-mirror-steel-watch",
+    "https://www.designboom.com/technology/compostable-mycelium-digital-camera-soft-pixel-sree-krishna-pillarisetti",
+    "https://www.dezeen.com/2026/11/03/sabine-marcelis-exhibition-zurich-museum-fuer-gestaltung",
+    "https://www.creativebloq.com/features/how-jonathan-blows-team-made-a-thousand-puzzle-game-thats-gorgeous-and-readable",
+    "https://www.creativeboom.com/insight/wildwood-is-a-great-leap-forward-for-animation-heres-why-you-need-to-see-it-on-a-big-screen"
   ],
   "day": "2026-11-03",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1598,6 +1604,12 @@
       "title": "Obys Agency перетворили сітку на живий механізм у Grids Season 03",
       "link": "https://abduzeedo.com/web-design-grids-season-03-obys-agency",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1793701801.5713394,
+      "title": "Перша музейна виставка Sabine Marcelis: 15 років світла і кольору в Цюриху",
+      "link": "https://www.dezeen.com/2026/11/03/sabine-marcelis-exhibition-zurich-museum-fuer-gestaltung",
+      "src": "Dezeen"
     }
   ],
   "queue": [],
