@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1793012504,
-      720492
-    ],
-    [
       1793014728,
       803735
     ],
@@ -1926,6 +1922,10 @@
     [
       1793703683,
       690448
+    ],
+    [
+      1793705504,
+      0
     ]
   ],
   "online_peaks": {
@@ -1958,9 +1958,6 @@
     "2026-11-03": 690448
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🎯 Свежий CS2 каждый день — {tag}",
-    "📌 Сохрани себе {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
     "📢 Подписывайся: {tag}",
@@ -2457,7 +2454,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🔥 {tag} — CS2 без воды",
-    "💣 Твой канал про CS2 — {tag}"
+    "💣 Твой канал про CS2 — {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4159,7 +4159,8 @@
     "hltvnews45894",
     "hltvnews45893",
     "hltvnews45896",
-    "hltvnews45897"
+    "hltvnews45897",
+    "hltvnews45898"
   ],
   "news_seen_t": [
     1788994268,
@@ -4211,6 +4212,11 @@
       "headline": "The MongolZ обыграли HEROIC и вышли в плей-офф Beijing",
       "link": "https://www.hltv.org/news/45897/the-mongolz-beat-heroic-for-beijing-playoffs",
       "score": 8
+    },
+    {
+      "headline": "karrigan: «В последнее время не можем выиграть собственный пик карты»",
+      "link": "https://www.hltv.org/news/45898/karrigan-we-cant-win-our-own-map-pick-lately",
+      "score": 5
     }
   ],
   "reddit_day": "2026-11-02",
