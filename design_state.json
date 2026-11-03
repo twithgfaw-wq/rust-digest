@@ -1595,7 +1595,7 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-11-02",
+  "font_day": "2026-11-03",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -1620,7 +1620,8 @@
     "News Cycle",
     "Nippo",
     "Roboto Mono",
-    "Source Code Pro"
+    "Source Code Pro",
+    "Chubbo"
   ],
   "quiz_day": "2026-11-02",
   "quiz_fonts": [
