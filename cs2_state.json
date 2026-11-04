@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1793084034,
-      459437
-    ],
-    [
       1793084511,
       467122
     ],
@@ -1930,6 +1926,10 @@
     [
       1793774614,
       485888
+    ],
+    [
+      1793775682,
+      500413
     ]
   ],
   "online_peaks": {
@@ -1960,12 +1960,9 @@
     "2026-11-01": 1287939,
     "2026-11-02": 1089723,
     "2026-11-03": 1120529,
-    "2026-11-04": 485888
+    "2026-11-04": 500413
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "📡 Не пропусти важное: {tag}",
-    "📌 Сохрани себе {tag}",
     "👀 Следи за CS2 вместе с {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
@@ -2462,7 +2459,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "📢 Подписывайся: {tag}",
     "💣 Твой канал про CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды"
+    "🔥 {tag} — CS2 без воды",
+    "🔔 Больше CS2 — в {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4226,7 +4226,8 @@
     "hltvnews45904",
     "hltvnews45888",
     "hltvnews45905",
-    "hltvnews45906"
+    "hltvnews45906",
+    "hltvnews45909"
   ],
   "news_seen_t": [
     1788994268,
@@ -4268,6 +4269,11 @@
       "headline": "Liquid выбили TYLOO с IEM Beijing",
       "link": "https://www.hltv.org/news/45906/liquid-send-tyloo-packing-from-iem-beijing",
       "score": 6
+    },
+    {
+      "headline": "Falcons и NAVI сыграют за выход в плей-офф IEM Beijing",
+      "link": "https://www.hltv.org/news/45909/falcons-and-navi-set-to-clash-for-iem-beijing-playoff-spot",
+      "score": 8
     }
   ],
   "reddit_day": "2026-11-03",
