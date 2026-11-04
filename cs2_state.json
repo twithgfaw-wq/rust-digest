@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1793132249,
-      1000078
-    ],
-    [
       1793134436,
       918770
     ],
@@ -1910,6 +1906,10 @@
     [
       1793822530,
       998453
+    ],
+    [
+      1793824336,
+      978397
     ]
   ],
   "online_peaks": {
@@ -1943,9 +1943,6 @@
     "2026-11-04": 1265906
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "💣 Твой канал про CS2 — {tag}",
     "👉 Подписывайся на {tag}",
     "📌 Сохрани себе {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
@@ -2442,7 +2439,10 @@
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "👀 Следи за CS2 вместе с {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "📌 Сохрани себе {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4276,7 +4276,8 @@
     "hltvnews45914",
     "hltvnews45915",
     "hltvnews45907",
-    "hltvnews45916"
+    "hltvnews45916",
+    "hltvnews45917"
   ],
   "news_seen_t": [
     1788994268,
@@ -4303,7 +4304,13 @@
   "comm_slot": "2026-11-04-21",
   "hltv_day": "2026-11-04",
   "hltv_count": 0,
-  "hltv_digest": [],
+  "hltv_digest": [
+    {
+      "headline": "zonic: «Плохой старт может развалить нам всю игру»",
+      "link": "https://www.hltv.org/news/45917/zonic-when-we-get-off-to-a-bad-start-it-can-destroy-our-entire-game",
+      "score": 5
+    }
+  ],
   "reddit_day": "2026-11-04",
   "reddit_posted": [
     "1wzz7z0",
