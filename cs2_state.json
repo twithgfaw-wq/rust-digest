@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1793106115,
-      995214
-    ],
-    [
       1793107941,
       1055818
     ],
@@ -1906,6 +1902,10 @@
     [
       1793797282,
       1096546
+    ],
+    [
+      1793797853,
+      1127580
     ]
   ],
   "online_peaks": {
@@ -1936,12 +1936,9 @@
     "2026-11-01": 1287939,
     "2026-11-02": 1089723,
     "2026-11-03": 1120529,
-    "2026-11-04": 1096546
+    "2026-11-04": 1127580
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "📌 Сохрани себе {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔥 {tag} — CS2 без воды",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2438,7 +2435,10 @@
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🔥 {tag} — CS2 без воды",
+    "👉 Подписывайся на {tag}",
+    "💣 Твой канал про CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4232,7 +4232,8 @@
     "hltvnews45906",
     "hltvnews45909",
     "hltvnews45910",
-    "hltvnews45913"
+    "hltvnews45913",
+    "hltvnews45911"
   ],
   "news_seen_t": [
     1788994268,
@@ -4289,6 +4290,11 @@
       "headline": "The MongolZ обыграли FURIA и вышли в полуфинал IEM Beijing вслед за MOUZ",
       "link": "https://www.hltv.org/news/45913/the-mongolz-join-mouz-in-iem-beijing-semis-after-beating-furia",
       "score": 8
+    },
+    {
+      "headline": "NAVI выбили Falcons с IEM Beijing, взяв 12 раундов подряд за T на третьей карте",
+      "link": "https://www.hltv.org/news/45911/navi-send-falcons-home-from-iem-beijing-after-12-0-t-side-on-map-three",
+      "score": 9
     }
   ],
   "reddit_day": "2026-11-04",
