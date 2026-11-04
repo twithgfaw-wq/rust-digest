@@ -1317,10 +1317,14 @@
     "https://www.wallpaper.com/tech/fender-x-loog-precision-bass-and-tiny-telecaster",
     "https://www.creativeboom.com/insight/andstudios-augustinas-paukste-on-10-years-of-building-a-global-studio-from-vilnius",
     "https://www.creativebloq.com/features/world-of-warcraft-forever-is-bringing-azeroth-back-to-life-as-it-lives-in-our-heads-without-losing-what-made-it-special",
-    "https://www.fastcompany.com/91634114/lululemons-belt-bag-is-getting-bigger-sturdier-and-harder-to-dupe?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss"
+    "https://www.fastcompany.com/91634114/lululemons-belt-bag-is-getting-bigger-sturdier-and-harder-to-dupe?partner=rss&amp;utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=rss+fastcompany&amp;utm_content=rss",
+    "https://www.wallpaper.com/watches-jewellery/kinraden-all-things-tiny-jewellery",
+    "https://www.wallpaper.com/art/photography/eight-seconds-legacy-in-motion-book-by-ivan-mcclellan",
+    "https://abduzeedo.com/how-apfel-reimagined-cam-gulbenkian-identity",
+    "https://www.creativebloq.com/news/canvas-mass-layoffs-are-a-warning-sign-for-creative-tech"
   ],
   "day": "2026-11-04",
-  "day_count": 0,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1717,6 +1721,18 @@
       "title": "Wolff Olins дали BMG гранчастий символ play і кислотний лайм",
       "link": "https://abduzeedo.com/wolff-olins-unveils-bmg-brand-identity",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1793809758.6732101,
+      "title": "APFEL вписали дах Kengo Kuma в логотип CAM Gulbenkian",
+      "link": "https://abduzeedo.com/how-apfel-reimagined-cam-gulbenkian-identity",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1793809758.6732101,
+      "title": "Canva скорочує або переносить майже чверть робочих місць: ШІ б'є і по тих, хто його продає",
+      "link": "https://www.creativebloq.com/news/canvas-mass-layoffs-are-a-warning-sign-for-creative-tech",
+      "src": "Creative Bloq"
     }
   ],
   "queue": [],
