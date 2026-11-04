@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1793078087,
-      422186
-    ],
-    [
       1793080431,
       424008
     ],
@@ -1930,6 +1926,10 @@
     [
       1793768636,
       453681
+    ],
+    [
+      1793771002,
+      453251
     ]
   ],
   "online_peaks": {
@@ -1963,9 +1963,6 @@
     "2026-11-04": 453681
   },
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "👉 Подписывайся на {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📢 Подписывайся: {tag}",
     "📡 Не пропусти важное: {tag}",
@@ -2462,7 +2459,10 @@
     "👉 Подписывайся на {tag}",
     "📢 Подписывайся: {tag}",
     "📌 Сохрани себе {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4225,7 +4225,8 @@
     "hltvnews45895",
     "hltvnews45904",
     "hltvnews45888",
-    "hltvnews45905"
+    "hltvnews45905",
+    "hltvnews45906"
   ],
   "news_seen_t": [
     1788994268,
@@ -4262,6 +4263,11 @@
       "headline": "BETBOOM выбили Aurora с IEM Beijing",
       "link": "https://www.hltv.org/news/45905/betboom-eliminate-aurora-from-iem-beijing",
       "score": 7
+    },
+    {
+      "headline": "Liquid выбили TYLOO с IEM Beijing",
+      "link": "https://www.hltv.org/news/45906/liquid-send-tyloo-packing-from-iem-beijing",
+      "score": 6
     }
   ],
   "reddit_day": "2026-11-03",
