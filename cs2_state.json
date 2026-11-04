@@ -1906,6 +1906,10 @@
     [
       1793809973,
       1057793
+    ],
+    [
+      1793811732,
+      1064153
     ]
   ],
   "online_peaks": {
@@ -1939,10 +1943,6 @@
     "2026-11-04": 1265906
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🔥 {tag} — CS2 без воды",
-    "👀 Следи за CS2 вместе с {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "📢 Подписывайся: {tag}",
@@ -2438,7 +2438,11 @@
     "🔥 {tag} — CS2 без воды",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "Открыть Fracture Case стоит $2.88. Вернётся в среднем $0.81.",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "💣 Твой канал про CS2 — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3987,9 +3991,10 @@
     "Dreams & Nightmares Case",
     "Danger Zone Case",
     "Operation Breakout Weapon Case",
-    "Spectrum 2 Case"
+    "Spectrum 2 Case",
+    "Fracture Case"
   ],
-  "ev_week": "2026-44",
+  "ev_week": "2026-45",
   "duel_used": [
     "M4A1-S | Nightmare",
     "AK-47 | Midnight Laminate",
@@ -4248,7 +4253,8 @@
     "hltvnews45910",
     "hltvnews45913",
     "hltvnews45911",
-    "hltvnews45914"
+    "hltvnews45914",
+    "hltvnews45915"
   ],
   "news_seen_t": [
     1788994268,
@@ -4315,6 +4321,11 @@
       "headline": "Сетка плей-офф IEM Beijing 2026 сформирована",
       "link": "https://www.hltv.org/news/45914/iem-beijing-2026-playoff-bracket-set",
       "score": 8
+    },
+    {
+      "headline": "iM: «На Inferno мы были как четверо детей в рюкзаке w0nderful»",
+      "link": "https://www.hltv.org/news/45915/im-on-inferno-we-were-like-four-kids-in-w0nderfuls-backpack",
+      "score": 4
     }
   ],
   "reddit_day": "2026-11-04",
