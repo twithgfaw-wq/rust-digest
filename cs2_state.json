@@ -20,10 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1793105634,
-      957859
-    ],
-    [
       1793106115,
       995214
     ],
@@ -1906,6 +1902,10 @@
     [
       1793795903,
       1042220
+    ],
+    [
+      1793797282,
+      1096546
     ]
   ],
   "online_peaks": {
@@ -1936,12 +1936,9 @@
     "2026-11-01": 1287939,
     "2026-11-02": 1089723,
     "2026-11-03": 1120529,
-    "2026-11-04": 1042220
+    "2026-11-04": 1096546
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "👉 Подписывайся на {tag}",
     "🔔 Больше CS2 — в {tag}",
     "📌 Сохрани себе {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
@@ -2438,7 +2435,10 @@
     "👉 Подписывайся на {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📡 Не пропусти важное: {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "📌 Сохрани себе {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4231,7 +4231,8 @@
     "hltvnews45905",
     "hltvnews45906",
     "hltvnews45909",
-    "hltvnews45910"
+    "hltvnews45910",
+    "hltvnews45913"
   ],
   "news_seen_t": [
     1788994268,
@@ -4283,6 +4284,11 @@
       "headline": "BETBOOM обыграли Liquid и вышли в плей-офф",
       "link": "https://www.hltv.org/news/45910/betboom-edge-past-liquid-to-reach-playoffs",
       "score": 6
+    },
+    {
+      "headline": "The MongolZ обыграли FURIA и вышли в полуфинал IEM Beijing вслед за MOUZ",
+      "link": "https://www.hltv.org/news/45913/the-mongolz-join-mouz-in-iem-beijing-semis-after-beating-furia",
+      "score": 8
     }
   ],
   "reddit_day": "2026-11-04",
