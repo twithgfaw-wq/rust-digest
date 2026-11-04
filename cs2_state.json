@@ -20,14 +20,6 @@
   "x_last_id": "2115561440212111446",
   "online_log": [
     [
-      1793127538,
-      1040756
-    ],
-    [
-      1793127713,
-      1040756
-    ],
-    [
       1793129172,
       1045738
     ],
@@ -1910,6 +1902,10 @@
     [
       1793817135,
       1053894
+    ],
+    [
+      1793818932,
+      1055684
     ]
   ],
   "online_peaks": {
@@ -1943,9 +1939,6 @@
     "2026-11-04": 1265906
   },
   "recent_phrases": [
-    "👀 Следи за CS2 вместе с {tag}",
-    "📡 Не пропусти важное: {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🔔 Больше CS2 — в {tag}",
     "👉 Подписывайся на {tag}",
     "💣 Твой канал про CS2 — {tag}",
@@ -2442,7 +2435,10 @@
     "📢 Подписывайся: {tag}",
     "👉 Подписывайся на {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -2558,7 +2554,8 @@
     "2117389617267974406",
     "2117384631595200547",
     "2117721615244967963",
-    "2117684075364495610"
+    "2117684075364495610",
+    "2117839404903571758"
   ],
   "ws_scores": {
     "3815186169": {
@@ -4255,7 +4252,8 @@
     "hltvnews45911",
     "hltvnews45914",
     "hltvnews45915",
-    "hltvnews45907"
+    "hltvnews45907",
+    "hltvnews45916"
   ],
   "news_seen_t": [
     1788994268,
@@ -4279,56 +4277,10 @@
   },
   "cs2_index_day": "2026-11-04",
   "ws_slot": "2026-11-04-16",
-  "comm_slot": "2026-11-04-17",
+  "comm_slot": "2026-11-04-21",
   "hltv_day": "2026-11-04",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "sidde: «Каждое поражение от соперника становится для нас личным»",
-      "link": "https://www.hltv.org/news/45904/sidde-every-time-we-lose-against-someone-it-becomes-personal",
-      "score": 4
-    },
-    {
-      "headline": "BETBOOM выбили Aurora с IEM Beijing",
-      "link": "https://www.hltv.org/news/45905/betboom-eliminate-aurora-from-iem-beijing",
-      "score": 7
-    },
-    {
-      "headline": "Liquid выбили TYLOO с IEM Beijing",
-      "link": "https://www.hltv.org/news/45906/liquid-send-tyloo-packing-from-iem-beijing",
-      "score": 6
-    },
-    {
-      "headline": "Falcons и NAVI сыграют за выход в плей-офф IEM Beijing",
-      "link": "https://www.hltv.org/news/45909/falcons-and-navi-set-to-clash-for-iem-beijing-playoff-spot",
-      "score": 8
-    },
-    {
-      "headline": "BETBOOM обыграли Liquid и вышли в плей-офф",
-      "link": "https://www.hltv.org/news/45910/betboom-edge-past-liquid-to-reach-playoffs",
-      "score": 6
-    },
-    {
-      "headline": "The MongolZ обыграли FURIA и вышли в полуфинал IEM Beijing вслед за MOUZ",
-      "link": "https://www.hltv.org/news/45913/the-mongolz-join-mouz-in-iem-beijing-semis-after-beating-furia",
-      "score": 8
-    },
-    {
-      "headline": "NAVI выбили Falcons с IEM Beijing, взяв 12 раундов подряд за T на третьей карте",
-      "link": "https://www.hltv.org/news/45911/navi-send-falcons-home-from-iem-beijing-after-12-0-t-side-on-map-three",
-      "score": 9
-    },
-    {
-      "headline": "Сетка плей-офф IEM Beijing 2026 сформирована",
-      "link": "https://www.hltv.org/news/45914/iem-beijing-2026-playoff-bracket-set",
-      "score": 8
-    },
-    {
-      "headline": "iM: «На Inferno мы были как четверо детей в рюкзаке w0nderful»",
-      "link": "https://www.hltv.org/news/45915/im-on-inferno-we-were-like-four-kids-in-w0nderfuls-backpack",
-      "score": 4
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-11-04",
   "reddit_posted": [
     "1wzz7z0",
@@ -4354,7 +4306,7 @@
     "1xmty7s"
   ],
   "online_daily": "2026-11-04",
-  "hltv_digest_day": "2026-11-03",
+  "hltv_digest_day": "2026-11-04",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
