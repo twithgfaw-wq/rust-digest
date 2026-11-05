@@ -1369,10 +1369,14 @@
     "https://www.designboom.com/architecture/room-nature-urban-landscapes-kongjian-yu-turenscape-adaptation-evidence-china-charles-waldheim",
     "https://www.wallpaper.com/design-interiors/formafantasma-monograph-phaidon-simone-farresin-interview",
     "https://www.creativebloq.com/news/gillette-finally-confirms-its-logo-hides-a-hidden-design",
-    "https://www.creativebloq.com/live/news/macbook-pro-proled-xdr-first-impressions"
+    "https://www.creativebloq.com/live/news/macbook-pro-proled-xdr-first-impressions",
+    "https://abduzeedo.com/zed-typotheque-500-style-global-typography-system",
+    "https://www.wallpaper.com/fashion-beauty/peter-copping-lanvin-interview",
+    "https://www.creativebloq.com/deals/get-87-percent-off-hostinger-web-builder-with-this-exclusive-black-friday-code",
+    "https://www.creativeboom.com/inspiration/step-inside-hang-yus-wonderfully-strange-world-of-clowns-costumes-and-constructed-identities"
   ],
   "day": "2026-11-05",
-  "day_count": 2,
+  "day_count": 3,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1799,6 +1803,12 @@
       "title": "Ukrainian Design and Innovation Week у Києві: 200 брендів попри удари",
       "link": "https://www.dezeen.com/2026/11/05/ukrainian-design-innovation-week-kyiv",
       "src": "Dezeen"
+    },
+    {
+      "t": 1793889323.9897368,
+      "title": "Typotheque виростили Zed до 500+ стилів і перевірили шрифт на слабкозорих",
+      "link": "https://abduzeedo.com/zed-typotheque-500-style-global-typography-system",
+      "src": "Abduzeedo"
     }
   ],
   "queue": [],
