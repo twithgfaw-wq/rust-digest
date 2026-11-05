@@ -21,14 +21,6 @@
   "x_last_id": "2118163323044987024",
   "online_log": [
     [
-      1793213780,
-      1104823
-    ],
-    [
-      1793214110,
-      1107340
-    ],
-    [
       1793216340,
       1103802
     ],
@@ -1899,6 +1891,10 @@
     [
       1793903952,
       1016794
+    ],
+    [
+      1793905329,
+      1015441
     ]
   ],
   "online_peaks": {
@@ -1933,9 +1929,6 @@
     "2026-11-05": 1119737
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📢 Подписывайся: {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "⚡️ Всё самое свежее по CS2 — {tag}",
@@ -2432,7 +2425,10 @@
     "📌 Сохрани себе {tag}",
     "📢 Подписывайся: {tag}",
     "🔥 {tag} — CS2 без воды",
-    "👉 Подписывайся на {tag}"
+    "👉 Подписывайся на {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "👀 Следи за CS2 вместе с {tag}"
   ],
   "news_recent": [
     {
@@ -2556,7 +2552,8 @@
     "2117684075364495610",
     "2117839404903571758",
     "2118145567931195814",
-    "2118152499387596927"
+    "2118152499387596927",
+    "2118146308498403549"
   ],
   "ws_scores": {
     "3815186169": {
@@ -4381,26 +4378,10 @@
   },
   "cs2_index_day": "2026-11-05",
   "ws_slot": "2026-11-05-20",
-  "comm_slot": "2026-11-05-17",
+  "comm_slot": "2026-11-05-21",
   "hltv_day": "2026-11-05",
   "hltv_count": 0,
-  "hltv_digest": [
-    {
-      "headline": "zonic: «Плохой старт может развалить нам всю игру»",
-      "link": "https://www.hltv.org/news/45917/zonic-when-we-get-off-to-a-bad-start-it-can-destroy-our-entire-game",
-      "score": 5
-    },
-    {
-      "headline": "Falcons заморозили академию",
-      "link": "https://www.hltv.org/news/45921/falcons-put-academy-team-on-hold",
-      "score": 6
-    },
-    {
-      "headline": "syph0 возглавил рейтинг HLTV Prospects за ноябрь 2026",
-      "link": "https://www.hltv.org/news/45899/hltv-prospects-ranking-november-2026",
-      "score": 4
-    }
-  ],
+  "hltv_digest": [],
   "reddit_day": "2026-11-05",
   "reddit_posted": [
     "1wzz7z0",
@@ -4426,7 +4407,7 @@
     "1xmty7s"
   ],
   "online_daily": "2026-11-05",
-  "hltv_digest_day": "2026-11-04",
+  "hltv_digest_day": "2026-11-05",
   "invest_log": [
     {
       "name": "Chroma 3 Case",
