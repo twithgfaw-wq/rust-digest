@@ -2543,10 +2543,6 @@
   ],
   "online_log": [
     [
-      1793181719,
-      66649
-    ],
-    [
       1793184035,
       71102
     ],
@@ -4485,6 +4481,10 @@
     [
       1793872592,
       41739
+    ],
+    [
+      1793872942,
+      40985
     ]
   ],
   "online_peaks": {
@@ -5182,9 +5182,10 @@
     "Cartoon SAP",
     "No Mercy Wood Jacket",
     "Cow Moo Flage Wood Armor Pants",
-    "Salvation Thompson"
+    "Salvation Thompson",
+    "Red Sector Armored Door"
   ],
-  "rsod_day": "2026-11-04",
+  "rsod_day": "2026-11-05",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
