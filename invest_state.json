@@ -1,6 +1,6 @@
 {
-  "last": "2026-10-29-2014",
-  "ts": 1793311133,
+  "last": "2026-11-05-1754",
+  "ts": 1793907256,
   "picks": {
     "2026-10-08-2349": {
       "start": "2026-10-08T23:49:37.043Z",
@@ -861,6 +861,123 @@
           "n10": 1,
           "store": 199,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71303_small.png?2303120128"
+        }
+      ]
+    },
+    "2026-11-05-1754": {
+      "start": "2026-11-05T17:54:16.168Z",
+      "items": [
+        {
+          "name": "Popstar Nailgun",
+          "v": "think",
+          "net": -0.0457,
+          "n10": 5,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71405_small.png?2691988230"
+        },
+        {
+          "name": "Outer Planets Armored Ladder Hatch",
+          "v": "no",
+          "net": 0.0457,
+          "n10": 4,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71411_small.png?290810459"
+        },
+        {
+          "name": "HellCore Triangle Ladder Hatch",
+          "v": "no",
+          "net": -0.0293,
+          "n10": 3,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71410_small.png?3171098334"
+        },
+        {
+          "name": "Arctic Protection Barricade",
+          "v": "no",
+          "net": -0.0779,
+          "n10": 3,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71404_small.png?486322568"
+        },
+        {
+          "name": "Moo-Moo Garage Door",
+          "v": "no",
+          "net": -0.1267,
+          "n10": 3,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71403_small.png?2162099442"
+        },
+        {
+          "name": "Funerary Hide Pants",
+          "v": "no",
+          "net": -0.1503,
+          "n10": 2,
+          "store": 99,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71400_small.png?2283840716"
+        },
+        {
+          "name": "Zapmaster Nailgun",
+          "v": "no",
+          "net": -0.1526,
+          "n10": 3,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71409_small.png?1237652293"
+        },
+        {
+          "name": "Scrap King Metal Door",
+          "v": "no",
+          "net": -0.154,
+          "n10": 2,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71412_small.png?4288409153"
+        },
+        {
+          "name": "Funerary Hide Shirt",
+          "v": "no",
+          "net": -0.1778,
+          "n10": 2,
+          "store": 99,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71401_small.png?1981469845"
+        },
+        {
+          "name": "Thundergrin Rocket Launcher",
+          "v": "no",
+          "net": -0.1805,
+          "n10": 1,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71402_small.png?2394668931"
+        },
+        {
+          "name": "Nuke Vibe Nailgun",
+          "v": "no",
+          "net": -0.2088,
+          "n10": 2,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71407_small.png?192054626"
+        },
+        {
+          "name": "Turtle Barricade",
+          "v": "no",
+          "net": -0.2104,
+          "n10": 1,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71406_small.png?885596315"
+        },
+        {
+          "name": "Fused Glass Rock",
+          "v": "no",
+          "net": -0.2162,
+          "n10": 2,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71413_small.png?1745013982"
+        },
+        {
+          "name": "Summon Wooden Door",
+          "v": "no",
+          "net": -0.2831,
+          "n10": 1,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71408_small.png?1305068112"
         }
       ]
     }
