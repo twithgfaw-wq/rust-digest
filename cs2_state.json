@@ -21,10 +21,6 @@
   "x_last_id": "2118163323044987024",
   "online_log": [
     [
-      1793220615,
-      975033
-    ],
-    [
       1793223532,
       839988
     ],
@@ -1891,6 +1887,10 @@
     [
       1793911154,
       936248
+    ],
+    [
+      1793912535,
+      883793
     ]
   ],
   "online_peaks": {
@@ -1925,9 +1925,6 @@
     "2026-11-05": 1119737
   },
   "recent_phrases": [
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔥 {tag} — CS2 без воды",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "📡 Не пропусти важное: {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👉 Подписывайся на {tag}",
@@ -2424,7 +2421,10 @@
     "📡 Не пропусти важное: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "👀 Следи за CS2 вместе с {tag}",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "💣 Твой канал про CS2 — {tag}"
   ],
   "news_recent": [
     {
@@ -4350,7 +4350,8 @@
     "hltvnews45919",
     "hltvnews45921",
     "hltvnews45899",
-    "hltvnews45912"
+    "hltvnews45912",
+    "hltvnews45920"
   ],
   "news_seen_t": [
     1788994268,
@@ -4383,6 +4384,11 @@
       "headline": "HLTV назвал 10 номинантов Hall of Fame 2026",
       "link": "https://www.hltv.org/news/45912/hall-of-fame-unveiling-the-10-nominees-of-2026",
       "score": 6
+    },
+    {
+      "headline": "EVP и All-Stars PGL Masters Bucharest: пятый EVP molodoy в 2026 году",
+      "link": "https://www.hltv.org/news/45920/the-evps-and-all-stars-of-pgl-masters-bucharest",
+      "score": 5
     }
   ],
   "reddit_day": "2026-11-05",
