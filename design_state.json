@@ -1347,10 +1347,13 @@
     "https://www.dezeen.com/2026/11/04/dezeen-awards-2026-party-tickets-final-chance",
     "https://www.creativeboom.com/insight/tomas-brousil-on-what-separates-a-true-type-system-from-a-merely-large-font-family",
     "https://www.creativebloq.com/deals/wake-up-and-smell-these-black-friday-coffee-machine-deals-theres-up-to-gbp250-off",
-    "https://www.designboom.com/architecture/angelo-renna-floating-modular-island-39-tree-ring-florence-river-firenze-little-island"
+    "https://www.designboom.com/architecture/angelo-renna-floating-modular-island-39-tree-ring-florence-river-firenze-little-island",
+    "https://www.dezeen.com/2026/11/05/fiat-multiplay-multipilina-concept-car-video-interview",
+    "https://www.creativebloq.com/news/the-john-lewis-christmas-advert-is-getting-a-mauling",
+    "https://www.dezeen.com/2026/11/05/ukrainian-design-innovation-week-kyiv"
   ],
   "day": "2026-11-05",
-  "day_count": 1,
+  "day_count": 2,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1771,6 +1774,12 @@
       "title": "Studio Dumbar перетворили застосунки Wabi на скляні сфери",
       "link": "https://abduzeedo.com/studio-dumbars-personal-os-branding-wabi",
       "src": "Abduzeedo"
+    },
+    {
+      "t": 1793866976.256418,
+      "title": "Ukrainian Design and Innovation Week у Києві: 200 брендів попри удари",
+      "link": "https://www.dezeen.com/2026/11/05/ukrainian-design-innovation-week-kyiv",
+      "src": "Dezeen"
     }
   ],
   "queue": [],
