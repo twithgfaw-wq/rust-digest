@@ -21,14 +21,6 @@
   "x_last_id": "2118163323044987024",
   "online_log": [
     [
-      1793206628,
-      1057484
-    ],
-    [
-      1793206916,
-      1063867
-    ],
-    [
       1793209136,
       1062985
     ],
@@ -1907,6 +1899,10 @@
     [
       1793897053,
       984610
+    ],
+    [
+      1793898132,
+      956197
     ]
   ],
   "online_peaks": {
@@ -1941,9 +1937,6 @@
     "2026-11-05": 1119737
   },
   "recent_phrases": [
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "👉 Подписывайся на {tag}",
     "📢 Подписывайся: {tag}",
@@ -2440,7 +2433,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🔥 {tag} — CS2 без воды",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📌 Сохрани себе {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}"
   ],
   "news_recent": [
     {
@@ -4079,9 +4075,11 @@
     "★ Hand Wraps | Duct Tape",
     "AWP | Printstream",
     "USP-S | Sleeping Potion",
-    "AK-47 | Ice Coaled"
+    "AK-47 | Ice Coaled",
+    "M4A4 | Temukau",
+    "Desert Eagle | Printstream"
   ],
-  "duel_week": "2026-44",
+  "duel_week": "2026-45",
   "report_week": "2026-44",
   "hltv_seen": [
     "hltvnews45673",
@@ -5282,17 +5280,17 @@
     "2026-11-05": 29
   },
   "duel": {
-    "date": "29.10",
-    "ts": 1793293325,
-    "poll_id": 614,
+    "date": "05.11",
+    "ts": 1793898139,
+    "poll_id": 819,
     "items": [
       {
-        "name": "USP-S | Sleeping Potion (Factory New)",
-        "price": 7.89
+        "name": "M4A4 | Temukau (Field-Tested)",
+        "price": 27.37
       },
       {
-        "name": "AK-47 | Ice Coaled (Minimal Wear)",
-        "price": 6.89
+        "name": "Desert Eagle | Printstream (Field-Tested)",
+        "price": 32.06
       }
     ]
   }
