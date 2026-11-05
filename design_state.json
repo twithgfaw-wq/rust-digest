@@ -1386,10 +1386,14 @@
     "https://www.designboom.com/design/gustaf-westman-disney-mickey-mouse-chunky-colorful-furniture",
     "https://www.dezeen.com/2026/11/05/studio-shea-south-carolina-library",
     "https://www.creativebloq.com/deals/some-of-the-best-rated-markers-for-art-are-reduced-by-up-to-26-percent-for-black-friday",
-    "https://www.wallpaper.com/design-interiors/interior-accessories/christopher-john-rogers-the-rug-company"
+    "https://www.wallpaper.com/design-interiors/interior-accessories/christopher-john-rogers-the-rug-company",
+    "https://abduzeedo.com/editorial-design-gridtype-vol-1-slanted-publishers",
+    "https://www.designboom.com/architecture/hurricane-proof-polycarbonate-resilient-24-hour-public-library-miami-89th-studio",
+    "https://abduzeedo.com/packaging-cvs-store-brand-pearlfisher",
+    "https://www.dezeen.com/2026/11/05/fragile-lighting-marset-furniture-tiles-products-dezeen-showroom"
   ],
   "day": "2026-11-05",
-  "day_count": 3,
+  "day_count": 4,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1821,6 +1825,12 @@
       "t": 1793889323.9897368,
       "title": "Typotheque виростили Zed до 500+ стилів і перевірили шрифт на слабкозорих",
       "link": "https://abduzeedo.com/zed-typotheque-500-style-global-typography-system",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1793911750.252485,
+      "title": "Pearlfisher звели 3000 упаковок CVS до одного серця і кольорових блоків",
+      "link": "https://abduzeedo.com/packaging-cvs-store-brand-pearlfisher",
       "src": "Abduzeedo"
     }
   ],
