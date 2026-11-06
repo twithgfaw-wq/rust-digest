@@ -21,10 +21,6 @@
   "x_last_id": "2118163323044987024",
   "online_log": [
     [
-      1793285037,
-      1190483
-    ],
-    [
       1793286117,
       1157439
     ],
@@ -1819,6 +1815,10 @@
     [
       1793975914,
       1182810
+    ],
+    [
+      1793977292,
+      1190100
     ]
   ],
   "online_peaks": {
@@ -1851,12 +1851,9 @@
     "2026-11-03": 1120529,
     "2026-11-04": 1265906,
     "2026-11-05": 1119737,
-    "2026-11-06": 1182810
+    "2026-11-06": 1190100
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "👀 Следи за CS2 вместе с {tag}",
     "📢 Подписывайся: {tag}",
     "🔥 {tag} — CS2 без воды",
     "💣 Твой канал про CS2 — {tag}",
@@ -2353,7 +2350,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "💣 Твой канал про CS2 — {tag}",
     "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "🔥 {tag} — CS2 без воды",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -4317,7 +4317,8 @@
     "hltvnews45920",
     "hltvnews45922",
     "hltvnews45923",
-    "hltvnews45924"
+    "hltvnews45924",
+    "hltvnews45926"
   ],
   "news_seen_t": [
     1788994268,
@@ -4342,7 +4343,7 @@
   },
   "cs2_index_day": "2026-11-06",
   "ws_slot": "2026-11-06-16",
-  "comm_slot": "2026-11-06-13",
+  "comm_slot": "2026-11-06-17",
   "hltv_day": "2026-11-06",
   "hltv_count": 0,
   "hltv_digest": [
@@ -4365,6 +4366,11 @@
       "headline": "PGL ввели штрафы для команд, которые снимаются с турниров",
       "link": "https://www.hltv.org/news/45924/pgl-add-anti-withdrawal-fines-to-rulebook-this-is-done-to-create-a-more-professional-scene",
       "score": 5
+    },
+    {
+      "headline": "BETBOOM обыграли FURIA и вышли в полуфинал турнира в Beijing",
+      "link": "https://www.hltv.org/news/45926/betboom-reach-beijing-semi-finals-over-furia",
+      "score": 8
     }
   ],
   "reddit_day": "2026-11-06",
