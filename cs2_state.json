@@ -21,14 +21,6 @@
   "x_last_id": "2118163323044987024",
   "online_log": [
     [
-      1793288639,
-      1082992
-    ],
-    [
-      1793289579,
-      1060102
-    ],
-    [
       1793289716,
       1060102
     ],
@@ -1815,6 +1807,10 @@
     [
       1793979514,
       1159434
+    ],
+    [
+      1793980896,
+      1119011
     ]
   ],
   "online_peaks": {
@@ -1850,9 +1846,6 @@
     "2026-11-06": 1190100
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📌 Сохрани себе {tag}",
     "👀 Следи за CS2 вместе с {tag}",
@@ -2349,7 +2342,10 @@
     "📢 Подписывайся: {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📌 Сохрани себе {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "📡 Не пропусти важное: {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3947,15 +3943,8 @@
     "3834607464"
   ],
   "price_day": "2026-11-06",
-  "invest_day": "2026-11-05",
+  "invest_day": "2026-11-06",
   "invest_days": {
-    "2026-10-30": [
-      "Rio 2022 Dust II Souvenir Package",
-      "Operation Bravo Case",
-      "Paris 2023 Mirage Souvenir Package",
-      "Shadow Case",
-      "Chroma 3 Case"
-    ],
     "2026-10-31": [
       "Glove Case",
       "Stockholm 2021 Dust II Souvenir Package",
@@ -3997,6 +3986,13 @@
       "Paris 2023 Mirage Souvenir Package",
       "Shadow Case",
       "Stockholm 2021 Challengers Sticker Capsule"
+    ],
+    "2026-11-06": [
+      "Paris 2023 Anubis Souvenir Package",
+      "Glove Case",
+      "Operation Vanguard Weapon Case",
+      "eSports 2013 Winter Case",
+      "Falchion Case"
     ]
   },
   "sod_seen": [
@@ -5236,10 +5232,40 @@
       "verdict": "watch",
       "price": 1.38,
       "date": "2026-11-05"
+    },
+    {
+      "name": "Paris 2023 Anubis Souvenir Package",
+      "verdict": "buy",
+      "price": 1.73,
+      "date": "2026-11-06"
+    },
+    {
+      "name": "Glove Case",
+      "verdict": "avoid",
+      "price": 8.23,
+      "date": "2026-11-06"
+    },
+    {
+      "name": "Operation Vanguard Weapon Case",
+      "verdict": "watch",
+      "price": 3.87,
+      "date": "2026-11-06"
+    },
+    {
+      "name": "eSports 2013 Winter Case",
+      "verdict": "avoid",
+      "price": 9.76,
+      "date": "2026-11-06"
+    },
+    {
+      "name": "Falchion Case",
+      "verdict": "watch",
+      "price": 1.26,
+      "date": "2026-11-06"
     }
   ],
-  "cs2_quiz_n": 12,
-  "cs2_quiz_day": "2026-11-03",
+  "cs2_quiz_n": 13,
+  "cs2_quiz_day": "2026-11-06",
   "cs2_index_steam": {
     "2026-10-10": 2,
     "2026-10-11": 7,
