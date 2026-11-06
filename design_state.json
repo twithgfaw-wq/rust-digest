@@ -1392,10 +1392,17 @@
     "https://abduzeedo.com/packaging-cvs-store-brand-pearlfisher",
     "https://www.dezeen.com/2026/11/05/fragile-lighting-marset-furniture-tiles-products-dezeen-showroom",
     "https://www.dezeen.com/2026/11/05/swa-cool-connected-corridors-houston",
-    "https://www.dezeen.com/2026/11/05/perrier-jouet-iris-van-herpen-partnership-biological-processes"
+    "https://www.dezeen.com/2026/11/05/perrier-jouet-iris-van-herpen-partnership-biological-processes",
+    "https://www.dezeen.com/2026/11/06/dado-furniture-allen-kaufmann",
+    "https://www.dezeen.com/2026/11/06/4space-cultural-significance-arabian-horses-uae-restaurant",
+    "https://www.wallpaper.com/architecture/asif-khan-profile-london-museum-uk",
+    "https://www.designboom.com/readers/demi-nguyen-corporate-branding-fintech-systems-typographic-archives",
+    "https://www.designboom.com/technology/used-cd-rom-drives-modular-aluminum-audio-player-das-pod",
+    "https://abduzeedo.com/inside-telefilm-canada-brand-identity-caserne",
+    "https://www.designboom.com/architecture/nature-take-over-dissolving-walls-insect-built-pavilions"
   ],
-  "day": "2026-11-05",
-  "day_count": 4,
+  "day": "2026-11-06",
+  "day_count": 1,
   "posted": [
     {
       "t": 1791652951.8106186,
@@ -1833,6 +1840,12 @@
       "t": 1793911750.252485,
       "title": "Pearlfisher звели 3000 упаковок CVS до одного серця і кольорових блоків",
       "link": "https://abduzeedo.com/packaging-cvs-store-brand-pearlfisher",
+      "src": "Abduzeedo"
+    },
+    {
+      "t": 1793944928.1867418,
+      "title": "Caserne побудували айдентику Téléfilm Canada на промені кінопроєктора",
+      "link": "https://abduzeedo.com/inside-telefilm-canada-brand-identity-caserne",
       "src": "Abduzeedo"
     }
   ],
