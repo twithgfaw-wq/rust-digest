@@ -2572,14 +2572,6 @@
   ],
   "online_log": [
     [
-      1793267108,
-      64962
-    ],
-    [
-      1793268128,
-      66732
-    ],
-    [
       1793270344,
       70602
     ],
@@ -4518,6 +4510,10 @@
     [
       1793958259,
       79207
+    ],
+    [
+      1793959338,
+      82325
     ]
   ],
   "online_peaks": {
@@ -5232,9 +5228,10 @@
     "No Mercy Wood Jacket",
     "Cow Moo Flage Wood Armor Pants",
     "Salvation Thompson",
-    "Red Sector Armored Door"
+    "Red Sector Armored Door",
+    "Electric Furnace from Hell"
   ],
-  "rsod_day": "2026-11-05",
+  "rsod_day": "2026-11-06",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
