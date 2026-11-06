@@ -497,7 +497,8 @@
           "store": 299,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/10569_small.png?843702246"
         }
-      ]
+      ],
+      "reported": true
     },
     "2026-10-29-2014": {
       "start": "2026-10-29T20:14:39.753Z",
