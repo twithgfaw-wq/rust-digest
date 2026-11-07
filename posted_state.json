@@ -1911,9 +1911,6 @@
     "ws_3828142560"
   ],
   "recent_phrases": [
-    "5 новинок воркшопа — 5 разных авторов",
-    "🎯 Играешь и в CS2? Новости и скины — в @cs2_me",
-    "Берём на заметку 📌",
     "🛠 Facepunch в X: что нового",
     "🔔 Больше Rust — в {tag}",
     "Самое время зайти на сервер 😏",
@@ -2410,7 +2407,10 @@
     "👉 Подписывайся на {tag}",
     "Ставь 🔥, если ждал",
     "🐦 Facepunch написали в X",
-    "👀 Следи за Rust вместе с {tag}"
+    "👀 Следи за Rust вместе с {tag}",
+    "За кого болеете? Ставь 🔥",
+    "🎨 Самые сильные скины недели по оценке Steam",
+    "🔔 Больше Rust — в {tag}"
   ],
   "store_seen": [
     "10198",
@@ -2571,14 +2571,6 @@
     "71409"
   ],
   "online_log": [
-    [
-      1793371859,
-      112260
-    ],
-    [
-      1793372525,
-      113510
-    ],
     [
       1793374746,
       116431
@@ -4438,6 +4430,10 @@
     [
       1794062651,
       145627
+    ],
+    [
+      1794063734,
+      148294
     ]
   ],
   "online_peaks": {
@@ -4473,7 +4469,7 @@
     "2026-11-04": 85272,
     "2026-11-05": 148713,
     "2026-11-06": 153502,
-    "2026-11-07": 145627
+    "2026-11-07": 148294
   },
   "x_last_id": "2119067731810992433",
   "market_snaps": {
@@ -5170,11 +5166,11 @@
       "0e8db55a-8bcb-4204-91cc-da41064363df": 183
     }
   },
-  "top_ts": 1793804448,
+  "top_ts": 1794063739,
   "top_last": [
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3831942047",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831542083",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831520415"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831520415",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831542083"
   ],
   "elite_last_ts": 1794058744,
   "elite_slot": "2026-11-07-11",
@@ -5334,7 +5330,10 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3827439821",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3831942047",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3831542083",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831520415"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831520415",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831942047",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831520415",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831542083"
   ],
   "rust_quiz_n": 12,
   "rust_quiz_day": "2026-11-04",
