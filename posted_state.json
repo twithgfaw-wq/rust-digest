@@ -2572,14 +2572,6 @@
   ],
   "online_log": [
     [
-      1793353589,
-      72983
-    ],
-    [
-      1793354524,
-      75744
-    ],
-    [
       1793356742,
       80150
     ],
@@ -4442,6 +4434,10 @@
     [
       1794044356,
       103997
+    ],
+    [
+      1794045729,
+      107920
     ]
   ],
   "online_peaks": {
@@ -4477,7 +4473,7 @@
     "2026-11-04": 85272,
     "2026-11-05": 148713,
     "2026-11-06": 153502,
-    "2026-11-07": 103997
+    "2026-11-07": 107920
   },
   "x_last_id": "2118742687658434807",
   "market_snaps": {
@@ -5186,9 +5182,10 @@
     "Cow Moo Flage Wood Armor Pants",
     "Salvation Thompson",
     "Red Sector Armored Door",
-    "Electric Furnace from Hell"
+    "Electric Furnace from Hell",
+    "Hoodie from Hell"
   ],
-  "rsod_day": "2026-11-06",
+  "rsod_day": "2026-11-07",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
