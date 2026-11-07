@@ -21,14 +21,6 @@
   "x_last_id": "2118163323044987024",
   "online_log": [
     [
-      1793375776,
-      1145778
-    ],
-    [
-      1793376117,
-      1138502
-    ],
-    [
       1793378343,
       1116193
     ],
@@ -1723,6 +1715,10 @@
     [
       1794065945,
       1238772
+    ],
+    [
+      1794067323,
+      1201053
     ]
   ],
   "online_peaks": {
@@ -1759,9 +1755,6 @@
     "2026-11-07": 1291344
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "💣 Твой канал про CS2 — {tag}",
-    "👉 Подписывайся на {tag}",
     "📢 Подписывайся: {tag}",
     "📌 Сохрани себе {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
@@ -2258,7 +2251,10 @@
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📌 Сохрани себе {tag}",
     "📢 Подписывайся: {tag}",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "📡 Не пропусти важное: {tag}",
+    "💣 Твой канал про CS2 — {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3858,15 +3854,8 @@
     "3834631840"
   ],
   "price_day": "2026-11-07",
-  "invest_day": "2026-11-06",
+  "invest_day": "2026-11-07",
   "invest_days": {
-    "2026-10-31": [
-      "Glove Case",
-      "Stockholm 2021 Dust II Souvenir Package",
-      "Paris 2023 Anubis Souvenir Package",
-      "Paris 2023 Ancient Souvenir Package",
-      "Operation Vanguard Weapon Case"
-    ],
     "2026-11-01": [
       "Winter Offensive Weapon Case",
       "CS:GO Weapon Case",
@@ -3908,6 +3897,13 @@
       "Operation Vanguard Weapon Case",
       "eSports 2013 Winter Case",
       "Falchion Case"
+    ],
+    "2026-11-07": [
+      "Winter Offensive Weapon Case",
+      "CS:GO Weapon Case",
+      "Anubis Collection Package",
+      "Operation Phoenix Weapon Case",
+      "eSports 2014 Summer Case"
     ]
   },
   "sod_seen": [
@@ -5156,6 +5152,36 @@
       "verdict": "watch",
       "price": 1.26,
       "date": "2026-11-06"
+    },
+    {
+      "name": "Winter Offensive Weapon Case",
+      "verdict": "watch",
+      "price": 8.25,
+      "date": "2026-11-07"
+    },
+    {
+      "name": "CS:GO Weapon Case",
+      "verdict": "watch",
+      "price": 94.56,
+      "date": "2026-11-07"
+    },
+    {
+      "name": "Anubis Collection Package",
+      "verdict": "buy",
+      "price": 1.61,
+      "date": "2026-11-07"
+    },
+    {
+      "name": "Operation Phoenix Weapon Case",
+      "verdict": "watch",
+      "price": 3.04,
+      "date": "2026-11-07"
+    },
+    {
+      "name": "eSports 2014 Summer Case",
+      "verdict": "watch",
+      "price": 9.82,
+      "date": "2026-11-07"
     }
   ],
   "cs2_quiz_n": 13,
