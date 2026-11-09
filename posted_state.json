@@ -2562,10 +2562,6 @@
   ],
   "online_log": [
     [
-      1793527292,
-      86253
-    ],
-    [
       1793529264,
       91633
     ],
@@ -4328,6 +4324,10 @@
     [
       1794217161,
       63553
+    ],
+    [
+      1794218543,
+      66343
     ]
   ],
   "online_peaks": {
@@ -5117,9 +5117,10 @@
     "Red Sector Armored Door",
     "Electric Furnace from Hell",
     "Hoodie from Hell",
-    "Lich's Staff"
+    "Lich's Staff",
+    "Pirate Wood Armor Pants"
   ],
-  "rsod_day": "2026-11-08",
+  "rsod_day": "2026-11-09",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
