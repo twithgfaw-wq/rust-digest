@@ -1899,7 +1899,7 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-11-09",
+  "font_day": "2026-11-10",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -1931,7 +1931,8 @@
     "Panchang",
     "Google Sans",
     "Vollkorn",
-    "Bespoke Stencil"
+    "Bespoke Stencil",
+    "Martian Mono"
   ],
   "quiz_day": "2026-11-09",
   "quiz_fonts": [
