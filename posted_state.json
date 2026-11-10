@@ -2619,14 +2619,6 @@
   ],
   "online_log": [
     [
-      1793637060,
-      104517
-    ],
-    [
-      1793638892,
-      106562
-    ],
-    [
       1793641113,
       109264
     ],
@@ -4305,6 +4297,10 @@
     [
       1794326526,
       108818
+    ],
+    [
+      1794330133,
+      113338
     ]
   ],
   "online_peaks": {
@@ -4343,7 +4339,7 @@
     "2026-11-07": 156777,
     "2026-11-08": 146292,
     "2026-11-09": 124579,
-    "2026-11-10": 108818
+    "2026-11-10": 113338
   },
   "x_last_id": "2120169659345358986",
   "market_snaps": {
@@ -5132,9 +5128,11 @@
     "Endgame Metal Double Door",
     "Redemption Large Backpack",
     "Super Star MP5",
-    "Pirate Small Backpack"
+    "Pirate Small Backpack",
+    "Cold Hunter Triangle Ladder Hatch",
+    "Young Dragon Metal Double Door"
   ],
-  "rduel_week": "2026-45",
+  "rduel_week": "2026-46",
   "rust_index": {
     "2026-10-12": 34,
     "2026-10-13": 32,
@@ -5257,24 +5255,24 @@
   "rust_quiz_n": 14,
   "rust_quiz_day": "2026-11-09",
   "last_lb_week": "2026-45",
-  "rduel": {
-    "date": "03.11",
-    "ts": 1793725322,
-    "poll_id": 639,
-    "items": [
-      {
-        "name": "Super Star MP5",
-        "price": 99.0,
-        "icon": "https://files.facepunch.com/rust/icons/inventory/rust/70616_small.png?642778811"
-      },
-      {
-        "name": "Pirate Small Backpack",
-        "price": 157,
-        "icon": "https://steamcommunity-a.akamaihd.net/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Re5mLCfCk4nReh8DEiv5dYMKk2r7A2Q_62L6cdI4A"
-      }
-    ]
-  },
   "wipe_eve": "2026-11-04",
   "wipe_day": "2026-11-05",
-  "online_record_ts": 1794070932
+  "online_record_ts": 1794070932,
+  "rduel": {
+    "date": "10.11",
+    "ts": 1794330166,
+    "poll_id": 789,
+    "items": [
+      {
+        "name": "Cold Hunter Triangle Ladder Hatch",
+        "price": 318,
+        "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71003_small.png?2523896739"
+      },
+      {
+        "name": "Young Dragon Metal Double Door",
+        "price": 308,
+        "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71002_small.png?2704616116"
+      }
+    ]
+  }
 }
