@@ -2600,14 +2600,6 @@
   ],
   "online_log": [
     [
-      1793613384,
-      62499
-    ],
-    [
-      1793613696,
-      63112
-    ],
-    [
       1793615913,
       66848
     ],
@@ -4306,6 +4298,10 @@
     [
       1794303561,
       62383
+    ],
+    [
+      1794304942,
+      64333
     ]
   ],
   "online_peaks": {
@@ -5110,9 +5106,10 @@
     "Electric Furnace from Hell",
     "Hoodie from Hell",
     "Lich's Staff",
-    "Pirate Wood Armor Pants"
+    "Pirate Wood Armor Pants",
+    "Wolf King Garage Door"
   ],
-  "rsod_day": "2026-11-09",
+  "rsod_day": "2026-11-10",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
