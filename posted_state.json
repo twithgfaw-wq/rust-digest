@@ -1958,12 +1958,6 @@
     "ws_3828142560"
   ],
   "recent_phrases": [
-    "Достоин магазина? Ставь 🔥",
-    "Новинки от {n} {a_gen} — {k} {works}",
-    "🏆",
-    " — ",
-    "что выкатили авторы",
-    "📢 Подписывайся: {tag}",
     "Facepunch, мы следим 👀",
     "⚡️ Rust в X: новости от разработчиков",
     "🔔 Больше Rust — в {tag}",
@@ -2457,7 +2451,13 @@
     "💎",
     ": ",
     "новинки, которые цепляют",
-    "🔥 {tag} — Rust без воды"
+    "🔥 {tag} — Rust без воды",
+    "Неплохо, неплохо 😎",
+    "🗞 Новости из X от Facepunch",
+    "🎮 Новости, скины и видео по Rust — {tag}",
+    "Достойный подиум? 👀",
+    "👑 Кто правит воркшопом на этой неделе",
+    "📌 Сохрани себе {tag}"
   ],
   "store_seen": [
     "10198",
@@ -2618,14 +2618,6 @@
     "71409"
   ],
   "online_log": [
-    [
-      1793630913,
-      93616
-    ],
-    [
-      1793631639,
-      94645
-    ],
     [
       1793631695,
       98343
@@ -4309,6 +4301,10 @@
     [
       1794321549,
       101565
+    ],
+    [
+      1794322870,
+      104687
     ]
   ],
   "online_peaks": {
@@ -4347,9 +4343,9 @@
     "2026-11-07": 156777,
     "2026-11-08": 146292,
     "2026-11-09": 124579,
-    "2026-11-10": 101565
+    "2026-11-10": 104687
   },
-  "x_last_id": "2119807143444361382",
+  "x_last_id": "2120169659345358986",
   "market_snaps": {
     "2026-11-02": {
       "33508efb-025d-4d39-b333-77aca18f8b23": 891,
@@ -5083,11 +5079,11 @@
       "0e8db55a-8bcb-4204-91cc-da41064363df": 175
     }
   },
-  "top_ts": 1794063739,
+  "top_ts": 1794322883,
   "top_last": [
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831942047",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831520415",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831542083"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3836647535",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3837147948",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3835897215"
   ],
   "elite_last_ts": 1794319323,
   "elite_slot": "2026-11-10-16",
@@ -5253,7 +5249,10 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3831520415",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3831942047",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3831520415",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831542083"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3831542083",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3836647535",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3837147948",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3835897215"
   ],
   "rust_quiz_n": 14,
   "rust_quiz_day": "2026-11-09",
