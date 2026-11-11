@@ -21,14 +21,6 @@
   "x_last_id": "2118163323044987024",
   "online_log": [
     [
-      1793725283,
-      971785
-    ],
-    [
-      1793725327,
-      974321
-    ],
-    [
       1793727509,
       997846
     ],
@@ -1435,6 +1427,10 @@
     [
       1794415139,
       1068211
+    ],
+    [
+      1794416534,
+      1071503
     ]
   ],
   "online_peaks": {
@@ -1475,10 +1471,6 @@
     "2026-11-11": 1217349
   },
   "recent_phrases": [
-    "📢 Подписывайся: {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "📡 Не пропусти важное: {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -1974,7 +1966,11 @@
     "👀 Следи за CS2 вместе с {tag}",
     "📢 Подписывайся: {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "⚡️ Всё самое свежее по CS2 — {tag}"
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "Открыть Operation Phoenix Weapon Case стоит $5.45. Вернётся в среднем $2.60.",
+    "👉 Подписывайся на {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3669,9 +3665,10 @@
     "Danger Zone Case",
     "Operation Breakout Weapon Case",
     "Spectrum 2 Case",
-    "Fracture Case"
+    "Fracture Case",
+    "Operation Phoenix Weapon Case"
   ],
-  "ev_week": "2026-45",
+  "ev_week": "2026-46",
   "duel_used": [
     "M4A1-S | Nightmare",
     "AK-47 | Midnight Laminate",
