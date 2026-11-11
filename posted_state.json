@@ -2638,10 +2638,6 @@
   ],
   "online_log": [
     [
-      1793701478,
-      66899
-    ],
-    [
       1793703692,
       69279
     ],
@@ -4276,6 +4272,10 @@
     [
       1794391324,
       63396
+    ],
+    [
+      1794393542,
+      66403
     ]
   ],
   "online_peaks": {
@@ -5095,9 +5095,10 @@
     "Hoodie from Hell",
     "Lich's Staff",
     "Pirate Wood Armor Pants",
-    "Wolf King Garage Door"
+    "Wolf King Garage Door",
+    "Apotheosis of War Chestplate"
   ],
-  "rsod_day": "2026-11-10",
+  "rsod_day": "2026-11-11",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
