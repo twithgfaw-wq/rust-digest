@@ -1,6 +1,6 @@
 {
-  "last": "2026-11-05-1754",
-  "ts": 1793907256,
+  "last": "2026-11-12-2101",
+  "ts": 1794522534,
   "picks": {
     "2026-10-08-2349": {
       "start": "2026-10-08T23:49:37.043Z",
@@ -979,6 +979,107 @@
           "n10": 1,
           "store": 249,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71408_small.png?1305068112"
+        }
+      ]
+    },
+    "2026-11-12-2101": {
+      "start": "2026-11-12T21:01:36.872Z",
+      "items": [
+        {
+          "name": "Project Nova Ladder Hatch",
+          "v": "buy",
+          "net": 0.111,
+          "n10": 6,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71500_small.png?3682457900"
+        },
+        {
+          "name": "Outer Planets Metal Shop Front",
+          "v": "buy",
+          "net": 0.1026,
+          "n10": 6,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71508_small.png?1055736106"
+        },
+        {
+          "name": "Pirate Nailgun",
+          "v": "think",
+          "net": 0.0172,
+          "n10": 5,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71506_small.png?4018912126"
+        },
+        {
+          "name": "Wild Rose Rug",
+          "v": "think",
+          "net": 0.0043,
+          "n10": 5,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71510_small.png?2126537003"
+        },
+        {
+          "name": "Heat Seeker Nailgun",
+          "v": "think",
+          "net": 0.0036,
+          "n10": 5,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71501_small.png?1148705632"
+        },
+        {
+          "name": "Isoparam M39",
+          "v": "think",
+          "net": -0.0418,
+          "n10": 5,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71509_small.png?2077384476"
+        },
+        {
+          "name": "Cow Moo Flage Wood Armor Gloves",
+          "v": "no",
+          "net": -0.0034,
+          "n10": 4,
+          "store": 99,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71505_small.png?2030917867"
+        },
+        {
+          "name": "Scrap King Garage Door",
+          "v": "no",
+          "net": -0.0645,
+          "n10": 4,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71502_small.png?1603908003"
+        },
+        {
+          "name": "Nuclear Waste Sandbag Barricade",
+          "v": "no",
+          "net": -0.1016,
+          "n10": 3,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71503_small.png?2631168271"
+        },
+        {
+          "name": "Pillow Fort Sandbag Barricade",
+          "v": "no",
+          "net": -0.1211,
+          "n10": 3,
+          "store": 149,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71504_small.png?3158868987"
+        },
+        {
+          "name": "Zero Kelvin SAP",
+          "v": "no",
+          "net": -0.1915,
+          "n10": 2,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71511_small.png?3043261497"
+        },
+        {
+          "name": "Oil King DBS",
+          "v": "no",
+          "net": -0.3457,
+          "n10": 3,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71507_small.png?591571793"
         }
       ]
     }
