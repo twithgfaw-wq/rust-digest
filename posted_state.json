@@ -2657,14 +2657,6 @@
   ],
   "online_log": [
     [
-      1793785421,
-      61208
-    ],
-    [
-      1793786148,
-      61208
-    ],
-    [
       1793790096,
       68394
     ],
@@ -4251,6 +4243,10 @@
     [
       1794476347,
       59333
+    ],
+    [
+      1794477722,
+      61241
     ]
   ],
   "online_peaks": {
@@ -5085,9 +5081,10 @@
     "Lich's Staff",
     "Pirate Wood Armor Pants",
     "Wolf King Garage Door",
-    "Apotheosis of War Chestplate"
+    "Apotheosis of War Chestplate",
+    "MetalCore SKS"
   ],
-  "rsod_day": "2026-11-11",
+  "rsod_day": "2026-11-12",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
