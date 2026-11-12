@@ -1404,6 +1404,10 @@
     [
       1794501540,
       987626
+    ],
+    [
+      1794502917,
+      989536
     ]
   ],
   "online_peaks": {
@@ -1445,9 +1449,6 @@
     "2026-11-12": 1121466
   },
   "recent_phrases": [
-    "👉 Подписывайся на {tag}",
-    "📡 Не пропусти важное: {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "Сервера не пустуют 💪",
     "🔢 Онлайн Counter-Strike 2: свежие цифры",
@@ -1944,7 +1945,10 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "📢 Подписывайся: {tag}",
     "👀 Следи за CS2 вместе с {tag}",
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "👉 Подписывайся на {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📡 Не пропусти важное: {tag}"
   ],
   "news_recent": [
     {
@@ -3659,9 +3663,11 @@
     "USP-S | Sleeping Potion",
     "AK-47 | Ice Coaled",
     "M4A4 | Temukau",
-    "Desert Eagle | Printstream"
+    "Desert Eagle | Printstream",
+    "Desert Eagle | Mecha Industries",
+    "AK-47 | Slate"
   ],
-  "duel_week": "2026-45",
+  "duel_week": "2026-46",
   "report_week": "2026-45",
   "hltv_seen": [
     "hltvnews45673",
@@ -4921,17 +4927,17 @@
     "2026-11-12": 26
   },
   "duel": {
-    "date": "05.11",
-    "ts": 1793898139,
-    "poll_id": 819,
+    "date": "12.11",
+    "ts": 1794502932,
+    "poll_id": 939,
     "items": [
       {
-        "name": "M4A4 | Temukau (Field-Tested)",
-        "price": 27.37
+        "name": "Desert Eagle | Mecha Industries (Minimal Wear)",
+        "price": 6.89
       },
       {
-        "name": "Desert Eagle | Printstream (Field-Tested)",
-        "price": 32.06
+        "name": "AK-47 | Slate (Minimal Wear)",
+        "price": 6.39
       }
     ]
   }
