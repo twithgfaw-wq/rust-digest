@@ -2681,14 +2681,6 @@
   ],
   "online_log": [
     [
-      1793871579,
-      40102
-    ],
-    [
-      1793872592,
-      41739
-    ],
-    [
       1793872942,
       40985
     ],
@@ -4255,6 +4247,10 @@
     [
       1794562749,
       65797
+    ],
+    [
+      1794564128,
+      67839
     ]
   ],
   "online_peaks": {
@@ -5104,9 +5100,10 @@
     "Pirate Wood Armor Pants",
     "Wolf King Garage Door",
     "Apotheosis of War Chestplate",
-    "MetalCore SKS"
+    "MetalCore SKS",
+    "Cursed Cauldron"
   ],
-  "rsod_day": "2026-11-12",
+  "rsod_day": "2026-11-13",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
