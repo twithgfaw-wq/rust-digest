@@ -1336,6 +1336,10 @@
     [
       1794584341,
       1175475
+    ],
+    [
+      1794585722,
+      1141155
     ]
   ],
   "online_peaks": {
@@ -1378,9 +1382,6 @@
     "2026-11-13": 1206053
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "📢 Подписывайся: {tag}",
-    "⚡️ Всё самое свежее по CS2 — {tag}",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "А ты сейчас в игре? 🎮",
     "⚡️ CS2 сегодня: сколько игроков в сети",
@@ -1877,7 +1878,10 @@
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
     "🔥 {tag} — CS2 без воды",
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "👀 Следи за CS2 вместе с {tag}"
+    "👀 Следи за CS2 вместе с {tag}",
+    "🔔 Больше CS2 — в {tag}",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "📢 Подписывайся: {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3477,15 +3481,8 @@
     "3834631840"
   ],
   "price_day": "2026-11-13",
-  "invest_day": "2026-11-12",
+  "invest_day": "2026-11-13",
   "invest_days": {
-    "2026-11-06": [
-      "Paris 2023 Anubis Souvenir Package",
-      "Glove Case",
-      "Operation Vanguard Weapon Case",
-      "eSports 2013 Winter Case",
-      "Falchion Case"
-    ],
     "2026-11-07": [
       "Winter Offensive Weapon Case",
       "CS:GO Weapon Case",
@@ -3527,6 +3524,13 @@
       "Paris 2023 Anubis Souvenir Package",
       "Paris 2023 Mirage Souvenir Package",
       "Huntsman Weapon Case"
+    ],
+    "2026-11-13": [
+      "Winter Offensive Weapon Case",
+      "CS:GO Weapon Case",
+      "Anubis Collection Package",
+      "Operation Phoenix Weapon Case",
+      "Stockholm 2021 Ancient Souvenir Package"
     ]
   },
   "sod_seen": [
@@ -3916,36 +3920,6 @@
   "online_daily": "2026-11-12",
   "hltv_digest_day": "2026-11-06",
   "invest_log": [
-    {
-      "name": "Horizon Case",
-      "verdict": "watch",
-      "price": 6.18,
-      "date": "2026-10-14"
-    },
-    {
-      "name": "Paris 2023 Vertigo Souvenir Package",
-      "verdict": "watch",
-      "price": 2.24,
-      "date": "2026-10-14"
-    },
-    {
-      "name": "Anubis Collection Package",
-      "verdict": "buy",
-      "price": 1.67,
-      "date": "2026-10-14"
-    },
-    {
-      "name": "Winter Offensive Weapon Case",
-      "verdict": "watch",
-      "price": 8.66,
-      "date": "2026-10-14"
-    },
-    {
-      "name": "CS:GO Weapon Case",
-      "verdict": "watch",
-      "price": 97.53,
-      "date": "2026-10-14"
-    },
     {
       "name": "Rio 2022 Dust II Souvenir Package",
       "verdict": "watch",
@@ -4815,10 +4789,40 @@
       "verdict": "watch",
       "price": 6.53,
       "date": "2026-11-12"
+    },
+    {
+      "name": "Winter Offensive Weapon Case",
+      "verdict": "watch",
+      "price": 8.2,
+      "date": "2026-11-13"
+    },
+    {
+      "name": "CS:GO Weapon Case",
+      "verdict": "watch",
+      "price": 91.34,
+      "date": "2026-11-13"
+    },
+    {
+      "name": "Anubis Collection Package",
+      "verdict": "watch",
+      "price": 1.58,
+      "date": "2026-11-13"
+    },
+    {
+      "name": "Operation Phoenix Weapon Case",
+      "verdict": "watch",
+      "price": 3.04,
+      "date": "2026-11-13"
+    },
+    {
+      "name": "Stockholm 2021 Ancient Souvenir Package",
+      "verdict": "buy",
+      "price": 2.88,
+      "date": "2026-11-13"
     }
   ],
-  "cs2_quiz_n": 15,
-  "cs2_quiz_day": "2026-11-10",
+  "cs2_quiz_n": 16,
+  "cs2_quiz_day": "2026-11-13",
   "cs2_index_steam": {
     "2026-10-15": 12,
     "2026-10-16": 8,
