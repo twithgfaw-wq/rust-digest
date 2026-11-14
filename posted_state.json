@@ -2681,10 +2681,6 @@
   ],
   "online_log": [
     [
-      1793958259,
-      79207
-    ],
-    [
       1793959338,
       82325
     ],
@@ -4191,6 +4187,10 @@
     [
       1794649130,
       89687
+    ],
+    [
+      1794650516,
+      92627
     ]
   ],
   "online_peaks": {
@@ -4233,7 +4233,7 @@
     "2026-11-11": 113761,
     "2026-11-12": 112518,
     "2026-11-13": 129590,
-    "2026-11-14": 89687
+    "2026-11-14": 92627
   },
   "x_last_id": "2121294566078742754",
   "market_snaps": {
@@ -5057,9 +5057,10 @@
     "Wolf King Garage Door",
     "Apotheosis of War Chestplate",
     "MetalCore SKS",
-    "Cursed Cauldron"
+    "Cursed Cauldron",
+    "Swamp Guard Sheet Metal Door"
   ],
-  "rsod_day": "2026-11-13",
+  "rsod_day": "2026-11-14",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
