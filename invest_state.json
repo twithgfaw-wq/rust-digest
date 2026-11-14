@@ -863,7 +863,8 @@
           "store": 199,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71303_small.png?2303120128"
         }
-      ]
+      ],
+      "reported": true
     },
     "2026-11-05-1754": {
       "start": "2026-11-05T17:54:16.168Z",
