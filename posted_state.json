@@ -2681,10 +2681,6 @@
   ],
   "online_log": [
     [
-      1794044356,
-      103997
-    ],
-    [
       1794045729,
       107920
     ],
@@ -4195,6 +4191,10 @@
     [
       1794735532,
       89183
+    ],
+    [
+      1794736911,
+      92858
     ]
   ],
   "online_peaks": {
@@ -4238,7 +4238,7 @@
     "2026-11-12": 112518,
     "2026-11-13": 129590,
     "2026-11-14": 133413,
-    "2026-11-15": 89183
+    "2026-11-15": 92858
   },
   "x_last_id": "2121619198522622261",
   "market_snaps": {
@@ -5078,9 +5078,10 @@
     "Apotheosis of War Chestplate",
     "MetalCore SKS",
     "Cursed Cauldron",
-    "Swamp Guard Sheet Metal Door"
+    "Swamp Guard Sheet Metal Door",
+    "Skull"
   ],
-  "rsod_day": "2026-11-14",
+  "rsod_day": "2026-11-15",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
