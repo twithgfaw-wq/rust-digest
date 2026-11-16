@@ -1899,7 +1899,7 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-11-15",
+  "font_day": "2026-11-16",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -1937,7 +1937,8 @@
     "Hoover",
     "Rubik Doodle Shadow",
     "Fira Sans Extra Condensed",
-    "Aktura"
+    "Aktura",
+    "Cormorant Garamond"
   ],
   "quiz_day": "2026-11-15",
   "quiz_fonts": [
