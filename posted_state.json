@@ -2650,10 +2650,6 @@
   ],
   "online_log": [
     [
-      1794130752,
-      102522
-    ],
-    [
       1794132139,
       107151
     ],
@@ -4152,6 +4148,10 @@
     [
       1794821936,
       55675
+    ],
+    [
+      1794823304,
+      57004
     ]
   ],
   "online_peaks": {
@@ -5039,9 +5039,10 @@
     "MetalCore SKS",
     "Cursed Cauldron",
     "Swamp Guard Sheet Metal Door",
-    "Skull"
+    "Skull",
+    "Large Candle Set"
   ],
-  "rsod_day": "2026-11-15",
+  "rsod_day": "2026-11-16",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
