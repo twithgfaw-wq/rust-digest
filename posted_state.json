@@ -2654,10 +2654,6 @@
   ],
   "online_log": [
     [
-      1794217161,
-      63553
-    ],
-    [
       1794218543,
       66343
     ],
@@ -4160,6 +4156,10 @@
     [
       1794908329,
       63161
+    ],
+    [
+      1794909706,
+      65044
     ]
   ],
   "online_peaks": {
@@ -5051,9 +5051,10 @@
     "Cursed Cauldron",
     "Swamp Guard Sheet Metal Door",
     "Skull",
-    "Large Candle Set"
+    "Large Candle Set",
+    "Valkyrie Thompson"
   ],
-  "rsod_day": "2026-11-16",
+  "rsod_day": "2026-11-17",
   "rduel_used": [
     "Valkyrie SAP",
     "Babylon Armored Double Door",
