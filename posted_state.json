@@ -563,6 +563,12 @@
         "pid": "ws_3840545250",
         "name": "tree_f"
       }
+    },
+    "42": {
+      "1970599599": {
+        "pid": "ws_3841286601",
+        "name": "tree_f"
+      }
     }
   },
   "update_offset": 429339926,
@@ -858,7 +864,8 @@
       "week": "2026-47",
       "ts": 1794985317,
       "msg_id": 921,
-      "caption": "<b>🤔 КОНКУРС: Facepunch отберут не всех. Ваш прогноз?</b>\nПять работ, пять авторов, один фаворит\n\n1️⃣ <b>Optimized SKS V2 (Cut Sights)</b> — Yuwi\n2️⃣ <b>Amethyst Geode Stone Pickaxe (V2)</b> — Graphy\n3️⃣ <b>Apocalypse Nomad | SKS (V1)</b> — ZedSkipper\n4️⃣ <b>Scrap King MP5</b> — sad/happy\n5️⃣ <b>Nitro Boost | Nailgun (Cutsight)</b> — leomer\n\nЖми номер, затем «Подтвердить» 👇 Итоги — в воскресенье 🏆\n\n📢 Подписывайся: @rust_news_Pro\n#rust #раст #скины #конкурс"
+      "caption": "<b>🤔 КОНКУРС: Facepunch отберут не всех. Ваш прогноз?</b>\nПять работ, пять авторов, один фаворит\n\n1️⃣ <b>Optimized SKS V2 (Cut Sights)</b> — Yuwi\n2️⃣ <b>Amethyst Geode Stone Pickaxe (V2)</b> — Graphy\n3️⃣ <b>Apocalypse Nomad | SKS (V1)</b> — ZedSkipper\n4️⃣ <b>Scrap King MP5</b> — sad/happy\n5️⃣ <b>Nitro Boost | Nailgun (Cutsight)</b> — leomer\n\nЖми номер, затем «Подтвердить» 👇 Итоги — в воскресенье 🏆\n\n📢 Подписывайся: @rust_news_Pro\n#rust #раст #скины #конкурс",
+      "last_caption": "<b>🤔 КОНКУРС: Facepunch отберут не всех. Ваш прогноз?</b>\nПять работ, пять авторов, один фаворит\n\n1️⃣ <b>Optimized SKS V2 (Cut Sights)</b> — Yuwi\n2️⃣ <b>Amethyst Geode Stone Pickaxe (V2)</b> — Graphy\n3️⃣ <b>Apocalypse Nomad | SKS (V1)</b> — ZedSkipper\n4️⃣ <b>Scrap King MP5</b> — sad/happy\n5️⃣ <b>Nitro Boost | Nailgun (Cutsight)</b> — leomer\n\nЖми номер, затем «Подтвердить» 👇 Итоги — в воскресенье 🏆\n\n📢 Подписывайся: @rust_news_Pro\n#rust #раст #скины #конкурс\n\n📊 Голоса (1): 1️⃣ 1   2️⃣ 0   3️⃣ 0   4️⃣ 0   5️⃣ 0"
     }
   },
   "round_seq": 43,
@@ -1984,9 +1991,6 @@
     "ws_3832814946"
   ],
   "recent_phrases": [
-    "📌 Сохрани себе {tag}",
-    "Кто, по-вашему, попадёт в игру? 🤔",
-    "🔥 Мастерская Rust: тройка лидеров недели",
     "🔥 {tag} — Rust без воды",
     "Остров ждёт тебя 🏝",
     "🌍 Rust не спит — онлайн на этот вечер",
@@ -2483,7 +2487,10 @@
     "Жми номер, затем «Подтвердить» 👇 Итоги — в воскресенье 🏆",
     "🤔 КОНКУРС: Facepunch отберут не всех. Ваш прогноз?",
     "Пять работ, пять авторов, один фаворит",
-    "📢 Подписывайся: {tag}"
+    "📢 Подписывайся: {tag}",
+    "🎬 У {author} новый ролик — и он того стоит",
+    "Приятного просмотра 🍿",
+    "🔥 {tag} — Rust без воды"
   ],
   "store_seen": [
     "10198",
@@ -2656,10 +2663,6 @@
     "71511"
   ],
   "online_log": [
-    [
-      1794294155,
-      53750
-    ],
     [
       1794296359,
       56148
@@ -4179,6 +4182,10 @@
     [
       1794985330,
       47385
+    ],
+    [
+      1794987540,
+      49335
     ]
   ],
   "online_peaks": {
