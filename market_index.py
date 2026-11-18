@@ -141,17 +141,25 @@ def steam_history(name, appid=730):
     return []
 
 
-def cs2_index_steam():
+def cs2_index_steam(budget=None):
     """Индекс по маркету Steam: неделя против месяца, как и по Skinport,
-    но по продажам самого маркета Steam. None — маркет не ответил."""
+    но по продажам самого маркета Steam. None — маркет не ответил.
+    budget — сколько секунд можно потратить (маркет при 429 отвечает
+    медленно; без лимита бот зависал до таймаута и терял состояние)."""
     rows, now = [], time.time()
+    stop = now + budget if budget else None
     for cat, tag, n in STEAM_BASKET:
+        if stop and time.time() > stop:
+            print("Маркет Steam: не уложились во время, прерываем")
+            break
         try:
             names = steam_popular(tag, n)
         except Exception as e:
             print("Маркет Steam: поиск не ответил:", tag, e)
             continue
         for name in names:
+            if stop and time.time() > stop:
+                break
             try:
                 pts = steam_history(name)
             except Exception as e:
@@ -202,7 +210,7 @@ def cs2_index_cached(kt):
             return idx
     except Exception:
         pass
-    return cs2_index_steam()
+    return cs2_index_steam(budget=240)
 
 
 def precompute():

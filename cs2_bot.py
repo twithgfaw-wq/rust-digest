@@ -180,6 +180,19 @@ def save_state(state):
         json.dump(state, f, ensure_ascii=False, indent=2)
 
 
+CHECKPOINTS = False   # main() включает в боевом режиме
+
+
+def checkpoint(state):
+    """Сохраняем состояние после каждой рубрики: если запуск зависнет или
+    его снимут по таймауту, уже вышедшие посты не повторятся."""
+    if CHECKPOINTS:
+        try:
+            save_state(state)
+        except Exception as e:
+            print("Состояние не сохранилось:", e)
+
+
 # ---------- официальные новости из Steam ----------
 
 STORE_EVENTS = ("https://store.steampowered.com/events/"
@@ -1215,6 +1228,7 @@ def formats_tick(tg, state, forced=()):
                 state[key] = val
         except Exception as e:
             print(f"Рубрика {name} не вышла:", e)
+        checkpoint(state)
         time.sleep(3)
 
 
@@ -1243,6 +1257,7 @@ def extras_tick(tg, state, forced=False):
             fn()
         except Exception as e:
             print(f"{name} не вышла:", e)
+        checkpoint(state)
         time.sleep(2)
 
 
@@ -1523,7 +1538,7 @@ def launch(tg, state, now):
 
 
 def main():
-    global CHANNEL_TAG
+    global CHANNEL_TAG, CHECKPOINTS
     now = time.time()
     token = os.environ.get("BOT_TOKEN", "").strip()
     channel = os.environ.get("CHANNEL", "").strip() or CHANNEL_TAG
@@ -1566,28 +1581,36 @@ def main():
         if not dry:
             save_state(state)
         return
+    CHECKPOINTS = not dry
     post_steam_news(tg, state, now)
+    checkpoint(state)
     post_x_news(tg, state)
+    checkpoint(state)
     try:
         online_tick(tg, state, now)
     except Exception as e:
         print("Онлайн не получен:", e)
+    checkpoint(state)
     try:
         price_tick(tg, state, os.environ.get("CS2_PRICES") == "1")
     except Exception as e:
         print("Сводка цен не вышла:", e)
+    checkpoint(state)
     try:
         invest_tick(tg, state, os.environ.get("CS2_INVEST") == "1")
     except Exception as e:
         print("Инвест-разбор не вышел:", e)
+    checkpoint(state)
     try:
         workshop_tick(tg, state, now)
     except Exception as e:
         print("Мастерская не вышла:", e)
+    checkpoint(state)
     try:
         community_tick(tg, state, now)
     except Exception as e:
         print("Сообщество не вышло:", e)
+    checkpoint(state)
     now_formats = ("skin", "case", "duel", "report") if os.environ.get(
         "CS2_FORMATS_NOW") == "1" else ()
     formats_tick(tg, state, now_formats)

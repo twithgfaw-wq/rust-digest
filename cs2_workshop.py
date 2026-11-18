@@ -28,6 +28,7 @@ PASS_SCORE = 7          # минимальная оценка для публи�
 FRESH_DAYS = 10         # «свежая» работа проверенного автора (с 4 — сильные
                         # работы с оценкой 7+ выпадали, не дождавшись слота)
 JUDGE_PER_RUN = 4       # сколько новых работ оцениваем за один запуск
+FALLBACK_VOTES = 200    # без Claude: голосов «за» минус «против» у новичка
 
 
 # ---------- Steam API ----------
@@ -203,7 +204,7 @@ def pick(key, state, now, judge_limit=JUDGE_PER_RUN):
                               authors.get(w["creator"], {}).get("n", 0),
                               w["up"] - w["down"]), reverse=True)
     best = None
-    judged = 0
+    judged = failed = 0
     for w in cands:
         res = scores.get(w["id"])
         if res is None:
@@ -212,6 +213,7 @@ def pick(key, state, now, judge_limit=JUDGE_PER_RUN):
             res = judge(w, nick.get(w["creator"]), authors.get(w["creator"]))
             judged += 1
             if not res:
+                failed += 1
                 continue
             scores[w["id"]] = res
             print(f"Оценка {res['score']}/10 · {w['title']} · {res['reason']}")
@@ -220,4 +222,29 @@ def pick(key, state, now, judge_limit=JUDGE_PER_RUN):
             best = (w, nick.get(w["creator"]), authors.get(w["creator"]), res)
     for k in list(scores)[:-300]:
         del scores[k]
+    if best is None and judged and failed == judged:
+        best = fallback(cands, authors, nick)
     return best
+
+
+def fallback(cands, authors, nick):
+    """Claude недоступен (нет ключа, ошибка API): рубрика не должна молчать.
+    Берём без оценки только надёжное — свежую работу автора, которого Valve
+    уже принимала, или работу с сильной реакцией сообщества. Текст — шаблон."""
+    for w in cands:   # уже отсортированы: проверенные авторы, затем голоса
+        info = authors.get(w["creator"])
+        if info:
+            text = ("Свежая работа автора, чьи скины Valve уже добавляла "
+                    "в игру.")
+        elif w["up"] - w["down"] >= FALLBACK_VOTES:
+            text = "Одна из самых заметных работ недели в мастерской."
+        else:
+            continue
+        kind = next((t for t in w["tags"] if t in SKIN_TAGS), "")
+        if kind:
+            text += f" Тип: {html.escape(kind)}."
+        print(f"Мастерская без Claude: {w['title']} · {w['why']}")
+        res = {"score": 0, "title_ru": w["title"][:60], "text": text,
+               "reason": "без оценки Claude"}
+        return (w, nick.get(w["creator"]), info, res)
+    return None
