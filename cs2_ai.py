@@ -71,7 +71,8 @@ def ask(prompt, schema=None, effort="medium", images=(), max_tokens=16000,
     if schema:
         config["format"] = {"type": "json_schema", "schema": schema}
     try:
-        r = anthropic.Anthropic().beta.messages.create(
+        client = anthropic.Anthropic(timeout=180, max_retries=1)
+        r = client.beta.messages.create(
             model=MODEL, max_tokens=max_tokens, system=system or STYLE,
             betas=[FALLBACK_BETA], fallbacks="default",
             output_config=config,

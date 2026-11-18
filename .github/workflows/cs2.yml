@@ -50,6 +50,7 @@ jobs:
           python-version: "3.12"
 
       - name: CS2-бот
+        timeout-minutes: 12   # меньше лимита задания: состояние успеет сохраниться
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHANNEL: "@cs2_me"
@@ -71,9 +72,10 @@ jobs:
           STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
         run: |
           pip install --quiet pillow brotli anthropic
-          python cs2_bot.py
+          python -u cs2_bot.py
 
       - name: Сохранить состояние
+        if: always()   # и после сбоя/таймаута бота — иначе посты повторяются
         run: |
           if [ -n "$(git status --porcelain cs2_state.json)" ]; then
             git config user.name "rust-digest-bot"

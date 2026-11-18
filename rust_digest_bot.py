@@ -119,18 +119,48 @@ def translate_to_ru(text):
     except Exception:
         pass
 
-    # 2) запасной: MyMemory
+    # 2) запасной: MyMemory (не больше 500 знаков за запрос — режем на части)
     try:
-        url = (f"https://api.mymemory.translated.net/get?q={q}"
-               f"&langpair=en|ru")
-        data = http_get_json(url, timeout=15)
-        out = data.get("responseData", {}).get("translatedText", "")
-        if out and "MYMEMORY WARNING" not in out.upper():
-            return html.unescape(out).strip()
+        parts = []
+        for chunk in split_for_translate(text):
+            url = ("https://api.mymemory.translated.net/get?q="
+                   f"{urllib.parse.quote(chunk)}&langpair=en|ru")
+            data = http_get_json(url, timeout=15)
+            out = data.get("responseData", {}).get("translatedText", "")
+            up = (out or "").upper()
+            if (not out or "MYMEMORY WARNING" in up
+                    or "QUERY LENGTH LIMIT" in up or "INVALID" in up[:40]):
+                raise ValueError("MyMemory не перевёл")
+            parts.append(html.unescape(out).strip())
+        if parts:
+            return " ".join(parts)
     except Exception:
         pass
 
     return text  # не смогли перевести — оставляем как есть
+
+
+def split_for_translate(text, limit=450):
+    """Режем текст на куски до limit знаков по границам предложений."""
+    import re
+    chunks, cur = [], ""
+    for piece in re.split(r"(?<=[.!?\n])\s+", text):
+        while len(piece) > limit:          # одно очень длинное предложение
+            cut = piece.rfind(" ", 0, limit)
+            cut = cut if cut > 0 else limit
+            if cur:
+                chunks.append(cur)
+                cur = ""
+            chunks.append(piece[:cut])
+            piece = piece[cut:].strip()
+        if cur and len(cur) + 1 + len(piece) > limit:
+            chunks.append(cur)
+            cur = piece
+        else:
+            cur = (cur + " " + piece).strip()
+    if cur:
+        chunks.append(cur)
+    return chunks
 
 # ---------- источники контента ----------
 
