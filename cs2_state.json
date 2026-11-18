@@ -24,10 +24,6 @@
   "x_last_id": "2122837761174761567",
   "online_log": [
     [
-      1794330119,
-      945419
-    ],
-    [
       1794332338,
       956314
     ],
@@ -1386,6 +1382,10 @@
     [
       1795019949,
       1019220
+    ],
+    [
+      1795021321,
+      1022916
     ]
   ],
   "online_peaks": {
@@ -1433,10 +1433,6 @@
     "2026-11-18": 1210937
   },
   "recent_phrases": [
-    "🔔 Больше CS2 — в {tag}",
-    "👀 Следи за CS2 вместе с {tag}",
-    "📌 Сохрани себе {tag}",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "💣 Твой канал про CS2 — {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
     "📢 Подписывайся: {tag}",
@@ -1932,7 +1928,11 @@
     "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
     "👉 Подписывайся на {tag}",
     "🔥 {tag} — CS2 без воды",
-    "🎯 Свежий CS2 каждый день — {tag}"
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "Открыть Spectrum Case стоит $5.40. Вернётся в среднем $2.37.",
+    "📡 Не пропусти важное: {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro"
   ],
   "news_recent": [
     {
@@ -3644,9 +3644,10 @@
     "Operation Breakout Weapon Case",
     "Spectrum 2 Case",
     "Fracture Case",
-    "Operation Phoenix Weapon Case"
+    "Operation Phoenix Weapon Case",
+    "Spectrum Case"
   ],
-  "ev_week": "2026-46",
+  "ev_week": "2026-47",
   "duel_used": [
     "M4A1-S | Nightmare",
     "AK-47 | Midnight Laminate",
