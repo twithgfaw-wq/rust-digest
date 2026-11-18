@@ -1899,7 +1899,7 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-11-17",
+  "font_day": "2026-11-18",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -1939,7 +1939,8 @@
     "Fira Sans Extra Condensed",
     "Aktura",
     "Cormorant Garamond",
-    "Lilex"
+    "Lilex",
+    "Segment"
   ],
   "quiz_day": "2026-11-17",
   "quiz_fonts": [
