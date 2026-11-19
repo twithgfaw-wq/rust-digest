@@ -37,6 +37,13 @@ jobs:
             git config user.email "bot@users.noreply.github.com"
             git add stats.json
             git commit -m "chore: update stats [skip ci]"
-            git pull --rebase
-            git push
+            # другие боты пишут в main одновременно: если push отбит,
+            # подтягиваем и пробуем снова (иначе состояние теряется и
+            # посты повторяются)
+            for i in 1 2 3 4 5 6; do
+              if git pull --rebase && git push; then exit 0; fi
+              sleep $((RANDOM % 6 + 3))
+            done
+            echo "Состояние не сохранилось после 6 попыток"
+            exit 1
           fi
