@@ -1,6 +1,6 @@
 {
-  "last": "2026-11-12-2101",
-  "ts": 1794522534,
+  "last": "2026-11-19-1636",
+  "ts": 1795111429,
   "picks": {
     "2026-10-08-2349": {
       "start": "2026-10-08T23:49:37.043Z",
@@ -1081,6 +1081,107 @@
           "n10": 3,
           "store": 199,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71507_small.png?591571793"
+        }
+      ]
+    },
+    "2026-11-19-1636": {
+      "start": "2026-11-19T16:36:29.076Z",
+      "items": [
+        {
+          "name": "Sinotype Pies Fridge",
+          "v": "buy",
+          "net": 0.281,
+          "n10": 8,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71611_small.png?1729573711"
+        },
+        {
+          "name": "Spirit of Wisdom Sheet Metal Door",
+          "v": "no",
+          "net": -0.043,
+          "n10": 4,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71610_small.png?4234876199"
+        },
+        {
+          "name": "Genesis Jackhammer",
+          "v": "no",
+          "net": -0.1053,
+          "n10": 5,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71605_small.png?3716135856"
+        },
+        {
+          "name": "Cold Hunter Sandbag Barricade",
+          "v": "no",
+          "net": -0.1174,
+          "n10": 3,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71609_small.png?2743498178"
+        },
+        {
+          "name": "Protector Metal Chest Plate",
+          "v": "no",
+          "net": -0.124,
+          "n10": 2,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71607_small.png?2448007224"
+        },
+        {
+          "name": "Junk Riot Garage Door",
+          "v": "no",
+          "net": -0.1427,
+          "n10": 3,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71606_small.png?3824579396"
+        },
+        {
+          "name": "Protector Metal Facemask",
+          "v": "no",
+          "net": -0.1895,
+          "n10": 2,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71608_small.png?3711910929"
+        },
+        {
+          "name": "Nuke Vibe Salvaged Icepick",
+          "v": "no",
+          "net": -0.1949,
+          "n10": 3,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71602_small.png?1652469720"
+        },
+        {
+          "name": "Nuke Vibe Salvaged Axe",
+          "v": "no",
+          "net": -0.1959,
+          "n10": 3,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71603_small.png?384760426"
+        },
+        {
+          "name": "Raging Flame AR",
+          "v": "no",
+          "net": -0.2059,
+          "n10": 2,
+          "store": 199,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71600_small.png?1767527209"
+        },
+        {
+          "name": "Fused Glass Furnace",
+          "v": "no",
+          "net": -0.226,
+          "n10": 3,
+          "store": 299,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71604_small.png?3139478210"
+        },
+        {
+          "name": "Super Star Nailgun",
+          "v": "no",
+          "net": -0.2661,
+          "n10": 2,
+          "store": 249,
+          "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71601_small.png?2201608760"
         }
       ]
     }
