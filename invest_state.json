@@ -981,7 +981,8 @@
           "store": 249,
           "icon": "https://files.facepunch.com/rust/icons/inventory/rust/71408_small.png?1305068112"
         }
-      ]
+      ],
+      "tries": 1
     },
     "2026-11-12-2101": {
       "start": "2026-11-12T21:01:36.872Z",
