@@ -1899,7 +1899,7 @@
     }
   ],
   "queue": [],
-  "font_day": "2026-11-20",
+  "font_day": "2026-11-21",
   "fonts_posted": [
     "Nunito Sans",
     "Caveat",
@@ -1942,7 +1942,8 @@
     "Lilex",
     "Segment",
     "Playfair",
-    "Fira Code"
+    "Fira Code",
+    "RX100"
   ],
   "quiz_day": "2026-11-20",
   "quiz_fonts": [
