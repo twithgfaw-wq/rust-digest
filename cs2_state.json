@@ -1479,6 +1479,10 @@
     [
       1795275554,
       1200331
+    ],
+    [
+      1795276881,
+      1156882
     ]
   ],
   "online_peaks": {
@@ -1529,9 +1533,6 @@
     "2026-11-21": 1259590
   },
   "recent_phrases": [
-    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
-    "🔥 {tag} — CS2 без воды",
     "🔔 Больше CS2 — в {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "👉 Подписывайся на {tag}",
@@ -2028,7 +2029,10 @@
     "🔥 {tag} — CS2 без воды",
     "👀 Следи за CS2 вместе с {tag}",
     "🎯 Свежий CS2 каждый день — {tag}",
-    "🔔 Больше CS2 — в {tag}"
+    "🔔 Больше CS2 — в {tag}",
+    "📡 Не пропусти важное: {tag}",
+    "⚡️ Всё самое свежее по CS2 — {tag}",
+    "👉 Подписывайся на {tag}"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3636,15 +3640,8 @@
     "3843073006"
   ],
   "price_day": "2026-11-21",
-  "invest_day": "2026-11-20",
+  "invest_day": "2026-11-21",
   "invest_days": {
-    "2026-11-14": [
-      "Operation Bravo Case",
-      "Shadow Case",
-      "Rio 2022 Dust II Souvenir Package",
-      "Stockholm 2021 Challengers Sticker Capsule",
-      "eSports 2014 Summer Case"
-    ],
     "2026-11-15": [
       "eSports 2013 Winter Case",
       "Huntsman Weapon Case",
@@ -3686,6 +3683,13 @@
       "Shadow Case",
       "Rio 2022 Dust II Souvenir Package",
       "Austin 2025 Dust II Souvenir Highlight Package"
+    ],
+    "2026-11-21": [
+      "eSports 2013 Winter Case",
+      "Paris 2023 Vertigo Souvenir Package",
+      "Huntsman Weapon Case",
+      "Paris 2023 Ancient Souvenir Package",
+      "Stockholm 2021 Contenders Sticker Capsule"
     ]
   },
   "sod_seen": [
@@ -4091,36 +4095,6 @@
   "online_daily": "2026-11-20",
   "hltv_digest_day": "2026-11-06",
   "invest_log": [
-    {
-      "name": "Paris 2023 Anubis Souvenir Package",
-      "verdict": "buy",
-      "price": 1.76,
-      "date": "2026-10-22"
-    },
-    {
-      "name": "Glove Case",
-      "verdict": "avoid",
-      "price": 8.84,
-      "date": "2026-10-22"
-    },
-    {
-      "name": "Stockholm 2021 Dust II Souvenir Package",
-      "verdict": "buy",
-      "price": 3.52,
-      "date": "2026-10-22"
-    },
-    {
-      "name": "Chroma 2 Case",
-      "verdict": "watch",
-      "price": 3.2,
-      "date": "2026-10-22"
-    },
-    {
-      "name": "Falchion Case",
-      "verdict": "watch",
-      "price": 1.36,
-      "date": "2026-10-22"
-    },
     {
       "name": "Anubis Collection Package",
       "verdict": "buy",
@@ -4990,6 +4964,36 @@
       "verdict": "watch",
       "price": 2.67,
       "date": "2026-11-20"
+    },
+    {
+      "name": "eSports 2013 Winter Case",
+      "verdict": "avoid",
+      "price": 10.03,
+      "date": "2026-11-21"
+    },
+    {
+      "name": "Paris 2023 Vertigo Souvenir Package",
+      "verdict": "watch",
+      "price": 2.07,
+      "date": "2026-11-21"
+    },
+    {
+      "name": "Huntsman Weapon Case",
+      "verdict": "watch",
+      "price": 6.41,
+      "date": "2026-11-21"
+    },
+    {
+      "name": "Paris 2023 Ancient Souvenir Package",
+      "verdict": "watch",
+      "price": 2.54,
+      "date": "2026-11-21"
+    },
+    {
+      "name": "Stockholm 2021 Contenders Sticker Capsule",
+      "verdict": "watch",
+      "price": 1.07,
+      "date": "2026-11-21"
     }
   ],
   "cs2_quiz_n": 19,
