@@ -2013,9 +2013,6 @@
     "ws_3837186984"
   ],
   "recent_phrases": [
-    "😮",
-    ": ",
-    "три автора — три стиля",
     "🛡 Твой канал про Rust — {tag}",
     "🎢 Качели маркета Rust: итоги",
     "А у тебя что в инвентаре? 👀",
@@ -2512,7 +2509,10 @@
     "🔥",
     " — ",
     "что выкатили авторы",
-    "📡 Не пропусти важное: {tag}"
+    "📡 Не пропусти важное: {tag}",
+    "Кто, по-вашему, попадёт в игру? 🤔",
+    "🏆 ТОП-3 СКИНОВ НЕДЕЛИ В МАСТЕРСКОЙ",
+    "⚡️ Всё самое свежее по Rust — {tag}"
   ],
   "store_seen": [
     "10198",
@@ -2697,14 +2697,6 @@
     "71601"
   ],
   "online_log": [
-    [
-      1794668459,
-      127833
-    ],
-    [
-      1794668512,
-      127833
-    ],
     [
       1794668694,
       127833
@@ -4272,6 +4264,10 @@
     [
       1795358367,
       107502
+    ],
+    [
+      1795359741,
+      107938
     ]
   ],
   "online_peaks": {
@@ -4322,7 +4318,7 @@
     "2026-11-19": 102134,
     "2026-11-20": 115890,
     "2026-11-21": 117901,
-    "2026-11-22": 107502
+    "2026-11-22": 107938
   },
   "x_last_id": "2124156043898839547",
   "market_snaps": {
@@ -5125,11 +5121,11 @@
       "766b5bc6-0d34-489f-8e30-d0211441735c": 92
     }
   },
-  "top_ts": 1795100459,
+  "top_ts": 1795359745,
   "top_last": [
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3840124383",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3840205042",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3841008830"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3841283000"
   ],
   "elite_last_ts": 1795356142,
   "elite_slot": "2026-11-22-16",
@@ -5280,9 +5276,6 @@
     "2116263247032771019"
   ],
   "top_shown": [
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818451708",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3816577482",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3818651870",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3825132389",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3825130677",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3827537224",
@@ -5309,7 +5302,10 @@
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3840418778",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3840124383",
     "https://steamcommunity.com/sharedfiles/filedetails/?id=3840205042",
-    "https://steamcommunity.com/sharedfiles/filedetails/?id=3841008830"
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3841008830",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3840124383",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3840205042",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=3841283000"
   ],
   "rust_quiz_n": 20,
   "rust_quiz_day": "2026-11-21",
