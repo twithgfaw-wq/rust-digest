@@ -25,10 +25,6 @@
   "x_last_id": "2122837761174761567",
   "online_log": [
     [
-      1794758489,
-      1149944
-    ],
-    [
       1794760714,
       1116455
     ],
@@ -1511,6 +1507,10 @@
     [
       1795448353,
       971454
+    ],
+    [
+      1795449747,
+      965898
     ]
   ],
   "online_peaks": {
@@ -1563,9 +1563,6 @@
     "2026-11-23": 1086448
   },
   "recent_phrases": [
-    "🔥 {tag} — CS2 без воды",
-    "📡 Не пропусти важное: {tag}",
-    "🎯 Свежий CS2 каждый день — {tag}",
     "👉 Подписывайся на {tag}",
     "💣 Твой канал про CS2 — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
@@ -2062,7 +2059,10 @@
     "👀 Следи за CS2 вместе с {tag}",
     "🔥 {tag} — CS2 без воды",
     "💣 Твой канал про CS2 — {tag}",
-    "📡 Не пропусти важное: {tag}"
+    "📡 Не пропусти важное: {tag}",
+    "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
+    "🎯 Свежий CS2 каждый день — {tag}",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3674,15 +3674,8 @@
     "3844622254"
   ],
   "price_day": "2026-11-23",
-  "invest_day": "2026-11-22",
+  "invest_day": "2026-11-23",
   "invest_days": {
-    "2026-11-16": [
-      "Winter Offensive Weapon Case",
-      "CS:GO Weapon Case",
-      "Anubis Collection Package",
-      "Operation Phoenix Weapon Case",
-      "Stockholm 2021 Ancient Souvenir Package"
-    ],
     "2026-11-17": [
       "Operation Bravo Case",
       "Shadow Case",
@@ -3724,6 +3717,13 @@
       "Anubis Collection Package",
       "eSports 2014 Summer Case",
       "Stockholm 2021 Dust II Souvenir Package"
+    ],
+    "2026-11-23": [
+      "Stockholm 2021 Challengers Sticker Capsule",
+      "Operation Bravo Case",
+      "Rio 2022 Dust II Souvenir Package",
+      "Shadow Case",
+      "Austin 2025 Dust II Souvenir Highlight Package"
     ]
   },
   "sod_seen": [
@@ -4132,36 +4132,6 @@
   "online_daily": "2026-11-22",
   "hltv_digest_day": "2026-11-06",
   "invest_log": [
-    {
-      "name": "Rio 2022 Dust II Souvenir Package",
-      "verdict": "watch",
-      "price": 2.65,
-      "date": "2026-10-24"
-    },
-    {
-      "name": "Paris 2023 Mirage Souvenir Package",
-      "verdict": "watch",
-      "price": 2.46,
-      "date": "2026-10-24"
-    },
-    {
-      "name": "Operation Bravo Case",
-      "verdict": "watch",
-      "price": 50.26,
-      "date": "2026-10-24"
-    },
-    {
-      "name": "Chroma 3 Case",
-      "verdict": "watch",
-      "price": 2.94,
-      "date": "2026-10-24"
-    },
-    {
-      "name": "Shadow Case",
-      "verdict": "watch",
-      "price": 1.36,
-      "date": "2026-10-24"
-    },
     {
       "name": "Paris 2023 Ancient Souvenir Package",
       "verdict": "watch",
@@ -5031,6 +5001,36 @@
       "verdict": "watch",
       "price": 3.23,
       "date": "2026-11-22"
+    },
+    {
+      "name": "Stockholm 2021 Challengers Sticker Capsule",
+      "verdict": "buy",
+      "price": 1.59,
+      "date": "2026-11-23"
+    },
+    {
+      "name": "Operation Bravo Case",
+      "verdict": "watch",
+      "price": 48.51,
+      "date": "2026-11-23"
+    },
+    {
+      "name": "Rio 2022 Dust II Souvenir Package",
+      "verdict": "buy",
+      "price": 2.53,
+      "date": "2026-11-23"
+    },
+    {
+      "name": "Shadow Case",
+      "verdict": "avoid",
+      "price": 1.17,
+      "date": "2026-11-23"
+    },
+    {
+      "name": "Austin 2025 Dust II Souvenir Highlight Package",
+      "verdict": "watch",
+      "price": 2.62,
+      "date": "2026-11-23"
     }
   ],
   "cs2_quiz_n": 20,
