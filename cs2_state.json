@@ -1584,6 +1584,10 @@
     [
       1795625906,
       1011091
+    ],
+    [
+      1795626086,
+      1017533
     ]
   ],
   "online_peaks": {
@@ -1638,10 +1642,6 @@
     "2026-11-25": 1200070
   },
   "recent_phrases": [
-    "📡 Не пропусти важное: {tag}",
-    "💣 Твой канал про CS2 — {tag}",
-    "🔔 Больше CS2 — в {tag}",
-    "🔥 {tag} — CS2 без воды",
     "🎯 Свежий CS2 каждый день — {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "📌 Сохрани себе {tag}",
@@ -2137,7 +2137,11 @@
     "👀 Следи за CS2 вместе с {tag}",
     "⚡️ Всё самое свежее по CS2 — {tag}",
     "🪓 Играешь и в Rust? Новости и скины — в @rust_news_Pro",
-    "📌 Сохрани себе {tag}"
+    "📌 Сохрани себе {tag}",
+    "Открыть Chroma 2 Case стоит $5.48. Вернётся в среднем $3.56.",
+    "🔔 Скажем, когда скин подешевеет: пиши боту @rust_news_uplord_bot",
+    "📡 Не пропусти важное: {tag}",
+    "🔥 {tag} — CS2 без воды"
   ],
   "news_recent": [],
   "comm_ids": {
@@ -3866,9 +3870,10 @@
     "Spectrum 2 Case",
     "Fracture Case",
     "Operation Phoenix Weapon Case",
-    "Spectrum Case"
+    "Spectrum Case",
+    "Chroma 2 Case"
   ],
-  "ev_week": "2026-47",
+  "ev_week": "2026-48",
   "duel_used": [
     "M4A1-S | Nightmare",
     "AK-47 | Midnight Laminate",
