@@ -1,6 +1,6 @@
 {
  "rust_news_Pro": {
-  "updated": "2026-11-26T03:10:13.740960+00:00",
+  "updated": "2026-11-27T03:17:53.184256+00:00",
   "posts": [
    {
     "id": 1,
@@ -7330,7 +7330,7 @@
    {
     "id": 965,
     "date": "2026-11-21T07:01:27+00:00",
-    "views": 8,
+    "views": 9,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -7737,7 +7737,7 @@
    {
     "id": 1021,
     "date": "2026-11-24T11:01:45+00:00",
-    "views": 10,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -7836,7 +7836,7 @@
    {
     "id": 1034,
     "date": "2026-11-25T09:01:44+00:00",
-    "views": 9,
+    "views": 11,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -7847,7 +7847,7 @@
    {
     "id": 1036,
     "date": "2026-11-25T11:01:43+00:00",
-    "views": 8,
+    "views": 10,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -7858,7 +7858,7 @@
    {
     "id": 1037,
     "date": "2026-11-25T11:38:46+00:00",
-    "views": 5,
+    "views": 7,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -7869,7 +7869,7 @@
    {
     "id": 1038,
     "date": "2026-11-25T15:01:39+00:00",
-    "views": 7,
+    "views": 9,
     "reactions": {},
     "react_total": 0,
     "media": "video",
@@ -7880,7 +7880,7 @@
    {
     "id": 1039,
     "date": "2026-11-25T15:01:45+00:00",
-    "views": 7,
+    "views": 8,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -7891,7 +7891,7 @@
    {
     "id": 1040,
     "date": "2026-11-25T16:19:35+00:00",
-    "views": 7,
+    "views": 8,
     "reactions": {},
     "react_total": 0,
     "media": "text",
@@ -7902,18 +7902,95 @@
    {
     "id": 1041,
     "date": "2026-11-25T18:01:35+00:00",
-    "views": 7,
+    "views": 8,
     "reactions": {},
     "react_total": 0,
     "media": "text",
     "voters": null,
     "rubric": "👥 Онлайн",
     "head": "🛰 Мониторинг онлайна Rust"
+   },
+   {
+    "id": 1042,
+    "date": "2026-11-26T07:01:38+00:00",
+    "views": 8,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎬 Видео",
+    "head": "🔥 ЛУЧШЕЕ ВИДЕО ДНЯ — ОТ Hedge"
+   },
+   {
+    "id": 1043,
+    "date": "2026-11-26T08:01:58+00:00",
+    "views": 7,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#индекс",
+    "head": "📈 ИНДЕКС РЫНКА RUST: 5 — МОРОЗ"
+   },
+   {
+    "id": 1044,
+    "date": "2026-11-26T11:01:42+00:00",
+    "views": 7,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "📊 Маркет",
+    "head": "💸 Для инвесторов в скины: сводка цен"
+   },
+   {
+    "id": 1045,
+    "date": "2026-11-26T11:38:39+00:00",
+    "views": 9,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎬 Видео",
+    "head": "📺 Свежее видео от Hedge уже на YouTube"
+   },
+   {
+    "id": 1046,
+    "date": "2026-11-26T18:01:40+00:00",
+    "views": 9,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "👥 Онлайн",
+    "head": "📊 ОНЛАЙН RUST ПРЯМО СЕЙЧАС"
+   },
+   {
+    "id": 1047,
+    "date": "2026-11-26T21:14:43+00:00",
+    "views": 11,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "🛒 Магазин",
+    "head": "🔥 Свежие скины заехали в магазин Rust"
+   },
+   {
+    "id": 1048,
+    "date": "2026-11-26T21:23:30+00:00",
+    "views": 8,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🛒 Магазин",
+    "head": "🛒 Обновление магазина — цены внутри"
    }
   ]
  },
  "cs2_me": {
-  "updated": "2026-11-26T03:11:28.861549+00:00",
+  "updated": "2026-11-27T03:18:59.697051+00:00",
   "posts": [
    {
     "id": 1,
@@ -14172,7 +14249,7 @@
    {
     "id": 1140,
     "date": "2026-11-24T08:05:49+00:00",
-    "views": 6,
+    "views": 7,
     "reactions": {},
     "react_total": 0,
     "media": "photo",
@@ -14366,6 +14443,105 @@
     "voters": null,
     "rubric": "🎨 Мастерская",
     "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 1186,
+    "date": "2026-11-26T08:04:37+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "#индекс",
+    "head": "📈 ИНДЕКС РЫНКА CS2: 15 — МОРОЗ"
+   },
+   {
+    "id": 1187,
+    "date": "2026-11-26T09:01:33+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Скин дня",
+    "head": "✨ СКИН ДНЯ"
+   },
+   {
+    "id": 1188,
+    "date": "2026-11-26T10:01:32+00:00",
+    "views": 4,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🎨 Мастерская",
+    "head": "🎨 МАСТЕРСКАЯ CS2"
+   },
+   {
+    "id": 1192,
+    "date": "2026-11-26T14:01:36+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "📊 Маркет",
+    "head": "💹 МАРКЕТ CS2 · ЗА НЕДЕЛЮ"
+   },
+   {
+    "id": 1193,
+    "date": "2026-11-26T16:02:25+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "💼 Инвест",
+    "head": "💼 ИНВЕСТИЦИИ CS2 · ТОП-5 ДНЯ"
+   },
+   {
+    "id": 1199,
+    "date": "2026-11-26T17:01:31+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🗳 Угадай цену",
+    "head": "🗳 УГАДАЙ ЦЕНУ · ИТОГ"
+   },
+   {
+    "id": 1200,
+    "date": "2026-11-26T17:01:34+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "photo",
+    "voters": null,
+    "rubric": "🗳 Угадай цену",
+    "head": "🗳 УГАДАЙ ЦЕНУ"
+   },
+   {
+    "id": 1201,
+    "date": "2026-11-26T17:01:35+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "poll",
+    "voters": null,
+    "rubric": "🗳 Опрос",
+    "head": "Какой скин подорожает сильнее за неделю?"
+   },
+   {
+    "id": 1202,
+    "date": "2026-11-26T18:01:25+00:00",
+    "views": 3,
+    "reactions": {},
+    "react_total": 0,
+    "media": "text",
+    "voters": null,
+    "rubric": "👥 Онлайн",
+    "head": "📈 Сводка онлайна CS2 за сегодня"
    }
   ]
  }
